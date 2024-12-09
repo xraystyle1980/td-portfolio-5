@@ -1,0 +1,69 @@
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 2rem;
+}
+
+.content {
+  text-align: center;
+  z-index: 1;
+}
+
+.content h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+}
+
+.content p {
+  font-size: 1.25rem;
+  color: #666;
+}
+
+.shapes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.shape1, .shape2, .shape3 {
+  position: absolute;
+  opacity: 0.6;
+  will-change: transform;
+  animation: float 3s ease-in-out infinite;
+}
+
+.shape1 {
+  top: 15%;
+  left: 15%;
+  animation-duration: 4s;
+}
+
+.shape2 {
+  top: 25%;
+  right: 20%;
+  animation-duration: 5s;
+  animation-delay: -2s;
+}
+
+.shape3 {
+  bottom: 20%;
+  left: 30%;
+  animation-duration: 6s;
+  animation-delay: -1s;
+}
+
+@keyframes float {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate(10px, -10px) rotate(5deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+} 
