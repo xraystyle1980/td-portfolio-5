@@ -26,7 +26,6 @@
 .shapes {
   position: absolute;
   inset: 0;
-  pointer-events: none;
 }
 
 .shape1, .shape2, .shape3 {
@@ -34,6 +33,7 @@
   opacity: 0.6;
   will-change: transform;
   animation: float 3s ease-in-out infinite;
+  pointer-events: none;
 }
 
 .shape1 {
@@ -66,4 +66,23 @@
   100% {
     transform: translate(0, 0) rotate(0deg);
   }
+} 
+
+.shape4 {
+  top: 40%;
+  right: 30%;
+  cursor: pointer;
+}
+
+.motionShape {
+  position: absolute;
+  opacity: 0.6;
+  will-change: transform;
+  background-color: rgba(255, 0, 0, 0.3);
+  border-radius: 50%;
+  padding: 8px;
+}
+
+.motionShape:hover {
+  filter: drop-shadow(0 0 8px rgba(255, 0, 0, 0.5));
 } 

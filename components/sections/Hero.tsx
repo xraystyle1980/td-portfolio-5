@@ -1,8 +1,8 @@
 'use client';
 
 import styles from './Hero.module.css';
-import { useEffect, useRef } from 'react';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 
 const FloatingShape = ({ src, className }: { src: string; className: string }) => {
   return (
@@ -18,6 +18,45 @@ const FloatingShape = ({ src, className }: { src: string; className: string }) =
   );
 };
 
+const MotionShape = ({ src, className }: { src: string; className: string }) => {
+  const floatingAnimation = {
+    y: {
+      y: [0, -20, 0],
+      transition: {
+        duration: 4,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }
+    }
+  };
+
+  return (
+    <motion.div
+      className={`${className} ${styles.motionShape}`}
+      initial={{ scale: 1 }}
+      animate="y"
+      variants={floatingAnimation}
+      whileHover={{
+        scale: 1.5,
+        transition: {
+          type: "spring",
+          stiffness: 300,
+          damping: 20
+        }
+      }}
+    >
+      <Image 
+        src={src} 
+        alt="Motion floating shape" 
+        width={40} 
+        height={40} 
+        className={styles.shapeImage}
+        style={{ filter: 'invert(12%) sepia(100%) saturate(5700%) hue-rotate(0deg) brightness(95%) contrast(115%)' }}
+      />
+    </motion.div>
+  );
+};
+
 export default function Hero() {
   return (
     <section className={styles.hero}>
@@ -29,6 +68,7 @@ export default function Hero() {
         <FloatingShape src="/shapes/circle.svg" className={styles.shape1} />
         <FloatingShape src="/shapes/triangle.svg" className={styles.shape2} />
         <FloatingShape src="/shapes/square.svg" className={styles.shape3} />
+        <MotionShape src="/shapes/circle.svg" className={styles.shape4} />
       </div>
     </section>
   );
