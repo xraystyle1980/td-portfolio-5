@@ -13,17 +13,33 @@ const FloatingShape = ({ src, className, fromLeft = true }: {
 
   const x = useTransform(
     scrollYProgress,
+    [0, 0.5],
+    [fromLeft ? -200 : 200, 0]
+  );
+
+  const rotate = useTransform(
+    scrollYProgress,
+    [0, 0.5],
+    [fromLeft ? -180 : 180, 0]
+  );
+
+  const scale = useTransform(
+    scrollYProgress,
     [0, 0.3],
-    [fromLeft ? -100 : 100, 0]
+    [0.5, 1]
   );
 
   return (
     <motion.div 
       className={className}
-      style={{ x }}
+      style={{ 
+        x,
+        rotate,
+        scale,
+      }}
       initial={{ opacity: 0 }}
-      animate={{ opacity: 0.6 }}
-      transition={{ duration: 0.5 }}
+      animate={{ opacity: 0.8 }}
+      transition={{ duration: 0.8 }}
     >
       <Image 
         src={src} 
@@ -39,11 +55,19 @@ const FloatingShape = ({ src, className, fromLeft = true }: {
 const MotionShape = ({ src, className }: { src: string; className: string }) => {
   const floatingAnimation = {
     y: {
-      y: [0, -20, 0],
+      y: [0, -40, 0],
       transition: {
-        duration: 4,
+        duration: 3,
         repeat: Infinity,
         ease: "easeInOut"
+      }
+    },
+    rotate: {
+      rotate: [0, 360],
+      transition: {
+        duration: 8,
+        repeat: Infinity,
+        ease: "linear"
       }
     }
   };
@@ -51,15 +75,15 @@ const MotionShape = ({ src, className }: { src: string; className: string }) => 
   return (
     <motion.div
       className={`${className} ${styles.motionShape}`}
-      initial={{ scale: 1 }}
-      animate="y"
+      initial={{ scale: 0.5 }}
+      animate={["y", "rotate"]}
       variants={floatingAnimation}
       whileHover={{
-        scale: 1.5,
+        scale: 2,
         transition: {
           type: "spring",
-          stiffness: 300,
-          damping: 20
+          stiffness: 400,
+          damping: 15
         }
       }}
     >
@@ -69,7 +93,9 @@ const MotionShape = ({ src, className }: { src: string; className: string }) => 
         width={40} 
         height={40} 
         className={styles.shapeImage}
-        style={{ filter: 'invert(12%) sepia(100%) saturate(5700%) hue-rotate(0deg) brightness(95%) contrast(115%)' }}
+        style={{ 
+          filter: 'invert(12%) sepia(100%) saturate(5700%) hue-rotate(0deg) brightness(95%) contrast(115%)'
+        }}
       />
     </motion.div>
   );
