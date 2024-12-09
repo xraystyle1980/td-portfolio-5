@@ -10,7 +10,8 @@
 
 .content {
   text-align: center;
-  z-index: 1;
+  z-index: 3;
+  position: relative;
 }
 
 .content h1 {
@@ -26,24 +27,34 @@
 .shapes {
   position: absolute;
   inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.shape1, .shape2, .shape3, .shape4 {
+  width: 60px;
+  height: 60px;
 }
 
 .shape1 {
   position: absolute;
   top: 20%;
   left: 20%;
+  animation: float 6s ease-in-out infinite;
 }
 
 .shape2 {
   position: absolute;
   top: 30%;
   right: 25%;
+  animation: float 8s ease-in-out infinite;
 }
 
 .shape3 {
   position: absolute;
   bottom: 30%;
   left: 30%;
+  animation: float 7s ease-in-out infinite;
 }
 
 .shape4 {
@@ -51,6 +62,7 @@
   bottom: 25%;
   right: 20%;
   cursor: pointer;
+  pointer-events: auto;
 }
 
 .motionShape {
@@ -62,4 +74,22 @@
 
 .motionShape:hover {
   filter: drop-shadow(0 0 8px rgba(255, 0, 0, 0.5));
+}
+
+.scene3d {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: transparent;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+.shapeImage {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 } 

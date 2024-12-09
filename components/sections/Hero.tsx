@@ -3,6 +3,7 @@
 import styles from './Hero.module.css';
 import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import Scene from '../3d/Shapes';
 
 const FloatingShape = ({ src, className, fromLeft = true }: { 
   src: string; 
@@ -36,9 +37,11 @@ const FloatingShape = ({ src, className, fromLeft = true }: {
         x,
         rotate,
         scale,
+        border: '2px solid red',
+        background: 'rgba(255,0,0,0.1)',
       }}
       initial={{ opacity: 0 }}
-      animate={{ opacity: 0.8 }}
+      animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
     >
       <Image 
@@ -47,6 +50,7 @@ const FloatingShape = ({ src, className, fromLeft = true }: {
         width={40} 
         height={40} 
         className={styles.shapeImage}
+        onError={(e) => console.error('Image failed to load:', src)}
       />
     </motion.div>
   );
@@ -108,11 +112,18 @@ export default function Hero() {
         <h1>Welcome to My Site</h1>
         <p>Discover amazing things with floating shapes</p>
       </div>
+      
+      {/* Original floating shapes */}
       <div className={styles.shapes}>
         <FloatingShape src="/shapes/circle.svg" className={styles.shape1} fromLeft={true} />
         <FloatingShape src="/shapes/triangle.svg" className={styles.shape2} fromLeft={false} />
         <FloatingShape src="/shapes/square.svg" className={styles.shape3} fromLeft={true} />
         <MotionShape src="/shapes/circle.svg" className={styles.shape4} />
+      </div>
+
+      {/* 3D Physics shapes */}
+      <div className={styles.scene3d}>
+        <Scene />
       </div>
     </section>
   );
