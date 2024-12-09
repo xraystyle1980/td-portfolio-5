@@ -2,11 +2,29 @@
 
 import styles from './Hero.module.css';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
-const FloatingShape = ({ src, className }: { src: string; className: string }) => {
+const FloatingShape = ({ src, className, fromLeft = true }: { 
+  src: string; 
+  className: string;
+  fromLeft?: boolean;
+}) => {
+  const { scrollYProgress } = useScroll();
+
+  const x = useTransform(
+    scrollYProgress,
+    [0, 0.3],
+    [fromLeft ? -100 : 100, 0]
+  );
+
   return (
-    <div className={className}>
+    <motion.div 
+      className={className}
+      style={{ x }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 0.6 }}
+      transition={{ duration: 0.5 }}
+    >
       <Image 
         src={src} 
         alt="Floating shape" 
@@ -14,7 +32,7 @@ const FloatingShape = ({ src, className }: { src: string; className: string }) =
         height={40} 
         className={styles.shapeImage}
       />
-    </div>
+    </motion.div>
   );
 };
 
@@ -65,9 +83,9 @@ export default function Hero() {
         <p>Discover amazing things with floating shapes</p>
       </div>
       <div className={styles.shapes}>
-        <FloatingShape src="/shapes/circle.svg" className={styles.shape1} />
-        <FloatingShape src="/shapes/triangle.svg" className={styles.shape2} />
-        <FloatingShape src="/shapes/square.svg" className={styles.shape3} />
+        <FloatingShape src="/shapes/circle.svg" className={styles.shape1} fromLeft={true} />
+        <FloatingShape src="/shapes/triangle.svg" className={styles.shape2} fromLeft={false} />
+        <FloatingShape src="/shapes/square.svg" className={styles.shape3} fromLeft={true} />
         <MotionShape src="/shapes/circle.svg" className={styles.shape4} />
       </div>
     </section>

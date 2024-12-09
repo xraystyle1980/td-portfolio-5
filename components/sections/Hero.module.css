@@ -28,56 +28,33 @@
   inset: 0;
 }
 
-.shape1, .shape2, .shape3 {
-  position: absolute;
-  opacity: 0.6;
-  will-change: transform;
-  animation: float 3s ease-in-out infinite;
-  pointer-events: none;
-}
-
 .shape1 {
-  top: 15%;
-  left: 15%;
-  animation-duration: 4s;
+  position: absolute;
+  top: 20%;
+  left: 20%;
 }
 
 .shape2 {
-  top: 25%;
-  right: 20%;
-  animation-duration: 5s;
-  animation-delay: -2s;
+  position: absolute;
+  top: 30%;
+  right: 25%;
 }
 
 .shape3 {
-  bottom: 20%;
+  position: absolute;
+  bottom: 30%;
   left: 30%;
-  animation-duration: 6s;
-  animation-delay: -1s;
 }
 
-@keyframes float {
-  0% {
-    transform: translate(0, 0) rotate(0deg);
-  }
-  50% {
-    transform: translate(10px, -10px) rotate(5deg);
-  }
-  100% {
-    transform: translate(0, 0) rotate(0deg);
-  }
-} 
-
 .shape4 {
-  top: 40%;
-  right: 30%;
+  position: absolute;
+  bottom: 25%;
+  right: 20%;
   cursor: pointer;
 }
 
 .motionShape {
-  position: absolute;
   opacity: 0.6;
-  will-change: transform;
   background-color: rgba(255, 0, 0, 0.3);
   border-radius: 50%;
   padding: 8px;
