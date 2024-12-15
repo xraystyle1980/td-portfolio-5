@@ -1,109 +1,24 @@
 'use client';
 
 import styles from './Hero.module.css';
-import Image from 'next/image';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import Scene from '../3d/Shapes';
+import { Canvas } from '@react-three/fiber';
+import { useGLTF, OrbitControls } from '@react-three/drei';
+import { Suspense } from 'react';
 
-const FloatingShape = ({ src, className, fromLeft = true }: { 
-  src: string; 
-  className: string;
-  fromLeft?: boolean;
-}) => {
-  const { scrollYProgress } = useScroll();
-
-  const x = useTransform(
-    scrollYProgress,
-    [0, 0.5],
-    [fromLeft ? -200 : 200, 0]
-  );
-
-  const rotate = useTransform(
-    scrollYProgress,
-    [0, 0.5],
-    [fromLeft ? -180 : 180, 0]
-  );
-
-  const scale = useTransform(
-    scrollYProgress,
-    [0, 0.3],
-    [0.5, 1]
-  );
+function Model() {
+  // First, let's verify the model loads
+  console.log('Attempting to load model...');
+  const gltf = useGLTF('/models/token-face-export-1.glb');
+  console.log('GLTF loaded:', gltf);
 
   return (
-    <motion.div 
-      className={className}
-      style={{ 
-        x,
-        rotate,
-        scale,
-        border: '2px solid red',
-        background: 'rgba(255,0,0,0.1)',
-      }}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.8 }}
-    >
-      <Image 
-        src={src} 
-        alt="Floating shape" 
-        width={40} 
-        height={40} 
-        className={styles.shapeImage}
-        onError={(e) => console.error('Image failed to load:', src)}
-      />
-    </motion.div>
+    <primitive 
+      object={gltf.scene} 
+      scale={1} 
+      position={[0, 0, 0]} 
+    />
   );
-};
-
-const MotionShape = ({ src, className }: { src: string; className: string }) => {
-  const floatingAnimation = {
-    y: {
-      y: [0, -40, 0],
-      transition: {
-        duration: 3,
-        repeat: Infinity,
-        ease: "easeInOut"
-      }
-    },
-    rotate: {
-      rotate: [0, 360],
-      transition: {
-        duration: 8,
-        repeat: Infinity,
-        ease: "linear"
-      }
-    }
-  };
-
-  return (
-    <motion.div
-      className={`${className} ${styles.motionShape}`}
-      initial={{ scale: 0.5 }}
-      animate={["y", "rotate"]}
-      variants={floatingAnimation}
-      whileHover={{
-        scale: 2,
-        transition: {
-          type: "spring",
-          stiffness: 400,
-          damping: 15
-        }
-      }}
-    >
-      <Image 
-        src={src} 
-        alt="Motion floating shape" 
-        width={40} 
-        height={40} 
-        className={styles.shapeImage}
-        style={{ 
-          filter: 'invert(12%) sepia(100%) saturate(5700%) hue-rotate(0deg) brightness(95%) contrast(115%)'
-        }}
-      />
-    </motion.div>
-  );
-};
+}
 
 export default function Hero() {
   return (
@@ -113,17 +28,14 @@ export default function Hero() {
         <p>Discover amazing things with floating shapes</p>
       </div>
       
-      {/* Original floating shapes */}
-      <div className={styles.shapes}>
-        <FloatingShape src="/shapes/circle.svg" className={styles.shape1} fromLeft={true} />
-        <FloatingShape src="/shapes/triangle.svg" className={styles.shape2} fromLeft={false} />
-        <FloatingShape src="/shapes/square.svg" className={styles.shape3} fromLeft={true} />
-        <MotionShape src="/shapes/circle.svg" className={styles.shape4} />
-      </div>
-
-      {/* 3D Physics shapes */}
-      <div className={styles.scene3d}>
-        <Scene />
+      <div className={styles.modelContainer}>
+        <Canvas>
+          <ambientLight />
+          <Suspense fallback={null}>
+            <Model />
+          </Suspense>
+          <OrbitControls />
+        </Canvas>
       </div>
     </section>
   );
