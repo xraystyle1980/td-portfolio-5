@@ -30,13 +30,79 @@ const FloatingShape = ({ src, className, fromLeft = true }: {
   );
 
   return (
-    <primitive 
-      object={gltf.scene} 
-      scale={1} 
-      position={[0, 0, 0]} 
-    />
+    <motion.div 
+      className={className}
+      style={{ 
+        x,
+        rotate,
+        scale,
+        border: '2px solid red',
+        background: 'rgba(255,0,0,0.1)',
+      }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
+    >
+      <Image 
+        src={src} 
+        alt="Floating shape" 
+        width={40} 
+        height={40} 
+        className={styles.shapeImage}
+        onError={(e) => console.error('Image failed to load:', src)}
+      />
+    </motion.div>
   );
-}
+};
+
+const MotionShape = ({ src, className }: { src: string; className: string }) => {
+  const floatingAnimation = {
+    y: {
+      y: [0, -40, 0],
+      transition: {
+        duration: 3,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }
+    },
+    rotate: {
+      rotate: [0, 360],
+      transition: {
+        duration: 8,
+        repeat: Infinity,
+        ease: "linear"
+      }
+    }
+  };
+
+  return (
+    <motion.div
+      className={`${className} ${styles.motionShape}`}
+      initial={{ scale: 0.5 }}
+      animate={["y", "rotate"]}
+      variants={floatingAnimation}
+      whileHover={{
+        scale: 2,
+        transition: {
+          type: "spring",
+          stiffness: 400,
+          damping: 15
+        }
+      }}
+    >
+      <Image 
+        src={src} 
+        alt="Motion floating shape" 
+        width={40} 
+        height={40} 
+        className={styles.shapeImage}
+        style={{ 
+          filter: 'invert(12%) sepia(100%) saturate(5700%) hue-rotate(0deg) brightness(95%) contrast(115%)'
+        }}
+      />
+    </motion.div>
+  );
+};
 
 export default function Hero() {
   return (
