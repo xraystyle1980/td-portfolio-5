@@ -6,8 +6,8 @@ import Footer from '@/components/sections/Footer'
 export default function AboutPage() {
   return (
     <>
-      <main className="relative w-full h-screen bg-black">
-        <div className="absolute inset-0">
+      <main className="relative w-full min-h-screen bg-black">
+        <div className="absolute inset-0 w-full h-full">
           <CollisionBalls />
         </div>
         

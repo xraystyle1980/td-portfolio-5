@@ -247,7 +247,7 @@ export default function CollisionBalls() {
       style={{ 
         background: 'transparent',
         width: '100%',
-        height: '100%',
+        height: '100vh',
         position: 'absolute',
         top: 0,
         left: 0,

@@ -112,12 +112,26 @@ export default function Hero() {
         <p>Discover amazing things with floating shapes</p>
       </div>
       
-      {/* Original floating shapes */}
       <div className={styles.shapes}>
-        <FloatingShape src="/shapes/circle.svg" className={styles.shape1} fromLeft={true} />
-        <FloatingShape src="/shapes/triangle.svg" className={styles.shape2} fromLeft={false} />
-        <FloatingShape src="/shapes/square.svg" className={styles.shape3} fromLeft={true} />
-        <MotionShape src="/shapes/circle.svg" className={styles.shape4} />
+        <FloatingShape 
+          src="/shapes/circle.svg" 
+          className={styles.shape1} 
+          fromLeft={true} 
+        />
+        <FloatingShape 
+          src="/shapes/triangle.svg" 
+          className={styles.shape2} 
+          fromLeft={false} 
+        />
+        <FloatingShape 
+          src="/shapes/square.svg" 
+          className={styles.shape3} 
+          fromLeft={true} 
+        />
+        <MotionShape 
+          src="/shapes/circle.svg" 
+          className={styles.shape4} 
+        />
       </div>
     </section>
   );
