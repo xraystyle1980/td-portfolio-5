@@ -1,104 +1,36 @@
 .hero {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-  padding: 2rem;
+  @apply relative min-h-screen flex flex-col items-center justify-center;
 }
 
 .content {
-  text-align: center;
-  z-index: 3;
-  position: relative;
-}
-
-.content h1 {
-  font-size: 3.5rem;
-  margin-bottom: 1rem;
-}
-
-.content p {
-  font-size: 1.25rem;
-  color: #666;
+  @apply text-center z-10;
 }
 
 .shapes {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 2;
-}
-
-.shape1, .shape2, .shape3, .shape4 {
-  width: 60px;
-  height: 60px;
+  @apply absolute inset-0 overflow-hidden;
 }
 
 .shape1 {
-  position: absolute;
-  top: 20%;
-  left: 20%;
-  animation: float 6s ease-in-out infinite;
+  @apply absolute top-1/4 left-1/4;
 }
 
 .shape2 {
-  position: absolute;
-  top: 30%;
-  right: 25%;
-  animation: float 8s ease-in-out infinite;
+  @apply absolute top-1/3 right-1/4;
 }
 
 .shape3 {
-  position: absolute;
-  bottom: 30%;
-  left: 30%;
-  animation: float 7s ease-in-out infinite;
+  @apply absolute bottom-1/4 left-1/3;
 }
 
 .shape4 {
-  position: absolute;
-  bottom: 25%;
-  right: 20%;
-  cursor: pointer;
-  pointer-events: auto;
-}
-
-.motionShape {
-  opacity: 0.6;
-  background-color: rgba(255, 0, 0, 0.3);
-  border-radius: 50%;
-  padding: 8px;
-}
-
-.motionShape:hover {
-  filter: drop-shadow(0 0 8px rgba(255, 0, 0, 0.5));
-}
-
-.scene3d {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: transparent;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
+  @apply absolute bottom-1/3 right-1/3;
 }
 
 .shapeImage {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+  @apply w-10 h-10;
 }
 
-.modelContainer {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  z-index: 1;
-} 
+.motionShape {
+  @apply absolute;
+}
+ 
