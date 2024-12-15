@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // your config options here
+  transpilePackages: ['three', '@react-three/fiber', '@react-three/drei', '@react-three/rapier'],
+  reactStrictMode: true,
+  swcMinify: true,
 }
 
 module.exports = nextConfig
