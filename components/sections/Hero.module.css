@@ -1,5 +1,13 @@
 .hero {
-  @apply relative min-h-screen flex flex-col items-center justify-center px-4;
+  @apply relative min-h-screen flex;
+}
+
+.contentSide {
+  @apply w-1/2 relative flex flex-col items-center justify-center px-4;
+}
+
+.sceneSide {
+  @apply w-1/2 relative;
 }
 
 .scene3d {

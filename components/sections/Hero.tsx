@@ -110,39 +110,22 @@ const MotionShape = ({ src, className }: { src: string; className: string }) => 
 export default function Hero() {
   return (
     <section className={styles.hero}>
-      <div className={styles.scene3d}>
-        <ErrorBoundary fallback={<div className="text-center p-4">Error loading 3D scene</div>}>
-          <Suspense fallback={null}>
-            <Scene />
-          </Suspense>
-        </ErrorBoundary>
+      <div className={styles.contentSide}>
+        <div className={styles.content}>
+          <h1>Welcome to My Site</h1>
+          <p>Discover amazing things with floating shapes</p>
+        </div>
+        
+        <div className={styles.shapes}>
+          <FloatingShape src="/shapes/circle.svg" className={styles.shape1} fromLeft={true} />
+          <FloatingShape src="/shapes/triangle.svg" className={styles.shape2} fromLeft={false} />
+          <FloatingShape src="/shapes/square.svg" className={styles.shape3} fromLeft={true} />
+          <MotionShape src="/shapes/circle.svg" className={styles.shape4} />
+        </div>
       </div>
 
-      <div className={styles.content}>
-        <h1>Welcome to My Site</h1>
-        <p>Discover amazing things with floating shapes</p>
-      </div>
-      
-      <div className={styles.shapes}>
-        <FloatingShape 
-          src="/shapes/circle.svg" 
-          className={styles.shape1} 
-          fromLeft={true} 
-        />
-        <FloatingShape 
-          src="/shapes/triangle.svg" 
-          className={styles.shape2} 
-          fromLeft={false} 
-        />
-        <FloatingShape 
-          src="/shapes/square.svg" 
-          className={styles.shape3} 
-          fromLeft={true} 
-        />
-        <MotionShape 
-          src="/shapes/circle.svg" 
-          className={styles.shape4} 
-        />
+      <div className={styles.sceneSide}>
+        <Scene />
       </div>
     </section>
   );
