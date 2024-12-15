@@ -4,6 +4,8 @@ import styles from './Hero.module.css';
 import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Scene from '@/components/3d/Scene';
+import { Suspense } from 'react'
+import { ErrorBoundary } from '@/components/ErrorBoundary'
 
 const FloatingShape = ({ src, className, fromLeft = true }: { 
   src: string; 
@@ -109,7 +111,11 @@ export default function Hero() {
   return (
     <section className={styles.hero}>
       <div className={styles.scene3d}>
-        <Scene />
+        <ErrorBoundary fallback={<div className="text-center p-4">Error loading 3D scene</div>}>
+          <Suspense fallback={null}>
+            <Scene />
+          </Suspense>
+        </ErrorBoundary>
       </div>
 
       <div className={styles.content}>
