@@ -3,6 +3,7 @@
 import styles from './Hero.module.css';
 import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import Scene from '@/components/3d/Scene';
 
 const FloatingShape = ({ src, className, fromLeft = true }: { 
   src: string; 
@@ -107,6 +108,10 @@ const MotionShape = ({ src, className }: { src: string; className: string }) => 
 export default function Hero() {
   return (
     <section className={styles.hero}>
+      <div className={styles.scene3d}>
+        <Scene />
+      </div>
+
       <div className={styles.content}>
         <h1>Welcome to My Site</h1>
         <p>Discover amazing things with floating shapes</p>

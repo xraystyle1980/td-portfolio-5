@@ -2,8 +2,14 @@
   @apply relative min-h-screen flex flex-col items-center justify-center px-4;
 }
 
+.scene3d {
+  @apply absolute inset-0 z-0;
+  pointer-events: none; /* Let clicks through to shapes */
+}
+
 .content {
-  @apply text-center z-10 max-w-4xl mx-auto;
+  @apply text-center z-20 max-w-4xl mx-auto relative;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Make text pop against 3D background */
 }
 
 .content h1 {
@@ -15,7 +21,7 @@
 }
 
 .shapes {
-  @apply absolute inset-0 overflow-hidden pointer-events-none;
+  @apply absolute inset-0 overflow-hidden pointer-events-none z-10;
 }
 
 .shape1 {
