@@ -3,7 +3,6 @@
 import styles from './Hero.module.css';
 import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import Scene from '../3d/Shapes';
 
 const FloatingShape = ({ src, className, fromLeft = true }: { 
   src: string; 
@@ -119,11 +118,6 @@ export default function Hero() {
         <FloatingShape src="/shapes/triangle.svg" className={styles.shape2} fromLeft={false} />
         <FloatingShape src="/shapes/square.svg" className={styles.shape3} fromLeft={true} />
         <MotionShape src="/shapes/circle.svg" className={styles.shape4} />
-      </div>
-
-      {/* 3D Physics shapes */}
-      <div className={styles.scene3d}>
-        <Scene />
       </div>
     </section>
   );
