@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Footer from '@/components/sections/Footer'
+import Scene from '@/components/3d/Scene'
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -12,7 +13,6 @@ export default function ContactPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Here you would typically handle form submission
     console.log('Form submitted:', formData)
   }
 
@@ -26,11 +26,15 @@ export default function ContactPage() {
 
   return (
     <>
-      <main className="min-h-screen pt-24 pb-12 px-4">
-        <div className="max-w-2xl mx-auto">
+      <main className="relative min-h-screen pt-24 pb-12 px-4">
+        <div className="absolute inset-0 z-0">
+          <Scene />
+        </div>
+        
+        <div className="relative z-10 max-w-2xl mx-auto">
           <h1 className="text-4xl font-bold mb-8 text-center">Contact Us</h1>
           
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6 bg-white/80 backdrop-blur-sm p-8 rounded-lg shadow-lg">
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
                 Name
