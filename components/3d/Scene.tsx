@@ -20,7 +20,8 @@ const generateRandomPositions = (count: number) => {
   })
 }
 
-const TOKEN_POSITIONS = generateRandomPositions(10)
+// Reduced from 10 to 5 tokens
+const TOKEN_POSITIONS = generateRandomPositions(5)
 
 export default function Scene() {
   return (
@@ -54,9 +55,15 @@ export default function Scene() {
           <TokenFace 
             key={index}
             position={position as [number, number, number]}
-            rotation={[0, Math.random() * Math.PI * 2, 0]}
-            scale={0.4 + Math.random() * 0.8}
-            rotationSpeed={0.2 + Math.random() * 0.3}
+            rotation={[
+              Math.random() * Math.PI * 0.5, 
+              Math.random() * Math.PI * 2,
+              Math.random() * Math.PI * 0.5
+            ]}
+            scale={1.2 + Math.random() * 1.8}
+            rotationSpeed={0.1 + Math.random() * 0.2}
+            wobbleSpeed={0.5 + Math.random() * 0.5}
+            wobbleStrength={0.2 + Math.random() * 0.3}
           />
         ))}
         
