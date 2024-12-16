@@ -9,12 +9,14 @@ interface TokenFaceProps {
   position?: [number, number, number]
   rotation?: [number, number, number]
   scale?: number | [number, number, number]
+  onClick?: () => void
 }
 
 export default function TokenFace({ 
   position,
   rotation,
-  scale
+  scale,
+  onClick
 }: TokenFaceProps) {
   const { scene } = useGLTF('/models/token-face-export-1.glb')
   const modelRef = useRef<Group>(null)
@@ -26,6 +28,7 @@ export default function TokenFace({
       position={position}
       rotation={rotation}
       scale={scale}
+      onClick={onClick}
     />
   )
 }

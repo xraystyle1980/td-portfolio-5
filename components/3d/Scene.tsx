@@ -45,7 +45,7 @@ const PhysicsToken = ({ position }: { position: readonly [number, number, number
       Math.random() * Math.PI * 0.5,
       Math.random() * Math.PI * 2,
       Math.random() * Math.PI * 0.5
-    ],
+    ] as [number, number, number],
     scale: 5 + Math.random() * 3
   }), [])
 
@@ -124,11 +124,11 @@ const PhysicsToken = ({ position }: { position: readonly [number, number, number
       linearDamping={DAMPING}
       angularDamping={DAMPING}
       mass={0.5}
-      onClick={() => setIsClicked(true)}
     >
       <TokenFace 
         rotation={initialValues.rotation}
         scale={initialValues.scale}
+        onClick={() => setIsClicked(true)}
       />
     </RigidBody>
   )
@@ -199,9 +199,6 @@ export default function Scene() {
         <Physics 
           gravity={[0, -0.15, 0]}
           timeStep="vary"
-          maxStabilizationIterations={1}
-          maxVelocityIterations={1}
-          maxVelocityFriction={0.8}
         >
           <Lights />
           
