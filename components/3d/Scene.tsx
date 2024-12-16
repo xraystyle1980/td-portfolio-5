@@ -8,43 +8,58 @@ import { Vector3 } from 'three'
 import { Physics, RigidBody, CuboidCollider } from '@react-three/rapier'
 import type { RigidBody as RigidBodyType } from '@dimforge/rapier3d-compat'
 
-// Physics constants - adjusted for ultra-slow lava lamp effect
-const DAMPING = 0.9999        // Even higher damping
-const RESTITUTION = 0.1       // Very low bounce
+// Physics constants - adjusted for lava lamp effect
+const DAMPING = 0.9999        // Super smooth damping
+const RESTITUTION = 0.1
 const BOUNCE_THRESHOLD = -2
-const BOUNCE_FORCE = 0.5      // Very gentle bounce
-const FLOAT_FORCE = 0.01      // Much smaller random forces
+const BOUNCE_FORCE = 0.5
+const FLOAT_FORCE = 0.03      // Increased for more noticeable floating
+const WAVE_SPEED = 2000       // Wave motion cycle in milliseconds
 
-// Position tokens across full viewport height on the right
+// Position fewer, larger tokens with greater vertical spread
 const generateRandomPositions = (count: number) => {
   return Array.from({ length: count }, () => {
     return [
-      16 + Math.random() * 4,     // x: 16-20 (right side)
-      -12 + Math.random() * 24,   // y: -12 to 12 (even more height spread)
-      -2 + Math.random() * 4      // z: -2 to 2 (depth variation)
+      24 + Math.random() * 4,     // x: 24-28 (much further right)
+      -20 + Math.random() * 40,   // y: -20 to 20 (much more height spread)
+      -2 + Math.random() * 4      // z: -2 to 2 (same depth)
     ] as const
   })
 }
 
-const TOKEN_POSITIONS = generateRandomPositions(12)  // More tokens for better coverage
+const TOKEN_POSITIONS = generateRandomPositions(6)
 
 const PhysicsToken = ({ position }: { position: readonly [number, number, number] }) => {
   const [hovered, setHovered] = useState(false)
   const rigidBodyRef = useRef<RigidBodyType>(null)
   const [hasBounced, setHasBounced] = useState(false)
+  const timeOffset = useRef(Math.random() * Math.PI * 2) // Random starting phase
 
-  // Add subtle random movement
+  // Enhanced lava lamp movement
   useEffect(() => {
     const floatInterval = setInterval(() => {
       if (rigidBodyRef.current) {
+        const time = Date.now() / WAVE_SPEED
+        const waveY = Math.sin(time + timeOffset.current) * FLOAT_FORCE
+        const waveX = Math.cos(time + timeOffset.current) * FLOAT_FORCE * 0.5
+        
+        // Combine wave motion with random movement
         const randomForce = {
-          x: (Math.random() - 0.5) * FLOAT_FORCE,
-          y: Math.random() * FLOAT_FORCE,
-          z: (Math.random() - 0.5) * FLOAT_FORCE
+          x: waveX + (Math.random() - 0.5) * FLOAT_FORCE * 0.3,
+          y: waveY + Math.random() * FLOAT_FORCE * 0.3,
+          z: (Math.random() - 0.5) * FLOAT_FORCE * 0.2
         }
+
         rigidBodyRef.current.applyImpulse(randomForce, true)
+
+        // Add slight rotation for more organic movement
+        rigidBodyRef.current.applyTorqueImpulse({
+          x: (Math.random() - 0.5) * 0.0001,
+          y: (Math.random() - 0.5) * 0.0001,
+          z: (Math.random() - 0.5) * 0.0001
+        }, true)
       }
-    }, 1000) // Apply random force every second
+    }, 16) // Smoother updates
 
     return () => clearInterval(floatInterval)
   }, [])
@@ -76,7 +91,7 @@ const PhysicsToken = ({ position }: { position: readonly [number, number, number
       friction={0.1}
       linearDamping={DAMPING}
       angularDamping={DAMPING}
-      mass={0.5}
+      mass={0.3}  // Lighter mass for more floaty feel
     >
       <TokenFace 
         rotation={[
@@ -84,7 +99,7 @@ const PhysicsToken = ({ position }: { position: readonly [number, number, number
           Math.random() * Math.PI * 2,
           Math.random() * Math.PI * 0.5
         ]}
-        scale={2 + Math.random() * 1.5}  // Much larger tokens: 2.0-3.5x size
+        scale={3 + Math.random() * 2}  // Larger tokens: 3.0-5.0x size
         onPointerEnter={() => setHovered(true)}
         onPointerLeave={() => setHovered(false)}
         isHovered={hovered}
@@ -98,8 +113,8 @@ export default function Scene() {
     <Suspense fallback={null}>
       <Canvas
         camera={{ 
-          position: [10, 0, 20],  // Moved camera further back
-          fov: 85                 // Even wider FOV
+          position: [10, 0, 25],
+          fov: 90
         }}
         style={{
           width: '100vw',
@@ -107,11 +122,11 @@ export default function Scene() {
           position: 'absolute',
           left: 0,
           top: 0,
-          background: 'rgba(144, 238, 144, 0.2)'  // Light green with some transparency
+          background: 'transparent'  // Removed debug background
         }}
         dpr={[1, 2]}
       >
-        <Physics gravity={[0, -0.1, 0]}>
+        <Physics gravity={[0, -0.05, 0]}>  // Reduced gravity for more floating
           <ambientLight intensity={1.2} />
           <pointLight position={[15, 10, 10]} intensity={2} castShadow />
           <pointLight position={[5, -10, -10]} intensity={1} />
@@ -121,10 +136,10 @@ export default function Scene() {
             <PhysicsToken key={index} position={position} />
           ))}
           
-          {/* Taller boundary colliders */}
-          <CuboidCollider args={[5, 40, 0.1]} position={[18, 0, -3]} />
-          <CuboidCollider args={[5, 0.1, 3]} position={[18, -15, 0]} />
-          <CuboidCollider args={[5, 0.1, 3]} position={[18, 15, 0]} />
+          {/* Extended boundary colliders for larger vertical space */}
+          <CuboidCollider args={[5, 60, 0.1]} position={[26, 0, -3]} />
+          <CuboidCollider args={[5, 0.1, 3]} position={[26, -25, 0]} />
+          <CuboidCollider args={[5, 0.1, 3]} position={[26, 25, 0]} />
         </Physics>
         
         <OrbitControls 
