@@ -15,11 +15,13 @@ const DAMPING = 0.9999        // Super smooth damping
 const RESTITUTION = 0.1
 const BOUNCE_THRESHOLD = -2
 const BOUNCE_FORCE = 0.5
-const FLOAT_FORCE = 0.03      // Increased for more noticeable floating
-const WAVE_SPEED = 2000       // Wave motion cycle in milliseconds
-const REPULSION_FORCE = 150   // Increased from 100 for stronger effect
-const REPULSION_RADIUS = 25   // Increased from 20 for easier interaction
-const CLICK_FORCE = 300       // Strong force for click interaction
+const FLOAT_FORCE = 0.04      // Increased from 0.03 for faster floating
+const WAVE_SPEED = 1500       // Decreased from 2000 for faster wave cycles
+const REPULSION_FORCE = 80    // Increased from 50 for snappier repulsion
+const REPULSION_RADIUS = 25   // Keep same radius
+const ATTRACTION_FORCE = 50   // Increased from 30 for stronger pull
+const ATTRACTION_RADIUS = 40  // Keep same radius
+const CLICK_FORCE = 400       // Increased from 300 for more dramatic click effect
 
 // Position tokens on the right side, higher up
 const generateRandomPositions = (count: number) => {
@@ -74,9 +76,18 @@ const PhysicsToken = ({ position }: { position: readonly [number, number, number
     )
     const length = repelDir.length()
 
-    // Apply repulsion force if cursor is close enough
+    // Apply forces based on distance
     if (length < REPULSION_RADIUS) {
+      // Close range: Repulsion
       const force = repelDir.normalize().multiplyScalar(REPULSION_FORCE * (1 - length / REPULSION_RADIUS))
+      rigidBodyRef.current.applyImpulse({
+        x: force.x,
+        y: force.y,
+        z: force.z
+      }, true)
+    } else if (length < ATTRACTION_RADIUS) {
+      // Medium range: Attraction
+      const force = repelDir.normalize().multiplyScalar(-ATTRACTION_FORCE * (1 - (length - REPULSION_RADIUS) / (ATTRACTION_RADIUS - REPULSION_RADIUS)))
       rigidBodyRef.current.applyImpulse({
         x: force.x,
         y: force.y,
