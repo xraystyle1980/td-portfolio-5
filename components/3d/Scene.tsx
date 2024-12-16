@@ -18,13 +18,13 @@ const BOUNCE_FORCE = 0.5
 const FLOAT_FORCE = 0.03      // Increased for more noticeable floating
 const WAVE_SPEED = 2000       // Wave motion cycle in milliseconds
 
-// Position tokens on the right side
+// Position tokens on the right side, higher up
 const generateRandomPositions = (count: number) => {
   return Array.from({ length: count }, () => {
     return [
-      35 + Math.random() * 4,     // x: 35 to 39 (right side)
-      -20 + Math.random() * 40,   // y: same vertical spread
-      -2 + Math.random() * 4      // z: same depth
+      22 + Math.random() * 4,    // x: -35 to -31 (shifted left)
+      -15 + Math.random() * 40,   // y: same vertical spread
+      15 + Math.random() * 4      // z: same height
     ] as const
   })
 }
@@ -42,7 +42,7 @@ const PhysicsToken = ({ position }: { position: readonly [number, number, number
     Math.random() * Math.PI * 2,
     Math.random() * Math.PI * 0.5
   ])
-  const initialScale = useRef(3 + Math.random() * 2)
+  const initialScale = useRef(5 + Math.random() * 3)
 
   // Physics animation
   useFrame((state, delta) => {
@@ -87,7 +87,7 @@ const PhysicsToken = ({ position }: { position: readonly [number, number, number
       friction={0.1}
       linearDamping={DAMPING}
       angularDamping={DAMPING}
-      mass={0.3}
+      mass={0.5}
     >
       <TokenFace 
         rotation={initialRotation.current}
@@ -104,7 +104,7 @@ export default function Scene() {
     <Suspense fallback={null}>
       <Canvas
         camera={{ 
-          position: [-50, 0, 30],  // Keep camera back for helper view
+          position: [-20, 40, 10],  // Moved camera up and out for angled view
           fov: 45,
           ref: cameraRef
         }}
@@ -134,9 +134,9 @@ export default function Scene() {
             <PhysicsToken key={index} position={position} />
           ))}
           
-          <CuboidCollider args={[5, 60, 0.1]} position={[37, 0, -3]} />
-          <CuboidCollider args={[5, 0.1, 3]} position={[37, -25, 0]} />
-          <CuboidCollider args={[5, 0.1, 3]} position={[37, 25, 0]} />
+          <CuboidCollider args={[5, 60, 0.1]} position={[-33, 0, 12]} />
+          <CuboidCollider args={[5, 0.1, 3]} position={[-33, -25, 15]} />
+          <CuboidCollider args={[5, 0.1, 3]} position={[-33, 25, 15]} />
         </Physics>
         
         <OrbitControls 
@@ -146,7 +146,7 @@ export default function Scene() {
           maxAzimuthAngle={Math.PI / 4}
           minPolarAngle={Math.PI / 2.5}
           maxPolarAngle={Math.PI / 1.7}
-          target={new Vector3(5, 10, -10)}  // Moved target further right (from 35 to 50)
+          target={new Vector3(15, 0, -5)}  // Keep current target
         />
         <Preload all />
       </Canvas>
