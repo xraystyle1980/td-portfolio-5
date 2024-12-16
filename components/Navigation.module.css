@@ -17,7 +17,22 @@
 }
 
 .logo {
-  @apply text-[#6366F1] text-lg font-medium hover:opacity-80 transition-opacity;
+  color: #FFF;
+  text-shadow: -3px 3px 0px #000;
+  paint-order: stroke fill;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: #000;
+  font-family: "Source Serif Pro";
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 85%;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.logo:hover {
+  opacity: 0.8;
 }
 
 .links {
