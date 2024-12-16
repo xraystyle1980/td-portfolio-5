@@ -37,11 +37,18 @@ const TOKEN_POSITIONS = [
   ] as const)
 ]
 
-const PhysicsToken = ({ position, allTokenRefs }: { 
+const PhysicsToken = ({ 
+  position, 
+  allTokenRefs,
+  returnToOrigin 
+}: { 
   position: readonly [number, number, number],
-  allTokenRefs: React.MutableRefObject<(RigidBodyType | null)[]>
+  allTokenRefs: React.MutableRefObject<(RigidBodyType | null)[]>,
+  returnToOrigin: boolean
 }) => {
   const rigidBodyRef = useRef<RigidBodyType>(null)
+  const originalPosition = useRef(new Vector3(position[0], position[1], position[2]))
+  const returnForce = useRef(new Vector3())
   const [hasBounced, setHasBounced] = useState(false)
   const [isClicked, setIsClicked] = useState(false)
   const timeOffset = useRef(Math.random() * Math.PI * 2)
@@ -144,6 +151,17 @@ const PhysicsToken = ({ position, allTokenRefs }: {
     // Add magnetic force to the combined force
     force.current.add(magneticForce.current)
 
+    // Add return to origin force when triggered
+    if (returnToOrigin) {
+      returnForce.current.set(
+        originalPosition.current.x - pos.x,
+        originalPosition.current.y - pos.y,
+        originalPosition.current.z - pos.z
+      )
+      const returnStrength = 0.5 // Adjust for stronger/weaker return force
+      force.current.add(returnForce.current.multiplyScalar(returnStrength))
+    }
+
     // Apply the combined force
     rigidBodyRef.current.applyImpulse(force.current, true)
 
@@ -237,8 +255,22 @@ const CameraControls = () => {
 }
 
 export default function Scene() {
-  // Create a ref to store all token refs
   const allTokenRefs = useRef<(RigidBodyType | null)[]>([])
+  const [returnToOrigin, setReturnToOrigin] = useState(false)
+
+  // Set up the interval for return-to-origin
+  useEffect(() => {
+    const returnInterval = setInterval(() => {
+      setReturnToOrigin(true)
+      
+      // Reset after 1 second of return force
+      setTimeout(() => {
+        setReturnToOrigin(false)
+      }, 1000)
+    }, 20000)  // Changed from 100000 to 20000 (20 seconds)
+
+    return () => clearInterval(returnInterval)
+  }, [])
 
   return (
     <Suspense fallback={null}>
@@ -279,6 +311,7 @@ export default function Scene() {
               key={index} 
               position={position} 
               allTokenRefs={allTokenRefs}
+              returnToOrigin={returnToOrigin}
             />
           ))}
           
