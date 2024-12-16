@@ -48,3 +48,11 @@
   font-style: normal;
   font-display: swap;
 }
+
+.stats-panel {
+  position: fixed !important;
+  top: 0 !important;
+  left: auto !important;
+  right: 0 !important;
+  z-index: 1000;
+}
