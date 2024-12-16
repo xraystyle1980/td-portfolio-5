@@ -104,7 +104,7 @@ export default function Scene() {
     <Suspense fallback={null}>
       <Canvas
         camera={{ 
-          position: [-20, 40, 10],  // Moved camera up and out for angled view
+          position: [-20, 40, 10],
           fov: 45,
           ref: cameraRef
         }}
@@ -118,12 +118,6 @@ export default function Scene() {
         }}
         dpr={[1, 2]}
       >
-        {cameraRef.current && <primitive object={new CameraHelper(cameraRef.current)} />}
-        
-        <gridHelper args={[100, 100, '#666666', '#222222']} />
-        
-        <axesHelper args={[5]} />
-
         <Physics gravity={[0, -0.15, 0]}>
           <ambientLight intensity={1.2} />
           <pointLight position={[15, 10, 10]} intensity={2} castShadow />
@@ -146,7 +140,7 @@ export default function Scene() {
           maxAzimuthAngle={Math.PI / 4}
           minPolarAngle={Math.PI / 2.5}
           maxPolarAngle={Math.PI / 1.7}
-          target={new Vector3(15, 0, -5)}  // Keep current target
+          target={new Vector3(15, 0, -5)}
         />
         <Preload all />
       </Canvas>
