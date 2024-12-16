@@ -53,7 +53,7 @@ export default function Scene() {
         {TOKEN_POSITIONS.map((position, index) => (
           <TokenFace 
             key={index}
-            position={position}
+            position={position as [number, number, number]}
             rotation={[0, Math.random() * Math.PI * 2, 0]}
             scale={0.4 + Math.random() * 0.8}
             rotationSpeed={0.2 + Math.random() * 0.3}
