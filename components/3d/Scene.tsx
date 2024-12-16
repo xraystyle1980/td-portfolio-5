@@ -3,8 +3,8 @@
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { OrbitControls, Preload, useGLTF, Stats } from '@react-three/drei'
 import TokenFace from './TokenFace'
-import { Suspense, useRef, useState, useMemo, memo } from 'react'
-import { Vector3, Raycaster, Plane } from 'three'
+import { Suspense, useRef, useState, useMemo, memo, useEffect } from 'react'
+import { Vector3, Raycaster, Plane, GridHelper } from 'three'
 import { Physics, RigidBody, CuboidCollider, RapierRigidBody } from '@react-three/rapier'
 import type { RigidBody as RigidBodyType } from '@dimforge/rapier3d-compat'
 
@@ -22,13 +22,25 @@ const ATTRACTION_RADIUS = 40
 const CLICK_FORCE = 400
 
 // Memoize token positions
-const TOKEN_POSITIONS = Array.from({ length: 6 }, () => [
-  22 + Math.random() * 4,
-  -15 + Math.random() * 40,
-  15 + Math.random() * 4
-] as const)
+const TOKEN_POSITIONS = [
+  // First batch (right side)
+  ...Array.from({ length: 12 }, () => [
+    22 + Math.random() * 8,
+    -15 + Math.random() * 50,
+    15 + Math.random() * 8
+  ] as const),
+  // Second batch (left side - mirrored)
+  ...Array.from({ length: 12 }, () => [
+    -22 - Math.random() * 8,  // Negative x position
+    -15 + Math.random() * 50,
+    15 + Math.random() * 8
+  ] as const)
+]
 
-const PhysicsToken = ({ position }: { position: readonly [number, number, number] }) => {
+const PhysicsToken = ({ position, allTokenRefs }: { 
+  position: readonly [number, number, number],
+  allTokenRefs: React.MutableRefObject<(RigidBodyType | null)[]>
+}) => {
   const rigidBodyRef = useRef<RigidBodyType>(null)
   const [hasBounced, setHasBounced] = useState(false)
   const [isClicked, setIsClicked] = useState(false)
@@ -38,6 +50,9 @@ const PhysicsToken = ({ position }: { position: readonly [number, number, number
   const intersectionPoint = useRef(new Vector3())
   const repelDir = useRef(new Vector3())
   const force = useRef(new Vector3())
+  const magneticForce = useRef(new Vector3())
+  const tokenPos = useRef(new Vector3())
+  const otherPos = useRef(new Vector3())
   
   // Memoize initial values
   const initialValues = useMemo(() => ({
@@ -53,7 +68,8 @@ const PhysicsToken = ({ position }: { position: readonly [number, number, number
     if (!rigidBodyRef.current) return
 
     const time = state.clock.elapsedTime
-    const tokenPos = rigidBodyRef.current.translation()
+    const pos = rigidBodyRef.current.translation()
+    tokenPos.current.set(pos.x, pos.y, pos.z)
 
     // Get cursor position
     raycaster.setFromCamera(pointer, camera)
@@ -61,9 +77,9 @@ const PhysicsToken = ({ position }: { position: readonly [number, number, number
 
     // Calculate direction and distance
     repelDir.current.set(
-      tokenPos.x - intersectionPoint.current.x,
-      tokenPos.y - intersectionPoint.current.y,
-      tokenPos.z - intersectionPoint.current.z
+      pos.x - intersectionPoint.current.x,
+      pos.y - intersectionPoint.current.y,
+      pos.z - intersectionPoint.current.z
     )
     const length = repelDir.current.length()
 
@@ -104,15 +120,49 @@ const PhysicsToken = ({ position }: { position: readonly [number, number, number
       (Math.random() - 0.5) * FLOAT_FORCE * 0.2
     ))
 
+    // Add magnetic forces between tokens
+    magneticForce.current.set(0, 0, 0)
+    allTokenRefs.current.forEach(otherToken => {
+      if (otherToken && otherToken !== rigidBodyRef.current) {
+        const otherPos = otherToken.translation()
+        const direction = new Vector3(
+          otherPos.x - pos.x,
+          otherPos.y - pos.y,
+          otherPos.z - pos.z
+        )
+        const distance = direction.length()
+        
+        if (distance > 0 && distance < 20) { // Adjust range as needed
+          const strength = (1 - distance / 20) * 0.3 // Adjust strength as needed
+          magneticForce.current.add(
+            direction.normalize().multiplyScalar(strength)
+          )
+        }
+      }
+    })
+
+    // Add magnetic force to the combined force
+    force.current.add(magneticForce.current)
+
     // Apply the combined force
     rigidBodyRef.current.applyImpulse(force.current, true)
 
     // Handle bounce
-    if (!hasBounced && tokenPos.y <= BOUNCE_THRESHOLD) {
+    if (!hasBounced && pos.y <= BOUNCE_THRESHOLD) {
       rigidBodyRef.current.applyImpulse({ x: 0, y: BOUNCE_FORCE, z: 0 }, true)
       setHasBounced(true)
     }
   })
+
+  // Add this token to the refs array when mounted
+  useEffect(() => {
+    if (rigidBodyRef.current) {
+      allTokenRefs.current.push(rigidBodyRef.current)
+      return () => {
+        allTokenRefs.current = allTokenRefs.current.filter(ref => ref !== rigidBodyRef.current)
+      }
+    }
+  }, [allTokenRefs])
 
   return (
     <RigidBody
@@ -155,23 +205,46 @@ const Colliders = memo(() => (
 ))
 Colliders.displayName = 'Colliders'
 
+// Create a new component for camera controls
+const CameraControls = () => {
+  const { camera, gl } = useThree()
+  const controlsRef = useRef<any>(null)
+
+  useEffect(() => {
+    if (controlsRef.current) {
+      controlsRef.current.autoRotate = true
+      controlsRef.current.autoRotateSpeed = 0.5
+      controlsRef.current.enableDamping = true
+      controlsRef.current.dampingFactor = 0.05
+    }
+  }, [])
+
+  useFrame(() => {
+    controlsRef.current?.update()
+  })
+
+  return (
+    <OrbitControls
+      ref={controlsRef}
+      args={[camera, gl.domElement]}
+      enableZoom={false}
+      makeDefault
+      autoRotate
+      enableDamping
+      target={new Vector3(15, 0, -5)}
+    />
+  )
+}
+
 export default function Scene() {
-  // Memoize OrbitControls props
-  const orbitControlsProps = useMemo(() => ({
-    enableZoom: false,
-    makeDefault: true,
-    minAzimuthAngle: -Math.PI / 4,
-    maxAzimuthAngle: Math.PI / 4,
-    minPolarAngle: Math.PI / 2.5,
-    maxPolarAngle: Math.PI / 1.7,
-    target: new Vector3(15, 0, -5)
-  }), [])
+  // Create a ref to store all token refs
+  const allTokenRefs = useRef<(RigidBodyType | null)[]>([])
 
   return (
     <Suspense fallback={null}>
       <Canvas
         camera={{ 
-          position: [-20, 40, 10],
+          position: [-60, 80, 30],  // Moved further back to see both sides
           fov: 45
         }}
         style={{
@@ -183,7 +256,6 @@ export default function Scene() {
           background: 'transparent'
         }}
         dpr={[1, 1.5]}
-        frameloop="demand"
         gl={{ 
           powerPreference: "high-performance",
           antialias: false,
@@ -203,13 +275,17 @@ export default function Scene() {
           <Lights />
           
           {TOKEN_POSITIONS.map((position, index) => (
-            <PhysicsToken key={index} position={position} />
+            <PhysicsToken 
+              key={index} 
+              position={position} 
+              allTokenRefs={allTokenRefs}
+            />
           ))}
           
           <Colliders />
         </Physics>
         
-        <OrbitControls {...orbitControlsProps} />
+        <CameraControls />
         <Preload all />
       </Canvas>
     </Suspense>
