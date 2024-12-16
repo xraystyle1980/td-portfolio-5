@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@400;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -11,14 +13,18 @@
 @layer base {
   body {
     @apply antialiased;
+    background-color: #FAF4F0;
+    font-family: 'Source Serif Pro', serif;
   }
 
   h1 {
     @apply text-4xl font-bold mb-4;
+    font-family: 'Bilgres', sans-serif;
   }
 
   p {
     @apply text-gray-600;
+    font-family: 'Source Serif Pro', serif;
   }
 }
 
@@ -33,3 +39,12 @@
 }
 
 /* Add any other global styles you need */
+
+@font-face {
+  font-family: 'Bilgres';
+  src: url('/fonts/Bilgres.woff2') format('woff2'),
+       url('/fonts/Bilgres.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
