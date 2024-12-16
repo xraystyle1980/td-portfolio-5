@@ -29,7 +29,7 @@
 }
 
 .content {
-  text-align: center;
+  text-align: left;
   z-index: 20;
   max-width: 56rem;
   margin-left: auto;
@@ -39,15 +39,30 @@
 }
 
 .content h1 {
-  font-size: 3rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
+  color: #F39;
+  text-shadow: -12px 12px 0px #000;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: #000;
+  font-family: Bilgres;
+  font-size: 204px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 85%;
 }
 
-.content p {
+.heroText {
+  color: #000;
+  font-family: "Source Serif Pro";
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 134%;
+}
+
+/* .content p {
   font-size: 1.25rem;
   color: rgb(75, 85, 99);
-}
+} */
 
 .shapes {
   position: absolute;

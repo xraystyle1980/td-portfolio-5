@@ -112,8 +112,8 @@ export default function Hero() {
     <section className={styles.hero}>
       <div className={styles.contentSide}>
         <div className={styles.content}>
-          <h1>Welcome to My Site</h1>
-          <p>Discover amazing things with floating shapes</p>
+          <h1>Build cool shit.</h1>
+          <p className={styles.heroText}>I'm Matt Trice, an Atlanta-based product designer. Let's work together and build cool shit.</p>
         </div>
         
         <div className={styles.shapes}>
