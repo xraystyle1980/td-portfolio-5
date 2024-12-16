@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Navigation from '@/components/Navigation'
+import { Caveat } from 'next/font/google'
+
+const caveat = Caveat({
+  subsets: ['latin'],
+  weight: ['700'],
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: "Your Site",

@@ -6,6 +6,8 @@
   z-index: 50;
   background: transparent;
   padding: 1rem 2rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .wrapper {
@@ -28,21 +30,113 @@
   font-weight: 900;
   line-height: 85%;
   text-decoration: none;
-  transition: opacity 0.2s;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .logo:hover {
   opacity: 0.8;
 }
 
-.links {
-  @apply flex gap-8;
+/* Desktop Menu */
+.desktopLinks {
+  display: flex;
+  gap: 2rem;
 }
 
 .link {
-  @apply text-gray-600 hover:text-gray-900 transition-colors;
+  color: #000;
+  transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.activeLink {
-  @apply text-[#6366F1];
+.link:hover {
+  color: #333;
+}
+
+/* Mobile Menu Button */
+.burgerButton {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 2rem;
+  height: 1.5rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 60;
+}
+
+.burgerButton span {
+  width: 100%;
+  height: 2px;
+  background-color: #000;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.burgerButton.open span:first-child {
+  transform: translateY(10px) rotate(45deg);
+}
+
+.burgerButton.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.burgerButton.open span:last-child {
+  transform: translateY(-10px) rotate(-45deg);
+}
+
+/* Mobile Menu */
+.mobileMenu {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(250, 244, 240, 0.7);
+  padding: 6rem 2rem 2rem;
+  transform: translateX(100%);
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  visibility: hidden;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.mobileMenu.open {
+  transform: translateX(0);
+  visibility: visible;
+}
+
+.mobileLink {
+  display: block;
+  font-size: 2rem;
+  color: #000;
+  padding: 1rem 0;
+  text-align: center;
+  transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobileMenu.open .mobileLink {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .desktopLinks {
+    display: none;
+  }
+
+  .burgerButton {
+    display: flex;
+  }
+
+  .mobileMenu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 } 
