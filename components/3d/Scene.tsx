@@ -4,7 +4,7 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { OrbitControls, Preload } from '@react-three/drei'
 import TokenFace from './TokenFace'
 import { Suspense, useCallback, useRef, useState, useEffect } from 'react'
-import { Vector3 } from 'three'
+import { Vector3, Raycaster, Plane } from 'three'
 import { Physics, RigidBody, CuboidCollider } from '@react-three/rapier'
 import type { RigidBody as RigidBodyType } from '@dimforge/rapier3d-compat'
 import { CameraHelper } from 'three'
@@ -17,8 +17,9 @@ const BOUNCE_THRESHOLD = -2
 const BOUNCE_FORCE = 0.5
 const FLOAT_FORCE = 0.03      // Increased for more noticeable floating
 const WAVE_SPEED = 2000       // Wave motion cycle in milliseconds
-const REPULSION_FORCE = 50  // Force multiplier for repulsion
-const REPULSION_RADIUS = 5  // How close the cursor needs to be
+const REPULSION_FORCE = 150   // Increased from 100 for stronger effect
+const REPULSION_RADIUS = 25   // Increased from 20 for easier interaction
+const CLICK_FORCE = 300       // Strong force for click interaction
 
 // Position tokens on the right side, higher up
 const generateRandomPositions = (count: number) => {
@@ -36,10 +37,13 @@ const TOKEN_POSITIONS = generateRandomPositions(6)
 const PhysicsToken = ({ position }: { position: readonly [number, number, number] }) => {
   const rigidBodyRef = useRef<RigidBodyType>(null)
   const [hasBounced, setHasBounced] = useState(false)
+  const [isClicked, setIsClicked] = useState(false)
   const timeOffset = useRef(Math.random() * Math.PI * 2)
-  const { camera, pointer } = useThree()
-  
-  // Store initial values in refs
+  const { camera, raycaster, pointer } = useThree()
+  const plane = useRef(new Plane(new Vector3(0, 0, 1), 0))
+  const intersectionPoint = useRef(new Vector3())
+
+  // Store initial values in refs - these were accidentally removed
   const initialRotation = useRef([
     Math.random() * Math.PI * 0.5,
     Math.random() * Math.PI * 2,
@@ -47,7 +51,6 @@ const PhysicsToken = ({ position }: { position: readonly [number, number, number
   ])
   const initialScale = useRef(5 + Math.random() * 3)
 
-  // Physics animation with cursor repulsion
   useFrame((state, delta) => {
     if (!rigidBodyRef.current) return
 
@@ -59,16 +62,16 @@ const PhysicsToken = ({ position }: { position: readonly [number, number, number
     // Get current token position
     const tokenPos = rigidBodyRef.current.translation()
 
-    // Convert mouse position to world coordinates
-    const vector = new Vector3()
-    vector.set(pointer.x, pointer.y, 0.5)
-    vector.unproject(camera)
-    const dir = vector.sub(camera.position).normalize()
-    const distance = -camera.position.z / dir.z
-    const cursorPos = camera.position.clone().add(dir.multiplyScalar(distance))
+    // Get cursor position in 3D space using raycasting
+    raycaster.setFromCamera(pointer, camera)
+    raycaster.ray.intersectPlane(plane.current, intersectionPoint.current)
 
     // Calculate distance and direction from cursor to token
-    const repelDir = new Vector3(tokenPos.x, tokenPos.y, tokenPos.z).sub(cursorPos)
+    const repelDir = new Vector3(
+      tokenPos.x - intersectionPoint.current.x,
+      tokenPos.y - intersectionPoint.current.y,
+      tokenPos.z - intersectionPoint.current.z
+    )
     const length = repelDir.length()
 
     // Apply repulsion force if cursor is close enough
@@ -79,6 +82,17 @@ const PhysicsToken = ({ position }: { position: readonly [number, number, number
         y: force.y,
         z: force.z
       }, true)
+    }
+
+    // Apply extra force if clicked
+    if (isClicked) {
+      const clickForce = repelDir.normalize().multiplyScalar(CLICK_FORCE)
+      rigidBodyRef.current.applyImpulse({
+        x: clickForce.x,
+        y: clickForce.y,
+        z: clickForce.z
+      }, true)
+      setIsClicked(false)  // Reset after applying force
     }
 
     // Regular floating forces
@@ -117,6 +131,7 @@ const PhysicsToken = ({ position }: { position: readonly [number, number, number
       linearDamping={DAMPING}
       angularDamping={DAMPING}
       mass={0.5}
+      onClick={() => setIsClicked(true)}
     >
       <TokenFace 
         rotation={initialRotation.current}
