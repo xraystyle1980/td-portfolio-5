@@ -6,17 +6,21 @@ import { useRef } from 'react'
 import { Group } from 'three'
 
 interface TokenFaceProps {
-  position: [number, number, number]
+  position?: [number, number, number]
   rotation?: [number, number, number]
-  scale?: number
-  rotationSpeed?: number
+  scale?: number | [number, number, number]
+  onPointerEnter?: () => void
+  onPointerLeave?: () => void
+  onClick?: () => void
 }
 
 export default function TokenFace({ 
-  position, 
-  rotation = [0, 0, 0], 
-  scale = 1,
-  rotationSpeed = 0.5 
+  position,
+  rotation,
+  scale,
+  onPointerEnter,
+  onPointerLeave,
+  onClick
 }: TokenFaceProps) {
   const modelRef = useRef<Group>(null)
   const { scene } = useGLTF('/models/token-face-export-1.glb')
@@ -24,17 +28,20 @@ export default function TokenFace({
   useFrame((state, delta) => {
     if (modelRef.current) {
       // Add smooth rotation animation
-      modelRef.current.rotation.y += delta * rotationSpeed
+      modelRef.current.rotation.y += delta * 0.5
     }
   })
 
   return (
     <primitive 
       ref={modelRef}
-      object={scene.clone()} // Clone the scene for multiple instances
-      scale={scale} 
+      object={scene.clone()}
       position={position}
       rotation={rotation}
+      scale={scale}
+      onPointerEnter={onPointerEnter}
+      onPointerLeave={onPointerLeave}
+      onClick={onClick}
     />
   )
 }

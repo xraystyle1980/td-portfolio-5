@@ -12,6 +12,7 @@
   flex-direction: column;
   justify-content: center;
   padding-left: 4rem;
+  pointer-events: none;
 }
 
 .sceneSide {
@@ -26,14 +27,14 @@
   position: absolute;
   inset: 0;
   z-index: 0;
-  pointer-events: none;
+  pointer-events: auto;
 }
 
 .content {
   text-align: left;
-  z-index: 20;
   position: relative;
   max-width: 90%;
+  pointer-events: none;
 }
 
 .content h1 {
@@ -46,6 +47,7 @@
   font-style: normal;
   font-weight: 400;
   line-height: 85%;
+  pointer-events: none;
 }
 
 .heroText {
@@ -55,6 +57,7 @@
   font-style: normal;
   font-weight: 400;
   line-height: 134%;
+  pointer-events: none;
 }
 
 /* .content p {
