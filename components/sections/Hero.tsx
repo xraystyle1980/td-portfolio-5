@@ -112,21 +112,20 @@ export default function Hero() {
     <section className={styles.hero}>
       <div className={styles.contentSide}>
         <div className={styles.content}>
-          <h1>Build cool shit.</h1>
-          <p className={styles.heroText}>I'm Matt Trice, an Atlanta-based product designer. Let's work together and build cool shit.</p>
-        </div>
-        
-        <div className={styles.shapes}>
-          <FloatingShape src="/shapes/circle.svg" className={styles.shape1} fromLeft={true} />
-          <FloatingShape src="/shapes/triangle.svg" className={styles.shape2} fromLeft={false} />
-          <FloatingShape src="/shapes/square.svg" className={styles.shape3} fromLeft={true} />
-          <MotionShape src="/shapes/circle.svg" className={styles.shape4} />
+          <h1>
+            Build cool<br />
+            shit.
+          </h1>
+          <p className={styles.heroText}>
+            I'm Matt Trice, an Atlanta-based product designer. Let's work together and build cool shit.
+          </p>
         </div>
       </div>
-
       <div className={styles.sceneSide}>
-        <Scene />
+        <div className={styles.scene3d}>
+          <Scene />
+        </div>
       </div>
     </section>
-  );
+  )
 }
