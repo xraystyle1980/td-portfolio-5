@@ -2,6 +2,7 @@
   position: relative;
   min-height: 100vh;
   display: flex;
+  overflow: hidden;
 }
 
 .contentSide {
@@ -20,6 +21,8 @@
   width: 100vw;
   left: 0;
   z-index: 0;
+  height: 100%;
+  overflow: hidden;
 }
 
 .scene3d {
@@ -27,6 +30,7 @@
   inset: 0;
   z-index: 0;
   pointer-events: auto;
+  height: 100%;
 }
 
 .content {
@@ -76,7 +80,7 @@
 
   .heroText {
     font-size: 1.75rem;
-    width: 70%;
+    width: 100%;
   }
 
   .logo {
@@ -177,11 +181,12 @@
   margin: 0 -0.3em;
   font-family: var(--font-caveat);
   transform: rotate(-5deg);
+  letter-spacing: -2px;
 }
 
 .caret {
   position: absolute;
-  bottom: -0.6em;
+  bottom: -0.75em;
   left: 50%;
   transform: translateX(-50%);
   color: #FF0000;
@@ -200,7 +205,7 @@
   
   .caret {
     font-size: 1.2em;
-    bottom: -0.5em;
+    bottom: -0.775em;
   }
 }
 
@@ -214,7 +219,7 @@
   
   .caret {
     font-size: 1em;
-    bottom: -0.4em;
+    bottom: -0.675em;
   }
 }
 
@@ -244,5 +249,9 @@
   font-weight: 900;
   line-height: 85%;
   margin-bottom: 2rem;
+}
+
+.noBreak {
+  white-space: nowrap;
 }
  

@@ -4,7 +4,7 @@ import styles from './WorkTogether.module.css'
 
 export default function WorkTogether() {
   return (
-    <section className={styles.workTogether}>
+    <section id="contact" className={styles.workTogether}>
       <div className={styles.container}>
         <h2>Let's Work Together</h2>
         <div className={styles.content}>

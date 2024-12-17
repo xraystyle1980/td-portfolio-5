@@ -5,6 +5,7 @@ import Scene from '@/components/3d/Scene';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
 import { Caveat } from 'next/font/google';
+import Navigation from '@/components/Navigation'
 
 const caveat = Caveat({
   subsets: ['latin'],
@@ -15,6 +16,7 @@ const caveat = Caveat({
 export default function Hero() {
   return (
     <section className={styles.hero}>
+      <Navigation />
       <div className={styles.contentSide}>
         <div className={styles.content}>
           <div className={styles.logo}>
@@ -24,16 +26,19 @@ export default function Hero() {
             Build cool shit.
           </h1>
           <p className={styles.heroText}>
-            I'm Matt Trice, an Atlanta-based product designer. Let's work together and build{' '}
-            <span 
-              className={`${styles.highlight} ${caveat.className}`}
-              aria-label="cool"
-              role="text"
-            >
-              cool
-              <span aria-hidden="true" className={styles.caret}>^</span>
-            </span>
-            {' '}shit.
+            I'm Matt Trice, an Atlanta-based product designer. Let's work together &{' '}
+            <span className={styles.noBreak}>
+              build{' '}
+              <span 
+                className={`${styles.highlight} ${caveat.className}`}
+                aria-label="cool"
+                role="text"
+              >
+                cool
+                <span aria-hidden="true" className={styles.caret}>^</span>
+              </span>
+              {' '}shit
+            </span>.
           </p>
         </div>
       </div>

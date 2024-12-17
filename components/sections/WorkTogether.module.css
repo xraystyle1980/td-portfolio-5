@@ -3,6 +3,8 @@
   background-color: #FAF4F0;
   display: flex;
   align-items: center;
+  position: relative;
+  z-index: 1;
 }
 
 .container {
