@@ -6,6 +6,15 @@
   z-index: 2;
 }
 
+.viewport {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  padding-top: clamp(3rem, 5vh, 5rem);
+  display: flex;
+  z-index: 1;
+}
+
 .contentSide {
   width: 100%;
   position: relative;
@@ -14,12 +23,13 @@
   justify-content: center;
   padding-left: 4rem;
   pointer-events: none;
+  height: 100%;
 }
 
 .sceneSide {
   position: absolute;
   inset: 0;
-  width: 100vw;
+  width: 100%;
   left: 0;
   z-index: 0;
   height: 100%;
@@ -35,9 +45,11 @@
 .content {
   text-align: left;
   position: relative;
-  max-width: 90%;
+  max-width: 95%;
+  width: 100%;
   pointer-events: none;
   z-index: 1;
+  padding: clamp(1rem, 3vh, 3rem) 0;
 }
 
 .content h1 {
@@ -46,11 +58,11 @@
   -webkit-text-stroke-width: 0.1875rem;
   -webkit-text-stroke-color: #000;
   font-family: Bilgres;
-  font-size: 12.75rem;
   font-style: normal;
   font-weight: 400;
   line-height: 85%;
   pointer-events: none;
+  font-size: 15rem;
 }
 
 .heroText {
@@ -68,24 +80,21 @@
 /* Tablet styles */
 @media (max-width: 1024px) {
   .contentSide {
-    padding-left: 2rem;
+    padding-left: clamp(1rem, 4vw, 4rem);
   }
 
-  .content h1 {
-    font-size: 8rem;
-    text-shadow: -0.5rem 0.5rem 0px #000;
-    line-height: 75%;
+  .content {
+    max-width: 100%;
   }
 
   .heroText {
-    font-size: 1.75rem;
     width: 100%;
   }
 
-  .logo {
-    font-size: 2.5rem;
-    text-shadow: -0.125rem 0.125rem 0px #000;
-    -webkit-text-stroke-width: 0.125rem;
+  .content h1 {
+    text-shadow: clamp(-0.25rem, -1.5vw, -0.5rem)
+                 clamp(0.25rem, 1.5vw, 0.5rem)
+                 0px #000;
   }
 }
 
@@ -96,24 +105,8 @@
   }
 
   .contentSide {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-
-  .content h1 {
-    font-size: 5rem;
-    text-shadow: -0.375rem 0.375rem 0px #000;
-  }
-
-  .heroText {
-    font-size: 1.5rem;
-    width: 100%;
-  }
-
-  .logo {
-    font-size: 2rem;
-    text-shadow: -0.0938rem 0.0938rem 0px #000;
-    -webkit-text-stroke-width: 0.0938rem;
+    padding-left: clamp(1rem, 3vw, 1.5rem);
+    padding-right: clamp(1rem, 3vw, 1.5rem);
   }
 }
 
@@ -248,5 +241,13 @@
   height: auto;
   z-index: 10;
   pointer-events: none;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.heroWord {
+  display: block;
+  width: 100%;
+  line-height: 0.9;
 }
  

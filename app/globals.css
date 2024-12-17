@@ -15,6 +15,7 @@
     @apply antialiased;
     background-color: #FAF4F0;
     font-family: 'Source Serif Pro', serif;
+    overflow-x: hidden;
   }
 
   h1 {
