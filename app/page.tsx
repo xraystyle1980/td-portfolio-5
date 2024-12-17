@@ -7,7 +7,6 @@ import Footer from '@/components/sections/Footer'
 import Project from '@/components/sections/Project'
 import UIDesign from '@/components/sections/UIDesign'
 import Playground from '@/components/sections/Playground'
-import WaveBorder from '@/components/sections/WaveBorder'
 import Section from '@/components/sections/Section'
 
 export default function Home() {

@@ -7,6 +7,7 @@ import { Suspense, useRef, useState, useMemo, memo, useEffect } from 'react'
 import { Vector3 } from 'three'
 import { Physics, RigidBody, CuboidCollider } from '@react-three/rapier'
 import type { RigidBody as RigidBodyType } from '@dimforge/rapier3d-compat'
+import styles from './Scene.module.css'
 
 // Optimize physics constants
 const DAMPING = 0.95
@@ -156,33 +157,30 @@ const GridFloor = memo(() => (
 ))
 GridFloor.displayName = 'GridFloor'
 
+const CANVAS_CONFIG = {
+  frameloop: "demand" as const,
+  dpr: [1, 2] as [number, number],
+  camera: {
+    position: [-40, 30, 60] as [number, number, number],
+    fov: 45
+  },
+  performance: {
+    min: 0.5,
+    max: 1,
+    debounce: 200
+  },
+  gl: {
+    powerPreference: "high-performance" as const,
+    antialias: true,
+    alpha: true
+  }
+} as const;
+
 export default function Scene() {
   return (
     <Canvas
-      camera={{ 
-        position: [-40, 30, 60],
-        fov: 45
-      }}
-      style={{
-        width: '100%',
-        height: '100%',
-        position: 'absolute',
-        left: 0,
-        top: 0,
-        background: 'transparent'
-      }}
-      frameloop="demand"
-      dpr={[1, 2]}
-      performance={{
-        min: 0.5,
-        max: 1,
-        debounce: 200
-      }}
-      gl={{
-        powerPreference: "high-performance",
-        antialias: true,
-        alpha: true
-      }}
+      className={styles.canvas}
+      {...CANVAS_CONFIG}
     >
       <Suspense fallback={null}>
         <Stats className="stats-panel" />

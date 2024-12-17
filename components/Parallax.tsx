@@ -1,70 +1,51 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import styles from './Parallax.module.css'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/dist/ScrollTrigger'
 
 export default function Parallax() {
-  const aboutRef = useRef(null)
-  const contactRef = useRef(null)
+  const parallaxRef = useRef(null)
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      gsap.registerPlugin(ScrollTrigger)
+    if (typeof window === 'undefined') return;
+    
+    gsap.registerPlugin(ScrollTrigger)
+    
+    // Wait for DOM to be ready
+    const initParallax = () => {
+      const aboutSection = document.getElementById('about')
+      if (!aboutSection || !parallaxRef.current) return;
+
+      const ctx = gsap.context(() => {
+        gsap.to(parallaxRef.current, {
+          scrollTrigger: {
+            trigger: aboutSection,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: true,
+            // markers: true, // Uncomment for debugging
+          },
+          y: -100,
+          ease: 'none'
+        })
+      })
+
+      return () => ctx.revert()
     }
 
-    const ctx = gsap.context(() => {
-      // Set initial state
-      gsap.set('.aboutShape', { y: 200, opacity: 0 })
-      gsap.set('.contactShape', { y: 200, opacity: 0 })
-
-      // About section shapes
-      gsap.to('.aboutShape', {
-        y: -100,
-        opacity: 1,
-        duration: 1,
-        stagger: 0.3,
-        scrollTrigger: {
-          trigger: '#about',
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 1.5,
-          markers: true,
-          toggleActions: 'play none none reverse'
-        }
-      } as gsap.TweenVars)
-
-      // Contact section shapes
-      gsap.to('.contactShape', {
-        y: -100,
-        opacity: 1,
-        duration: 1,
-        stagger: 0.3,
-        scrollTrigger: {
-          trigger: '#contact',
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 1.5,
-          markers: true,
-          toggleActions: 'play none none reverse'
-        }
-      } as gsap.TweenVars)
-    })
-
-    return () => ctx.revert()
+    // Small delay to ensure DOM is ready
+    const timer = setTimeout(initParallax, 100)
+    
+    return () => {
+      clearTimeout(timer)
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill())
+    }
   }, [])
 
   return (
-    <>
-      <div ref={aboutRef} className={styles.aboutShapes}>
-        <div className={`${styles.shape} ${styles.aboutShape} aboutShape`}></div>
-        <div className={`${styles.shape} ${styles.aboutShape} aboutShape`}></div>
-      </div>
-      <div ref={contactRef} className={styles.contactShapes}>
-        <div className={`${styles.shape} ${styles.contactShape} contactShape`}></div>
-        <div className={`${styles.shape} ${styles.contactShape} contactShape`}></div>
-      </div>
-    </>
+    <div ref={parallaxRef}>
+      {/* Your parallax content */}
+    </div>
   )
 } 

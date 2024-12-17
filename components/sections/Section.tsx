@@ -1,5 +1,3 @@
-import WaveBorder from './WaveBorder'
-
 interface SectionProps {
   children: React.ReactNode;
   isDark?: boolean;
