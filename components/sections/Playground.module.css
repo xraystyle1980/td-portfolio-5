@@ -1,0 +1,59 @@
+.playground {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  background-color: #FAF4F0;
+  color: #000;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.content {
+  margin-top: 2rem;
+}
+
+.container h2 {
+  font-family: Bilgres;
+  font-size: 4rem;
+  line-height: 1;
+}
+
+.experiments {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.experiment {
+  padding: 2rem;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.experiment:hover {
+  transform: translateY(-5px);
+}
+
+.experiment h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .experiments {
+    grid-template-columns: 1fr;
+  }
+
+  .container h2 {
+    font-size: 3rem;
+  }
+} 

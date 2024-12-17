@@ -1,0 +1,68 @@
+.project {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  background-color: #000;
+  color: #FAF4F0;
+}
+
+.project.inverted {
+  background-color: #FAF4F0;
+  color: #000;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+}
+
+.inverted .container {
+  flex-direction: row-reverse;
+}
+
+.content {
+  flex: 1;
+}
+
+.content h2 {
+  font-family: Bilgres;
+  font-size: 4rem;
+  line-height: 1;
+  margin-bottom: 2rem;
+}
+
+.content p {
+  font-size: 1.25rem;
+  line-height: 1.6;
+}
+
+.imageContainer {
+  flex: 1;
+}
+
+.imageContainer img {
+  width: 100%;
+  height: auto;
+  border-radius: 1rem;
+}
+
+@media (max-width: 1024px) {
+  .container {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .inverted .container {
+    flex-direction: column;
+  }
+
+  .content h2 {
+    font-size: 3rem;
+  }
+} 

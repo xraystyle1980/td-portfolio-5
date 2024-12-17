@@ -25,7 +25,7 @@ export default function Hero() {
             Build cool shit.
           </h1>
           <p className={styles.heroText}>
-            I'm Matt Trice, an Atlanta-based product designer. Let's work together &{' '}
+            I'm Matt Trice, an Atlanta-based product & web designer. Let's work together &{' '}
             <span className={styles.noBreak}>
               build{' '}
               <span 

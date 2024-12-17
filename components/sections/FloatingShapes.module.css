@@ -52,4 +52,45 @@
   position: absolute;
   pointer-events: auto;
   cursor: pointer;
+}
+
+.shapesContainer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.floatingShape {
+  position: absolute;
+  opacity: 0;
+}
+
+.shape {
+  width: 100%;
+  height: auto;
+}
+
+.shape1 {
+  top: 20%;
+  left: 10%;
+  width: 80px;
+}
+
+.shape2 {
+  top: 50%;
+  right: 15%;
+  width: 100px;
+}
+
+.shape3 {
+  bottom: 20%;
+  left: 20%;
+  width: 60px;
+}
+
+@media (max-width: 768px) {
+  .floatingShape {
+    transform: scale(0.7);
+  }
 } 

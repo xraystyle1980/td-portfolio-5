@@ -9,8 +9,8 @@ const caveat = Caveat({
 })
 
 export const metadata: Metadata = {
-  title: "Your Site",
-  description: "Interactive portfolio site",
+  title: 'Matt Trice - Product Designer & Developer',
+  description: 'Atlanta-based product designer and developer specializing in web applications and user interfaces.',
 };
 
 export default function RootLayout({

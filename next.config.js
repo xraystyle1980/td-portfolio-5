@@ -1,8 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ['three', '@react-three/fiber', '@react-three/drei', '@react-three/rapier'],
-  reactStrictMode: true,
-  swcMinify: true,
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /\.(glb|gltf)$/,
+      type: 'asset/resource'
+    })
+    return config
+  },
+  // Only generate the home page
+  generateStaticParams: async () => {
+    return [{ path: [''] }]
+  }
 }
 
 module.exports = nextConfig

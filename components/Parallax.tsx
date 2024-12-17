@@ -16,40 +16,40 @@ export default function Parallax() {
 
     const ctx = gsap.context(() => {
       // Set initial state
-      gsap.set('.aboutShape', { y: 100, opacity: 0 })
-      gsap.set('.contactShape', { y: 100, opacity: 0 })
+      gsap.set('.aboutShape', { y: 200, opacity: 0 })
+      gsap.set('.contactShape', { y: 200, opacity: 0 })
 
       // About section shapes
       gsap.to('.aboutShape', {
-        y: 0,
+        y: -100,
         opacity: 1,
         duration: 1,
-        stagger: 0.2,
+        stagger: 0.3,
         scrollTrigger: {
           trigger: '#about',
           start: 'top bottom',
-          end: 'top center',
-          scrub: 1,
+          end: 'bottom top',
+          scrub: 1.5,
           markers: true,
           toggleActions: 'play none none reverse'
         }
-      }, aboutRef.current)
+      } as gsap.TweenVars)
 
       // Contact section shapes
       gsap.to('.contactShape', {
-        y: 0,
+        y: -100,
         opacity: 1,
         duration: 1,
-        stagger: 0.2,
+        stagger: 0.3,
         scrollTrigger: {
           trigger: '#contact',
           start: 'top bottom',
-          end: 'top center',
-          scrub: 1,
+          end: 'bottom top',
+          scrub: 1.5,
           markers: true,
           toggleActions: 'play none none reverse'
         }
-      }, contactRef.current)
+      } as gsap.TweenVars)
     })
 
     return () => ctx.revert()
@@ -60,10 +60,8 @@ export default function Parallax() {
       <div ref={aboutRef} className={styles.aboutShapes}>
         <div className={`${styles.shape} ${styles.aboutShape} aboutShape`}></div>
         <div className={`${styles.shape} ${styles.aboutShape} aboutShape`}></div>
-        <div className={`${styles.shape} ${styles.aboutShape} aboutShape`}></div>
       </div>
       <div ref={contactRef} className={styles.contactShapes}>
-        <div className={`${styles.shape} ${styles.contactShape} contactShape`}></div>
         <div className={`${styles.shape} ${styles.contactShape} contactShape`}></div>
         <div className={`${styles.shape} ${styles.contactShape} contactShape`}></div>
       </div>

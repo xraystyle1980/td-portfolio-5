@@ -1,0 +1,53 @@
+.uiDesign {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  background-color: #000;
+  color: #FAF4F0;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.content {
+  margin-top: 2rem;
+}
+
+.container h2 {
+  font-family: Bilgres;
+  font-size: 4rem;
+  line-height: 1;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.gridItem img {
+  width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.gridItem img:hover {
+  transform: scale(1.02);
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .container h2 {
+    font-size: 3rem;
+  }
+} 

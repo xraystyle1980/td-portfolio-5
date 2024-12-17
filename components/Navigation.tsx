@@ -1,29 +1,30 @@
 'use client'
 
 import styles from './Navigation.module.css'
+import Link from 'next/link'
+import { useEffect, useState } from 'react'
 
 export default function Navigation() {
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id)
-    element?.scrollIntoView({ behavior: 'smooth' })
-  }
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
-    <nav className={styles.nav}>
-      <div className={styles.wrapper}>
+    <nav className={`${styles.nav} ${isScrolled ? styles.scrolled : ''}`}>
+      <div className={styles.container}>
+        <Link href="/" className={styles.logo}>
+          MT
+        </Link>
         <div className={styles.links}>
-          <button 
-            onClick={() => scrollToSection('about')} 
-            className={styles.link}
-          >
-            About
-          </button>
-          <button 
-            onClick={() => scrollToSection('contact')} 
-            className={styles.link}
-          >
-            Contact
-          </button>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
         </div>
       </div>
     </nav>
