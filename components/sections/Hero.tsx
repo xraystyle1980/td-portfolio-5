@@ -2,7 +2,6 @@
 
 import styles from './Hero.module.css';
 import Scene from '@/components/3d/Scene';
-import { motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
 import { Caveat } from 'next/font/google';
 import Navigation from '@/components/Navigation'
