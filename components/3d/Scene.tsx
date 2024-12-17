@@ -1,7 +1,7 @@
 'use client'
 
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { OrbitControls, Preload, Stats } from '@react-three/drei'
+import { OrbitControls, Preload, Stats, Grid } from '@react-three/drei'
 import TokenFace from './TokenFace'
 import { Suspense, useRef, useState, useMemo, memo, useEffect } from 'react'
 import { Vector3 } from 'three'
@@ -138,11 +138,29 @@ const Lights = memo(() => (
 ))
 Lights.displayName = 'Lights'
 
+const GridFloor = memo(() => (
+  <Grid
+    position={[0, 2, 0]}
+    args={[100, 100]}
+    cellSize={5}
+    cellThickness={1}
+    cellColor="#2F1A0C"
+    sectionSize={20}
+    sectionThickness={1.5}
+    sectionColor="#2F1A0C"
+    fadeDistance={150}
+    fadeStrength={1}
+    followCamera={true}
+    infiniteGrid
+  />
+))
+GridFloor.displayName = 'GridFloor'
+
 export default function Scene() {
   return (
     <Canvas
       camera={{ 
-        position: [-60, 80, 30],
+        position: [-40, 30, 60],
         fov: 45
       }}
       style={{
@@ -153,11 +171,29 @@ export default function Scene() {
         top: 0,
         background: 'transparent'
       }}
+      frameloop="demand"
+      dpr={[1, 2]}
+      performance={{
+        min: 0.5,
+        max: 1,
+        debounce: 200
+      }}
+      gl={{
+        powerPreference: "high-performance",
+        antialias: true,
+        alpha: true
+      }}
     >
       <Suspense fallback={null}>
         <Stats className="stats-panel" />
-        <Physics gravity={[0, -0.15, 0]}>
+        <Physics 
+          gravity={[0, -0.15, 0]}
+          timeStep="vary"
+          maxStabilizationIterations={3}
+          maxVelocityIterations={6}
+        >
           <Lights />
+          <GridFloor />
           {TOKEN_POSITIONS.map((position, index) => (
             <PhysicsToken 
               key={index} 
@@ -173,6 +209,9 @@ export default function Scene() {
           enableDamping
           dampingFactor={0.05}
           target={new Vector3(15, 0, -5)}
+          maxPolarAngle={Math.PI / 2}
+          minPolarAngle={Math.PI / 4}
+          enablePan={false}
         />
         <Preload all />
       </Suspense>

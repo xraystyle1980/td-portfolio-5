@@ -20,18 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
-        <div 
-          className="fixed inset-0 z-[-1]"
-          style={{
-            backgroundImage: 'url(/grid-full-screen.png)',
-            backgroundSize: 'contain',
-            backgroundPosition: 'right top',
-            backgroundRepeat: 'no-repeat',
-          }}
-        />
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   )
 }
