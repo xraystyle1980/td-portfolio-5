@@ -4,6 +4,7 @@ import styles from './AboutMe.module.css'
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/dist/ScrollTrigger'
+import Parallax from '../Parallax'
 
 export default function AboutMe() {
   const sectionRef = useRef(null)
@@ -55,6 +56,9 @@ export default function AboutMe() {
         <div ref={contentRef} className={styles.content}>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
         </div>
+      </div>
+      <div className={styles.shapesContainer}>
+        <Parallax />
       </div>
     </section>
   )

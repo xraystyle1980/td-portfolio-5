@@ -4,6 +4,7 @@ import styles from './WorkTogether.module.css'
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/dist/ScrollTrigger'
+import Parallax from '../Parallax'
 
 export default function WorkTogether() {
   const sectionRef = useRef(null)
@@ -55,6 +56,9 @@ export default function WorkTogether() {
         <div ref={contentRef} className={styles.content}>
           <p>Ready to start a project? Let's talk about your ideas and make them reality.</p>
         </div>
+      </div>
+      <div className={styles.shapesContainer}>
+        <Parallax />
       </div>
     </section>
   )

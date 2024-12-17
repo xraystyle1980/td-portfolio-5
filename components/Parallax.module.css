@@ -1,0 +1,64 @@
+.aboutShapes,
+.contactShapes {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.shape {
+  position: absolute;
+  background: rgba(255, 51, 153, 0.1);
+  border: 2px solid #F39;
+  border-radius: 50%;
+}
+
+.aboutShape:nth-child(1) {
+  top: 10%;
+  left: 10%;
+  width: 120px;
+  height: 120px;
+}
+
+.aboutShape:nth-child(2) {
+  top: 50%;
+  right: 15%;
+  width: 80px;
+  height: 80px;
+}
+
+.aboutShape:nth-child(3) {
+  bottom: 20%;
+  left: 30%;
+  width: 100px;
+  height: 100px;
+}
+
+.contactShape:nth-child(1) {
+  top: 20%;
+  right: 10%;
+  width: 100px;
+  height: 100px;
+}
+
+.contactShape:nth-child(2) {
+  top: 60%;
+  left: 15%;
+  width: 150px;
+  height: 150px;
+}
+
+.contactShape:nth-child(3) {
+  bottom: 10%;
+  right: 30%;
+  width: 90px;
+  height: 90px;
+}
+
+@media (max-width: 768px) {
+  .shape {
+    transform: scale(0.7);
+  }
+} 
