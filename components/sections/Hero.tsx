@@ -17,6 +17,9 @@ export default function Hero() {
     <section className={styles.hero}>
       <div className={styles.contentSide}>
         <div className={styles.content}>
+          <div className={styles.logo}>
+            Trice.Design
+          </div>
           <h1>
             Build cool shit.
           </h1>

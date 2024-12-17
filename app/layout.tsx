@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navigation from '@/components/Navigation'
 import { Caveat } from 'next/font/google'
 
 const caveat = Caveat({
@@ -31,7 +30,6 @@ export default function RootLayout({
             backgroundRepeat: 'no-repeat',
           }}
         />
-        <Navigation />
         {children}
       </body>
     </html>

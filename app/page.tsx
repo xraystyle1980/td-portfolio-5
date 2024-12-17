@@ -1,14 +1,16 @@
 'use client'
 
 import Hero from '@/components/sections/Hero'
-import FloatingShapes from '@/components/sections/FloatingShapes'
+import AboutMe from '@/components/sections/AboutMe'
+import WorkTogether from '@/components/sections/WorkTogether'
 import Footer from '@/components/sections/Footer'
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen">
+    <main className="relative">
       <Hero />
-      <FloatingShapes />
+      <AboutMe />
+      <WorkTogether />
       <Footer />
     </main>
   )
