@@ -189,8 +189,9 @@ export default function Scene() {
         <Physics 
           gravity={[0, -0.15, 0]}
           timeStep="vary"
-          maxStabilizationIterations={3}
-          maxVelocityIterations={6}
+          interpolate={false}
+          colliders={false}
+          maxCcdSubsteps={2}
         >
           <Lights />
           <GridFloor />

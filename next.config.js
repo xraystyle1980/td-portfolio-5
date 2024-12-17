@@ -6,10 +6,6 @@ const nextConfig = {
       type: 'asset/resource'
     })
     return config
-  },
-  // Only generate the home page
-  generateStaticParams: async () => {
-    return [{ path: [''] }]
   }
 }
 
