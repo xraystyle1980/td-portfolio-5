@@ -7,12 +7,18 @@ import Footer from '@/components/sections/Footer'
 import Project from '@/components/sections/Project'
 import UIDesign from '@/components/sections/UIDesign'
 import Playground from '@/components/sections/Playground'
+import WaveBorder from '@/components/sections/WaveBorder'
+import Section from '@/components/sections/Section'
 
 export default function Home() {
   return (
     <main className="relative">
-      <Hero />
-      <AboutMe />
+      <Section hasWaveBorder>
+        <Hero />
+      </Section>
+      <Section isDark>
+        <AboutMe />
+      </Section>
       <Project 
         title="Decent"
         description="A decentralized content platform built on Arweave. Built with Next.js, TypeScript, and Tailwind."

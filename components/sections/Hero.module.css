@@ -222,20 +222,6 @@
   }
 }
 
-.waveBorder {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100vw;
-  height: 49px;  /* Match SVG height */
-  background-image: url('/waveborder.svg');
-  background-repeat: no-repeat;
-  background-position: center bottom;
-  background-size: 100% auto;
-  pointer-events: none;
-}
-
 .logo {
   color: #FFF;
   text-shadow: -3px 3px 0px #000;
@@ -252,5 +238,15 @@
 
 .noBreak {
   white-space: nowrap;
+}
+
+.waveBorder {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  z-index: 10;
+  pointer-events: none;
 }
  

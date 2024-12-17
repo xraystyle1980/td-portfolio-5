@@ -46,7 +46,12 @@ export default function Hero() {
           <Scene />
         </div>
       </div>
-      <div className={styles.waveBorder} aria-hidden="true" />
+      <img 
+        src="/waveborder.svg"
+        alt=""
+        className={styles.waveBorder}
+        aria-hidden="true"
+      />
     </section>
   )
 }
