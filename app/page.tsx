@@ -13,7 +13,7 @@ import Section from '@/components/sections/Section'
 export default function Home() {
   return (
     <main className="relative">
-      <Section hasWaveBorder>
+      <Section>
         <Hero />
       </Section>
       <Section isDark>

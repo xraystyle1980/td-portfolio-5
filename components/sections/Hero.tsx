@@ -5,6 +5,11 @@ import Scene from '@/components/3d/Scene';
 import Image from 'next/image';
 import { Caveat } from 'next/font/google';
 import Navigation from '@/components/Navigation'
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const caveat = Caveat({
   subsets: ['latin'],
@@ -13,6 +18,27 @@ const caveat = Caveat({
 });
 
 export default function Hero() {
+  const waveRef = useRef<HTMLImageElement>(null);
+
+  useEffect(() => {
+    if (!waveRef.current) return;
+
+    gsap.to(waveRef.current, {
+      scale: 2.5,
+      scrollTrigger: {
+        trigger: waveRef.current,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1,
+        // markers: true, // Uncomment for debugging
+      }
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+  }, []);
+
   return (
     <section className={styles.hero}>
       <Navigation />
@@ -47,6 +73,7 @@ export default function Hero() {
         </div>
       </div>
       <img 
+        ref={waveRef}
         src="/waveborder.svg"
         alt=""
         className={styles.waveBorder}
