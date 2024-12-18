@@ -216,14 +216,15 @@ const GridFloor = memo(() => (
     args={[100, 100]}
     cellSize={5}
     cellThickness={1}
-    cellColor="#EFE8E4"
+    cellColor="#000000"
     sectionSize={20}
     sectionThickness={1}
-    sectionColor="#EFE8E4"
+    sectionColor="#000000"
     fadeDistance={150}
     fadeStrength={1}
     followCamera={true}
     infiniteGrid
+    opacity={0.35}
   />
 ))
 GridFloor.displayName = 'GridFloor'
