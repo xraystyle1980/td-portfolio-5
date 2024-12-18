@@ -1,45 +1,33 @@
 .hero {
   position: relative;
   min-height: 100vh;
-  display: flex;
   overflow: hidden;
-  z-index: 2;
 }
 
-.viewport {
+.heroContent {
   position: relative;
   width: 100%;
-  height: 100vh;
-  padding-top: clamp(3rem, 5vh, 5rem);
-  display: flex;
-  z-index: 1;
+  height: calc(100vh - 80px); /* Account for navigation height */
+  margin-top: 80px; /* Space for navigation */
 }
 
-.contentSide {
-  width: 100%;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-left: 4rem;
-  pointer-events: none;
-  height: 100%;
-}
-
-.sceneSide {
+.sceneContainer {
   position: absolute;
   inset: 0;
   width: 100%;
-  left: 0;
-  z-index: 0;
   height: 100%;
-  overflow: hidden;
+  pointer-events: auto;
+  z-index: 1;
 }
 
-.scene3d {
+.contentOverlay {
   position: relative;
-  width: 100%;
-  height: 100vh;
+  z-index: 3;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding-left: 4rem;
+  pointer-events: none;
 }
 
 .content {
@@ -48,8 +36,21 @@
   max-width: 95%;
   width: 100%;
   pointer-events: none;
-  z-index: 1;
   padding: clamp(1rem, 3vh, 3rem) 0;
+}
+
+.logo {
+  color: #FFF;
+  text-shadow: -3px 3px 0px #000;
+  paint-order: stroke fill;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: #000;
+  font-family: "Source Serif Pro";
+  font-size: 3rem;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 85%;
+  margin-bottom: 2rem;
 }
 
 .content h1 {
@@ -79,10 +80,6 @@
 
 /* Tablet styles */
 @media (max-width: 1024px) {
-  .contentSide {
-    padding-left: clamp(1rem, 4vw, 4rem);
-  }
-
   .content {
     max-width: 100%;
   }
@@ -215,20 +212,6 @@
   }
 }
 
-.logo {
-  color: #FFF;
-  text-shadow: -3px 3px 0px #000;
-  paint-order: stroke fill;
-  -webkit-text-stroke-width: 2px;
-  -webkit-text-stroke-color: #000;
-  font-family: "Source Serif Pro";
-  font-size: 3rem;
-  font-style: normal;
-  font-weight: 900;
-  line-height: 85%;
-  margin-bottom: 2rem;
-}
-
 .noBreak {
   white-space: nowrap;
 }
@@ -239,7 +222,7 @@
   left: 0;
   width: 100%;
   height: auto;
-  z-index: 10;
+  z-index: 4;
   pointer-events: none;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;

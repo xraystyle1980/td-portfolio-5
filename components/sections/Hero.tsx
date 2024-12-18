@@ -42,8 +42,14 @@ export default function Hero() {
   return (
     <section className={styles.hero}>
       <Navigation />
-      <div className={styles.viewport}>
-        <div className={styles.contentSide}>
+      <div className={styles.heroContent}>
+        {/* 3D Scene as background */}
+        <div className={styles.sceneContainer}>
+          <Scene />
+        </div>
+        
+        {/* Content overlay */}
+        <div className={styles.contentOverlay}>
           <div className={styles.content} ref={containerRef}>
             <div className={styles.logo}>
               Trice.Design
@@ -63,11 +69,7 @@ export default function Hero() {
           </div>
         </div>
       </div>
-      <div className={styles.sceneSide}>
-        <div className={styles.scene3d}>
-          <Scene />
-        </div>
-      </div>
+      
       <img 
         ref={waveRef}
         src="/waveborder.svg"

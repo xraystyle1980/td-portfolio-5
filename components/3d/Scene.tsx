@@ -9,43 +9,39 @@ import { Physics, RigidBody, CuboidCollider } from '@react-three/rapier'
 import type { RigidBody as RigidBodyType } from '@dimforge/rapier3d-compat'
 import styles from './Scene.module.css'
 
-// Adjust constants for stronger cursor interaction
-const DAMPING = 0.65
-const RESTITUTION = 0.8
-const FLOAT_FORCE = 0.06
-const REPULSION_RADIUS = 200        // Much larger radius
-const REPULSION_FORCE = 1200        // Dramatically stronger repulsion
-const ATTRACTION_FORCE = 0.05
-const MAGNETIC_RADIUS = 50
-const MAGNETIC_FORCE = 25          // Reduced magnetic force to let repulsion dominate
-const CLICK_FORCE = 2000           // Much stronger click force
-const CLICK_RADIUS = 250           // Much larger click radius
+// Adjust constants for more dramatic repulsion
+const DAMPING = 0.95               // Slightly less damping for more movement
+const RESTITUTION = 0.2           // More bounce
+const FLOAT_FORCE = 0.01          // Keep gentle float
+const REPULSION_RADIUS = 200       // Much larger radius for dramatic effect
+const REPULSION_FORCE = 500        // Much stronger repulsion
+const ATTRACTION_FORCE = 0.02      
+const MAGNETIC_RADIUS = 40         // Larger magnetic radius
+const MAGNETIC_FORCE = 20          // Stronger magnetic force
+const CLICK_FORCE = 1000          // Much stronger click force
+const CLICK_RADIUS = 250          // Larger click radius
 const RESET_DURATION = 1.5
 const CYCLE_DURATION = 10
 const TRANSITION_DURATION = 1.5
+const RETURN_FORCE = 0.6           // Reduced to be more gentle
+const RETURN_RADIUS = 400          // Increased to allow more spread
 
-// Move tokens even further right and more spread out
-const TOKEN_POSITIONS = Array.from({ length: 12 }, () => [
-  45 + Math.random() * 40,   // x: shifted further right (45 to 85)
-  10 + Math.random() * 30,   // y: same vertical spread (10 to 40)
-  15 + Math.random() * 20    // z: same depth (15 to 35)
+// Spread tokens out more widely
+const TOKEN_POSITIONS = Array.from({ length: 24 }, () => [
+  65 + Math.random() * 60,    // x: wider spread (35 to 95)
+  25 + Math.random() * 25,    // y: more vertical spread (15 to 40)
+  -10 + Math.random() * 50    // z: much more depth (-10 to 40)
 ] as const)
 
 const PhysicsToken = ({ position }: { position: readonly [number, number, number] }) => {
   const rigidBodyRef = useRef<RigidBodyType>(null)
   const timeOffset = useRef(Math.random() * Math.PI * 2)
-  const originalPosition = useRef(new Vector3(...position))
-  const isResetting = useRef(false)
-  const resetStartTime = useRef(0)
-  const resetStartPosition = useRef(new Vector3())
   const { camera } = useThree()
   const [mousePos] = useState(new Vector3())
   const [repulsionPoint] = useState(new Vector3())
   const [isClicked, setIsClicked] = useState(false)
-  const isScatterPhase = useRef(false)  // Track which phase we're in
 
   useThree(({ gl }) => {
-    // Add click listener to canvas
     gl.domElement.addEventListener('mousedown', () => setIsClicked(true))
     gl.domElement.addEventListener('mouseup', () => setIsClicked(false))
   })
@@ -55,151 +51,133 @@ const PhysicsToken = ({ position }: { position: readonly [number, number, number
     const time = state.clock.elapsedTime
     const currentPos = rigidBodyRef.current.translation()
 
-    // Check for phase change every CYCLE_DURATION seconds
-    if (Math.floor(time / CYCLE_DURATION) % 2 === 0 && isScatterPhase.current) {
-      // Time to return to original position
-      isScatterPhase.current = false
-      isResetting.current = true
-      resetStartTime.current = time
-      resetStartPosition.current.set(currentPos.x, currentPos.y, currentPos.z)
-    } else if (Math.floor(time / CYCLE_DURATION) % 2 === 1 && !isScatterPhase.current) {
-      // Time to scatter
-      isScatterPhase.current = true
-    }
+    // Debug current token position
+    console.log('Token Position:', currentPos, 'Mouse:', state.mouse)
 
-    // Handle return to original position animation
-    if (isResetting.current) {
-      const elapsed = time - resetStartTime.current
-      const progress = Math.min(elapsed / TRANSITION_DURATION, 1)
-      
-      const eased = 1 - Math.pow(1 - progress, 3)
-      
-      const newX = resetStartPosition.current.x + (originalPosition.current.x - resetStartPosition.current.x) * eased
-      const newY = resetStartPosition.current.y + (originalPosition.current.y - resetStartPosition.current.y) * eased
-      const newZ = resetStartPosition.current.z + (originalPosition.current.z - resetStartPosition.current.z) * eased
-      
-      rigidBodyRef.current.setTranslation({ x: newX, y: newY, z: newZ }, true)
-      
-      if (progress === 1) {
-        isResetting.current = false
-        rigidBodyRef.current.setLinvel({ x: 0, y: 0, z: 0 }, true)
-      }
-      
-      return  // Skip other physics during reset
-    }
+    // Magnetic effect
+    const allTokens = Object.values(state.scene.children)
+      .find(child => child.name === 'Physics')
+      ?.children
+      .filter(child => {
+        if (!rigidBodyRef.current) return true
+        
+        const currentPos = rigidBodyRef.current.translation()
+        const childPos = child.position
+        
+        return (childPos.x !== currentPos.x || 
+                childPos.y !== currentPos.y || 
+                childPos.z !== currentPos.z) && 
+                child.name.includes('RigidBody')
+      }) || []
 
-    // Only apply physics forces during scatter phase
-    if (isScatterPhase.current) {
-      // Magnetic effect
-      const allTokens = Object.values(state.scene.children)
-        .find(child => child.name === 'Physics')
-        ?.children
-        .filter(child => {
-          if (!rigidBodyRef.current) return true
-          
-          // Get current position inside the filter
-          const currentPos = rigidBodyRef.current.translation()
-          const childPos = child.position
-          
-          // Check if it's a different object at a different position
-          return (childPos.x !== currentPos.x || 
-                  childPos.y !== currentPos.y || 
-                  childPos.z !== currentPos.z) && 
-                  child.name.includes('RigidBody')
-        }) || []
+    // Apply magnetic attraction to nearby tokens
+    allTokens.forEach(token => {
+      const tokenPos = token.position
+      const distanceToToken = new Vector3(currentPos.x, currentPos.y, currentPos.z)
+        .distanceTo(tokenPos)
 
-      // Apply magnetic attraction to nearby tokens
-      allTokens.forEach(token => {
-        const tokenPos = token.position
-        const distanceToToken = new Vector3(currentPos.x, currentPos.y, currentPos.z)
-          .distanceTo(tokenPos)
-
-        if (distanceToToken < MAGNETIC_RADIUS) {
-          const attractionDirection = new Vector3(
-            tokenPos.x - currentPos.x,
-            tokenPos.y - currentPos.y,
-            tokenPos.z - currentPos.z
-          ).normalize()
-
-          const attractionStrength = 
-            Math.pow(1 - distanceToToken / MAGNETIC_RADIUS, 2) * MAGNETIC_FORCE
-
-          rigidBodyRef.current?.applyImpulse({
-            x: attractionDirection.x * attractionStrength,
-            y: attractionDirection.y * attractionStrength * 0.3, // Reduced vertical attraction
-            z: attractionDirection.z * attractionStrength
-          }, true)
-        }
-      })
-
-      // Enhanced cursor repulsion with stronger effect
-      const vector = new Vector3()
-      vector.set(
-        (state.mouse.x * 2) - 1,
-        -(state.mouse.y * 2) + 1,
-        0.5
-      )
-      vector.unproject(camera)
-      const dir = vector.sub(camera.position).normalize()
-      const distance = -camera.position.z / dir.z
-      mousePos.copy(camera.position).add(dir.multiplyScalar(distance))
-
-      repulsionPoint.copy(mousePos)
-      const distanceToMouse = new Vector3(currentPos.x, currentPos.y, currentPos.z)
-        .distanceTo(repulsionPoint)
-
-      if (distanceToMouse < REPULSION_RADIUS) {
-        const repulsionDirection = new Vector3(
-          currentPos.x - repulsionPoint.x,
-          currentPos.y - repulsionPoint.y,
-          currentPos.z - repulsionPoint.z
+      if (distanceToToken < MAGNETIC_RADIUS) {
+        const attractionDirection = new Vector3(
+          tokenPos.x - currentPos.x,
+          tokenPos.y - currentPos.y,
+          tokenPos.z - currentPos.z
         ).normalize()
 
-        // More dramatic falloff curve
-        const repulsionStrength = 
-          Math.pow(1 - distanceToMouse / REPULSION_RADIUS, 4) * 
-          REPULSION_FORCE * 
-          (isClicked ? 5 : 1)  // Even stronger click multiplier
+        const attractionStrength = 
+          Math.pow(1 - distanceToToken / MAGNETIC_RADIUS, 2) * MAGNETIC_FORCE
+
+        rigidBodyRef.current?.applyImpulse({
+          x: attractionDirection.x * attractionStrength,
+          y: attractionDirection.y * attractionStrength * 0.3,
+          z: attractionDirection.z * attractionStrength
+        }, true)
+      }
+    })
+
+    /* Temporarily disabled cursor repulsion
+    // Cursor repulsion
+    const vector = new Vector3()
+    vector.set(
+      (state.mouse.x * 2) - 1,
+      -(state.mouse.y * 2) + 1,
+      0.5
+    )
+    vector.unproject(camera)
+    const dir = vector.sub(camera.position).normalize()
+    const distance = -camera.position.z / dir.z
+    mousePos.copy(camera.position).add(dir.multiplyScalar(distance))
+
+    mousePos.add(new Vector3(45, 15, 10))
+
+    repulsionPoint.copy(mousePos)
+    const distanceToMouse = new Vector3(currentPos.x, currentPos.y, currentPos.z)
+      .distanceTo(repulsionPoint)
+
+    if (distanceToMouse < REPULSION_RADIUS) {
+      const repulsionDirection = new Vector3(
+        currentPos.x - repulsionPoint.x,
+        currentPos.y - repulsionPoint.y,
+        currentPos.z - repulsionPoint.z
+      ).normalize()
+
+      const repulsionStrength = 
+        Math.pow(1 - distanceToMouse / REPULSION_RADIUS, 4) * 
+        REPULSION_FORCE * 
+        (isClicked ? 5 : 1)
+
+      rigidBodyRef.current.applyImpulse({
+        x: repulsionDirection.x * repulsionStrength,
+        y: repulsionDirection.y * repulsionStrength,
+        z: repulsionDirection.z * repulsionStrength
+      }, true)
+
+      if (isClicked && distanceToMouse < CLICK_RADIUS) {
+        const explosionStrength = 
+          Math.pow(1 - distanceToMouse / CLICK_RADIUS, 3) * CLICK_FORCE
 
         rigidBodyRef.current.applyImpulse({
-          x: repulsionDirection.x * repulsionStrength,
-          y: repulsionDirection.y * repulsionStrength,  // Full vertical effect
-          z: repulsionDirection.z * repulsionStrength
+          x: repulsionDirection.x * explosionStrength,
+          y: Math.abs(repulsionDirection.y) * explosionStrength * 1.5,
+          z: repulsionDirection.z * explosionStrength
         }, true)
-
-        // More dramatic click explosion
-        if (isClicked && distanceToMouse < CLICK_RADIUS) {
-          const explosionStrength = 
-            Math.pow(1 - distanceToMouse / CLICK_RADIUS, 3) * CLICK_FORCE
-
-          rigidBodyRef.current.applyImpulse({
-            x: repulsionDirection.x * explosionStrength,
-            y: Math.abs(repulsionDirection.y) * explosionStrength * 1.5,  // Stronger upward boost
-            z: repulsionDirection.z * explosionStrength
-          }, true)
-        }
       }
-
-      // Floating motion with reduced return force during scatter
-      rigidBodyRef.current.applyImpulse(
-        {
-          x: Math.cos(time + timeOffset.current) * FLOAT_FORCE * 1.2,
-          y: Math.sin(time + timeOffset.current) * FLOAT_FORCE * 1.5,
-          z: Math.sin(time * 0.7 + timeOffset.current) * FLOAT_FORCE * 0.8
-        },
-        true
-      )
-    } else {
-      // During gather phase, just apply gentle floating
-      rigidBodyRef.current.applyImpulse(
-        {
-          x: Math.cos(time + timeOffset.current) * FLOAT_FORCE * 0.3,
-          y: Math.sin(time + timeOffset.current) * FLOAT_FORCE * 0.4,
-          z: Math.sin(time * 0.7 + timeOffset.current) * FLOAT_FORCE * 0.2
-        },
-        true
-      )
     }
+    */
+
+    const distanceToOrigin = new Vector3(
+      currentPos.x - position[0],
+      currentPos.y - position[1],
+      currentPos.z - position[2]
+    ).length()
+
+    // Apply return force when tokens get too far
+    if (distanceToOrigin > RETURN_RADIUS) {
+      const returnDirection = new Vector3(
+        position[0] - currentPos.x,
+        position[1] - currentPos.y,
+        position[2] - currentPos.z
+      ).normalize()
+
+      const returnStrength = 
+        Math.pow((distanceToOrigin - RETURN_RADIUS) / RETURN_RADIUS, 2) * 
+        RETURN_FORCE
+
+      rigidBodyRef.current.applyImpulse({
+        x: returnDirection.x * returnStrength,
+        y: returnDirection.y * returnStrength,
+        z: returnDirection.z * returnStrength
+      }, true)
+    }
+
+    // Constant gentle floating motion
+    rigidBodyRef.current.applyImpulse(
+      {
+        x: Math.cos(time + timeOffset.current) * FLOAT_FORCE * 0.3,
+        y: Math.sin(time + timeOffset.current) * FLOAT_FORCE * 0.4,
+        z: Math.sin(time * 0.7 + timeOffset.current) * FLOAT_FORCE * 0.2
+      },
+      true
+    )
   })
 
   const initialValues = useMemo(() => ({
@@ -259,11 +237,13 @@ const GridFloor = memo(() => (
 GridFloor.displayName = 'GridFloor'
 
 const CANVAS_CONFIG = {
-  frameloop: "demand" as const,
+  frameloop: "always" as const,
   dpr: [1, 2] as [number, number],
   camera: {
-    position: [20, 30, 90] as [number, number, number],  // Adjusted for new token positions
-    fov: 45
+    position: [140, 60, 50] as [number, number, number], // Moved back for wider view
+    fov: 55,
+    near: 0.1,
+    far: 1000
   },
   performance: {
     min: 0.5,
@@ -339,6 +319,17 @@ const CursorIndicator = () => {
     }
   })
 
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      console.log('Mouse event at:', e.clientX, e.clientY);
+      console.log('Target:', e.target);
+      console.log('Current Target:', e.currentTarget);
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    return () => document.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
   return (
     <mesh ref={meshRef}>
       <sphereGeometry args={[2, 32, 32]} />
@@ -355,6 +346,16 @@ export default function Scene() {
   return (
     <Canvas
       className={styles.canvas}
+      style={{ 
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        pointerEvents: 'auto',
+        zIndex: 2,
+        overflow: 'visible'
+      }}
       {...CANVAS_CONFIG}
     >
       <Suspense fallback={null}>
@@ -362,9 +363,9 @@ export default function Scene() {
         <Stats className="stats-panel" />
         <CursorIndicator />
         <Physics 
-          gravity={[0, -0.15, 0]}
+          gravity={[0, -0.05, 0]}    // Even lighter gravity
           timeStep="vary"
-          interpolate={false}
+          interpolate={true}         // Enable interpolation
           colliders={false}
           maxCcdSubsteps={2}
         >
@@ -379,15 +380,17 @@ export default function Scene() {
           <CuboidCollider args={[50, 0.1, 50]} position={[0, -25, 0]} />
         </Physics>
         <OrbitControls
+          makeDefault
           enableZoom={false}
-          autoRotate
-          autoRotateSpeed={0.2}
-          enableDamping
-          dampingFactor={0.05}
-          target={new Vector3(55, 10, 20)}  // Adjusted target for new positioning
-          maxPolarAngle={Math.PI / 2}
-          minPolarAngle={Math.PI / 4}
-          enablePan={false}
+          autoRotate={true}          // Enable auto rotation
+          autoRotateSpeed={0.2}      // Very slow rotation speed
+          enableDamping={true}
+          dampingFactor={0.1}
+          target={new Vector3(55, 25, 15)}  // Adjusted target for new spread
+          maxPolarAngle={Math.PI * 0.65}
+          minPolarAngle={Math.PI * 0.25}
+          enablePan={true}
+          panSpeed={0.5}
         />
         <Preload all />
       </Suspense>
