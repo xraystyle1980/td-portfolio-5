@@ -45,7 +45,7 @@ export default function AboutMe() {
   }, [])
 
   return (
-    <div id="about" className={styles.aboutMe}>
+    <section id="about" className={styles.aboutMe}>
       <div className={styles.container}>
         <h2 ref={headingRef}>About Me</h2>
         <div ref={contentRef} className={styles.content}>
@@ -55,6 +55,6 @@ export default function AboutMe() {
       <div className={styles.shapesContainer}>
         <Parallax />
       </div>
-    </div>
+    </section>
   )
 } 

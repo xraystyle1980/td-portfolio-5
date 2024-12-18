@@ -44,7 +44,7 @@ export default function Playground() {
   }, [])
 
   return (
-    <section ref={sectionRef} className={styles.playground}>
+    <section id="playground" ref={sectionRef} className={styles.playground}>
       <div className={styles.container}>
         <h2 ref={headingRef}>Playground</h2>
         <div ref={contentRef} className={styles.content}>

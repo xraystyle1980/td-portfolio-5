@@ -32,22 +32,30 @@
 
 @media (max-width: 768px) {
   .hero {
-    padding: 1.5rem;
+    padding: 0;
   }
   
   .headline {
-    font-size: 12vw;  /* Much larger for tablets */
+    font-size: 12vw;
     max-width: 100%;
+  }
+
+  .sceneContainer {
+    padding: 0;
   }
 }
 
 @media (max-width: 480px) {
   .hero {
-    padding: 1rem;
+    padding: 0;
   }
   
   .headline {
-    font-size: 15vw;  /* Dramatically larger for mobile */
+    font-size: 15vw;
+  }
+
+  .sceneContainer {
+    padding: 0;
   }
 }
 

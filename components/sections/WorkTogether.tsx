@@ -44,7 +44,7 @@ export default function WorkTogether() {
   }, [])
 
   return (
-    <section id="contact" ref={sectionRef} className={styles.workTogether}>
+    <section id="contact" className={styles.workTogether}>
       <div className={styles.container}>
         <h2 ref={headingRef}>Let's Work Together</h2>
         <div ref={contentRef} className={styles.content}>
