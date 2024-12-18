@@ -53,15 +53,12 @@ export default function Hero() {
             </div>
             <h1>Build cool shit.</h1>
             <p className={styles.heroText}>
-              I'm Matt Trice, an Atlanta-based product & web designer. Let's work together &{' '}
-              <span className={styles.noBreak}>
-                build{' '}
-                <span className={`${styles.highlight} ${caveat.className}`}>
-                  cool
-                  <span aria-hidden="true" className={styles.caret}>^</span>
-                </span>
-                {' '}shit
-              </span>.
+              I'm Matt Trice, an Atlanta-based product & web designer. Let's work together & build{' '}
+              <span className={`${styles.highlight} ${caveat.className}`}>
+                cool
+                <span aria-hidden="true" className={styles.caret}>^</span>
+              </span>
+              {' '}shit.
             </p>
           </div>
         </div>

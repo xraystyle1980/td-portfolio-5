@@ -188,9 +188,9 @@ const PhysicsToken = ({ position, index }: { position: readonly [number, number,
       angularDamping={DAMPING}
       friction={0.4}
       mass={1.5}
-      type="dynamic"  // Make sure it's dynamic
-      linearFactor={[0.8, 0.8, 0.8]}
-      angularFactor={[0.2, 0.2, 0.2]}
+      type="dynamic"
+      enabledRotations={[true, true, true]}
+      enabledTranslations={[true, true, true]}
     >
       <TokenFace 
         rotation={initialValues.rotation}
@@ -363,9 +363,6 @@ export default function Scene() {
           timeStep="vary"
           interpolate={true}
           colliders={false}
-          maxStabilizationIterations={10}
-          maxVelocityIterations={10}
-          maxCcdSubsteps={3}
         >
           <Lights />
           <GridFloor />

@@ -1,7 +1,57 @@
 .hero {
   position: relative;
-  min-height: 100vh;
-  overflow: hidden;
+  width: 100%;
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2rem;
+  z-index: 0;
+}
+
+.headline {
+  font-size: 5vw;  /* Smaller base size */
+  line-height: 0.9;
+  margin: 0;
+  padding: 0;
+  color: var(--text-primary);
+  font-weight: 700;
+  max-width: 90%;
+}
+
+/* Responsive breakpoints */
+@media (max-width: 1200px) {
+  .headline {
+    font-size: 8vw;  /* Significant increase */
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 1.5rem;
+  }
+  
+  .headline {
+    font-size: 12vw;  /* Much larger for tablets */
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 1rem;
+  }
+  
+  .headline {
+    font-size: 15vw;  /* Dramatically larger for mobile */
+  }
+}
+
+/* Optional: Adjust for very small screens */
+@media (max-width: 320px) {
+  /* .headline {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+  } */
 }
 
 .heroContent {
@@ -55,15 +105,15 @@
 
 .content h1 {
   color: #F39;
-  text-shadow: -0.75rem 0.75rem 0px #000;
-  -webkit-text-stroke-width: 0.1875rem;
+  text-shadow: -12px 12px 0px #000;
+  -webkit-text-stroke-width: 3px;
   -webkit-text-stroke-color: #000;
   font-family: Bilgres;
   font-style: normal;
   font-weight: 400;
   line-height: 85%;
   pointer-events: none;
-  font-size: 15rem;
+  font-size: 240px;
 }
 
 .heroText {
@@ -74,8 +124,9 @@
   font-weight: 400;
   line-height: 134%;
   pointer-events: none;
-  width: 50%;
+  width: 100%;
   margin-top: 2rem;
+  background-color: lime;
 }
 
 /* Tablet styles */
@@ -89,9 +140,8 @@
   }
 
   .content h1 {
-    text-shadow: clamp(-0.25rem, -1.5vw, -0.5rem)
-                 clamp(0.25rem, 1.5vw, 0.5rem)
-                 0px #000;
+    font-size: 160px;
+    text-shadow: -8px 8px 0px #000;
   }
 }
 
@@ -104,6 +154,19 @@
   .contentSide {
     padding-left: clamp(1rem, 3vw, 1.5rem);
     padding-right: clamp(1rem, 3vw, 1.5rem);
+  }
+
+  .content h1 {
+    font-size: 80px;
+    text-shadow: -6px 6px 0px #000;
+  }
+}
+
+/* Small mobile styles */
+@media (max-width: 480px) {
+  .content h1 {
+    font-size: 60px;
+    text-shadow: -4px 4px 0px #000;
   }
 }
 
