@@ -11,18 +11,29 @@ import styles from './Scene.module.css'
 import { OrbitControls as OrbitControlsImpl } from 'three-stdlib'
 
 // Minimal constants
-const DAMPING = 0.98
-const RESTITUTION = 0.2
+const DAMPING = 0.99
+const RESTITUTION = 0.1
 
-// Single centered token
-const TOKEN_POSITIONS = [[65, 25, 15]] as const
+// Adjust force constants for stronger attraction
+const ATTRACTION_FORCE = 200     // Increased from 80
+const MAX_FORCE = 500          // Increased from 250
+const FORCE_FALLOFF = 1.5      // Reduced from 1.8 for stronger long-range pull
 
-// Add force constants at the top with other constants
-const ATTRACTION_FORCE = 150    // Increased base attraction (was 50)
-const MAX_FORCE = 400          // Increased max force (was 150)
-const FORCE_FALLOFF = 1.2      // Reduced falloff for stronger long-range attraction (was 1.5)
+// Generate random initial positions with higher vertical placement
+const generateRandomPositions = () => Array.from({ length: 24 }, () => [
+  65 + (Math.random() * 80 - 40),    // x: random spread around 65 (±40)
+  80 + (Math.random() * 60 - 30),    // y: centered at 80 instead of 25 (±30)
+  15 + (Math.random() * 20 - 10)     // z: random spread around 15 (±10)
+] as [number, number, number])
 
-const PhysicsToken = ({ position }: { position: readonly [number, number, number] }) => {
+// Store both initial and current positions
+const TOKEN_POSITIONS = generateRandomPositions()
+const INITIAL_POSITIONS = [...TOKEN_POSITIONS]
+
+// Also update the camera and controls target to look higher
+const CAMERA_TARGET = new Vector3(65, 60, 15)  // Raised target height
+
+const PhysicsToken = ({ position, index }: { position: readonly [number, number, number], index: number }) => {
   const rigidBodyRef = useRef<RigidBodyType>(null)
   const { camera } = useThree()
   const [mousePos] = useState(new Vector3())
@@ -33,6 +44,7 @@ const PhysicsToken = ({ position }: { position: readonly [number, number, number
   const planeNormal = useMemo(() => new Vector3(0, 0, 1), [])
   const intersectionPoint = useMemo(() => new Vector3(), [])
   const mouseVector = useMemo(() => new Vector2(), [])
+  const [isResetting, setIsResetting] = useState(false)
 
   const initialValues = useMemo(() => ({
     rotation: [0, 0, 0] as [number, number, number],  // Simple rotation for now
@@ -80,6 +92,19 @@ const PhysicsToken = ({ position }: { position: readonly [number, number, number
     console.log('isClicked state changed:', isClicked)
   }, [isClicked])
 
+  useEffect(() => {
+    const resetInterval = setInterval(() => {
+      setIsResetting(true)
+      
+      // Reset after 1 second
+      setTimeout(() => {
+        setIsResetting(false)
+      }, 1000)
+    }, 5000)  // Every 5 seconds
+
+    return () => clearInterval(resetInterval)
+  }, [])
+
   useFrame((state) => {
     if (!rigidBodyRef.current) return
     
@@ -98,40 +123,57 @@ const PhysicsToken = ({ position }: { position: readonly [number, number, number
     // Get intersection point
     const hit = raycaster.ray.intersectPlane(tokenPlane, intersectionPoint)
 
-    if (hit) {
-      mousePos.copy(intersectionPoint)
+    if (isResetting) {
+      // Return to original position
+      const originalPos = INITIAL_POSITIONS[index]
+      const returnDirection = new Vector3(
+        originalPos[0] - tokenPos.x,
+        originalPos[1] - tokenPos.y,
+        originalPos[2] - tokenPos.z
+      ).normalize()
 
-      // Calculate direction and distance
-      const direction = new Vector3()
-      direction.subVectors(mousePos, new Vector3(tokenPos.x, tokenPos.y, tokenPos.z)).normalize()
-      const distance = mousePos.distanceTo(new Vector3(tokenPos.x, tokenPos.y, tokenPos.z))
+      const distance = new Vector3(tokenPos.x, tokenPos.y, tokenPos.z)
+        .distanceTo(new Vector3(originalPos[0], originalPos[1], originalPos[2]))
 
-      // Calculate force with distance falloff
-      const forceMagnitude = isClicked ? 
-        MAX_FORCE / (distance + FORCE_FALLOFF) : 
-        ATTRACTION_FORCE / (distance + FORCE_FALLOFF)
+      const returnForce = 800 / (distance + 1)  // Strong return force
 
-      // Apply force
       rigidBodyRef.current.applyImpulse({
-        x: direction.x * forceMagnitude,
-        y: direction.y * forceMagnitude,
-        z: direction.z * forceMagnitude
+        x: returnDirection.x * returnForce,
+        y: returnDirection.y * returnForce,
+        z: returnDirection.z * returnForce
       }, true)
+    } else {
+      if (hit) {
+        mousePos.copy(intersectionPoint)
+        const direction = new Vector3()
+        direction.subVectors(mousePos, new Vector3(tokenPos.x, tokenPos.y, tokenPos.z)).normalize()
+        const distance = mousePos.distanceTo(new Vector3(tokenPos.x, tokenPos.y, tokenPos.z))
 
-      // Debug logs when clicked
-      if (isClicked) {
-        console.log('=== Click Positions ===')
-        console.log('Token Position:', {
-          x: tokenPos.x.toFixed(2),
-          y: tokenPos.y.toFixed(2),
-          z: tokenPos.z.toFixed(2)
-        })
-        console.log('Mouse Position:', {
-          x: mousePos.x.toFixed(2),
-          y: mousePos.y.toFixed(2),
-          z: mousePos.z.toFixed(2)
-        })
-        console.log('Force Applied:', forceMagnitude.toFixed(2))
+        const forceMagnitude = isClicked ? 
+          MAX_FORCE / (distance + FORCE_FALLOFF) : 
+          ATTRACTION_FORCE / (distance + FORCE_FALLOFF)
+
+        rigidBodyRef.current.applyImpulse({
+          x: direction.x * forceMagnitude,
+          y: direction.y * forceMagnitude,
+          z: direction.z * forceMagnitude
+        }, true)
+
+        // Debug logs when clicked
+        if (isClicked) {
+          console.log('=== Click Positions ===')
+          console.log('Token Position:', {
+            x: tokenPos.x.toFixed(2),
+            y: tokenPos.y.toFixed(2),
+            z: tokenPos.z.toFixed(2)
+          })
+          console.log('Mouse Position:', {
+            x: mousePos.x.toFixed(2),
+            y: mousePos.y.toFixed(2),
+            z: mousePos.z.toFixed(2)
+          })
+          console.log('Force Applied:', forceMagnitude.toFixed(2))
+        }
       }
     }
   })
@@ -144,9 +186,11 @@ const PhysicsToken = ({ position }: { position: readonly [number, number, number
       restitution={RESTITUTION}
       linearDamping={DAMPING}
       angularDamping={DAMPING}
-      friction={0.2}
-      mass={1}
+      friction={0.4}
+      mass={1.5}
       type="dynamic"  // Make sure it's dynamic
+      linearFactor={[0.8, 0.8, 0.8]}
+      angularFactor={[0.2, 0.2, 0.2]}
     >
       <TokenFace 
         rotation={initialValues.rotation}
@@ -168,7 +212,7 @@ Lights.displayName = 'Lights'
 
 const GridFloor = memo(() => (
   <Grid
-    position={[45, 2, 0]}
+    position={[45, 40, 0]}  // Raised grid height
     args={[100, 100]}
     cellSize={5}
     cellThickness={1}
@@ -188,7 +232,7 @@ const CANVAS_CONFIG = {
   frameloop: "always" as const,
   dpr: [1, 2] as [number, number],
   camera: {
-    position: [140, 60, 50] as [number, number, number], // Moved back for wider view
+    position: [160, 70, 60] as [number, number, number], // Adjusted for better rotation view
     fov: 55,
     near: 0.1,
     far: 1000
@@ -315,34 +359,40 @@ export default function Scene() {
         <Stats className="stats-panel" />
         <CursorIndicator />
         <Physics 
-          gravity={[0, -0.05, 0]}    // Even lighter gravity
+          gravity={[0, -0.02, 0]}
           timeStep="vary"
-          interpolate={true}         // Enable interpolation
+          interpolate={true}
           colliders={false}
-          maxCcdSubsteps={2}
+          maxStabilizationIterations={10}
+          maxVelocityIterations={10}
+          maxCcdSubsteps={3}
         >
           <Lights />
           <GridFloor />
           {TOKEN_POSITIONS.map((position, index) => (
             <PhysicsToken 
               key={index} 
-              position={position} 
+              position={position}
+              index={index}
             />
           ))}
-          <CuboidCollider args={[50, 0.1, 50]} position={[0, -25, 0]} />
+          <CuboidCollider args={[100, 0.1, 100]} position={[0, -25, 0]} />
         </Physics>
         <OrbitControls
           makeDefault
           enableZoom={false}
           autoRotate={true}          
-          autoRotateSpeed={0.2}      
+          autoRotateSpeed={0.1}      // Slow auto-rotation
           enableDamping={true}
-          dampingFactor={0.1}
-          target={new Vector3(55, 25, 15)}
+          dampingFactor={0.05}       // Smooth damping
+          target={CAMERA_TARGET}
           maxPolarAngle={Math.PI * 0.65}
           minPolarAngle={Math.PI * 0.25}
-          enablePan={false}           // Disabled panning
-          enabled={false}            // Disable user control but keep autoRotate
+          enablePan={false}
+          enabled={true}             // Enable user control
+          rotateSpeed={0.4}         // Slower manual rotation
+          minDistance={100}         // Prevent getting too close
+          maxDistance={300}         // Prevent getting too far
         />
         <Preload all />
       </Suspense>
