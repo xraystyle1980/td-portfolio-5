@@ -4,11 +4,14 @@ import styles from './Hero.module.css';
 import Scene from '@/components/3d/Scene';
 import { Caveat } from 'next/font/google';
 import Navigation from '@/components/Navigation'
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
+ScrollTrigger.defaults({
+  markers: false
+});
 
 const caveat = Caveat({
   subsets: ['latin'],
@@ -19,6 +22,7 @@ const caveat = Caveat({
 export default function Hero() {
   const waveRef = useRef<HTMLImageElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [hideMainLogo, setHideMainLogo] = useState(false)
 
   useEffect(() => {
     if (!waveRef.current) return;
@@ -37,28 +41,27 @@ export default function Hero() {
     return () => {
       animation.kill();
     };
-  }, []);
+  }, [])
 
   return (
     <section className={styles.hero} suppressHydrationWarning>
-      <Navigation />
       <div className={styles.heroContent}>
         <div className={styles.sceneContainer}>
           <Scene />
         </div>
         <div className={styles.contentOverlay}>
           <div className={styles.content} ref={containerRef}>
-            <div className={styles.logo}>
+            <div className={`${styles.logo} ${hideMainLogo ? styles.hidden : ''}`}>
               Trice.Design
             </div>
-            <h1>Build cool shit.</h1>
+            <h1>Build cool <span className={styles.strikethrough}>shit</span> stuff.</h1>
             <p className={styles.heroText}>
               I'm Matt Trice, an Atlanta-based product & web designer. Let's work together & build{' '}
               <span className={`${styles.highlight} ${caveat.className}`}>
                 cool
                 <span aria-hidden="true" className={styles.caret}>^</span>
               </span>
-              {' '}shit.
+              {' '}<span className={styles.strikethrough}>shit</span> stuff.
             </p>
           </div>
         </div>

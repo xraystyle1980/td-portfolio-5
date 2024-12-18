@@ -5,7 +5,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 2rem;
+  padding: 0rem;
   z-index: 0;
 }
 
@@ -17,6 +17,10 @@
   color: var(--text-primary);
   font-weight: 700;
   max-width: 90%;
+}
+
+.strikethrough {
+  text-decoration: line-through;
 }
 
 /* Responsive breakpoints */
@@ -58,7 +62,6 @@
   position: relative;
   width: 100%;
   height: calc(100vh - 80px); /* Account for navigation height */
-  margin-top: 80px; /* Space for navigation */
 }
 
 .sceneContainer {
@@ -101,6 +104,11 @@
   font-weight: 900;
   line-height: 85%;
   margin-bottom: 2rem;
+  transition: opacity 0.3s ease;
+}
+
+.logo.hidden {
+  opacity: 0;
 }
 
 .content h1 {

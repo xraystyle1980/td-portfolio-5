@@ -11,10 +11,6 @@ export default function WorkTogether() {
   const contentRef = useRef(null)
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      gsap.registerPlugin(ScrollTrigger)
-    }
-
     const section = sectionRef.current
     const heading = headingRef.current
     const content = contentRef.current
@@ -25,7 +21,6 @@ export default function WorkTogether() {
           trigger: section,
           start: 'top center',
           toggleActions: 'play none none reverse',
-          markers: true
         },
         opacity: 0,
         x: -50,

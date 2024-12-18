@@ -12,10 +12,6 @@ export default function AboutMe() {
   const contentRef = useRef(null)
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      gsap.registerPlugin(ScrollTrigger)
-    }
-
     const section = sectionRef.current
     const heading = headingRef.current
     const content = contentRef.current
@@ -26,7 +22,6 @@ export default function AboutMe() {
           trigger: section,
           start: 'top center',
           toggleActions: 'play none none reverse',
-          markers: true
         },
         opacity: 0,
         y: 50,

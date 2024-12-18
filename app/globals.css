@@ -55,8 +55,15 @@
   top: 0 !important;
   left: 50% !important;
   transform: translateX(-50%) !important;
+  display: none !important;
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+/* Hide GSAP scroll indicators */
+.scroller-start,
+.scroller-end {
+  display: none !important;
 }

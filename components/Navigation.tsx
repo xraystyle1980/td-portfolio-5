@@ -1,30 +1,17 @@
 'use client'
 
 import styles from './Navigation.module.css'
-import Link from 'next/link'
-import { useEffect, useState } from 'react'
 
 export default function Navigation() {
-  const [isScrolled, setIsScrolled] = useState(false)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
   return (
-    <nav className={`${styles.nav} ${isScrolled ? styles.scrolled : ''}`}>
-      <div className={styles.container}>
-        <Link href="/" className={styles.logo}>
-          MT
-        </Link>
+    <nav className={styles.nav}>
+      <div className={styles.wrapper}>
+        {/* <div className={styles.stickyLogo}>
+          Trice.Design
+        </div> */}
         <div className={styles.links}>
-          <a href="#about">About</a>
-          <a href="#contact">Contact</a>
+          <button className={styles.link}>About</button>
+          <button className={styles.link}>Contact</button>
         </div>
       </div>
     </nav>

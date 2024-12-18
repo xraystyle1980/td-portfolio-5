@@ -1,5 +1,15 @@
 'use client'
 
+import { useEffect } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+// Register once at the app level
+gsap.registerPlugin(ScrollTrigger)
+ScrollTrigger.defaults({
+  markers: false
+})
+
 import Hero from '@/components/sections/Hero'
 import AboutMe from '@/components/sections/AboutMe'
 import WorkTogether from '@/components/sections/WorkTogether'

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Caveat } from 'next/font/google'
+import Navigation from '@/components/Navigation'
 
 const caveat = Caveat({
   subsets: ['latin'],
@@ -20,7 +21,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body suppressHydrationWarning>{children}</body>
+      <body suppressHydrationWarning>
+        <Navigation />
+        {children}
+      </body>
     </html>
   )
 }
