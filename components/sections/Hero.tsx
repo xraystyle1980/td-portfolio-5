@@ -40,15 +40,12 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className={styles.hero}>
+    <section className={styles.hero} suppressHydrationWarning>
       <Navigation />
       <div className={styles.heroContent}>
-        {/* 3D Scene as background */}
         <div className={styles.sceneContainer}>
           <Scene />
         </div>
-        
-        {/* Content overlay */}
         <div className={styles.contentOverlay}>
           <div className={styles.content} ref={containerRef}>
             <div className={styles.logo}>
@@ -69,7 +66,6 @@ export default function Hero() {
           </div>
         </div>
       </div>
-      
       <img 
         ref={waveRef}
         src="/waveborder.svg"

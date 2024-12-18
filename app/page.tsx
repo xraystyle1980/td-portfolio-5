@@ -11,7 +11,7 @@ import Section from '@/components/sections/Section'
 
 export default function Home() {
   return (
-    <main className="relative">
+    <main className="relative" suppressHydrationWarning>
       <Section>
         <Hero />
       </Section>
