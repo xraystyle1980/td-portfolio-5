@@ -13,12 +13,12 @@ import styles from './Scene.module.css'
 const DAMPING = 0.95               // Slightly less damping for more movement
 const RESTITUTION = 0.2           // More bounce
 const FLOAT_FORCE = 0.01          // Keep gentle float
-const REPULSION_RADIUS = 200       // Much larger radius for dramatic effect
-const REPULSION_FORCE = 500        // Much stronger repulsion
+const REPULSION_RADIUS = 150       // Smaller radius for more precise control
+const REPULSION_FORCE = 300        // Reduced force for gentler push
 const ATTRACTION_FORCE = 0.02      
 const MAGNETIC_RADIUS = 40         // Larger magnetic radius
 const MAGNETIC_FORCE = 20          // Stronger magnetic force
-const CLICK_FORCE = 1000          // Much stronger click force
+const CLICK_FORCE = 800           // Strong but not overwhelming click force
 const CLICK_RADIUS = 250          // Larger click radius
 const RESET_DURATION = 1.5
 const CYCLE_DURATION = 10
@@ -94,7 +94,6 @@ const PhysicsToken = ({ position }: { position: readonly [number, number, number
       }
     })
 
-    /* Temporarily disabled cursor repulsion
     // Cursor repulsion
     const vector = new Vector3()
     vector.set(
@@ -107,7 +106,7 @@ const PhysicsToken = ({ position }: { position: readonly [number, number, number
     const distance = -camera.position.z / dir.z
     mousePos.copy(camera.position).add(dir.multiplyScalar(distance))
 
-    mousePos.add(new Vector3(45, 15, 10))
+    mousePos.add(new Vector3(65, 25, 15))  // Adjusted for new center point
 
     repulsionPoint.copy(mousePos)
     const distanceToMouse = new Vector3(currentPos.x, currentPos.y, currentPos.z)
@@ -121,28 +120,27 @@ const PhysicsToken = ({ position }: { position: readonly [number, number, number
       ).normalize()
 
       const repulsionStrength = 
-        Math.pow(1 - distanceToMouse / REPULSION_RADIUS, 4) * 
+        Math.pow(1 - distanceToMouse / REPULSION_RADIUS, 3) * // Changed to cubic falloff
         REPULSION_FORCE * 
-        (isClicked ? 5 : 1)
+        (isClicked ? 2 : 1)  // Reduced click multiplier
 
       rigidBodyRef.current.applyImpulse({
         x: repulsionDirection.x * repulsionStrength,
-        y: repulsionDirection.y * repulsionStrength,
+        y: repulsionDirection.y * repulsionStrength * 0.8, // Reduced vertical effect
         z: repulsionDirection.z * repulsionStrength
       }, true)
 
       if (isClicked && distanceToMouse < CLICK_RADIUS) {
         const explosionStrength = 
-          Math.pow(1 - distanceToMouse / CLICK_RADIUS, 3) * CLICK_FORCE
+          Math.pow(1 - distanceToMouse / CLICK_RADIUS, 2) * CLICK_FORCE
 
         rigidBodyRef.current.applyImpulse({
           x: repulsionDirection.x * explosionStrength,
-          y: Math.abs(repulsionDirection.y) * explosionStrength * 1.5,
+          y: Math.abs(repulsionDirection.y) * explosionStrength,
           z: repulsionDirection.z * explosionStrength
         }, true)
       }
     }
-    */
 
     const distanceToOrigin = new Vector3(
       currentPos.x - position[0],
