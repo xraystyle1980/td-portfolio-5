@@ -2,52 +2,70 @@
 
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { OrbitControls, Preload, Stats, Grid } from '@react-three/drei'
+import { Vector3, Plane, Raycaster, Vector2 } from 'three'
 import TokenFace from './TokenFace'
 import { Suspense, useRef, useState, useMemo, memo, useEffect } from 'react'
-import { Vector3 } from 'three'
 import { Physics, RigidBody, CuboidCollider } from '@react-three/rapier'
 import type { RigidBody as RigidBodyType } from '@dimforge/rapier3d-compat'
 import styles from './Scene.module.css'
+import { OrbitControls as OrbitControlsImpl } from 'three-stdlib'
 
-// Adjust constants for more dramatic repulsion
-const DAMPING = 0.95               // Slightly less damping for more movement
-const RESTITUTION = 0.2           // More bounce
-const FLOAT_FORCE = 0.01          // Keep gentle float
-const REPULSION_RADIUS = 150       // Smaller radius for more precise control
-const REPULSION_FORCE = 300        // Reduced force for gentler push
-const ATTRACTION_FORCE = 0.02      
-const MAGNETIC_RADIUS = 40         // Larger magnetic radius
-const MAGNETIC_FORCE = 20          // Stronger magnetic force
-const CLICK_FORCE = 800           // Strong but not overwhelming click force
-const CLICK_RADIUS = 250          // Larger click radius
-const RESET_DURATION = 1.5
-const CYCLE_DURATION = 10
-const TRANSITION_DURATION = 1.5
-const RETURN_FORCE = 0.6           // Reduced to be more gentle
-const RETURN_RADIUS = 400          // Increased to allow more spread
-const RESET_INTERVAL = 3000  // 3 seconds in milliseconds
+// Minimal constants
+const DAMPING = 0.98
+const RESTITUTION = 0.2
 
-// Spread tokens out more widely
-const TOKEN_POSITIONS = Array.from({ length: 24 }, () => [
-  65 + Math.random() * 60,    // x: wider spread (35 to 95)
-  25 + Math.random() * 25,    // y: more vertical spread (15 to 40)
-  -10 + Math.random() * 50    // z: much more depth (-10 to 40)
-] as const)
+// Single centered token
+const TOKEN_POSITIONS = [[65, 25, 15]] as const
+
+// Add force constants at the top with other constants
+const ATTRACTION_FORCE = 150    // Increased base attraction (was 50)
+const MAX_FORCE = 400          // Increased max force (was 150)
+const FORCE_FALLOFF = 1.2      // Reduced falloff for stronger long-range attraction (was 1.5)
 
 const PhysicsToken = ({ position }: { position: readonly [number, number, number] }) => {
   const rigidBodyRef = useRef<RigidBodyType>(null)
-  const timeOffset = useRef(Math.random() * Math.PI * 2)
   const { camera } = useThree()
   const [mousePos] = useState(new Vector3())
-  const [repulsionPoint] = useState(new Vector3())
   const [isClicked, setIsClicked] = useState(false)
-  const [isResetting, setIsResetting] = useState(false)
-  const resetTimeoutRef = useRef<NodeJS.Timeout>()
   const { gl } = useThree()
+  const raycaster = useMemo(() => new Raycaster(), [])
+  const tokenPlane = useMemo(() => new Plane(), [])
+  const planeNormal = useMemo(() => new Vector3(0, 0, 1), [])
+  const intersectionPoint = useMemo(() => new Vector3(), [])
+  const mouseVector = useMemo(() => new Vector2(), [])
+
+  const initialValues = useMemo(() => ({
+    rotation: [0, 0, 0] as [number, number, number],  // Simple rotation for now
+    scale: 8  // Fixed scale for testing
+  }), [])
 
   useEffect(() => {
-    const handleMouseDown = () => setIsClicked(true)
-    const handleMouseUp = () => setIsClicked(false)
+    const handleMouseDown = () => {
+      setIsClicked(true)
+      console.log('Mouse Down!')
+      
+      // Log both positions on click
+      if (rigidBodyRef.current) {
+        const tokenPos = rigidBodyRef.current.translation()
+        console.log('=== Click Positions ===')
+        console.log('Token Position:', {
+          x: tokenPos.x.toFixed(2),
+          y: tokenPos.y.toFixed(2),
+          z: tokenPos.z.toFixed(2)
+        })
+        console.log('Mouse Position:', {
+          x: mousePos.x.toFixed(2),
+          y: mousePos.y.toFixed(2),
+          z: mousePos.z.toFixed(2)
+        })
+        console.log('Distance:', mousePos.distanceTo(new Vector3(tokenPos.x, tokenPos.y, tokenPos.z)).toFixed(2))
+      }
+    }
+    
+    const handleMouseUp = () => {
+      setIsClicked(false)
+      console.log('Mouse Up!')
+    }
     
     gl.domElement.addEventListener('mousedown', handleMouseDown)
     gl.domElement.addEventListener('mouseup', handleMouseUp)
@@ -56,185 +74,67 @@ const PhysicsToken = ({ position }: { position: readonly [number, number, number
       gl.domElement.removeEventListener('mousedown', handleMouseDown)
       gl.domElement.removeEventListener('mouseup', handleMouseUp)
     }
-  }, [gl])
+  }, [gl, mousePos])
 
   useEffect(() => {
-    const resetInterval = setInterval(() => {
-      setIsResetting(true)
-      
-      resetTimeoutRef.current = setTimeout(() => {
-        setIsResetting(false)
-      }, 1000)
-    }, RESET_INTERVAL)
-
-    // Cleanup both interval and timeout
-    return () => {
-      clearInterval(resetInterval)
-      if (resetTimeoutRef.current) {
-        clearTimeout(resetTimeoutRef.current)
-      }
-    }
-  }, [])
+    console.log('isClicked state changed:', isClicked)
+  }, [isClicked])
 
   useFrame((state) => {
     if (!rigidBodyRef.current) return
-    const time = state.clock.elapsedTime
-    const currentPos = rigidBodyRef.current.translation()
+    
+    const tokenPos = rigidBodyRef.current.translation()
+    
+    // Project mouse into scene
+    tokenPlane.setFromNormalAndCoplanarPoint(
+      planeNormal, 
+      new Vector3(0, 0, tokenPos.z)
+    )
 
-    // Only apply magnetic and repulsion forces if NOT resetting
-    if (!isResetting) {
-      // Magnetic effect
-      const allTokens = Object.values(state.scene.children)
-        .find(child => child.name === 'Physics')
-        ?.children
-        .filter(child => {
-          if (!rigidBodyRef.current) return true
-          
-          const currentPos = rigidBodyRef.current.translation()
-          const childPos = child.position
-          
-          return (childPos.x !== currentPos.x || 
-                  childPos.y !== currentPos.y || 
-                  childPos.z !== currentPos.z) && 
-                  child.name.includes('RigidBody')
-        }) || []
+    // Update mouse vector and use it for raycasting
+    mouseVector.set(state.mouse.x, state.mouse.y)
+    raycaster.setFromCamera(mouseVector, camera)
 
-      // Apply magnetic attraction to nearby tokens
-      allTokens.forEach(token => {
-        const tokenPos = token.position
-        const distanceToToken = new Vector3(currentPos.x, currentPos.y, currentPos.z)
-          .distanceTo(tokenPos)
+    // Get intersection point
+    const hit = raycaster.ray.intersectPlane(tokenPlane, intersectionPoint)
 
-        if (distanceToToken < MAGNETIC_RADIUS) {
-          const attractionDirection = new Vector3(
-            tokenPos.x - currentPos.x,
-            tokenPos.y - currentPos.y,
-            tokenPos.z - currentPos.z
-          ).normalize()
+    if (hit) {
+      mousePos.copy(intersectionPoint)
 
-          const attractionStrength = 
-            Math.pow(1 - distanceToToken / MAGNETIC_RADIUS, 2) * MAGNETIC_FORCE
+      // Calculate direction and distance
+      const direction = new Vector3()
+      direction.subVectors(mousePos, new Vector3(tokenPos.x, tokenPos.y, tokenPos.z)).normalize()
+      const distance = mousePos.distanceTo(new Vector3(tokenPos.x, tokenPos.y, tokenPos.z))
 
-          rigidBodyRef.current?.applyImpulse({
-            x: attractionDirection.x * attractionStrength,
-            y: attractionDirection.y * attractionStrength * 0.3,
-            z: attractionDirection.z * attractionStrength
-          }, true)
-        }
-      })
+      // Calculate force with distance falloff
+      const forceMagnitude = isClicked ? 
+        MAX_FORCE / (distance + FORCE_FALLOFF) : 
+        ATTRACTION_FORCE / (distance + FORCE_FALLOFF)
 
-      // Cursor repulsion
-      const vector = new Vector3()
-      vector.set(
-        (state.mouse.x * 2) - 1,
-        -(state.mouse.y * 2) + 1,
-        0.5
-      )
-      vector.unproject(camera)
-      const dir = vector.sub(camera.position).normalize()
-      const distance = -camera.position.z / dir.z
-      mousePos.copy(camera.position).add(dir.multiplyScalar(distance))
-
-      mousePos.add(new Vector3(65, 25, 15))  // Adjusted for new center point
-
-      repulsionPoint.copy(mousePos)
-      const distanceToMouse = new Vector3(currentPos.x, currentPos.y, currentPos.z)
-        .distanceTo(repulsionPoint)
-
-      if (distanceToMouse < REPULSION_RADIUS) {
-        const repulsionDirection = new Vector3(
-          currentPos.x - repulsionPoint.x,
-          currentPos.y - repulsionPoint.y,
-          currentPos.z - repulsionPoint.z
-        ).normalize()
-
-        const repulsionStrength = 
-          Math.pow(1 - distanceToMouse / REPULSION_RADIUS, 3) * // Changed to cubic falloff
-          REPULSION_FORCE * 
-          (isClicked ? 2 : 1)  // Reduced click multiplier
-
-        rigidBodyRef.current.applyImpulse({
-          x: repulsionDirection.x * repulsionStrength,
-          y: repulsionDirection.y * repulsionStrength * 0.8, // Reduced vertical effect
-          z: repulsionDirection.z * repulsionStrength
-        }, true)
-
-        if (isClicked && distanceToMouse < CLICK_RADIUS) {
-          const explosionStrength = 
-            Math.pow(1 - distanceToMouse / CLICK_RADIUS, 2) * CLICK_FORCE
-
-          rigidBodyRef.current.applyImpulse({
-            x: repulsionDirection.x * explosionStrength,
-            y: Math.abs(repulsionDirection.y) * explosionStrength,
-            z: repulsionDirection.z * explosionStrength
-          }, true)
-        }
-      }
-
-      const distanceToOrigin = new Vector3(
-        currentPos.x - position[0],
-        currentPos.y - position[1],
-        currentPos.z - position[2]
-      ).length()
-
-      // Apply return force when tokens get too far
-      if (distanceToOrigin > RETURN_RADIUS) {
-        const returnDirection = new Vector3(
-          position[0] - currentPos.x,
-          position[1] - currentPos.y,
-          position[2] - currentPos.z
-        ).normalize()
-
-        const returnStrength = 
-          Math.pow((distanceToOrigin - RETURN_RADIUS) / RETURN_RADIUS, 2) * 
-          RETURN_FORCE
-
-        rigidBodyRef.current.applyImpulse({
-          x: returnDirection.x * returnStrength,
-          y: returnDirection.y * returnStrength,
-          z: returnDirection.z * returnStrength
-        }, true)
-      }
-
-      // Floating motion
-      rigidBodyRef.current.applyImpulse(
-        {
-          x: Math.cos(time + timeOffset.current) * FLOAT_FORCE * 0.3,
-          y: Math.sin(time + timeOffset.current) * FLOAT_FORCE * 0.4,
-          z: Math.sin(time * 0.7 + timeOffset.current) * FLOAT_FORCE * 0.2
-        },
-        true
-      )
-    }
-
-    /* Temporarily disable reset force
-    if (isResetting) {
-      const returnVector = new Vector3(
-        position[0] - currentPos.x,
-        position[1] - currentPos.y,
-        position[2] - currentPos.z
-      )
-      
-      rigidBodyRef.current.setLinvel({ x: 0, y: 0, z: 0 }, true)
-      rigidBodyRef.current.setAngvel({ x: 0, y: 0, z: 0 }, true)
-      
+      // Apply force
       rigidBodyRef.current.applyImpulse({
-        x: returnVector.x * 5,
-        y: returnVector.y * 5,
-        z: returnVector.z * 5
+        x: direction.x * forceMagnitude,
+        y: direction.y * forceMagnitude,
+        z: direction.z * forceMagnitude
       }, true)
-    }
-    */
-  })
 
-  const initialValues = useMemo(() => ({
-    rotation: [
-      Math.random() * Math.PI * 0.5,
-      Math.random() * Math.PI * 2,
-      Math.random() * Math.PI * 0.5
-    ] as [number, number, number],
-    scale: 8 + Math.random() * 4  // Increased from 5 + Math.random() * 3
-  }), [])
+      // Debug logs when clicked
+      if (isClicked) {
+        console.log('=== Click Positions ===')
+        console.log('Token Position:', {
+          x: tokenPos.x.toFixed(2),
+          y: tokenPos.y.toFixed(2),
+          z: tokenPos.z.toFixed(2)
+        })
+        console.log('Mouse Position:', {
+          x: mousePos.x.toFixed(2),
+          y: mousePos.y.toFixed(2),
+          z: mousePos.z.toFixed(2)
+        })
+        console.log('Force Applied:', forceMagnitude.toFixed(2))
+      }
+    }
+  })
 
   return (
     <RigidBody
@@ -244,8 +144,9 @@ const PhysicsToken = ({ position }: { position: readonly [number, number, number
       restitution={RESTITUTION}
       linearDamping={DAMPING}
       angularDamping={DAMPING}
-      friction={0.2}           // Added friction for better interactions
-      mass={1}                 // Explicit mass for consistent physics
+      friction={0.2}
+      mass={1}
+      type="dynamic"  // Make sure it's dynamic
     >
       <TokenFace 
         rotation={initialValues.rotation}
@@ -314,11 +215,13 @@ const CameraLogger = () => {
         y: camera.position.y.toFixed(2),
         z: camera.position.z.toFixed(2)
       })
-      console.log('Camera Target:', {
-        x: (controls as any)?.target.x.toFixed(2),
-        y: (controls as any)?.target.y.toFixed(2),
-        z: (controls as any)?.target.z.toFixed(2)
-      })
+      if (controls instanceof OrbitControlsImpl) {
+        console.log('Camera Target:', {
+          x: controls.target.x.toFixed(2),
+          y: controls.target.y.toFixed(2),
+          z: controls.target.z.toFixed(2)
+        })
+      }
     }
 
     window.addEventListener('keydown', (e) => {
@@ -401,8 +304,9 @@ export default function Scene() {
         width: '100%',
         height: '100%',
         pointerEvents: 'auto',
-        zIndex: 2,
-        overflow: 'visible'
+        zIndex: 1,
+        overflow: 'visible',
+        background: 'transparent'
       }}
       {...CANVAS_CONFIG}
     >
@@ -430,15 +334,15 @@ export default function Scene() {
         <OrbitControls
           makeDefault
           enableZoom={false}
-          autoRotate={true}          // Enable auto rotation
-          autoRotateSpeed={0.2}      // Very slow rotation speed
+          autoRotate={true}          
+          autoRotateSpeed={0.2}      
           enableDamping={true}
           dampingFactor={0.1}
-          target={new Vector3(55, 25, 15)}  // Adjusted target for new spread
+          target={new Vector3(55, 25, 15)}
           maxPolarAngle={Math.PI * 0.65}
           minPolarAngle={Math.PI * 0.25}
-          enablePan={true}
-          panSpeed={0.5}
+          enablePan={false}           // Disabled panning
+          enabled={false}            // Disable user control but keep autoRotate
         />
         <Preload all />
       </Suspense>
