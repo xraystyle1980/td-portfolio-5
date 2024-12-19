@@ -35,11 +35,6 @@
   width: 100%;
   height: auto;
   border-radius: 1rem;
-  transition: transform 0.3s ease;
-}
-
-.gridItem img:hover {
-  transform: scale(1.02);
 }
 
 @media (max-width: 768px) {

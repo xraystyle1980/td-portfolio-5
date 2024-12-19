@@ -3,9 +3,15 @@
 import { useEffect, useRef, useCallback } from 'react'
 import styles from './VariableText.module.css'
 import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { SplitText } from 'gsap/SplitText'
 
-gsap.registerPlugin(SplitText)
+// Register all GSAP plugins once
+gsap.registerPlugin(ScrollTrigger, SplitText)
+
+ScrollTrigger.defaults({
+  markers: false
+})
 
 interface VariableTextProps {
   text: string

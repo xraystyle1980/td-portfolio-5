@@ -41,18 +41,6 @@
   box-shadow: -1px 1px 0px #000;
 }
 
-.hamburger.active span:first-child {
-  transform: rotate(45deg) translate(6px, 6px);
-}
-
-.hamburger.active span:nth-child(2) {
-  opacity: 0;
-}
-
-.hamburger.active span:last-child {
-  transform: rotate(-45deg) translate(6px, -6px);
-}
-
 .links {
   display: flex;
   gap: 3rem;
