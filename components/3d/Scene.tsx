@@ -210,7 +210,6 @@ const GridFloor = memo(() => (
     fadeStrength={1}
     followCamera={true}
     infiniteGrid
-    opacity={0.35}
   />
 ))
 GridFloor.displayName = 'GridFloor'
@@ -345,7 +344,10 @@ export default function Scene() {
       {...CANVAS_CONFIG}
     >
       <Suspense fallback={null}>
-        <Environment preset="studio" intensity={0.5} />
+        <Environment 
+          preset="studio"
+          background={false}
+        />
         <CameraLogger />
         <Stats className="stats-panel" />
         <CursorIndicator />
@@ -354,7 +356,6 @@ export default function Scene() {
           timeStep="vary"
           interpolate={true}
           colliders={false}
-          contactForceThreshold={0.01}
         >
           <Lights />
           <GridFloor />
@@ -366,11 +367,11 @@ export default function Scene() {
             />
           ))}
           <CuboidCollider 
-            args={[100, 1, 100]}  // Increased Y thickness from 0.1 to 1
-            position={[45, 39.5, 0]}  // Adjusted Y position to compensate for thickness
+            args={[100, 1, 100]}
+            position={[45, 39.5, 0]}
             restitution={RESTITUTION}
             friction={0.2}
-            sensor={false}  // Ensure it's not a sensor
+            sensor={false}
           />
         </Physics>
         <OrbitControls
