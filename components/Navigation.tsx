@@ -6,10 +6,10 @@ import heroStyles from './sections/Hero.module.css'
 
 export default function Navigation() {
   const [showLogo, setShowLogo] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   useEffect(() => {
     const heroLogo = document.querySelector(`.${heroStyles.logo}`)
-    
     if (!heroLogo) return
 
     const observer = new IntersectionObserver(
@@ -28,12 +28,14 @@ export default function Navigation() {
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
+    setIsMenuOpen(false)
   }
 
   const scrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId)
     if (section) {
       section.scrollIntoView({ behavior: 'smooth' })
+      setIsMenuOpen(false)
     }
   }
 
@@ -46,7 +48,16 @@ export default function Navigation() {
         >
           Trice.Design
         </button>
-        <div className={styles.links}>
+        <button 
+          className={`${styles.hamburger} ${isMenuOpen ? styles.active : ''}`}
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label="Menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div className={`${styles.links} ${isMenuOpen ? styles.open : ''}`}>
           <button 
             className={styles.link}
             onClick={() => scrollToSection('about')}
