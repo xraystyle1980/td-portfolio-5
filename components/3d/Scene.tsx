@@ -1,7 +1,7 @@
 'use client'
 
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { OrbitControls, Preload, Stats, Grid } from '@react-three/drei'
+import { OrbitControls, Preload, Stats, Grid, Environment } from '@react-three/drei'
 import { Vector3, Plane, Raycaster, Vector2 } from 'three'
 import TokenFace from './TokenFace'
 import { Suspense, useRef, useState, useMemo, memo, useEffect } from 'react'
@@ -10,28 +10,36 @@ import type { RigidBody as RigidBodyType } from '@dimforge/rapier3d-compat'
 import styles from './Scene.module.css'
 import { OrbitControls as OrbitControlsImpl } from 'three-stdlib'
 
-// Minimal constants
-const DAMPING = 0.99
-const RESTITUTION = 0.1
+// Minimal constants - adjust for more bouncy behavior
+const DAMPING = 0.7        // Reduced further for more bounce
+const RESTITUTION = 0.9    // Increased for more bounce
 
-// Adjust force constants for stronger attraction
-const ATTRACTION_FORCE = 200     // Increased from 80
-const MAX_FORCE = 500          // Increased from 250
-const FORCE_FALLOFF = 1.5      // Reduced from 1.8 for stronger long-range pull
+// Adjust force constants for strong click attraction
+const REPULSION_FORCE = 150     // Keep gentle repulsion when not clicked
+const MAX_FORCE = 2000         // Dramatically increased for strong click attraction
+const FORCE_FALLOFF = 1.2      // Reduced for stronger long-range pull when clicked
 
-// Generate random initial positions with higher vertical placement
-const generateRandomPositions = () => Array.from({ length: 24 }, () => [
-  65 + (Math.random() * 80 - 40),    // x: random spread around 65 (±40)
-  80 + (Math.random() * 60 - 30),    // y: centered at 80 instead of 25 (±30)
-  15 + (Math.random() * 20 - 10)     // z: random spread around 15 (±10)
+// Generate random initial positions with much higher vertical placement
+const generateRandomPositions = () => Array.from({ length: 48 }, () => [
+  65 + (Math.random() * 80 - 40),    // x: moderate spread around 65 (±40)
+  50 + (Math.random() * 30),         // y: lower height, 50-80 range
+  26 + (Math.random() * 30 - 15)     // z: moderate spread around 15 (±15)
 ] as [number, number, number])
 
-// Store both initial and current positions
+// Generate random initial rotations
+const generateRandomRotation = () => [
+  Math.random() * Math.PI * 2,  // Random rotation around X
+  Math.random() * Math.PI * 2,  // Random rotation around Y
+  Math.random() * Math.PI * 2   // Random rotation around Z
+] as [number, number, number]
+
+// Store positions and rotations
 const TOKEN_POSITIONS = generateRandomPositions()
 const INITIAL_POSITIONS = [...TOKEN_POSITIONS]
+const TOKEN_ROTATIONS = Array.from({ length: 48 }, generateRandomRotation)
 
 // Also update the camera and controls target to look higher
-const CAMERA_TARGET = new Vector3(65, 60, 15)  // Raised target height
+const CAMERA_TARGET = new Vector3(65, 40, 15)  // Slightly lowered target
 
 const PhysicsToken = ({ position, index }: { position: readonly [number, number, number], index: number }) => {
   const rigidBodyRef = useRef<RigidBodyType>(null)
@@ -44,19 +52,18 @@ const PhysicsToken = ({ position, index }: { position: readonly [number, number,
   const planeNormal = useMemo(() => new Vector3(0, 0, 1), [])
   const intersectionPoint = useMemo(() => new Vector3(), [])
   const mouseVector = useMemo(() => new Vector2(), [])
-  const [isResetting, setIsResetting] = useState(false)
+  const [isHovered, setIsHovered] = useState(false)
 
   const initialValues = useMemo(() => ({
-    rotation: [0, 0, 0] as [number, number, number],  // Simple rotation for now
-    scale: 8  // Fixed scale for testing
-  }), [])
+    rotation: TOKEN_ROTATIONS[index],
+    scale: 8
+  }), [index])
 
   useEffect(() => {
     const handleMouseDown = () => {
       setIsClicked(true)
       console.log('Mouse Down!')
       
-      // Log both positions on click
       if (rigidBodyRef.current) {
         const tokenPos = rigidBodyRef.current.translation()
         console.log('=== Click Positions ===')
@@ -89,20 +96,14 @@ const PhysicsToken = ({ position, index }: { position: readonly [number, number,
   }, [gl, mousePos])
 
   useEffect(() => {
-    console.log('isClicked state changed:', isClicked)
-  }, [isClicked])
-
-  useEffect(() => {
-    const resetInterval = setInterval(() => {
-      setIsResetting(true)
-      
-      // Reset after 1 second
-      setTimeout(() => {
-        setIsResetting(false)
-      }, 1000)
-    }, 5000)  // Every 5 seconds
-
-    return () => clearInterval(resetInterval)
+    // Apply initial downward impulse
+    if (rigidBodyRef.current) {
+      rigidBodyRef.current.applyImpulse({
+        x: 0,
+        y: -100, // Increased from -20 for much stronger initial drop
+        z: 0
+      }, true)
+    }
   }, [])
 
   useFrame((state) => {
@@ -110,70 +111,50 @@ const PhysicsToken = ({ position, index }: { position: readonly [number, number,
     
     const tokenPos = rigidBodyRef.current.translation()
     
-    // Project mouse into scene
     tokenPlane.setFromNormalAndCoplanarPoint(
       planeNormal, 
       new Vector3(0, 0, tokenPos.z)
     )
 
-    // Update mouse vector and use it for raycasting
     mouseVector.set(state.mouse.x, state.mouse.y)
     raycaster.setFromCamera(mouseVector, camera)
 
-    // Get intersection point
     const hit = raycaster.ray.intersectPlane(tokenPlane, intersectionPoint)
 
-    if (isResetting) {
-      // Return to original position
-      const originalPos = INITIAL_POSITIONS[index]
-      const returnDirection = new Vector3(
-        originalPos[0] - tokenPos.x,
-        originalPos[1] - tokenPos.y,
-        originalPos[2] - tokenPos.z
-      ).normalize()
+    if (hit) {
+      mousePos.copy(intersectionPoint)
+      const direction = new Vector3()
+      // Invert direction when clicked for attraction instead of repulsion
+      if (isClicked) {
+        direction.subVectors(mousePos, new Vector3(tokenPos.x, tokenPos.y, tokenPos.z)).normalize()
+      } else {
+        direction.subVectors(new Vector3(tokenPos.x, tokenPos.y, tokenPos.z), mousePos).normalize()
+      }
+      const distance = mousePos.distanceTo(new Vector3(tokenPos.x, tokenPos.y, tokenPos.z))
 
-      const distance = new Vector3(tokenPos.x, tokenPos.y, tokenPos.z)
-        .distanceTo(new Vector3(originalPos[0], originalPos[1], originalPos[2]))
-
-      const returnForce = 800 / (distance + 1)  // Strong return force
+      const forceMagnitude = isClicked ? 
+        MAX_FORCE / (distance + FORCE_FALLOFF) : 
+        REPULSION_FORCE / (distance + FORCE_FALLOFF)
 
       rigidBodyRef.current.applyImpulse({
-        x: returnDirection.x * returnForce,
-        y: returnDirection.y * returnForce,
-        z: returnDirection.z * returnForce
+        x: direction.x * forceMagnitude,
+        y: direction.y * forceMagnitude,
+        z: direction.z * forceMagnitude
       }, true)
-    } else {
-      if (hit) {
-        mousePos.copy(intersectionPoint)
-        const direction = new Vector3()
-        direction.subVectors(mousePos, new Vector3(tokenPos.x, tokenPos.y, tokenPos.z)).normalize()
-        const distance = mousePos.distanceTo(new Vector3(tokenPos.x, tokenPos.y, tokenPos.z))
 
-        const forceMagnitude = isClicked ? 
-          MAX_FORCE / (distance + FORCE_FALLOFF) : 
-          ATTRACTION_FORCE / (distance + FORCE_FALLOFF)
-
-        rigidBodyRef.current.applyImpulse({
-          x: direction.x * forceMagnitude,
-          y: direction.y * forceMagnitude,
-          z: direction.z * forceMagnitude
-        }, true)
-
-        // Debug logs when clicked
-        if (isClicked) {
-          console.log('=== Click Positions ===')
-          console.log('Token Position:', {
-            x: tokenPos.x.toFixed(2),
-            y: tokenPos.y.toFixed(2),
-            z: tokenPos.z.toFixed(2)
-          })
-          console.log('Mouse Position:', {
-            x: mousePos.x.toFixed(2),
-            y: mousePos.y.toFixed(2),
-            z: mousePos.z.toFixed(2)
-          })
-          console.log('Force Applied:', forceMagnitude.toFixed(2))
-        }
+      if (isClicked) {
+        console.log('=== Click Positions ===')
+        console.log('Token Position:', {
+          x: tokenPos.x.toFixed(2),
+          y: tokenPos.y.toFixed(2),
+          z: tokenPos.z.toFixed(2)
+        })
+        console.log('Mouse Position:', {
+          x: mousePos.x.toFixed(2),
+          y: mousePos.y.toFixed(2),
+          z: mousePos.z.toFixed(2)
+        })
+        console.log('Force Applied:', forceMagnitude.toFixed(2))
       }
     }
   })
@@ -182,19 +163,24 @@ const PhysicsToken = ({ position, index }: { position: readonly [number, number,
     <RigidBody
       ref={rigidBodyRef}
       position={position}
+      rotation={initialValues.rotation}
       colliders="cuboid"
       restitution={RESTITUTION}
       linearDamping={DAMPING}
       angularDamping={DAMPING}
-      friction={0.4}
-      mass={1.5}
+      friction={0.1}
+      mass={5.0}
       type="dynamic"
       enabledRotations={[true, true, true]}
       enabledTranslations={[true, true, true]}
+      ccd={true}
     >
       <TokenFace 
-        rotation={initialValues.rotation}
+        rotation={[0, 0, 0]}
         scale={initialValues.scale}
+        onPointerOver={() => setIsHovered(true)}
+        onPointerOut={() => setIsHovered(false)}
+        isHovered={isHovered}
       />
     </RigidBody>
   )
@@ -202,10 +188,10 @@ const PhysicsToken = ({ position, index }: { position: readonly [number, number,
 
 const Lights = memo(() => (
   <>
-    <ambientLight intensity={1.2} />
-    <pointLight position={[15, 10, 10]} intensity={2} />
-    <pointLight position={[5, -10, -10]} intensity={1} />
-    <directionalLight position={[10, 0, 5]} intensity={0.8} color="#ffffff" />
+    <ambientLight intensity={1.5} />
+    <pointLight position={[15, 10, 10]} intensity={2.5} />
+    <pointLight position={[5, -10, -10]} intensity={1.5} />
+    <directionalLight position={[10, 0, 5]} intensity={1.2} color="#ffffff" />
   </>
 ))
 Lights.displayName = 'Lights'
@@ -233,8 +219,9 @@ const CANVAS_CONFIG = {
   frameloop: "always" as const,
   dpr: [1, 2] as [number, number],
   camera: {
-    position: [160, 70, 60] as [number, number, number], // Adjusted for better rotation view
-    fov: 55,
+    // Calculate position for Math.PI * 0.45 angle (about 81 degrees from vertical)
+    position: [160, 65, 50] as [number, number, number], // Adjusted for lowest angle
+    fov: 45,
     near: 0.1,
     far: 1000
   },
@@ -246,7 +233,9 @@ const CANVAS_CONFIG = {
   gl: {
     powerPreference: "high-performance" as const,
     antialias: true,
-    alpha: true
+    alpha: true,
+    outputEncoding: 3001,  // THREE.sRGBEncoding
+    toneMapping: 4        // THREE.ReinhardToneMapping
   }
 } as const;
 
@@ -356,14 +345,16 @@ export default function Scene() {
       {...CANVAS_CONFIG}
     >
       <Suspense fallback={null}>
+        <Environment preset="studio" intensity={0.5} />
         <CameraLogger />
         <Stats className="stats-panel" />
         <CursorIndicator />
         <Physics 
-          gravity={[0, -0.02, 0]}
+          gravity={[0, -1.62, 0]}  // Moon gravity
           timeStep="vary"
           interpolate={true}
           colliders={false}
+          contactForceThreshold={0.01}
         >
           <Lights />
           <GridFloor />
@@ -374,23 +365,29 @@ export default function Scene() {
               index={index}
             />
           ))}
-          <CuboidCollider args={[100, 0.1, 100]} position={[0, -25, 0]} />
+          <CuboidCollider 
+            args={[100, 1, 100]}  // Increased Y thickness from 0.1 to 1
+            position={[45, 39.5, 0]}  // Adjusted Y position to compensate for thickness
+            restitution={RESTITUTION}
+            friction={0.2}
+            sensor={false}  // Ensure it's not a sensor
+          />
         </Physics>
         <OrbitControls
           makeDefault
           enableZoom={false}
           autoRotate={true}          
-          autoRotateSpeed={0.1}      // Slow auto-rotation
+          autoRotateSpeed={0.1}
           enableDamping={true}
-          dampingFactor={0.05}       // Smooth damping
+          dampingFactor={0.05}
           target={CAMERA_TARGET}
-          maxPolarAngle={Math.PI * 0.65}
-          minPolarAngle={Math.PI * 0.25}
+          maxPolarAngle={Math.PI * 0.45}  // Prevent viewing from below grid
+          minPolarAngle={Math.PI * 0.15}  // Allow more vertical movement
           enablePan={false}
-          enabled={true}             // Enable user control
-          rotateSpeed={0.4}         // Slower manual rotation
-          minDistance={100}         // Prevent getting too close
-          maxDistance={300}         // Prevent getting too far
+          enabled={true}
+          rotateSpeed={0.4}
+          minDistance={120}        // Increased for more zoomed out view
+          maxDistance={300}        // Increased maximum distance
         />
         <Preload all />
       </Suspense>
