@@ -9,16 +9,15 @@
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 1rem 4rem;
 }
 
 .wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 1rem 2rem;
   pointer-events: auto;
+  max-width: 100%;
 }
 
 .hamburger {
@@ -91,29 +90,23 @@
 
 .navLogo {
   color: #FFF;
-  text-shadow: -3px 3px 0px #000;
+  text-shadow: -2px 2px 0 #000,
+               -3px 3px 0 rgba(0, 0, 0, 0.3);
   paint-order: stroke fill;
-  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #000;
   font-family: "Source Serif Pro";
-  font-size: 3rem;
+  font-size: 1.75rem;
   font-style: normal;
   font-weight: 900;
   line-height: 85%;
+  letter-spacing: -1px;
   pointer-events: auto;
-  opacity: 0;
-  transform: translateY(-10px);
-  transition: all 0.3s ease;
-  margin-bottom: 0;
   background: none;
   border: none;
   cursor: pointer;
   padding: 0;
-}
-
-.navLogo.visible {
-  opacity: 1;
-  transform: translateY(0);
+  visibility: hidden;
 }
 
 .link {

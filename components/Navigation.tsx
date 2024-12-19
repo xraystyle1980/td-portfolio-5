@@ -1,12 +1,14 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import styles from './Navigation.module.css'
 import heroStyles from './sections/Hero.module.css'
+import gsap from 'gsap'
 
 export default function Navigation() {
   const [showLogo, setShowLogo] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const logoRef = useRef(null)
 
   useEffect(() => {
     const heroLogo = document.querySelector(`.${heroStyles.logo}`)
@@ -14,7 +16,11 @@ export default function Navigation() {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setShowLogo(!entry.isIntersecting)
+        if (entry.isIntersecting) {
+          setTimeout(() => setShowLogo(false), 50)
+        } else {
+          setShowLogo(true)
+        }
       },
       {
         threshold: 0,
@@ -25,6 +31,39 @@ export default function Navigation() {
     observer.observe(heroLogo)
     return () => observer.disconnect()
   }, [])
+
+  useEffect(() => {
+    if (!logoRef.current) return
+
+    if (showLogo) {
+      gsap.set(logoRef.current, { visibility: 'visible' })
+      gsap.fromTo(logoRef.current,
+        {
+          y: -20,
+          opacity: 0,
+          scale: 0.95
+        },
+        {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 0.15,
+          ease: "back.out(3)",
+        }
+      )
+    } else {
+      gsap.to(logoRef.current, {
+        y: -15,
+        opacity: 0,
+        scale: 0.95,
+        duration: 0.1,
+        ease: "back.in(2)",
+        onComplete: () => {
+          gsap.set(logoRef.current, { visibility: 'hidden' })
+        }
+      })
+    }
+  }, [showLogo])
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -43,7 +82,8 @@ export default function Navigation() {
     <nav className={styles.nav}>
       <div className={styles.wrapper}>
         <button 
-          className={`${styles.navLogo} ${showLogo ? styles.visible : ''}`}
+          ref={logoRef}
+          className={styles.navLogo}
           onClick={scrollToTop}
         >
           Trice.Design

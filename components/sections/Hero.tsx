@@ -22,7 +22,6 @@ const caveat = Caveat({
 export default function Hero() {
   const waveRef = useRef<HTMLImageElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [hideMainLogo, setHideMainLogo] = useState(false)
 
   useEffect(() => {
     if (!waveRef.current) return;
@@ -51,17 +50,17 @@ export default function Hero() {
         </div>
         <div className={styles.contentOverlay}>
           <div className={styles.content} ref={containerRef}>
-            <div className={`${styles.logo} ${hideMainLogo ? styles.hidden : ''}`}>
+            <div className={styles.logo}>
               Trice.Design
             </div>
-            <h1>Build cool <span className={styles.strikethrough}>shit</span> stuff.</h1>
+            <h1>Build cool <span className={styles.strikethrough}></span> stuff.</h1>
             <p className={styles.heroText}>
               I'm Matt Trice, an Atlanta-based product & web designer. Let's work together & build{' '}
               <span className={`${styles.highlight} ${caveat.className}`}>
                 cool
                 <span aria-hidden="true" className={styles.caret}>^</span>
               </span>
-              {' '}<span className={styles.strikethrough}>shit</span> stuff.
+              {' '}<span className={styles.strikethrough}></span> stuff.
             </p>
           </div>
         </div>
