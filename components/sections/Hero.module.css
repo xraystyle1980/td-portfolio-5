@@ -79,6 +79,7 @@
   height: 100%;
   z-index: 1;
   pointer-events: auto;
+  display: none; /* Temporarily hide the scene */
 }
 
 .contentOverlay {
@@ -88,7 +89,7 @@
   display: flex;
   align-items: center;
   padding-left: 4rem;
-  pointer-events: none;
+  pointer-events: auto;
 }
 
 .content {
@@ -96,7 +97,7 @@
   position: relative;
   max-width: 95%;
   width: 100%;
-  pointer-events: none;
+  pointer-events: auto;
   padding: clamp(1rem, 3vh, 3rem) 0;
 }
 
@@ -139,7 +140,6 @@
   pointer-events: none;
   width: 100%;
   margin-top: 2rem;
-  background-color: lime;
 }
 
 /* Tablet styles */

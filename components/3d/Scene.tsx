@@ -188,10 +188,10 @@ const PhysicsToken = ({ position, index }: { position: readonly [number, number,
 
 const Lights = memo(() => (
   <>
-    <ambientLight intensity={1.5} />
-    <pointLight position={[15, 10, 10]} intensity={2.5} />
-    <pointLight position={[5, -10, -10]} intensity={1.5} />
-    <directionalLight position={[10, 0, 5]} intensity={1.2} color="#ffffff" />
+    <ambientLight intensity={1} />  // Base light for visibility
+    <pointLight position={[15, 10, 10]} intensity={0.94} />  // Main highlight
+    <pointLight position={[5, -10, -10]} intensity={0.92} />  // Fill light
+    <directionalLight position={[10, 0, 5]} intensity={1} color="#ffffff" />  // Overall direction
   </>
 ))
 Lights.displayName = 'Lights'
@@ -344,10 +344,6 @@ export default function Scene() {
       {...CANVAS_CONFIG}
     >
       <Suspense fallback={null}>
-        <Environment 
-          preset="studio"
-          background={false}
-        />
         <CameraLogger />
         <Stats className="stats-panel" />
         <CursorIndicator />

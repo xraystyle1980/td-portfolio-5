@@ -1,0 +1,25 @@
+.container {
+  font-family: 'Banigar-Round', sans-serif;
+  cursor: default;
+  user-select: none;
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  pointer-events: auto;
+  display: inline-block;
+}
+
+.char {
+  display: inline-block;
+  position: relative;
+  font-family: inherit;
+  transition: font-variation-settings 0.2s ease-out;
+}
+
+/* Only apply hover effect when not on mobile */
+@media (hover: hover) {
+  .container:hover {
+    font-variation-settings: "wght" 900;
+  }
+} 

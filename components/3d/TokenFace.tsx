@@ -23,18 +23,14 @@ export default function TokenFace({ rotation, scale, onPointerOver, onPointerOut
     if (child.isMesh && child.material) {
       child.material = child.material.clone()
       if (isHovered) {
-        child.material.metalness = 0.85
-        child.material.roughness = 0.15
-        child.material.envMapIntensity = 1.5
-        child.material.clearcoat = 0.7
-        child.material.clearcoatRoughness = 0.2
+        child.material.metalness = 0.4
+        child.material.roughness = 0.4
+        child.material.envMapIntensity = 1.1
         child.material.needsUpdate = true
       } else {
-        child.material.metalness = 0.6
-        child.material.roughness = 0.4
+        child.material.metalness = 0.2
+        child.material.roughness = 0.6
         child.material.envMapIntensity = 1.0
-        child.material.clearcoat = 0.0
-        child.material.clearcoatRoughness = 0.5
         child.material.needsUpdate = true
       }
     }

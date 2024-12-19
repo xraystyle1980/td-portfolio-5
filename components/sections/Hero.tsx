@@ -7,6 +7,7 @@ import Navigation from '@/components/Navigation'
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import VariableText from '@/components/VariableText';
 
 gsap.registerPlugin(ScrollTrigger);
 ScrollTrigger.defaults({
@@ -46,21 +47,19 @@ export default function Hero() {
     <section className={styles.hero} suppressHydrationWarning>
       <div className={styles.heroContent}>
         <div className={styles.sceneContainer}>
-          <Scene />
+          {/* <Scene /> */}
         </div>
         <div className={styles.contentOverlay}>
           <div className={styles.content} ref={containerRef}>
             <div className={styles.logo}>
               Trice.Design
             </div>
-            <h1>Build cool <span className={styles.strikethrough}></span> stuff.</h1>
+            <VariableText 
+              text="Build cool stuff." 
+              className={styles.heading}
+            />
             <p className={styles.heroText}>
-              I'm Matt Trice, an Atlanta-based product & web designer. Let's work together & build{' '}
-              <span className={`${styles.highlight} ${caveat.className}`}>
-                cool
-                <span aria-hidden="true" className={styles.caret}>^</span>
-              </span>
-              {' '}<span className={styles.strikethrough}></span> stuff.
+              I'm Matt Trice, an Atlanta-based product & web designer. Let's work together & build cool stuff.
             </p>
           </div>
         </div>
