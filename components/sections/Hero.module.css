@@ -79,7 +79,6 @@
   height: 100%;
   z-index: 1;
   pointer-events: auto;
-  display: none; /* Temporarily hide the scene */
 }
 
 .contentOverlay {
@@ -89,7 +88,7 @@
   display: flex;
   align-items: center;
   padding-left: 4rem;
-  pointer-events: auto;
+  pointer-events: none;
 }
 
 .content {
@@ -97,7 +96,7 @@
   position: relative;
   max-width: 95%;
   width: 100%;
-  pointer-events: auto;
+  pointer-events: none;
   padding: clamp(1rem, 3vh, 3rem) 0;
 }
 
@@ -115,6 +114,7 @@
   line-height: 85%;
   letter-spacing: -2px;
   margin-bottom: 2rem;
+  pointer-events: auto;
 }
 
 .content h1 {
@@ -137,7 +137,7 @@
   font-style: normal;
   font-weight: 400;
   line-height: 134%;
-  pointer-events: none;
+  pointer-events: auto;
   width: 100%;
   margin-top: 2rem;
 }

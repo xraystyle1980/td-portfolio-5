@@ -47,7 +47,7 @@ export default function Hero() {
     <section className={styles.hero} suppressHydrationWarning>
       <div className={styles.heroContent}>
         <div className={styles.sceneContainer}>
-          {/* <Scene /> */}
+          <Scene />
         </div>
         <div className={styles.contentOverlay}>
           <div className={styles.content} ref={containerRef}>

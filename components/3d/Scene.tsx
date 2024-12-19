@@ -327,67 +327,69 @@ const CursorIndicator = () => {
 }
 
 export default function Scene() {
+  console.log('Scene component rendering')
   return (
-    <Canvas
-      className={styles.canvas}
-      style={{ 
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        pointerEvents: 'auto',
-        zIndex: 1,
-        overflow: 'visible',
-        background: 'transparent'
-      }}
-      {...CANVAS_CONFIG}
-    >
-      <Suspense fallback={null}>
-        <CameraLogger />
-        <Stats className="stats-panel" />
-        <CursorIndicator />
-        <Physics 
-          gravity={[0, -1.62, 0]}  // Moon gravity
-          timeStep="vary"
-          interpolate={true}
-          colliders={false}
-        >
-          <Lights />
-          <GridFloor />
-          {TOKEN_POSITIONS.map((position, index) => (
-            <PhysicsToken 
-              key={index} 
-              position={position}
-              index={index}
+    <>
+      <Canvas
+        className={styles.canvas}
+        style={{ 
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          pointerEvents: 'auto',
+          zIndex: 1,
+          overflow: 'visible',
+          background: 'transparent'
+        }}
+        {...CANVAS_CONFIG}
+      >
+        <Suspense fallback={null}>
+          <CameraLogger />
+          <CursorIndicator />
+          <Physics 
+            gravity={[0, -1.62, 0]}  // Moon gravity
+            timeStep="vary"
+            interpolate={true}
+            colliders={false}
+          >
+            <Lights />
+            <GridFloor />
+            {TOKEN_POSITIONS.map((position, index) => (
+              <PhysicsToken 
+                key={index} 
+                position={position}
+                index={index}
+              />
+            ))}
+            <CuboidCollider 
+              args={[100, 1, 100]}
+              position={[45, 39.5, 0]}
+              restitution={RESTITUTION}
+              friction={0.2}
+              sensor={false}
             />
-          ))}
-          <CuboidCollider 
-            args={[100, 1, 100]}
-            position={[45, 39.5, 0]}
-            restitution={RESTITUTION}
-            friction={0.2}
-            sensor={false}
+          </Physics>
+          <OrbitControls
+            makeDefault
+            enableZoom={false}
+            autoRotate={true}          
+            autoRotateSpeed={0.1}
+            enableDamping={true}
+            dampingFactor={0.05}
+            target={CAMERA_TARGET}
+            maxPolarAngle={Math.PI * 0.45}  // Prevent viewing from below grid
+            minPolarAngle={Math.PI * 0.15}  // Allow more vertical movement
+            enablePan={false}
+            enabled={true}
+            rotateSpeed={0.4}
+            minDistance={120}        // Increased for more zoomed out view
+            maxDistance={300}        // Increased maximum distance
           />
-        </Physics>
-        <OrbitControls
-          makeDefault
-          enableZoom={false}
-          autoRotate={true}          
-          autoRotateSpeed={0.1}
-          enableDamping={true}
-          dampingFactor={0.05}
-          target={CAMERA_TARGET}
-          maxPolarAngle={Math.PI * 0.45}  // Prevent viewing from below grid
-          minPolarAngle={Math.PI * 0.15}  // Allow more vertical movement
-          enablePan={false}
-          enabled={true}
-          rotateSpeed={0.4}
-          minDistance={120}        // Increased for more zoomed out view
-          maxDistance={300}        // Increased maximum distance
-        />
-        <Preload all />
-      </Suspense>
-    </Canvas>
+          <Preload all />
+        </Suspense>
+      </Canvas>
+    </>
   )
 } 

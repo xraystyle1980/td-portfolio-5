@@ -50,14 +50,6 @@
   font-display: swap;
 }
 
-.stats-panel {
-  position: fixed !important;
-  top: 0 !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  display: none !important;
-}
-
 html {
   scroll-behavior: smooth;
 }
