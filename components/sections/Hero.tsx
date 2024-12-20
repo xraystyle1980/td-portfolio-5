@@ -4,12 +4,13 @@ import styles from './Hero.module.css';
 import Scene from '@/components/3d/Scene';
 import { Caveat } from 'next/font/google';
 import Navigation from '@/components/Navigation'
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import VariableText from '@/components/VariableText';
+import { SplitText } from 'gsap/SplitText';
+import SplitType from 'split-type';
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, SplitText);
 ScrollTrigger.defaults({
   markers: false
 });
@@ -23,6 +24,9 @@ const caveat = Caveat({
 export default function Hero() {
   const waveRef = useRef<HTMLImageElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const headlineRef = useRef<HTMLHeadingElement>(null);
+  const splitRef = useRef<SplitType | null>(null);
+  const textRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
     if (!waveRef.current) return;
@@ -41,7 +45,78 @@ export default function Hero() {
     return () => {
       animation.kill();
     };
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    if (!textRef.current) return;
+
+    // Initialize SplitType with proper type checking
+    splitRef.current = new SplitType(textRef.current, {
+      types: 'chars',
+      tagName: 'span'
+    });
+
+    // Type guard for the animation
+    if (splitRef.current?.chars) {
+      gsap.from(splitRef.current.chars, {
+        opacity: 0,
+        y: 20,
+        rotateX: -90,
+        stagger: 0.02,
+        duration: 0.5,
+        ease: 'back.out'
+      });
+    }
+
+    // Event handlers with proper type casting
+    const handleCharacterHover = (e: Event) => {
+      if (!(e.target instanceof HTMLElement)) return;
+      
+      gsap.to(e.target, {
+        scale: 1.5,
+        color: '#00ffff',
+        duration: 0.3,
+        ease: 'power2.out'
+      });
+    };
+
+    const handleCharacterLeave = (e: Event) => {
+      if (!(e.target instanceof HTMLElement)) return;
+      
+      gsap.to(e.target, {
+        scale: 1,
+        color: 'white',
+        duration: 0.3,
+        ease: 'power2.out'
+      });
+    };
+
+    // Add event listeners with proper type casting
+    if (splitRef.current?.chars) {
+      splitRef.current.chars.forEach((char) => {
+        if (char instanceof HTMLElement) {
+          char.addEventListener('mouseenter', handleCharacterHover);
+          char.addEventListener('mouseleave', handleCharacterLeave);
+        }
+      });
+    }
+
+    // Cleanup
+    return () => {
+      if (splitRef.current?.chars) {
+        splitRef.current.chars.forEach((char) => {
+          if (char instanceof HTMLElement) {
+            char.removeEventListener('mouseenter', handleCharacterHover);
+            char.removeEventListener('mouseleave', handleCharacterLeave);
+          }
+        });
+      }
+    };
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   return (
     <section className={styles.hero} suppressHydrationWarning>
@@ -51,16 +126,19 @@ export default function Hero() {
         </div>
         <div className={styles.contentOverlay}>
           <div className={styles.content} ref={containerRef}>
-            <div className={styles.logo}>
+            <button 
+              onClick={scrollToTop}
+              className={styles.logo}
+            >
               Trice.Design
-            </div>
-            <VariableText 
-              text="Build cool stuff." 
-              className={styles.heading}
-            />
-            <p className={styles.heroText}>
-              I'm Matt Trice, an Atlanta-based product & web designer. Let's work together & build cool stuff.
-            </p>
+            </button>
+            <h1 ref={textRef} className={styles.heroHeadline}>
+              <span>Build</span>
+              <br />
+              <span>Cool</span>
+              <br />
+              <span>Shit</span>
+            </h1>
           </div>
         </div>
       </div>

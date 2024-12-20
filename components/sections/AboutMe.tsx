@@ -49,6 +49,9 @@ export default function AboutMe() {
       <div className={styles.container}>
         <h2 ref={headingRef}>About Me</h2>
         <div ref={contentRef} className={styles.content}>
+          <p className={styles.heroText}>
+            I'm Matt Trice, an Atlanta-based product & web designer. Let's work together & build cool stuff.
+          </p>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
         </div>
       </div>

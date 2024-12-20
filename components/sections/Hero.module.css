@@ -1,7 +1,7 @@
 .hero {
   position: relative;
   width: 100%;
-  min-height: 85vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -69,17 +69,17 @@
 .heroContent {
   position: relative;
   width: 100%;
-  height: calc(100vh - 80px); /* Account for navigation height */
+  height: 100%;
 }
 
 .contentOverlay {
   position: relative;
-  z-index: 3;
+  z-index: 20;
   height: 100%;
   display: flex;
   align-items: center;
   padding-left: 4rem;
-  pointer-events: none;
+  pointer-events: auto;
 }
 
 .content {
@@ -87,81 +87,80 @@
   position: relative;
   max-width: 95%;
   width: 100%;
-  pointer-events: none;
+  pointer-events: auto !important;
   padding: clamp(1rem, 3vh, 3rem) 0;
+  z-index: 25;
 }
 
 .logo {
+  position: relative;
+  z-index: 30;
+  pointer-events: auto;
   color: #FFF;
   text-shadow: -3px 3px 0 #000,
-               -5px 5px 0 rgba(0, 0, 0, 0.3);  /* Larger second shadow for hero */
+               -4px 4px 0 rgba(0, 0, 0, 0.3);
+  paint-order: stroke fill;
+  -webkit-text-stroke-width: 1.5px;
+  -webkit-text-stroke-color: #000;
+  font-family: "Source Serif Pro";
+  font-size: 2.5rem;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 85%;
+  letter-spacing: -1.5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.logo:hover {
+  transform: translateY(-1px);
+  opacity: 0.9;
+  transition: all 0.2s ease;
+}
+
+/* Add responsive sizing */
+@media (max-width: 768px) {
+  .logo {
+    font-size: 2rem;
+    text-shadow: -2px 2px 0 #000,
+                 -3px 3px 0 rgba(0, 0, 0, 0.3);
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    font-size: 1.75rem;
+  }
+}
+
+.variableText {
+  color: #FFF;
+  text-shadow: -3px 3px 0 #000,
+               -5px 5px 0 rgba(0, 0, 0, 0.3);
   paint-order: stroke fill;
   -webkit-text-stroke-width: 2px;
   -webkit-text-stroke-color: #000;
   font-family: "Source Serif Pro";
-  font-size: 4rem;
   font-style: normal;
   font-weight: 900;
   line-height: 85%;
   letter-spacing: -2px;
-  margin-bottom: 2rem;
-  pointer-events: auto;
+  font-size: 4rem;
 }
 
-.content h1 {
-  color: #F39;
-  text-shadow: -12px 12px 0px #000;
-  -webkit-text-stroke-width: 3px;
-  -webkit-text-stroke-color: #000;
-  font-family: Bilgres;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 85%;
-  pointer-events: none;
-  font-size: 240px;
-}
-
-/* Tablet styles */
-@media (max-width: 1024px) {
-  .content {
-    max-width: 100%;
-  }
-
-  .content h1 {
-    font-size: 160px;
-    text-shadow: -8px 8px 0px #000;
+@media (max-width: 768px) {
+  .variableText {
+    font-size: 3rem;
   }
 }
 
-/* Mobile styles */
-@media (max-width: 640px) {
-  .hero {
-    min-height: 70vh;
-  }
-
-  .contentSide {
-    padding-left: clamp(1rem, 3vw, 1.5rem);
-    padding-right: clamp(1rem, 3vw, 1.5rem);
-  }
-
-  .content h1 {
-    font-size: 80px;
-    text-shadow: -6px 6px 0px #000;
-  }
-}
-
-/* Small mobile styles */
 @media (max-width: 480px) {
-  .content h1 {
-    font-size: 60px;
-    text-shadow: -4px 4px 0px #000;
+  .variableText {
+    font-size: 2.5rem;
   }
 }
-
-/* .content p {
-  font-size: 1.25rem;
-  color: rgb(75, 85, 99);
-} */
 
 .shapes {
   position: absolute;
@@ -273,7 +272,7 @@
   left: 0;
   width: 100%;
   height: auto;
-  z-index: 4;
+  z-index: 15;
   pointer-events: none;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
@@ -295,6 +294,9 @@
   pointer-events: auto;
   position: relative;
   z-index: 5;
+  background-color: rgb(132, 255, 132);
+  padding: 1rem 1.5rem;
+  border-radius: 4px;
 }
 
 @media (max-width: 768px) {
@@ -302,5 +304,65 @@
     font-size: 1.5rem;
     max-width: 100%;
   }
+}
+
+.sceneContainer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: auto;
+  background: #FAF4F0;
+}
+
+.heroHeadline {
+  font-family: 'Banigar-Round', sans-serif;
+  color: #F39;
+  text-shadow: -4px 4px 0px #000;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: #000;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 85%;
+  font-size: 260px;
+  margin-top: 2rem;
+  pointer-events: auto !important;
+}
+
+@media (max-width: 1024px) {
+  .heroHeadline {
+    font-size: 180px;
+  }
+}
+
+@media (max-width: 640px) {
+  .heroHeadline {
+    font-size: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroHeadline {
+    font-size: 100px;
+  }
+}
+
+.char {
+  display: inline-block;
+  position: relative;
+  font-family: inherit;
+  color: inherit;
+  text-shadow: inherit;
+  -webkit-text-stroke-width: inherit;
+  -webkit-text-stroke-color: inherit;
+  pointer-events: auto !important;
+  cursor: pointer;
+  width: 0.65em;
+  text-align: center;
+  margin: 0px;
+  padding: 0;
+  box-sizing: border-box;
+  z-index: 30;
 }
  

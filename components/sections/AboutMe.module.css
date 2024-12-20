@@ -20,16 +20,55 @@
 }
 
 .container h2 {
-  font-family: Bilgres;
-  font-size: 6rem;
+  font-family: 'Banigar-Round', sans-serif;
+  color: #F39;
+  /* text-shadow: -8px 8px 0px #000; */
+  /* -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: #000; */
+  font-size: 120px;
   line-height: 1;
+  font-variation-settings: "wght" 800;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 1024px) {
+  .container h2 {
+    font-size: 100px;
+    /* text-shadow: -6px 6px 0px #000; */
+  }
+}
+
+@media (max-width: 640px) {
+  .container h2 {
+    font-size: 80px;
+    /* text-shadow: -4px 4px 0px #000; */
+  }
+}
+
+.heroText {
+  color: #000000;
+  font-family: 'Source Serif Pro', serif;
+  font-size: 2rem;
+  line-height: 1.6;
+  max-width: 600px;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 5;
+  background-color: rgb(132, 255, 132);
+  padding: 1rem 1.5rem;
+  border-radius: 4px;
 }
 
 @media (max-width: 768px) {
   .container h2 {
     font-size: 4rem;
   }
-} 
+  
+  .heroText {
+    font-size: 1.5rem;
+    max-width: 100%;
+  }
+}
 
 .shapesContainer {
   position: absolute;
@@ -37,3 +76,9 @@
   overflow: hidden;
   pointer-events: none;
 } 
+
+.variableText {
+  margin-bottom: 2rem;
+  color: #FAF4F0; /* Light color for dark background */
+  text-shadow: -4px 4px 0px rgba(0,0,0,0.5);
+}
