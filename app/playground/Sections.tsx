@@ -1,10 +1,10 @@
 import styles from './playground.module.css'
 
-interface Props {
+interface SectionsProps {
   headingRef: React.RefObject<HTMLHeadingElement>
 }
 
-export default function Sections({ headingRef }: Props) {
+export default function Sections({ headingRef }: SectionsProps) {
   return (
     <div className={styles.sections}>
       <section className={styles.section}>

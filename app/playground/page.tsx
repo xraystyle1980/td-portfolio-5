@@ -3,14 +3,26 @@
 import dynamic from 'next/dynamic'
 import { Suspense, useEffect, useState, useRef } from 'react'
 import styles from './playground.module.css'
-import Sections from './Sections'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ScrollSmoother } from 'gsap/dist/ScrollSmoother'
 import { SplitText } from 'gsap/dist/SplitText'
 
+// Define interface for Scene3D props
+interface Scene3DProps {
+  scroll: number
+  currentSection: number
+}
+
 // Dynamically import Three.js components with no SSR
-const Scene3D = dynamic(() => import('./Scene3D'), { ssr: false })
+const Scene3D = dynamic<Scene3DProps>(() => import('./Scene3D'), { 
+  ssr: false 
+})
+
+// Create Sections component if missing
+const Sections = dynamic(() => import('./Sections'), {
+  ssr: true
+})
 
 export default function PlaygroundPage() {
   const [scroll, setScroll] = useState(0)
@@ -59,11 +71,19 @@ export default function PlaygroundPage() {
           }
         })
 
-        // Apply scroll speed effects
-        splitText.chars.forEach((char, i) => {
-          smoother.effects(char, { 
-            speed: 1,
-            lag: (i + 1) * 0.1
+        // Apply scroll speed effects to all sections
+        document.querySelectorAll('.section').forEach((section, i) => {
+          // Alternate scroll speeds for more dynamic effect
+          const speed = i % 2 === 0 ? 0.8 : 1.2
+          smoother.effects(section, { speed })
+
+          // Add staggered parallax to section content
+          const elements = section.querySelectorAll('h2, p')
+          elements.forEach((el, j) => {
+            smoother.effects(el, { 
+              speed: speed + (j * 0.1),
+              lag: (j + 1) * 0.15
+            })
           })
         })
       }
@@ -78,11 +98,18 @@ export default function PlaygroundPage() {
     <div className={styles.pageWrapper}>
       {/* 3D Scene Container */}
       <div className={styles.canvasContainer}>
-        <Scene3D scroll={scroll} currentSection={currentSection} />
+        <Scene3D 
+          scroll={scroll} 
+          currentSection={currentSection} 
+        />
       </div>
 
       {/* Scroll Container */}
-      <div id="smooth-wrapper" ref={smoothWrapperRef} className={styles.smoothWrapper}>
+      <div 
+        id="smooth-wrapper" 
+        ref={smoothWrapperRef} 
+        className={styles.smoothWrapper}
+      >
         <div id="smooth-content" ref={contentRef} className={styles.smoothContent}>
           <main className={styles.main}>
             <Sections headingRef={headingRef} />

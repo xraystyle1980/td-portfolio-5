@@ -12,25 +12,36 @@ interface Props {
 }
 
 export default function Scene3D({ scroll, currentSection }: Props) {
+  // Define initial camera settings as constants
+  const INITIAL_POSITION = [500, 500, 1000] // [x, y, z]
+  const INITIAL_FOV = 80
+
   return (
     <Canvas
       style={{ background: 'transparent' }}
       camera={{
-        position: [0, 0, 10],
-        fov: 75,
+        position: INITIAL_POSITION,
+        fov: INITIAL_FOV,
         near: 0.1,
-        far: 2000
+        far: 12000
       }}
     >
       <color attach="background" args={['#000B1F']} />
       <Suspense fallback={null}>
-        <Scene scroll={scroll} currentSection={currentSection} />
-        <OrbitControls enableZoom={false} enablePan={false} enableRotate={false} />
+        <Scene 
+          scroll={scroll} 
+          currentSection={currentSection}
+          initialPosition={{
+            x: INITIAL_POSITION[0],
+            y: INITIAL_POSITION[1],
+            z: INITIAL_POSITION[2]
+          }}
+        />
         <EffectComposer>
           <Bloom 
-            intensity={3}
-            luminanceThreshold={0}
-            luminanceSmoothing={0.4}
+            intensity={85}
+            luminanceThreshold={0.5}
+            luminanceSmoothing={1}
             height={300}
             mipmapBlur={true}
           />

@@ -4,31 +4,68 @@ import { useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { Group, Vector3 } from 'three'
 import RetroGrid from './shapes/RetroGrid'
+import { lerp } from 'three/src/math/MathUtils'
 
 interface Props {
   scroll: number
   currentSection: number
+  initialPosition: { x: number; y: number; z: number }
 }
 
-export default function Scene({ scroll, currentSection }: Props) {
+export default function Scene({ scroll, currentSection, initialPosition }: Props) {
   const groupRef = useRef<Group>(null)
+  const currentPos = useRef(initialPosition)
+  const currentLookAt = useRef({ x: 0, y: -100, z: -100 })
+  const hasStarted = useRef(false)
 
   useFrame(({ camera }) => {
-    // Calculate camera path
-    const y = 40 // Height above tunnel
-    const z = 40 // Distance behind viewing point
-    const lookAheadDistance = 100 // Distance to look ahead in the tunnel
-
     if (groupRef.current) {
-      // Update camera position to follow a curved path
-      const time = scroll * Math.PI * 2
-      const xOffset = Math.sin(time) * 20 // Gentle side-to-side motion
+      // Calculate target positions
+      let targetX, targetY, targetZ
+      let lookAtX, lookAtY, lookAtZ
+
+      if (scroll === 0) {
+        // Initial position
+        targetX = initialPosition.x     // 500
+        targetY = initialPosition.y     // 500
+        targetZ = initialPosition.z     // 1000
+        lookAtX = 0
+        lookAtY = -100
+        lookAtZ = -100
+      } else {
+        // Move forward while maintaining initial viewing angle
+        targetX = initialPosition.x     // Keep same X
+        targetY = initialPosition.y     // Keep same Y
+        targetZ = initialPosition.z - scroll * 8000  // Move backward (negative Z)
+
+        // Maintain same viewing angle by moving look-at point backward
+        lookAtX = 0
+        lookAtY = -100
+        lookAtZ = -100 - scroll * 8000  // Move look-at point backward at same rate
+      }
+
+      // Smooth camera position
+      currentPos.current.x = lerp(currentPos.current.x, targetX, 0.05)
+      currentPos.current.y = lerp(currentPos.current.y, targetY, 0.05)
+      currentPos.current.z = lerp(currentPos.current.z, targetZ, 0.05)
+
+      // Smooth look-at points
+      currentLookAt.current.x = lerp(currentLookAt.current.x, lookAtX, 0.05)
+      currentLookAt.current.y = lerp(currentLookAt.current.y, lookAtY, 0.05)
+      currentLookAt.current.z = lerp(currentLookAt.current.z, lookAtZ, 0.05)
+
+      // Apply camera transformations
+      camera.position.set(
+        currentPos.current.x,
+        currentPos.current.y,
+        currentPos.current.z
+      )
       
-      camera.position.set(xOffset, y, z)
-      
-      // Look at a point ahead in the tunnel
-      const lookAtPoint = new Vector3(0, 0, -lookAheadDistance)
-      camera.lookAt(lookAtPoint)
+      camera.lookAt(new Vector3(
+        currentLookAt.current.x,
+        currentLookAt.current.y,
+        currentLookAt.current.z
+      ))
     }
   })
 
