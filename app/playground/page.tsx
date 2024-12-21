@@ -30,7 +30,6 @@ export default function PlaygroundPage() {
         normalizeScroll: true,
         ignoreMobileResize: true,
         effects: true,
-        preventDefault: true,
         onUpdate: (self) => {
           const progress = self.progress
           setScroll(progress)
