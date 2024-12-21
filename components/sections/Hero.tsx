@@ -9,6 +9,8 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
 import SplitType from 'split-type';
+import VariableText from '@/components/VariableText'
+import localFont from 'next/font/local'
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 ScrollTrigger.defaults({
@@ -20,6 +22,11 @@ const caveat = Caveat({
   weight: ['700'],
   display: 'swap',
 });
+
+const cooper = localFont({
+  src: '../../public/fonts/Cooper-var.ttf',
+  variable: '--font-cooper'
+})
 
 export default function Hero() {
   const waveRef = useRef<HTMLImageElement>(null);
@@ -119,7 +126,7 @@ export default function Hero() {
   }
 
   return (
-    <section className={styles.hero} suppressHydrationWarning>
+    <section className={`${styles.hero} ${cooper.variable}`} suppressHydrationWarning>
       <div className={styles.heroContent}>
         <div className={styles.sceneContainer}>
           <Scene />
@@ -133,11 +140,38 @@ export default function Hero() {
               Trice.Design
             </button>
             <h1 ref={textRef} className={styles.heroHeadline}>
-              <span>Build</span>
+              <VariableText 
+                text="Build"
+                className={styles.heroWord}
+                style={{
+                  fontSize: 'inherit',
+                  fontWeight: 'variable',
+                  fontVariationSettings: '"wght" 400',
+                  letterSpacing: '-0.02em'
+                }}
+              />
               <br />
-              <span>Cool</span>
+              <VariableText 
+                text="Cool"
+                className={styles.heroWord}
+                style={{
+                  fontSize: 'inherit',
+                  fontWeight: 'variable',
+                  fontVariationSettings: '"wght" 400',
+                  letterSpacing: '-0.02em'
+                }}
+              />
               <br />
-              <span>Shit</span>
+              <VariableText 
+                text="Shit"
+                className={styles.heroWord}
+                style={{
+                  fontSize: 'inherit',
+                  fontWeight: 'variable',
+                  fontVariationSettings: '"wght" 400',
+                  letterSpacing: '-0.02em'
+                }}
+              />
             </h1>
           </div>
         </div>

@@ -22,7 +22,7 @@
     "react-dom": "18.2.0",
     "split-type": "^0.3.4",
     "stats.js": "^0.17.0",
-    "three": "^0.159.0"
+    "three": "^0.171.0"
   },
   "devDependencies": {
     "@types/node": "20.3.1",

@@ -8,49 +8,43 @@ interface Props {
   scroll: number
   currentSection: number
   initialPosition: { x: number; y: number; z: number }
+  hideContent?: boolean
 }
 
-export default function Scene({ scroll, currentSection, initialPosition }: Props) {
+export default function Scene({ scroll, currentSection, initialPosition, hideContent }: Props) {
   const groupRef = useRef<Group>(null)
   const currentPos = useRef(initialPosition)
-  const currentLookAt = useRef({ x: 0, y: -100, z: -100 })
-  const hasStarted = useRef(false)
+  const currentLookAt = useRef(new Vector3(0, 0, 0))
 
   useFrame(({ camera }) => {
     if (groupRef.current) {
-      // Calculate target positions
-      let targetX, targetY, targetZ
-      let lookAtX, lookAtY, lookAtZ
+      // Calculate orbital position based on scroll
+      const radius = 6000 // Distance from center
+      const angle = scroll * Math.PI * 2 // Full 360-degree rotation
+      const height = MathUtils.lerp(1800, 3200, scroll) // Gradual height change
 
-      if (scroll === 0) {
-        // Initial position
-        targetX = initialPosition.x
-        targetY = initialPosition.y
-        targetZ = initialPosition.z
-        lookAtX = 0
-        lookAtY = -100
-        lookAtZ = -100
-      } else {
-        // Reduce the movement multiplier from 8000 to match grid size
-        targetX = initialPosition.x
-        targetY = initialPosition.y
-        targetZ = initialPosition.z - scroll * 3000  // Reduced from 8000 to 3000 to match grid size
-        
-        // Adjust look-at point
-        lookAtX = 0
-        lookAtY = -100
-        lookAtZ = -100 - scroll * 3000  // Match the movement rate
-      }
+      // Calculate camera position on the circular path
+      const targetX = Math.sin(angle) * radius
+      const targetZ = Math.cos(angle) * radius
+      const targetY = height
+
+      // Calculate lookAt based on scroll with tilt
+      let lookAtTarget = new Vector3()
+      const tiltAmount = Math.sin(scroll * Math.PI * 2) * 100 // Oscillating tilt
+      
+      lookAtTarget.set(
+        Math.sin(angle + Math.PI) * 800, // Look slightly ahead of movement
+        tiltAmount,                       // Add vertical movement
+        Math.cos(angle + Math.PI) * 800   // Look slightly ahead of movement
+      )
 
       // Smooth camera position
-      currentPos.current.x = MathUtils.lerp(currentPos.current.x, targetX, 0.05)
-      currentPos.current.y = MathUtils.lerp(currentPos.current.y, targetY, 0.05)
-      currentPos.current.z = MathUtils.lerp(currentPos.current.z, targetZ, 0.05)
+      currentPos.current.x = MathUtils.lerp(currentPos.current.x, targetX, 0.01)
+      currentPos.current.y = MathUtils.lerp(currentPos.current.y, targetY, 0.01)
+      currentPos.current.z = MathUtils.lerp(currentPos.current.z, targetZ, 0.01)
 
-      // Smooth look-at points
-      currentLookAt.current.x = MathUtils.lerp(currentLookAt.current.x, lookAtX, 0.05)
-      currentLookAt.current.y = MathUtils.lerp(currentLookAt.current.y, lookAtY, 0.05)
-      currentLookAt.current.z = MathUtils.lerp(currentLookAt.current.z, lookAtZ, 0.05)
+      // Smooth lookAt transition
+      currentLookAt.current.lerp(lookAtTarget, 0.008)
 
       // Apply camera transformations
       camera.position.set(
@@ -58,18 +52,13 @@ export default function Scene({ scroll, currentSection, initialPosition }: Props
         currentPos.current.y,
         currentPos.current.z
       )
-      
-      camera.lookAt(new Vector3(
-        currentLookAt.current.x,
-        currentLookAt.current.y,
-        currentLookAt.current.z
-      ))
+      camera.lookAt(currentLookAt.current)
     }
   })
 
   return (
     <group ref={groupRef}>
-      {/* Remove RetroGrid component from here */}
+      {/* Your scene content */}
     </group>
   )
 } 

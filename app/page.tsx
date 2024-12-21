@@ -1,80 +1,111 @@
 'use client'
 
-import { useEffect } from 'react'
+import dynamic from 'next/dynamic'
+import { Suspense, useEffect, useState, useRef } from 'react'
+import styles from './page.module.css'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import PerformanceStats from '@/components/3d/Stats'
+import { ScrollSmoother } from 'gsap/dist/ScrollSmoother'
+import { SplitText } from 'gsap/dist/SplitText'
 
-// Register once at the app level
-gsap.registerPlugin(ScrollTrigger)
-ScrollTrigger.defaults({
-  markers: false
+// Define interface for Scene3D props
+interface Scene3DProps {
+  scroll: number
+  currentSection: number
+}
+
+// Dynamically import Three.js components with no SSR
+const Scene3D = dynamic<Scene3DProps>(() => import('./Scene3D'), { 
+  ssr: false 
 })
 
-import Hero from '@/components/sections/Hero'
-import AboutMe from '@/components/sections/AboutMe'
-import WorkTogether from '@/components/sections/WorkTogether'
-import Footer from '@/components/sections/Footer'
-import Project from '@/components/sections/Project'
-import UIDesign from '@/components/sections/UIDesign'
-import Playground from '@/components/sections/Playground'
-import Section from '@/components/sections/Section'
+export default function HomePage() {
+  const [scroll, setScroll] = useState(0)
+  const [currentSection, setCurrentSection] = useState(0)
+  const smoothWrapperRef = useRef<HTMLDivElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
+  const headingRef = useRef<HTMLHeadingElement>(null)
 
-export default function Home() {
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      gsap.registerPlugin(ScrollTrigger, ScrollSmoother, SplitText)
+
+      let smoother = ScrollSmoother.create({
+        wrapper: smoothWrapperRef.current,
+        content: contentRef.current,
+        smooth: 1.5,
+        normalizeScroll: true,
+        ignoreMobileResize: true,
+        effects: true,
+        onUpdate: (self) => {
+          const progress = self.progress
+          setScroll(progress)
+          setCurrentSection(Math.floor(progress * 6))
+        }
+      })
+
+      return () => {
+        smoother && smoother.kill()
+      }
+    }
+  }, [])
+
   return (
-    <>
-      <PerformanceStats />
-      <main className="relative" suppressHydrationWarning>
-        <Section>
-          <Hero />
-        </Section>
-        <Section isDark>
-          <AboutMe />
-        </Section>
-        <section id="work">
-          <Project 
-            title="Decent"
-            description="A decentralized content platform built on Arweave. Built with Next.js, TypeScript, and Tailwind."
-            imageSrc="/portfolio/decent_app--hero.png"
-            imageAlt="Decent App"
-            index={0}
-          />
-          <Project 
-            title="Blockset Docs"
-            description="Documentation platform for Blockset's blockchain infrastructure APIs."
-            imageSrc="/portfolio/blockset_docs--hero.png"
-            imageAlt="Blockset Documentation"
-            inverted
-            index={1}
-          />
-          <Project 
-            title="Frostbyte"
-            description="NFT marketplace with integrated scanning tools for fraud detection."
-            imageSrc="/portfolio/frostbyte_scan--product1.png"
-            imageAlt="Frostbyte NFT Scanner"
-            index={2}
-          />
-          <Project 
-            title="Sarcophagus"
-            description="Dead man's switch for the decentralized web. Built with React and Web3 technologies."
-            imageSrc="/portfolio/sarcophagus_app--product1.png"
-            imageAlt="Sarcophagus dApp"
-            inverted
-            index={3}
-          />
-          <Project 
-            title="Decent Design System"
-            description="A comprehensive design system for decentralized applications."
-            imageSrc="/portfolio/decent_ds--hero.png"
-            imageAlt="Decent Design System"
-            index={4}
-          />
-        </section>
-        <UIDesign />
-        <Playground />
-        <WorkTogether />
-        <Footer />
-      </main>
-    </>
+    <div className={styles.pageWrapper}>
+      {/* 3D Scene Container */}
+      <div className={styles.canvasContainer}>
+        <Scene3D 
+          scroll={scroll} 
+          currentSection={currentSection} 
+        />
+      </div>
+
+      {/* Scroll Container */}
+      <div 
+        id="smooth-wrapper" 
+        ref={smoothWrapperRef} 
+        className={styles.smoothWrapper}
+      >
+        <div id="smooth-content" ref={contentRef} className={styles.smoothContent}>
+          <main className={styles.main}>
+            <section className={styles.section}>
+              <h1 ref={headingRef} className={styles.mainHeading}>
+                Build
+                <br />
+                Cool
+                <br />
+                Shit
+              </h1>
+            </section>
+
+            <section className={styles.section}>
+              <h2 data-speed="0.5">Innovation</h2>
+              <p data-speed="0.8">Pushing the boundaries of what's possible in web development</p>
+            </section>
+
+            <section className={styles.section}>
+              <h2 data-speed="0.5">Technology</h2>
+              <p data-speed="0.8">Using cutting-edge tools to create immersive experiences</p>
+            </section>
+
+            <section className={styles.section}>
+              <h2 data-speed="0.5">Design</h2>
+              <p data-speed="0.8">Crafting beautiful and functional digital experiences</p>
+            </section>
+
+            <section className={styles.section}>
+              <h2 data-speed="0.5">Interaction</h2>
+              <p data-speed="0.8">Building engaging and responsive user interfaces</p>
+            </section>
+
+            <section className={styles.section}>
+              <h2 data-speed="0.5">Let's Create</h2>
+              <p data-speed="0.8">Ready to bring your ideas to life?</p>
+              <button className={styles.button} data-speed="1.2">Get Started</button>
+            </section>
+          </main>
+        </div>
+      </div>
+    </div>
   )
 }

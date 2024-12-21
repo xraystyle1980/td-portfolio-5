@@ -2,7 +2,7 @@
 
 import { Canvas } from '@react-three/fiber'
 import { Suspense } from 'react'
-import { OrbitControls } from '@react-three/drei'
+import { OrbitControls, PerspectiveCamera } from '@react-three/drei'
 import { EffectComposer, Bloom } from '@react-three/postprocessing'
 import Scene from './Scene'
 import { Vector3 } from 'three'
@@ -14,9 +14,8 @@ interface Props {
 }
 
 export default function Scene3D({ scroll, currentSection }: Props) {
-  // Adjust camera to be higher and closer for a better top-down view
-  const INITIAL_POSITION = new Vector3(0, 200, 1000)  // Moved up and forward
-  const INITIAL_FOV = 50  // Adjusted from 120 to 90 for less distortion
+  const INITIAL_POSITION = new Vector3(0, 200, 9000)
+  const INITIAL_FOV = 30
 
   return (
     <Canvas
@@ -27,16 +26,17 @@ export default function Scene3D({ scroll, currentSection }: Props) {
         left: 0,
         zIndex: -1
       }}
-      camera={{
-        position: INITIAL_POSITION,
-        fov: INITIAL_FOV,
-        near: 0.1,
-        far: 10000
-      }}
     >
-      <color attach="background" args={['#000B1F']} />
+      <color attach="background" args={['#161616']} />
       <Suspense fallback={null}>
-        <RetroGrid size={4} />
+        <PerspectiveCamera
+          makeDefault
+          position={INITIAL_POSITION}
+          fov={INITIAL_FOV}
+          near={0.1}
+          far={19000}
+        />
+        <RetroGrid size={4} scroll={scroll} />
         <Scene 
           scroll={scroll} 
           currentSection={currentSection}

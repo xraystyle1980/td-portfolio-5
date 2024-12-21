@@ -282,6 +282,10 @@
   display: block;
   width: 100%;
   line-height: 0.9;
+  color: #F39;
+  text-shadow: -4px 4px 0px #000;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: #000;
 }
 
 .heroText {
@@ -317,7 +321,6 @@
 }
 
 .heroHeadline {
-  font-family: 'Banigar-Round', sans-serif;
   color: #F39;
   text-shadow: -4px 4px 0px #000;
   -webkit-text-stroke-width: 2px;
@@ -364,5 +367,39 @@
   padding: 0;
   box-sizing: border-box;
   z-index: 30;
+}
+
+.container {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.title {
+  font-size: clamp(3rem, 8vw, 8rem);
+  text-align: center;
+  line-height: 1;
+  margin: 0;
+}
+
+.subtitle {
+  font-size: clamp(1rem, 2vw, 2rem);
+  text-align: center;
+  max-width: 60ch;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.heroText {
+  transition: font-variation-settings 0.3s ease;
+}
+
+.subtitleText {
+  transition: font-variation-settings 0.3s ease;
 }
  

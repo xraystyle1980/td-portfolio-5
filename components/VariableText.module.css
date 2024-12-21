@@ -1,5 +1,5 @@
 .container {
-  font-family: 'Banigar-Round', sans-serif;
+  font-family: 'Cooper', sans-serif;
   cursor: default;
   user-select: none;
   pointer-events: auto !important;
@@ -25,12 +25,16 @@
   -webkit-text-stroke-color: inherit;
   pointer-events: auto !important;
   cursor: pointer;
-  /* width: 0.65em; */
-  /* text-align: center;
-  margin: 0px; */
   padding: 0;
   box-sizing: border-box;
-  /* background-color: rgba(255, 0, 0, 0.1); */
+  transform-origin: center bottom;
+  will-change: transform;
+  transition: color 0.3s ease;
+}
+
+.char:hover {
+  color: #00ffff;
+  transform: scale(1.2);
 }
 
 @media (max-width: 1024px) {

@@ -1,0 +1,131 @@
+.pageWrapper {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background: transparent;
+  color: #000;
+  overflow: hidden;
+}
+
+.canvasContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 1;
+}
+
+.smoothWrapper {
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.smoothContent {
+  min-height: 100vh;
+  pointer-events: all;
+}
+
+.main {
+  position: relative;
+  z-index: 2;
+}
+
+.section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem 2rem;
+  position: relative;
+  background: transparent;
+}
+
+.mainHeading {
+  font-family: 'Cooper', sans-serif;
+  font-size: 240px;
+  line-height: 0.85;
+  margin-bottom: 1rem;
+  color: #F39;
+  text-shadow: -12px 12px 0px #000;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: #000;
+  font-variation-settings: "wght" 900;
+  letter-spacing: -0.02em;
+  mix-blend-mode: screen;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  max-width: 600px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.section h2 {
+  font-family: 'Cooper', sans-serif;
+  font-size: 120px;
+  line-height: 1;
+  margin-bottom: 1rem;
+  color: #F39;
+  text-shadow: -8px 8px 0px #000;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: #000;
+  mix-blend-mode: screen;
+}
+
+.section p {
+  font-size: 1.5rem;
+  max-width: 600px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.button {
+  background: #F39;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 2rem;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-top: 2rem;
+  transition: transform 0.2s;
+  font-family: 'Cooper', sans-serif;
+  mix-blend-mode: screen;
+}
+
+.button:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 1024px) {
+  .mainHeading {
+    font-size: 180px;
+  }
+
+  .section h2 {
+    font-size: 100px;
+  }
+}
+
+@media (max-width: 640px) {
+  .mainHeading {
+    font-size: 120px;
+  }
+
+  .section h2 {
+    font-size: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mainHeading {
+    font-size: 100px;
+  }
+
+  .section h2 {
+    font-size: 60px;
+  }
+} 
