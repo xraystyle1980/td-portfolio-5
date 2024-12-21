@@ -73,7 +73,7 @@ export default function PlaygroundPage() {
 
         // Apply scroll speed effects to all sections
         document.querySelectorAll('.section').forEach((section, i) => {
-          // Alternate scroll speeds for more dynamic effect
+          // Create alternating scroll speeds
           const speed = i % 2 === 0 ? 0.8 : 1.2
           smoother.effects(section, { speed })
 

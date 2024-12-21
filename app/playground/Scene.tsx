@@ -2,9 +2,7 @@
 
 import { useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { Group, Vector3 } from 'three'
-import RetroGrid from './shapes/RetroGrid'
-import { lerp } from 'three/src/math/MathUtils'
+import { Group, Vector3, MathUtils } from 'three'
 
 interface Props {
   scroll: number
@@ -26,33 +24,33 @@ export default function Scene({ scroll, currentSection, initialPosition }: Props
 
       if (scroll === 0) {
         // Initial position
-        targetX = initialPosition.x     // 500
-        targetY = initialPosition.y     // 500
-        targetZ = initialPosition.z     // 1000
+        targetX = initialPosition.x
+        targetY = initialPosition.y
+        targetZ = initialPosition.z
         lookAtX = 0
         lookAtY = -100
         lookAtZ = -100
       } else {
-        // Move forward while maintaining initial viewing angle
-        targetX = initialPosition.x     // Keep same X
-        targetY = initialPosition.y     // Keep same Y
-        targetZ = initialPosition.z - scroll * 8000  // Move backward (negative Z)
-
-        // Maintain same viewing angle by moving look-at point backward
+        // Reduce the movement multiplier from 8000 to match grid size
+        targetX = initialPosition.x
+        targetY = initialPosition.y
+        targetZ = initialPosition.z - scroll * 3000  // Reduced from 8000 to 3000 to match grid size
+        
+        // Adjust look-at point
         lookAtX = 0
         lookAtY = -100
-        lookAtZ = -100 - scroll * 8000  // Move look-at point backward at same rate
+        lookAtZ = -100 - scroll * 3000  // Match the movement rate
       }
 
       // Smooth camera position
-      currentPos.current.x = lerp(currentPos.current.x, targetX, 0.05)
-      currentPos.current.y = lerp(currentPos.current.y, targetY, 0.05)
-      currentPos.current.z = lerp(currentPos.current.z, targetZ, 0.05)
+      currentPos.current.x = MathUtils.lerp(currentPos.current.x, targetX, 0.05)
+      currentPos.current.y = MathUtils.lerp(currentPos.current.y, targetY, 0.05)
+      currentPos.current.z = MathUtils.lerp(currentPos.current.z, targetZ, 0.05)
 
       // Smooth look-at points
-      currentLookAt.current.x = lerp(currentLookAt.current.x, lookAtX, 0.05)
-      currentLookAt.current.y = lerp(currentLookAt.current.y, lookAtY, 0.05)
-      currentLookAt.current.z = lerp(currentLookAt.current.z, lookAtZ, 0.05)
+      currentLookAt.current.x = MathUtils.lerp(currentLookAt.current.x, lookAtX, 0.05)
+      currentLookAt.current.y = MathUtils.lerp(currentLookAt.current.y, lookAtY, 0.05)
+      currentLookAt.current.z = MathUtils.lerp(currentLookAt.current.z, lookAtZ, 0.05)
 
       // Apply camera transformations
       camera.position.set(
@@ -71,7 +69,7 @@ export default function Scene({ scroll, currentSection, initialPosition }: Props
 
   return (
     <group ref={groupRef}>
-      <RetroGrid scroll={scroll} />
+      {/* Remove RetroGrid component from here */}
     </group>
   )
 } 
