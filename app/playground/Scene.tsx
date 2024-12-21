@@ -2,11 +2,8 @@
 
 import { useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { Mesh, Group } from 'three'
-import CellularPlane from '@/components/3d/CellularPlane'
-import TorusField from './shapes/TorusField'
-import CubeGrid from './shapes/CubeGrid'
-import SphereCloud from './shapes/SphereCloud'
+import { Group, Vector3 } from 'three'
+import RetroGrid from './shapes/RetroGrid'
 
 interface Props {
   scroll: number
@@ -16,33 +13,28 @@ interface Props {
 export default function Scene({ scroll, currentSection }: Props) {
   const groupRef = useRef<Group>(null)
 
-  useFrame(() => {
+  useFrame(({ camera }) => {
+    // Calculate camera path
+    const y = 40 // Height above tunnel
+    const z = 40 // Distance behind viewing point
+    const lookAheadDistance = 100 // Distance to look ahead in the tunnel
+
     if (groupRef.current) {
-      // Smooth section transitions
-      const targetY = -currentSection * 5
-      groupRef.current.position.y += (targetY - groupRef.current.position.y) * 0.1
+      // Update camera position to follow a curved path
+      const time = scroll * Math.PI * 2
+      const xOffset = Math.sin(time) * 20 // Gentle side-to-side motion
+      
+      camera.position.set(xOffset, y, z)
+      
+      // Look at a point ahead in the tunnel
+      const lookAtPoint = new Vector3(0, 0, -lookAheadDistance)
+      camera.lookAt(lookAtPoint)
     }
   })
 
   return (
     <group ref={groupRef}>
-      {/* Section 0: Tunnel */}
-      <CellularPlane scroll={scroll} />
-      
-      {/* Section 1: Field of rotating tori */}
-      <group position={[0, -5, 0]}>
-        <TorusField scroll={scroll} />
-      </group>
-      
-      {/* Section 2: Grid of animated cubes */}
-      <group position={[0, -10, 0]}>
-        <CubeGrid scroll={scroll} />
-      </group>
-      
-      {/* Section 3: Cloud of spheres */}
-      <group position={[0, -15, 0]}>
-        <SphereCloud scroll={scroll} />
-      </group>
+      <RetroGrid scroll={scroll} />
     </group>
   )
 } 

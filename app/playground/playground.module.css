@@ -1,51 +1,106 @@
-.main {
+.pageWrapper {
+  position: relative;
   width: 100%;
-  height: 400vh; /* 4 sections */
-  background: #000;
-  color: white;
+  height: 100vh;
+  background: #000B1F;
 }
 
 .canvasContainer {
-  width: 100%;
-  height: 100vh;
   position: fixed;
   top: 0;
   left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100vh;
   pointer-events: none;
+  z-index: 0;
+}
+
+.smoothWrapper {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 1;
+  background: transparent;
+}
+
+.smoothContent {
+  will-change: transform;
+}
+
+.main {
+  width: 100%;
+  height: 600vh;
+  color: white;
+  position: relative;
+  overflow-x: hidden;
+  background: rgba(0, 11, 31, 0.3);
+  backdrop-filter: blur(0px);
 }
 
 .sections {
   position: relative;
   z-index: 1;
+  width: 100%;
+  pointer-events: auto;
 }
 
 .section {
-  height: 100vh;
+  min-height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  position: relative;
+  background: rgba(0, 11, 31, 0.3);
 }
 
-.section h1 {
+.section > * {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.mainHeading {
   font-size: 4rem;
   margin-bottom: 1rem;
   background: linear-gradient(45deg, #00ffff, #0066ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  opacity: 0;
+  will-change: transform;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  max-width: 600px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.8);
+  will-change: transform;
 }
 
 .section h2 {
   font-size: 3rem;
   margin-bottom: 1rem;
+  color: #fff;
+  will-change: transform;
 }
 
 .section p {
   font-size: 1.5rem;
   max-width: 600px;
   line-height: 1.5;
+  color: rgba(255, 255, 255, 0.8);
+  will-change: transform;
+}
+
+.split-line {
+  overflow: hidden;
 }
 
 .workGrid {
@@ -72,6 +127,7 @@
   cursor: pointer;
   margin-top: 2rem;
   transition: transform 0.2s;
+  will-change: transform;
 }
 
 .button:hover {

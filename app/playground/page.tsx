@@ -1,48 +1,95 @@
 'use client'
 
-import { Canvas } from '@react-three/fiber'
-import { Suspense, useEffect, useState } from 'react'
+import dynamic from 'next/dynamic'
+import { Suspense, useEffect, useState, useRef } from 'react'
 import styles from './playground.module.css'
-import { OrbitControls } from '@react-three/drei'
-import Scene from './Scene'
 import Sections from './Sections'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { ScrollSmoother } from 'gsap/dist/ScrollSmoother'
+import { SplitText } from 'gsap/dist/SplitText'
+
+// Dynamically import Three.js components with no SSR
+const Scene3D = dynamic(() => import('./Scene3D'), { ssr: false })
 
 export default function PlaygroundPage() {
   const [scroll, setScroll] = useState(0)
   const [currentSection, setCurrentSection] = useState(0)
+  const smoothWrapperRef = useRef<HTMLDivElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
+  const headingRef = useRef<HTMLHeadingElement>(null)
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)
-      setScroll(scrollPercent)
-      
-      // Calculate current section based on scroll position
-      const section = Math.floor(scrollPercent * 4) // 4 sections total
-      setCurrentSection(section)
-    }
+    if (typeof window !== 'undefined') {
+      gsap.registerPlugin(ScrollTrigger, ScrollSmoother, SplitText)
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+      let smoother = ScrollSmoother.create({
+        wrapper: smoothWrapperRef.current,
+        content: contentRef.current,
+        smooth: 1.5,
+        normalizeScroll: true,
+        ignoreMobileResize: true,
+        effects: true,
+        preventDefault: true,
+        onUpdate: (self) => {
+          const progress = self.progress
+          setScroll(progress)
+          setCurrentSection(Math.floor(progress * 6))
+        }
+      })
+
+      // Initialize text animations
+      if (headingRef.current) {
+        const splitText = new SplitText(headingRef.current, { 
+          type: "words,chars",
+          linesClass: "split-line"
+        })
+
+        // Animate each character with a stagger
+        gsap.from(splitText.chars, {
+          opacity: 0,
+          y: 100,
+          rotateX: -90,
+          stagger: 0.02,
+          duration: 1,
+          ease: "back.out(1.7)",
+          scrollTrigger: {
+            trigger: headingRef.current,
+            start: "top center+=20%",
+            toggleActions: "play none none reverse"
+          }
+        })
+
+        // Apply scroll speed effects
+        splitText.chars.forEach((char, i) => {
+          smoother.effects(char, { 
+            speed: 1,
+            lag: (i + 1) * 0.1
+          })
+        })
+      }
+
+      return () => {
+        smoother && smoother.kill()
+      }
+    }
   }, [])
 
   return (
-    <main className={styles.main}>
+    <div className={styles.pageWrapper}>
+      {/* 3D Scene Container */}
       <div className={styles.canvasContainer}>
-        <Canvas
-          camera={{
-            position: [0, 2, 5],
-            fov: 75,
-            near: 0.1,
-            far: 1000
-          }}
-        >
-          <Suspense fallback={null}>
-            <Scene scroll={scroll} currentSection={currentSection} />
-            <OrbitControls enableZoom={false} />
-          </Suspense>
-        </Canvas>
+        <Scene3D scroll={scroll} currentSection={currentSection} />
       </div>
-      <Sections />
-    </main>
+
+      {/* Scroll Container */}
+      <div id="smooth-wrapper" ref={smoothWrapperRef} className={styles.smoothWrapper}>
+        <div id="smooth-content" ref={contentRef} className={styles.smoothContent}>
+          <main className={styles.main}>
+            <Sections headingRef={headingRef} />
+          </main>
+        </div>
+      </div>
+    </div>
   )
 } 
