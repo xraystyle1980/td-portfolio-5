@@ -3,9 +3,7 @@
 import { useRef, useMemo } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
-import { Line2 } from 'three/examples/jsm/lines/Line2'
-import { LineMaterial } from 'three/examples/jsm/lines/LineMaterial'
-import { LineGeometry } from 'three/examples/jsm/lines/LineGeometry'
+import { Line } from '@react-three/drei'
 
 interface Props {
   size?: number
@@ -14,7 +12,6 @@ interface Props {
 
 export default function RetroGrid({ size = 400, scroll = 0 }: Props) {
   const gridRef = useRef<THREE.Group>(null)
-  const materialRef = useRef<LineMaterial>(null)
 
   // Create perspective grid lines
   const linePoints = useMemo(() => {
@@ -53,34 +50,13 @@ export default function RetroGrid({ size = 400, scroll = 0 }: Props) {
     return points
   }, [])
 
-  // Create line geometries with Line2
-  const lines = useMemo(() => {
-    return linePoints.reduce((acc: Line2[], _, index, array) => {
-      if (index % 2 === 0) {
-        const geometry = new LineGeometry()
-        const start = array[index]
-        const end = array[index + 1]
-        geometry.setPositions([
-          start.x, start.y, start.z,
-          end.x, end.y, end.z
-        ])
-        
-        const material = new LineMaterial({
-          color: '#F39',
-          linewidth: 3, // This will actually work now
-          vertexColors: false,
-          dashed: false,
-          alphaToCoverage: true,
-          opacity: 0.8,
-          transparent: true,
-          resolution: new THREE.Vector2(window.innerWidth, window.innerHeight)
-        })
-
-        const line = new Line2(geometry, material)
-        acc.push(line)
-      }
-      return acc
-    }, [])
+  // Create line pairs
+  const linePairs = useMemo(() => {
+    const pairs = []
+    for (let i = 0; i < linePoints.length; i += 2) {
+      pairs.push([linePoints[i], linePoints[i + 1]])
+    }
+    return pairs
   }, [linePoints])
 
   useFrame(() => {
@@ -91,18 +67,20 @@ export default function RetroGrid({ size = 400, scroll = 0 }: Props) {
     const loopPoint = 6000
     const scrollZ = (scroll * moveSpeed) % loopPoint
     gridRef.current.position.z = scrollZ
-
-    // Update resolution on each frame
-    lines.forEach(line => {
-      const material = line.material as LineMaterial
-      material.resolution.set(window.innerWidth, window.innerHeight)
-    })
   })
 
   return (
     <group ref={gridRef}>
-      {lines.map((line, i) => (
-        <primitive key={i} object={line} />
+      {linePairs.map((points, i) => (
+        <Line
+          key={i}
+          points={points}
+          color="#F39"
+          lineWidth={3}
+          opacity={0.8}
+          transparent
+          dashed={false}
+        />
       ))}
     </group>
   )

@@ -9,7 +9,6 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
 import SplitType from 'split-type';
-import VariableText from '@/components/VariableText'
 import localFont from 'next/font/local'
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
@@ -140,38 +139,11 @@ export default function Hero() {
               Trice.Design
             </button>
             <h1 ref={textRef} className={styles.heroHeadline}>
-              <VariableText 
-                text="Build"
-                className={styles.heroWord}
-                style={{
-                  fontSize: 'inherit',
-                  fontWeight: 'variable',
-                  fontVariationSettings: '"wght" 400',
-                  letterSpacing: '-0.02em'
-                }}
-              />
+              <span className={styles.heroWord}>Build</span>
               <br />
-              <VariableText 
-                text="Cool"
-                className={styles.heroWord}
-                style={{
-                  fontSize: 'inherit',
-                  fontWeight: 'variable',
-                  fontVariationSettings: '"wght" 400',
-                  letterSpacing: '-0.02em'
-                }}
-              />
+              <span className={styles.heroWord}>Cool</span>
               <br />
-              <VariableText 
-                text="Shit"
-                className={styles.heroWord}
-                style={{
-                  fontSize: 'inherit',
-                  fontWeight: 'variable',
-                  fontVariationSettings: '"wght" 400',
-                  letterSpacing: '-0.02em'
-                }}
-              />
+              <span className={styles.heroWord}>Shit</span>
             </h1>
           </div>
         </div>
