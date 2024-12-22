@@ -19,7 +19,8 @@ declare global {
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const logoRef = useRef(null)
+  const logoRef = useRef<HTMLDivElement>(null)
+  const stRef = useRef<ScrollTrigger>()
 
   useEffect(() => {
     gsap.registerPlugin(ScrollToPlugin, ScrollTrigger)
@@ -40,20 +41,38 @@ export default function Navigation() {
       zIndex: 1000
     })
 
+    // Timeline for nav animation
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: '#hero',
         start: 'top top',
-        end: '+=100',
-        scrub: 0.5
+        end: '+=50',
+        scrub: 0.1,
+        onLeaveBack: () => {
+          // Instantly return to hero position
+          stRef.current?.disable()
+          gsap.set(logoRef.current, {
+            fontSize: '4rem',
+            top: startY
+          })
+          stRef.current?.enable()
+        }
       }
     })
 
+    // Animation to nav position
     tl.to(logoRef.current, {
       fontSize: '1.75rem',
       top: '1.5rem',
       ease: 'none'
     })
+
+    // Store ScrollTrigger instance
+    stRef.current = ScrollTrigger.getById(tl.scrollTrigger?.toString() || '')
+
+    return () => {
+      stRef.current?.kill()
+    }
   }, [])
 
   const scrollToSection = (sectionId: string) => {

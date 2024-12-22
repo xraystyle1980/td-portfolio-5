@@ -193,4 +193,15 @@
   .heroLogo {
     font-size: 1.5rem;
   }
+}
+
+.swapWord {
+  display: inline-block;
+  cursor: pointer;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.swapWord:hover {
+  color: #F39;
 } 

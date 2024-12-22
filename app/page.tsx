@@ -25,6 +25,7 @@ export default function HomePage() {
   const smoothWrapperRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
   const headingRef = useRef<HTMLHeadingElement>(null)
+  const wordRef = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -43,6 +44,63 @@ export default function HomePage() {
           setCurrentSection(Math.floor(progress * 5))
         }
       })
+
+      // Setup word swap animation
+      if (wordRef.current) {
+        const word = wordRef.current
+        let isAnimating = false
+        let currentAnimation: gsap.core.Tween | null = null
+        
+        const handleMouseEnter = () => {
+          if (isAnimating) return
+          isAnimating = true
+          
+          // Kill any existing animation
+          if (currentAnimation) currentAnimation.kill()
+          
+          currentAnimation = gsap.to(word, {
+            keyframes: [
+              { opacity: 0, y: -20, duration: 0.2 },
+              { opacity: 0, y: 20, duration: 0, onComplete: () => { word.textContent = 'shit' } },
+              { opacity: 1, y: 0, duration: 0.2 }
+            ],
+            ease: 'power2.inOut',
+            onComplete: () => {
+              isAnimating = false
+            }
+          })
+        }
+
+        const handleMouseLeave = () => {
+          if (isAnimating) return
+          isAnimating = true
+          
+          // Kill any existing animation
+          if (currentAnimation) currentAnimation.kill()
+          
+          currentAnimation = gsap.to(word, {
+            keyframes: [
+              { opacity: 0, y: 20, duration: 0.2 },
+              { opacity: 0, y: -20, duration: 0, onComplete: () => { word.textContent = 'stuff' } },
+              { opacity: 1, y: 0, duration: 0.2 }
+            ],
+            ease: 'power2.inOut',
+            onComplete: () => {
+              isAnimating = false
+            }
+          })
+        }
+
+        word.addEventListener('mouseenter', handleMouseEnter)
+        word.addEventListener('mouseleave', handleMouseLeave)
+
+        return () => {
+          smoother && smoother.kill()
+          if (currentAnimation) currentAnimation.kill()
+          word.removeEventListener('mouseenter', handleMouseEnter)
+          word.removeEventListener('mouseleave', handleMouseLeave)
+        }
+      }
 
       return () => {
         smoother && smoother.kill()
@@ -76,7 +134,12 @@ export default function HomePage() {
                   <br />
                   Cool
                   <br />
-                  stuff
+                  <span 
+                    ref={wordRef}
+                    className={styles.swapWord}
+                  >
+                    stuff
+                  </span>
                 </h1>
               </div>
             </section>
