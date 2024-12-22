@@ -40,7 +40,7 @@ export default function HomePage() {
         onUpdate: (self) => {
           const progress = self.progress
           setScroll(progress)
-          setCurrentSection(Math.floor(progress * 6))
+          setCurrentSection(Math.floor(progress * 5))
         }
       })
 
@@ -68,40 +68,57 @@ export default function HomePage() {
       >
         <div id="smooth-content" ref={contentRef} className={styles.smoothContent}>
           <main className={styles.main}>
-            <section className={styles.section}>
-              <h1 ref={headingRef} className={styles.mainHeading}>
-                Build
-                <br />
-                Cool
-                <br />
-                Shit
-              </h1>
+            {/* Hero Section */}
+            <section id="hero" className={styles.section}>
+              <div className={styles.heroContent}>
+                <h1 ref={headingRef} className={styles.mainHeading}>
+                  Build
+                  <br />
+                  Cool
+                  <br />
+                  stuff
+                </h1>
+              </div>
             </section>
 
-            <section className={styles.section}>
-              <h2 data-speed="0.5">Innovation</h2>
-              <p data-speed="0.8">Pushing the boundaries of what's possible in web development</p>
+            {/* About Section */}
+            <section id="about" className={styles.section}>
+              <div className={styles.sectionContent}>
+                <h2 className={styles.sectionHeading}>About</h2>
+                <p className={styles.sectionText}>
+                  I'm Matt Trice, an Atlanta-based product & web designer. 
+                  Let's work together & build cool shit.
+                </p>
+              </div>
             </section>
 
-            <section className={styles.section}>
-              <h2 data-speed="0.5">Technology</h2>
-              <p data-speed="0.8">Using cutting-edge tools to create immersive experiences</p>
+            {/* Work Section */}
+            <section id="work" className={styles.section}>
+              <div className={styles.sectionContent}>
+                <h2 className={styles.sectionHeading}>Work</h2>
+                <div className={styles.workGrid}>
+                  {/* Work items will go here */}
+                </div>
+              </div>
             </section>
 
-            <section className={styles.section}>
-              <h2 data-speed="0.5">Design</h2>
-              <p data-speed="0.8">Crafting beautiful and functional digital experiences</p>
+            {/* Playground Section */}
+            <section id="playground" className={styles.section}>
+              <div className={styles.sectionContent}>
+                <h2 className={styles.sectionHeading}>Playground</h2>
+                <div className={styles.playgroundGrid}>
+                  {/* Playground items will go here */}
+                </div>
+              </div>
             </section>
 
-            <section className={styles.section}>
-              <h2 data-speed="0.5">Interaction</h2>
-              <p data-speed="0.8">Building engaging and responsive user interfaces</p>
-            </section>
-
-            <section className={styles.section}>
-              <h2 data-speed="0.5">Let's Create</h2>
-              <p data-speed="0.8">Ready to bring your ideas to life?</p>
-              <button className={styles.button} data-speed="1.2">Get Started</button>
+            {/* Contact Section */}
+            <section id="contact" className={styles.section}>
+              <div className={styles.sectionContent}>
+                <h2 className={styles.sectionHeading}>Let's Create</h2>
+                <p className={styles.sectionText}>Ready to bring your ideas to life?</p>
+                <button className={styles.button}>Get Started</button>
+              </div>
             </section>
           </main>
         </div>

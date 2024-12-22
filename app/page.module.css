@@ -3,7 +3,7 @@
   width: 100%;
   min-height: 100vh;
   background: transparent;
-  color: #000;
+  color: #FFF;
   overflow: hidden;
 }
 
@@ -14,6 +14,7 @@
   width: 100%;
   height: 100vh;
   z-index: 1;
+  pointer-events: none;
 }
 
 .smoothWrapper {
@@ -37,13 +38,42 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 4rem 2rem;
+  padding: 4rem;
   position: relative;
   background: transparent;
 }
 
+.sectionContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Hero Content */
+.heroContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.heroLogo {
+  color: #F39;
+  text-shadow: -2px 2px 0 #000;
+  font-family: var(--font-cooper);
+  font-size: 2rem;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 85%;
+  letter-spacing: -1px;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #000;
+  mix-blend-mode: screen;
+  will-change: transform;
+}
+
+/* Hero Section */
 .mainHeading {
-  font-family: 'Cooper', sans-serif;
+  font-family: var(--font-cooper);
   font-size: 240px;
   line-height: 0.85;
   margin-bottom: 1rem;
@@ -56,76 +86,111 @@
   mix-blend-mode: screen;
 }
 
-.subtitle {
-  font-size: 1.5rem;
-  max-width: 600px;
-  line-height: 1.5;
-  color: rgba(255, 255, 255, 0.8);
-}
-
-.section h2 {
-  font-family: 'Cooper', sans-serif;
+/* Section Headings */
+.sectionHeading {
+  font-family: var(--font-cooper);
   font-size: 120px;
-  line-height: 1;
-  margin-bottom: 1rem;
+  line-height: 0.9;
+  margin-bottom: 2rem;
   color: #F39;
   text-shadow: -8px 8px 0px #000;
   -webkit-text-stroke-width: 2px;
   -webkit-text-stroke-color: #000;
-  mix-blend-mode: screen;
+  font-variation-settings: "wght" 800;
 }
 
-.section p {
-  font-size: 1.5rem;
-  max-width: 600px;
+/* Section Text */
+.sectionText {
+  font-size: 24px;
   line-height: 1.5;
-  color: rgba(255, 255, 255, 0.8);
+  max-width: 600px;
+  color: #FFF;
+  text-shadow: -1px 1px 0px #000;
 }
 
+/* Work Grid */
+.workGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+/* Playground Grid */
+.playgroundGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+/* Button */
 .button {
+  margin-top: 2rem;
+  padding: 1rem 2rem;
+  font-family: var(--font-cooper);
+  font-size: 24px;
+  color: #FFF;
   background: #F39;
   border: none;
-  padding: 1rem 2rem;
-  border-radius: 2rem;
-  color: white;
-  font-size: 1.2rem;
+  border-radius: 4px;
   cursor: pointer;
-  margin-top: 2rem;
-  transition: transform 0.2s;
-  font-family: 'Cooper', sans-serif;
-  mix-blend-mode: screen;
+  transition: all 0.2s ease;
+  text-shadow: -1px 1px 0px #000;
 }
 
 .button:hover {
-  transform: scale(1.05);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-@media (max-width: 1024px) {
+/* Responsive Styles */
+@media (max-width: 1200px) {
   .mainHeading {
     font-size: 180px;
   }
 
-  .section h2 {
+  .sectionHeading {
     font-size: 100px;
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
+  .section {
+    padding: 2rem;
+  }
+
   .mainHeading {
     font-size: 120px;
   }
 
-  .section h2 {
+  .sectionHeading {
     font-size: 80px;
+  }
+
+  .sectionText {
+    font-size: 20px;
+  }
+
+  .heroLogo {
+    font-size: 1.75rem;
   }
 }
 
 @media (max-width: 480px) {
   .mainHeading {
-    font-size: 100px;
+    font-size: 80px;
   }
 
-  .section h2 {
+  .sectionHeading {
     font-size: 60px;
+  }
+
+  .sectionText {
+    font-size: 18px;
+  }
+
+  .heroLogo {
+    font-size: 1.5rem;
   }
 } 

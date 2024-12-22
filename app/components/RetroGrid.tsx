@@ -17,14 +17,14 @@ export default function RetroGrid({ size = 400, scroll = 0 }: Props) {
   const linePoints = useMemo(() => {
     const points = []
     
-    // Grid Parameters - adjusted for forward motion
+    // Grid Parameters
     const gridWidth = 12000            // Width of grid
-    const gridLength = 12000           // Longer grid for smoother motion
+    const gridLength = 24000           // Double the length for seamless looping
     const gridY = 0                    // Grid at camera level
     
     // Line Parameters
     const numLongLines = 80            // Lines along length
-    const numCrossLines = 80           // Cross lines for motion effect
+    const numCrossLines = 160          // Double the cross lines for density
     const spacing = gridWidth / numLongLines
 
     // Create long lines (running into distance)
@@ -45,6 +45,16 @@ export default function RetroGrid({ size = 400, scroll = 0 }: Props) {
         new THREE.Vector3(-gridWidth / 2, gridY, z),
         new THREE.Vector3(gridWidth / 2, gridY, z)
       )
+
+      // Add extra lines for more density in the middle
+      if (i > 0 && i < numCrossLines - 1) {
+        const tHalf = (i + 0.5) / numCrossLines
+        const zHalf = Math.pow(tHalf, 1.2) * gridLength - gridLength / 2
+        points.push(
+          new THREE.Vector3(-gridWidth / 2, gridY, zHalf),
+          new THREE.Vector3(gridWidth / 2, gridY, zHalf)
+        )
+      }
     }
 
     return points
@@ -62,9 +72,9 @@ export default function RetroGrid({ size = 400, scroll = 0 }: Props) {
   useFrame(() => {
     if (!gridRef.current) return
     
-    // Move grid forward, loop when necessary
+    // Move grid forward with shorter loop distance
     const moveSpeed = 4000
-    const loopPoint = 6000
+    const loopPoint = 2000            // Shorter loop point for seamless transition
     const scrollZ = (scroll * moveSpeed) % loopPoint
     gridRef.current.position.z = scrollZ
   })
@@ -79,7 +89,6 @@ export default function RetroGrid({ size = 400, scroll = 0 }: Props) {
           lineWidth={3}
           opacity={0.8}
           transparent
-          dashed={false}
         />
       ))}
     </group>

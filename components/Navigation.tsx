@@ -2,78 +2,73 @@
 
 import { useEffect, useState, useRef } from 'react'
 import styles from './Navigation.module.css'
-import heroStyles from './sections/Hero.module.css'
 import gsap from 'gsap'
+import ScrollToPlugin from 'gsap/ScrollToPlugin'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+// Declare ScrollSmoother type
+declare global {
+  interface Window {
+    ScrollSmoother?: {
+      get(): {
+        scrollTo(target: HTMLElement | string | number, smooth?: boolean): void
+      }
+    }
+  }
+}
 
 export default function Navigation() {
-  const [showLogo, setShowLogo] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const logoRef = useRef(null)
 
   useEffect(() => {
-    const heroLogo = document.querySelector(`.${heroStyles.logo}`)
-    if (!heroLogo) return
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => setShowLogo(false), 50)
-        } else {
-          setShowLogo(true)
-        }
-      },
-      {
-        threshold: 0,
-        rootMargin: '-80px 0px 0px 0px'
-      }
-    )
-
-    observer.observe(heroLogo)
-    return () => observer.disconnect()
-  }, [])
-
-  useEffect(() => {
+    gsap.registerPlugin(ScrollToPlugin, ScrollTrigger)
+    
     if (!logoRef.current) return
 
-    if (showLogo) {
-      gsap.set(logoRef.current, { visibility: 'visible' })
-      gsap.fromTo(logoRef.current,
-        {
-          y: -20,
-          opacity: 0,
-          scale: 0.95
-        },
-        {
-          y: 0,
-          opacity: 1,
-          scale: 1,
-          duration: 0.15,
-          ease: "back.out(3)",
-        }
-      )
-    } else {
-      gsap.to(logoRef.current, {
-        y: -15,
-        opacity: 0,
-        scale: 0.95,
-        duration: 0.1,
-        ease: "back.in(2)",
-        onComplete: () => {
-          gsap.set(logoRef.current, { visibility: 'hidden' })
-        }
-      })
-    }
-  }, [showLogo])
+    const headline = document.querySelector('#hero h1')
+    if (!headline) return
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-    setIsMenuOpen(false)
-  }
+    const headlineBounds = headline.getBoundingClientRect()
+    const startY = headlineBounds.top - 100 // 100px above headline
+
+    // Set initial state
+    gsap.set(logoRef.current, {
+      fontSize: '4rem',
+      top: startY,
+      yPercent: 0,
+      zIndex: 1000
+    })
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '#hero',
+        start: 'top top',
+        end: '+=100',
+        scrub: 0.5
+      }
+    })
+
+    tl.to(logoRef.current, {
+      fontSize: '1.75rem',
+      top: '1.5rem',
+      ease: 'none'
+    })
+  }, [])
 
   const scrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId)
     if (section) {
-      section.scrollIntoView({ behavior: 'smooth' })
+      const smoother = window.ScrollSmoother?.get()
+      if (smoother) {
+        smoother.scrollTo(section, true)
+      } else {
+        gsap.to(window, {
+          duration: 1,
+          scrollTo: { y: section, offsetY: 0 },
+          ease: "power3.inOut"
+        })
+      }
       setIsMenuOpen(false)
     }
   }
@@ -81,22 +76,13 @@ export default function Navigation() {
   return (
     <nav className={styles.nav}>
       <div className={styles.wrapper}>
-        <button 
+        <div 
           ref={logoRef}
-          className={styles.navLogo}
-          onClick={scrollToTop}
+          className={styles.logo}
+          onClick={() => scrollToSection('hero')}
         >
           Trice.Design
-        </button>
-        <button 
-          className={`${styles.hamburger} ${isMenuOpen ? styles.active : ''}`}
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-label="Menu"
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+        </div>
         <div className={`${styles.links} ${isMenuOpen ? styles.open : ''}`}>
           <button 
             className={styles.link}

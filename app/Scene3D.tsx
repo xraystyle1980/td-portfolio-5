@@ -31,18 +31,32 @@ function Scene({ scroll }: { scroll: number }) {
 
 export default function Scene3D({ scroll, currentSection }: Scene3DProps) {
   return (
-    <Canvas
-      style={{
-        background: '#161616',
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100vh',
-        zIndex: 1
-      }}
-    >
-      <Scene scroll={scroll} />
-    </Canvas>
+    <>
+      <div 
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100vh',
+          background: '#161616',
+          zIndex: 1
+        }}
+      />
+      <Canvas
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100vh',
+          zIndex: 2,
+          pointerEvents: 'none',
+          background: 'transparent'
+        }}
+      >
+        <Scene scroll={scroll} />
+      </Canvas>
+    </>
   )
 } 

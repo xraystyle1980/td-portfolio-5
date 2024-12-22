@@ -3,110 +3,51 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 100;
+  z-index: 1000;
   pointer-events: none;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 1rem 4rem;
+  padding: 1.5rem 4rem;
 }
 
 .wrapper {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   pointer-events: auto;
   max-width: 100%;
 }
 
-.hamburger {
-  display: none;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 30px;
-  height: 20px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  z-index: 10;
-}
-
-.hamburger span {
-  width: 100%;
-  height: 2px;
-  background: #FFF;
-  transition: all 0.3s ease;
-  box-shadow: -1px 1px 0px #000;
-}
-
-.links {
-  display: flex;
-  gap: 3rem;
-}
-
-@media (max-width: 768px) {
-  .hamburger {
-    display: flex;
-  }
-
-  .links {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 100%;
-    height: 100vh;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
-    background: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    transition: right 0.3s ease;
-  }
-
-  .links.open {
-    right: 0;
-  }
-
-  .link {
-    font-size: 2.5rem;
-  }
-}
-
-.navLogo {
-  color: #FFF;
-  text-shadow: -2px 2px 0 #000,
-               -3px 3px 0 rgba(0, 0, 0, 0.3);
-  paint-order: stroke fill;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #000;
-  font-family: "Source Serif Pro";
-  font-size: 1.75rem;
+.logo {
+  color: #F39;
+  text-shadow: -2px 2px 0 #000;
+  font-family: var(--font-cooper);
   font-style: normal;
   font-weight: 900;
   line-height: 85%;
   letter-spacing: -1px;
   pointer-events: auto;
-  background: none;
-  border: none;
   cursor: pointer;
-  padding: 0;
-  visibility: hidden;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #000;
+  mix-blend-mode: screen;
+  position: fixed;
+  left: 4rem;
+  z-index: 1000;
+  transform-origin: left center;
+}
+
+.links {
+  display: flex;
+  gap: 3rem;
+  margin-right: 4rem;
 }
 
 .link {
   color: #FFF;
-  text-shadow: -2px 2px 0px #000;
-  paint-order: stroke fill;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #000;
-  font-family: "Source Serif Pro";
-  font-size: 1.75rem;
+  text-shadow: -1px 1px 0 #000;
+  font-family: var(--font-cooper);
+  font-size: 1.25rem;
   font-style: normal;
-  font-weight: 900;
+  font-weight: 700;
   line-height: 85%;
   background: none;
   border: none;
@@ -119,4 +60,39 @@
 .link:hover {
   transform: translateY(-1px);
   opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .nav {
+    padding: 1rem 2rem;
+  }
+
+  .logo {
+    left: 2rem;
+  }
+
+  .links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    height: 100vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    background: #161616;
+    transition: right 0.3s ease;
+    margin-right: 0;
+  }
+
+  .links.open {
+    right: 0;
+  }
+
+  .link {
+    font-size: 2rem;
+    color: #FFF;
+    text-shadow: -2px 2px 0 #000;
+  }
 } 
