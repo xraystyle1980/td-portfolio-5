@@ -8,6 +8,8 @@ import styles from './AboutMe.module.css'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Group } from 'three'
+import { Parallax } from '@/components/effects'
+
 
 function RotatingToken() {
   const groupRef = useRef<Group>(null)
@@ -181,6 +183,7 @@ export default function AboutMe() {
   }, [])
 
   return (
+    <Parallax speed={0.125}> 
     <section id="about" className={styles.aboutSection}>
       <div className={styles.container} ref={containerRef}>
         <div className={styles.content} ref={contentRef}>
@@ -210,5 +213,6 @@ export default function AboutMe() {
         </Canvas>
       </div>
     </section>
+    </Parallax>
   )
 } 

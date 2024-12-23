@@ -5,6 +5,7 @@
   width: 100%;
   z-index: 1000;
   pointer-events: none;
+  padding: 0 5rem;
 }
 
 .wrapper {
@@ -12,7 +13,7 @@
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 1.5rem;
+  padding: 1.5rem 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -31,8 +32,6 @@
   line-height: 85%;
   letter-spacing: -1.5px;
   cursor: pointer;
-  position: fixed;
-  left: 1.5rem;
   pointer-events: auto;
   transition: transform 0.2s ease;
 }
@@ -46,8 +45,6 @@
   display: flex;
   gap: 2rem;
   pointer-events: auto;
-  position: fixed;
-  right: 1.5rem;
 }
 
 .link {

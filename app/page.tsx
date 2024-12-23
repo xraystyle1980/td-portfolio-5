@@ -8,6 +8,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ScrollSmoother } from 'gsap/dist/ScrollSmoother'
 import { SplitText } from 'gsap/dist/SplitText'
 import AboutMe from '../components/sections/AboutMe'
+import Work from '@/components/sections/Work'
 
 // Define interface for Scene3D props
 interface Scene3DProps {
@@ -87,6 +88,23 @@ export default function HomePage() {
               ease: 'power2.out'
             }, '-=0.6')
           }
+        }
+      })
+
+      // Setup work section animation
+      ScrollTrigger.create({
+        trigger: '.projects',
+        start: 'top 70%',
+        once: true,
+        id: 'work-content-reveal',
+        onEnter: () => {
+          gsap.from('.projects > *', {
+            y: 100,
+            opacity: 0,
+            duration: 1,
+            stagger: 0.2,
+            ease: 'power3.out'
+          })
         }
       })
 
@@ -252,14 +270,7 @@ export default function HomePage() {
             <AboutMe />
 
             {/* Work Section */}
-            <section id="work" className={styles.section}>
-              <div className={styles.sectionContent}>
-                <h2 className={styles.sectionHeading}>Work</h2>
-                <div className={styles.workGrid}>
-                  {/* Work items will go here */}
-                </div>
-              </div>
-            </section>
+            <Work />
 
             {/* Playground Section */}
             <section id="playground" className={styles.section}>
