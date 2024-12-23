@@ -20,17 +20,22 @@
 .smoothWrapper {
   position: relative;
   z-index: 2;
-  pointer-events: none;
+  pointer-events: auto;
 }
 
 .smoothContent {
   min-height: 100vh;
-  pointer-events: all;
+  pointer-events: auto;
 }
 
 .main {
   position: relative;
   z-index: 2;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  pointer-events: auto;
 }
 
 .section {
@@ -41,6 +46,8 @@
   padding: 4rem;
   position: relative;
   background: transparent;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .sectionContent {
@@ -51,9 +58,10 @@
 
 /* Hero Content */
 .heroContent {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+  position: relative;
+  z-index: 200;
+  pointer-events: auto !important;
+  user-select: text;
 }
 
 .heroLogo {
@@ -200,8 +208,51 @@
   cursor: pointer;
   perspective: 1000px;
   transform-style: preserve-3d;
+  position: relative;
+  z-index: 200;
+  pointer-events: auto !important;
+  user-select: text;
+  width: 4ch;
+  text-align: left;
 }
 
 .swapWord:hover {
   color: #F39;
+}
+
+/* About Section */
+.aboutSection {
+  background: #161616;
+  position: relative;
+  padding: 6rem;
+  margin: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1000px;
+  min-height: 80vh;
+  border-radius: 2rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.aboutContent {
+  max-width: 1200px;
+  width: 100%;
+}
+
+.aboutContent .sectionHeading {
+  transform: translateY(50px);
+  opacity: 0;
+}
+
+.aboutContent .sectionText {
+  transform: translateY(30px);
+  opacity: 0;
+}
+
+@media (max-width: 768px) {
+  .aboutSection {
+    padding: 4rem 2rem;
+    margin: 2rem;
+  }
 } 

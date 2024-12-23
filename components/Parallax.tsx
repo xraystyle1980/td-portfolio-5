@@ -23,8 +23,7 @@ export default function Parallax() {
             trigger: aboutSection,
             start: 'top bottom',
             end: 'bottom top',
-            scrub: true,
-            // markers: true, // Uncomment for debugging
+            scrub: true
           },
           y: -100,
           ease: 'none'

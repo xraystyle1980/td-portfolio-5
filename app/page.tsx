@@ -7,6 +7,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ScrollSmoother } from 'gsap/dist/ScrollSmoother'
 import { SplitText } from 'gsap/dist/SplitText'
+import AboutMe from '../components/sections/AboutMe'
 
 // Define interface for Scene3D props
 interface Scene3DProps {
@@ -26,10 +27,18 @@ export default function HomePage() {
   const contentRef = useRef<HTMLDivElement>(null)
   const headingRef = useRef<HTMLHeadingElement>(null)
   const wordRef = useRef<HTMLSpanElement>(null)
+  const aboutContentRef = useRef<HTMLDivElement>(null)
+  const aboutHeadingRef = useRef<HTMLHeadingElement>(null)
+  const aboutTextRef = useRef<HTMLParagraphElement>(null)
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       gsap.registerPlugin(ScrollTrigger, ScrollSmoother, SplitText)
+      
+      // Set default markers to false
+      ScrollTrigger.defaults({
+        markers: false
+      })
 
       let smoother = ScrollSmoother.create({
         wrapper: smoothWrapperRef.current,
@@ -45,48 +54,86 @@ export default function HomePage() {
         }
       })
 
+      // Setup about section animation
+      ScrollTrigger.create({
+        trigger: '#about',
+        start: 'top 70%',
+        once: true,
+        id: 'about-content-reveal',
+        onEnter: () => {
+          const tl = gsap.timeline({
+            defaults: {
+              duration: 1,
+              ease: 'power3.out'
+            }
+          })
+
+          if (aboutContentRef.current && aboutHeadingRef.current && aboutTextRef.current) {
+            tl.to(aboutContentRef.current, {
+              opacity: 1,
+              duration: 0.6
+            })
+            .to(aboutHeadingRef.current, {
+              y: 0,
+              opacity: 1,
+              duration: 1.2,
+              ease: 'elastic.out(1, 0.75)'
+            }, '-=0.3')
+            .to(aboutTextRef.current, {
+              y: 0,
+              opacity: 1,
+              duration: 0.8,
+              ease: 'power2.out'
+            }, '-=0.6')
+          }
+        }
+      })
+
       // Setup word swap animation
       if (wordRef.current) {
         const word = wordRef.current
-        let isAnimating = false
         let currentAnimation: gsap.core.Tween | null = null
         
         const handleMouseEnter = () => {
-          if (isAnimating) return
-          isAnimating = true
-          
-          // Kill any existing animation
-          if (currentAnimation) currentAnimation.kill()
+          if (currentAnimation) {
+            currentAnimation.kill()
+          }
           
           currentAnimation = gsap.to(word, {
-            keyframes: [
-              { opacity: 0, y: -20, duration: 0.2 },
-              { opacity: 0, y: 20, duration: 0, onComplete: () => { word.textContent = 'shit' } },
-              { opacity: 1, y: 0, duration: 0.2 }
-            ],
-            ease: 'power2.inOut',
+            opacity: 0,
+            y: -20,
+            duration: 0.15,
+            ease: 'power2.in',
             onComplete: () => {
-              isAnimating = false
+              word.textContent = 'shit'
+              gsap.to(word, {
+                opacity: 1,
+                y: 0,
+                duration: 0.15,
+                ease: 'power2.out'
+              })
             }
           })
         }
 
         const handleMouseLeave = () => {
-          if (isAnimating) return
-          isAnimating = true
-          
-          // Kill any existing animation
-          if (currentAnimation) currentAnimation.kill()
+          if (currentAnimation) {
+            currentAnimation.kill()
+          }
           
           currentAnimation = gsap.to(word, {
-            keyframes: [
-              { opacity: 0, y: 20, duration: 0.2 },
-              { opacity: 0, y: -20, duration: 0, onComplete: () => { word.textContent = 'stuff' } },
-              { opacity: 1, y: 0, duration: 0.2 }
-            ],
-            ease: 'power2.inOut',
+            opacity: 0,
+            y: 20,
+            duration: 0.15,
+            ease: 'power2.in',
             onComplete: () => {
-              isAnimating = false
+              word.textContent = 'stuff'
+              gsap.to(word, {
+                opacity: 1,
+                y: 0,
+                duration: 0.15,
+                ease: 'power2.out'
+              })
             }
           })
         }
@@ -95,7 +142,6 @@ export default function HomePage() {
         word.addEventListener('mouseleave', handleMouseLeave)
 
         return () => {
-          smoother && smoother.kill()
           if (currentAnimation) currentAnimation.kill()
           word.removeEventListener('mouseenter', handleMouseEnter)
           word.removeEventListener('mouseleave', handleMouseLeave)
@@ -145,15 +191,7 @@ export default function HomePage() {
             </section>
 
             {/* About Section */}
-            <section id="about" className={styles.section}>
-              <div className={styles.sectionContent}>
-                <h2 className={styles.sectionHeading}>About</h2>
-                <p className={styles.sectionText}>
-                  I'm Matt Trice, an Atlanta-based product & web designer. 
-                  Let's work together & build cool shit.
-                </p>
-              </div>
-            </section>
+            <AboutMe />
 
             {/* Work Section */}
             <section id="work" className={styles.section}>

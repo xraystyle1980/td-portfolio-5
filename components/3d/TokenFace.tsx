@@ -3,6 +3,7 @@
 import { useGLTF } from '@react-three/drei'
 import { useRef } from 'react'
 import { Group } from 'three'
+import gsap from 'gsap'
 
 // Make all props optional with default values
 interface TokenFaceProps {
@@ -11,6 +12,7 @@ interface TokenFaceProps {
   onPointerOver?: () => void
   onPointerOut?: () => void
   isHovered?: boolean
+  onClick?: () => void
 }
 
 export default function TokenFace({ 
@@ -18,10 +20,32 @@ export default function TokenFace({
   scale = 1, 
   onPointerOver = () => {}, 
   onPointerOut = () => {}, 
-  isHovered = false 
+  isHovered = false,
+  onClick = () => {}
 }: TokenFaceProps) {
   const { scene } = useGLTF('/models/token-face-export-1.glb')
   const modelRef = useRef<Group>(null)
+
+  const handleClick = () => {
+    if (modelRef.current) {
+      // Create a quick spin animation
+      gsap.to(modelRef.current.rotation, {
+        y: modelRef.current.rotation.y + Math.PI * 2,
+        duration: 0.8,
+        ease: "power2.out"
+      })
+      
+      // Add a little bounce
+      gsap.to(modelRef.current.position, {
+        y: "+=0.5",
+        duration: 0.2,
+        yoyo: true,
+        repeat: 1,
+        ease: "power2.out"
+      })
+    }
+    onClick()
+  }
 
   // Clone the scene and modify its materials for hover effect
   const clonedScene = scene.clone()
@@ -49,6 +73,7 @@ export default function TokenFace({
       scale={scale}
       onPointerOver={onPointerOver}
       onPointerOut={onPointerOut}
+      onClick={handleClick}
     />
   )
 }
