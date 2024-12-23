@@ -12,6 +12,8 @@ interface Props {
 
 export default function RetroGrid({ size = 400, scroll = 0 }: Props) {
   const gridRef = useRef<THREE.Group>(null)
+  const opacityRef = useRef(0)
+  const targetOpacity = useRef(1)
 
   // Create perspective grid lines
   const linePoints = useMemo(() => {
@@ -77,6 +79,15 @@ export default function RetroGrid({ size = 400, scroll = 0 }: Props) {
     const loopPoint = 2000            // Shorter loop point for seamless transition
     const scrollZ = (scroll * moveSpeed) % loopPoint
     gridRef.current.position.z = scrollZ
+
+    // Fade in effect
+    opacityRef.current = THREE.MathUtils.lerp(opacityRef.current, targetOpacity.current, 0.02)
+    const lines = gridRef.current.children
+    lines.forEach(line => {
+      if ('material' in line && line.material) {
+        line.material.opacity = opacityRef.current
+      }
+    })
   })
 
   return (
@@ -87,8 +98,8 @@ export default function RetroGrid({ size = 400, scroll = 0 }: Props) {
           points={points}
           color="#F39"
           lineWidth={3}
-          opacity={0.8}
           transparent
+          opacity={0}
         />
       ))}
     </group>

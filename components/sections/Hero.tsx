@@ -3,7 +3,7 @@
 import styles from './Hero.module.css';
 import Scene from '@/components/3d/Scene';
 import { Caveat } from 'next/font/google';
-import Navigation from '@/components/Navigation'
+import Navigation from '@/components/layout/Navigation/Navigation'
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -120,10 +120,6 @@ export default function Hero() {
     };
   }, []);
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
-
   return (
     <section className={`${styles.hero} ${cooper.variable}`} suppressHydrationWarning>
       <div className={styles.heroContent}>
@@ -132,12 +128,6 @@ export default function Hero() {
         </div>
         <div className={styles.contentOverlay}>
           <div className={styles.content} ref={containerRef}>
-            <button 
-              onClick={scrollToTop}
-              className={styles.logo}
-            >
-              Trice.Design
-            </button>
             <div className={styles.headlineWrapper}>
               <h1 ref={textRef} className={styles.heroHeadline}>
                 <span className={styles.heroWord}>Build</span>

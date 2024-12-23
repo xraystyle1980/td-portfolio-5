@@ -30,6 +30,7 @@ export default function HomePage() {
   const aboutContentRef = useRef<HTMLDivElement>(null)
   const aboutHeadingRef = useRef<HTMLHeadingElement>(null)
   const aboutTextRef = useRef<HTMLParagraphElement>(null)
+  const buildWordRef = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -89,7 +90,9 @@ export default function HomePage() {
         }
       })
 
-      // Setup word swap animation
+      const cleanupFunctions: (() => void)[] = []
+
+      // Setup word swap animation for "Stuff/Shit"
       if (wordRef.current) {
         const word = wordRef.current
         let currentAnimation: gsap.core.Tween | null = null
@@ -141,15 +144,75 @@ export default function HomePage() {
         word.addEventListener('mouseenter', handleMouseEnter)
         word.addEventListener('mouseleave', handleMouseLeave)
 
-        return () => {
+        cleanupFunctions.push(() => {
           if (currentAnimation) currentAnimation.kill()
           word.removeEventListener('mouseenter', handleMouseEnter)
           word.removeEventListener('mouseleave', handleMouseLeave)
+        })
+      }
+
+      // Setup word swap animation for "Build/Make"
+      if (buildWordRef.current) {
+        const buildWord = buildWordRef.current
+        let buildAnimation: gsap.core.Tween | null = null
+        
+        const handleBuildMouseEnter = () => {
+          if (buildAnimation) {
+            buildAnimation.kill()
+          }
+          
+          buildAnimation = gsap.to(buildWord, {
+            opacity: 0,
+            y: -20,
+            duration: 0.15,
+            ease: 'power2.in',
+            onComplete: () => {
+              buildWord.textContent = 'Make'
+              gsap.to(buildWord, {
+                opacity: 1,
+                y: 0,
+                duration: 0.15,
+                ease: 'power2.out'
+              })
+            }
+          })
         }
+
+        const handleBuildMouseLeave = () => {
+          if (buildAnimation) {
+            buildAnimation.kill()
+          }
+          
+          buildAnimation = gsap.to(buildWord, {
+            opacity: 0,
+            y: 20,
+            duration: 0.15,
+            ease: 'power2.in',
+            onComplete: () => {
+              buildWord.textContent = 'Build'
+              gsap.to(buildWord, {
+                opacity: 1,
+                y: 0,
+                duration: 0.15,
+                ease: 'power2.out'
+              })
+            }
+          })
+        }
+
+        buildWord.addEventListener('mouseenter', handleBuildMouseEnter)
+        buildWord.addEventListener('mouseleave', handleBuildMouseLeave)
+
+        cleanupFunctions.push(() => {
+          if (buildAnimation) buildAnimation.kill()
+          buildWord.removeEventListener('mouseenter', handleBuildMouseEnter)
+          buildWord.removeEventListener('mouseleave', handleBuildMouseLeave)
+        })
       }
 
       return () => {
         smoother && smoother.kill()
+        cleanupFunctions.forEach(cleanup => cleanup())
       }
     }
   }, [])
@@ -176,16 +239,11 @@ export default function HomePage() {
             <section id="hero" className={styles.section}>
               <div className={styles.heroContent}>
                 <h1 ref={headingRef} className={styles.mainHeading}>
-                  Build
+                  <span ref={buildWordRef} className={styles.swapWord}>Build</span>
                   <br />
                   Cool
                   <br />
-                  <span 
-                    ref={wordRef}
-                    className={styles.swapWord}
-                  >
-                    Stuff
-                  </span>
+                  <span ref={wordRef} className={styles.swapWord}>Stuff</span>
                 </h1>
               </div>
             </section>
@@ -210,6 +268,7 @@ export default function HomePage() {
                 <div className={styles.playgroundGrid}>
                   {/* Playground items will go here */}
                 </div>
+                <a href="/playground" className={styles.button}>View Playground</a>
               </div>
             </section>
 
