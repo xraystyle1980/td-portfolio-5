@@ -1,6 +1,6 @@
 'use client'
 
-import { Canvas, useFrame, useThree } from '@react-three/fiber'
+import { Canvas, useFrame, useThree, ThreeEvent } from '@react-three/fiber'
 import { Suspense, useRef, useMemo, useEffect } from 'react'
 import TokenFace from './TokenFace'
 import { Vector3, Group, Euler } from 'three'
@@ -40,7 +40,7 @@ function RotatingToken({ position }: { position: Vector3 }) {
   const tokenRef = useRef<Group>(null)
   
   const rotationSpeed = useMemo(() => 
-    (Math.random() * 0.02 + 0.01) * 0.1 // Even slower random speed
+    (Math.random() * 0.02 + 0.01) * 0.1
   , [])
 
   useFrame(({ clock }) => {
@@ -54,6 +54,10 @@ function RotatingToken({ position }: { position: Vector3 }) {
       ref={tokenRef}
       position={position}
     >
+      <mesh visible={false} onClick={(e) => e.stopPropagation()}>
+        <sphereGeometry args={[TOKEN_SCALE * 0.3, 32, 32]} />
+        <meshBasicMaterial transparent opacity={0} />
+      </mesh>
       <TokenFace 
         scale={TOKEN_SCALE}
         rotation={[0, 0, 0] as [number, number, number]}
@@ -107,7 +111,10 @@ export default function Scene() {
         className={styles.canvas}
         style={{ 
           position: 'absolute', 
-          touchAction: 'pan-y'
+          touchAction: 'pan-y',
+          pointerEvents: 'auto',
+          width: '50%',
+          right: 0
         }}
       >
         <Suspense fallback={null}>

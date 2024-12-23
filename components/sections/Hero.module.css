@@ -70,16 +70,17 @@
   position: relative;
   width: 100%;
   height: 100%;
+  pointer-events: none;
 }
 
 .contentOverlay {
   position: relative;
-  z-index: 20;
+  z-index: 4;
   height: 100%;
   display: flex;
   align-items: center;
   padding-left: 4rem;
-  pointer-events: auto;
+  pointer-events: none;
 }
 
 .content {
@@ -87,9 +88,9 @@
   position: relative;
   max-width: 95%;
   width: 100%;
-  pointer-events: auto !important;
   padding: clamp(1rem, 3vh, 3rem) 0;
-  z-index: 25;
+  z-index: 4;
+  pointer-events: none;
 }
 
 .logo {
@@ -286,6 +287,8 @@
   text-shadow: -4px 4px 0px #000;
   -webkit-text-stroke-width: 2px;
   -webkit-text-stroke-color: #000;
+  pointer-events: none;
+  text-transform: capitalize;
 }
 
 .heroText {
@@ -315,7 +318,7 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  z-index: 1;
+  z-index: 5;
   pointer-events: auto;
   background: #FAF4F0;
 }
@@ -330,7 +333,8 @@
   line-height: 85%;
   font-size: 260px;
   margin-top: 2rem;
-  pointer-events: auto !important;
+  pointer-events: none;
+  text-transform: capitalize;
 }
 
 @media (max-width: 1024px) {
@@ -367,6 +371,7 @@
   padding: 0;
   box-sizing: border-box;
   z-index: 30;
+  text-transform: capitalize;
 }
 
 .container {
@@ -401,5 +406,53 @@
 
 .subtitleText {
   transition: font-variation-settings 0.3s ease;
+}
+
+.headlineWrapper {
+  position: relative;
+  width: 60%;
+  max-width: 800px;
+  pointer-events: none;
+}
+
+.heroHeadline {
+  color: #F39;
+  text-shadow: -4px 4px 0px #000;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: #000;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 85%;
+  font-size: 260px;
+  margin-top: 2rem;
+  pointer-events: none;
+  text-transform: capitalize;
+}
+
+@media (max-width: 1200px) {
+  .headlineWrapper {
+    width: 70%;
+  }
+  .heroHeadline {
+    font-size: 180px;
+  }
+}
+
+@media (max-width: 768px) {
+  .headlineWrapper {
+    width: 80%;
+  }
+  .heroHeadline {
+    font-size: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .headlineWrapper {
+    width: 90%;
+  }
+  .heroHeadline {
+    font-size: 100px;
+  }
 }
  

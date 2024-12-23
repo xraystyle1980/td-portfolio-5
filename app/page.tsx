@@ -105,7 +105,7 @@ export default function HomePage() {
             duration: 0.15,
             ease: 'power2.in',
             onComplete: () => {
-              word.textContent = 'shit'
+              word.textContent = 'Shit'
               gsap.to(word, {
                 opacity: 1,
                 y: 0,
@@ -127,7 +127,7 @@ export default function HomePage() {
             duration: 0.15,
             ease: 'power2.in',
             onComplete: () => {
-              word.textContent = 'stuff'
+              word.textContent = 'Stuff'
               gsap.to(word, {
                 opacity: 1,
                 y: 0,
@@ -184,7 +184,7 @@ export default function HomePage() {
                     ref={wordRef}
                     className={styles.swapWord}
                   >
-                    stuff
+                    Stuff
                   </span>
                 </h1>
               </div>

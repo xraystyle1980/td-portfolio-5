@@ -138,13 +138,15 @@ export default function Hero() {
             >
               Trice.Design
             </button>
-            <h1 ref={textRef} className={styles.heroHeadline}>
-              <span className={styles.heroWord}>Build</span>
-              <br />
-              <span className={styles.heroWord}>Cool</span>
-              <br />
-              <span className={styles.heroWord}>Shit</span>
-            </h1>
+            <div className={styles.headlineWrapper}>
+              <h1 ref={textRef} className={styles.heroHeadline}>
+                <span className={styles.heroWord}>Build</span>
+                <br />
+                <span className={styles.heroWord}>Cool</span>
+                <br />
+                <span className={styles.heroWord}>Shit</span>
+              </h1>
+            </div>
           </div>
         </div>
       </div>
