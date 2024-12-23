@@ -10,6 +10,12 @@ interface Props {
   scroll?: number
 }
 
+interface LineWithMaterial extends THREE.Object3D {
+  material?: THREE.Material & {
+    opacity: number
+  }
+}
+
 export default function RetroGrid({ size = 400, scroll = 0 }: Props) {
   const gridRef = useRef<THREE.Group>(null)
   const opacityRef = useRef(0)
@@ -82,9 +88,9 @@ export default function RetroGrid({ size = 400, scroll = 0 }: Props) {
 
     // Fade in effect
     opacityRef.current = THREE.MathUtils.lerp(opacityRef.current, targetOpacity.current, 0.02)
-    const lines = gridRef.current.children
+    const lines = gridRef.current.children as LineWithMaterial[]
     lines.forEach(line => {
-      if ('material' in line && line.material) {
+      if (line.material) {
         line.material.opacity = opacityRef.current
       }
     })
