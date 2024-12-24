@@ -35,14 +35,20 @@
   pointer-events: auto;
   position: fixed;
   left: 10rem;
-  will-change: transform, font-size;
+  font-size: 4rem;
   transform: translateY(-2px);
+  transition: font-size 0.3s ease;
 }
 
 .logo:hover {
   transform: translateY(1px) !important;
   text-shadow: -2px 2px 0 #000,
                -3px 3px 0 #000;
+}
+
+/* Add scroll class for when page is scrolled */
+:global(.is-scrolled) .logo {
+  font-size: 2rem;
 }
 
 .links {

@@ -153,6 +153,8 @@ export default function HomePage() {
           const progress = self.progress
           setScroll(progress)
           setCurrentSection(Math.floor(progress * 5))
+          // Add/remove scroll class based on scroll position
+          document.body.classList.toggle('is-scrolled', window.scrollY > 100)
         }
       })
 
