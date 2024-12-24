@@ -44,20 +44,26 @@ export default function Playground() {
   }, [])
 
   return (
-    <section id="playground" ref={sectionRef} className={styles.playground}>
+    <section ref={sectionRef} className={styles.playground}>
       <div className={styles.container}>
         <h2 ref={headingRef}>Playground</h2>
         <div ref={contentRef} className={styles.content}>
-          <p>Experimental projects and creative coding explorations.</p>
           <div className={styles.experiments}>
-            {/* Add your experimental projects here */}
             <div className={styles.experiment}>
               <h3>3D Interactions</h3>
-              <p>WebGL experiments with Three.js and React Three Fiber</p>
+              <p>WebGL experiments with Three.js and React Three Fiber. Exploring creative ways to blend 3D graphics with web interfaces.</p>
             </div>
             <div className={styles.experiment}>
               <h3>Creative Coding</h3>
-              <p>Generative art and interactive animations</p>
+              <p>Generative art and interactive animations using WebGL, Canvas, and SVG. Building unique visual experiences.</p>
+            </div>
+            <div className={styles.experiment}>
+              <h3>UI Experiments</h3>
+              <p>Pushing the boundaries of web interfaces with experimental interactions and animations.</p>
+            </div>
+            <div className={styles.experiment}>
+              <h3>Design Systems</h3>
+              <p>Building flexible and scalable design systems with modern web technologies.</p>
             </div>
           </div>
         </div>

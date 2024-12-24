@@ -1,3 +1,16 @@
+.heroWord {
+  display: inline-block;
+  cursor: pointer;
+  pointer-events: auto !important;
+  user-select: text;
+  position: relative;
+  z-index: 200;
+}
+
+.heroWord:hover {
+  color: #F39;
+}
+
 .sceneContainer {
   position: absolute;
   inset: 0;

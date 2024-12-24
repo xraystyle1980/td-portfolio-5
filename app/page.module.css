@@ -217,6 +217,7 @@
   pointer-events: auto !important;
   user-select: text;
   text-align: left;
+  will-change: transform, opacity;
 }
 
 .swapWord:hover {

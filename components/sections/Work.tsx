@@ -6,11 +6,11 @@ import { Parallax } from '@/components/effects'
 export default function Work() {
   return (
     <Parallax speed={0.25}> 
-        <div className={styles.container}>
+        <div id="work" className={styles.container}>
         <div className={styles.intro}>
             <h2 className={styles.title}>Work</h2>
         </div>
-        <div className={styles.projects}>
+        <div className={`${styles.projects} projects`}>
             {projects.map((project, index) => (
             <ProjectSection 
                 key={project.title} 

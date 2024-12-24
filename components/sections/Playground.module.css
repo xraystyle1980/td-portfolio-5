@@ -1,60 +1,134 @@
 .playground {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  position: relative;
-  background-color: #FAF4F0;
-  color: #000;
-  overflow-x: hidden;
+  padding: 4rem 0;
 }
 
 .container {
-  width: 100%;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 4rem 2rem;
+  padding: 0 5rem;
 }
 
 .content {
-  margin-top: 2rem;
+  margin-top: 4rem;
 }
 
 .container h2 {
-  font-family: Bilgres;
-  font-size: 4rem;
-  line-height: 1;
+  font-family: var(--font-cooper);
+  font-size: 260px;
+  line-height: 85%;
+  margin: 0;
+  color: #F39;
+  -webkit-text-stroke: 2px #000;
+  text-shadow: -4px 4px 0 #000;
+  font-weight: 900;
+  text-transform: capitalize;
+  font-variation-settings: "wght" 900;
 }
 
 .experiments {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
-  margin-top: 3rem;
+  gap: 4rem;
 }
 
 .experiment {
-  padding: 2rem;
-  background: rgba(0, 0, 0, 0.05);
-  border-radius: 1rem;
-  transition: transform 0.3s ease;
-}
-
-.experiment:hover {
-  transform: translateY(-5px);
+  border: 2px solid black;
+  background: #161616;
+  color: #FFF;
+  border-radius: 4rem;
+  box-shadow: -12px 12px 0px #000;
+  padding: 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 .experiment h3 {
+  font-family: var(--font-cooper);
+  font-size: 4rem;
+  line-height: 1;
+  margin: 0;
+  color: #F39;
+  -webkit-text-stroke: 2px #000;
+  text-shadow: -4px 4px 0 #000;
+}
+
+.experiment p {
+  font-family: var(--font-source-serif);
   font-size: 1.5rem;
-  margin-bottom: 1rem;
-  font-weight: 600;
+  line-height: 1.6;
+  margin: 0;
+  color: #FFF;
+}
+
+@media (max-width: 1200px) {
+  .container h2 {
+    font-size: 180px;
+  }
 }
 
 @media (max-width: 768px) {
-  .experiments {
-    grid-template-columns: 1fr;
+  .playground {
+    padding: 3rem 0;
+  }
+
+  .container {
+    padding: 0 3rem;
+  }
+
+  .content {
+    margin-top: 3rem;
   }
 
   .container h2 {
+    font-size: 120px;
+  }
+
+  .experiments {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .experiment {
+    padding: 3rem;
+  }
+
+  .experiment h3 {
     font-size: 3rem;
+  }
+
+  .experiment p {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .playground {
+    padding: 2rem 0;
+  }
+
+  .container {
+    padding: 0 2rem;
+  }
+
+  .content {
+    margin-top: 2rem;
+  }
+
+  .container h2 {
+    font-size: 100px;
+  }
+
+  .experiments {
+    gap: 2rem;
+  }
+
+  .experiment {
+    padding: 2rem;
+    border-radius: 2rem;
+  }
+
+  .experiment h3 {
+    font-size: 2.5rem;
   }
 } 

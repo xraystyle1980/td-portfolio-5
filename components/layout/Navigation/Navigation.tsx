@@ -3,8 +3,8 @@
 import { useEffect, useState, useRef } from 'react'
 import styles from './Navigation.module.css'
 import gsap from 'gsap'
-import ScrollToPlugin from 'gsap/ScrollToPlugin'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin'
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 
 // Declare ScrollSmoother type
 declare global {
@@ -23,8 +23,6 @@ export default function Navigation() {
   const stRef = useRef<ScrollTrigger>()
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollToPlugin, ScrollTrigger)
-    
     if (!logoRef.current) return
 
     const headline = document.querySelector('#hero h1')

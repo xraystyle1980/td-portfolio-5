@@ -6,10 +6,12 @@ import { Environment } from '@react-three/drei'
 import TokenFace from '../3d/TokenFace'
 import styles from './AboutMe.module.css'
 import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import { Group } from 'three'
 import { Parallax } from '@/components/effects'
 
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger)
 
 function RotatingToken() {
   const groupRef = useRef<Group>(null)
@@ -27,19 +29,17 @@ function RotatingToken() {
       }
     })
 
-    // Pop animation on the 3D object
+    // Pop animation on the 3D object - only animate scale
     tl.fromTo(groupRef.current.scale, 
       {
         x: 3.2,
         y: 3.2,
-        z: 3.2,
-        opacity: 0
+        z: 3.2
       },
       {
         x: 2.8,
         y: 2.8,
         z: 2.8,
-        opacity: 1,
         duration: 0.8,
         ease: "elastic.out(1.2, 0.5)",
       }
@@ -77,9 +77,6 @@ export default function AboutMe() {
   const containerRef = useRef(null)
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger)
-    ScrollTrigger.defaults({ markers: false })
-
     // Token scale animation
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -184,35 +181,35 @@ export default function AboutMe() {
 
   return (
     <Parallax speed={0.125}> 
-    <section id="about" className={styles.aboutSection}>
-      <div className={styles.container} ref={containerRef}>
-        <div className={styles.content} ref={contentRef}>
-          <h2 className={styles.heading} ref={headingRef}>Hello 👋</h2>
-          <p className={styles.text} ref={textRef}>
-            I'm Matt Trice, an Atlanta-based Product Designer, Design Leader, Complex Problem Solver, and Code Tinkerer. Let's work together and build something innovative and impactful.
-          </p>
+      <section id="about" className={styles.aboutSection}>
+        <div className={styles.container} ref={containerRef}>
+          <div className={styles.content} ref={contentRef}>
+            <h2 className={styles.heading} ref={headingRef}>Hello 👋</h2>
+            <p className={styles.text} ref={textRef}>
+              I'm Matt Trice, an Atlanta-based Product Designer, Design Leader, Complex Problem Solver, and Code Tinkerer. Let's work together and build something innovative and impactful.
+            </p>
+          </div>
         </div>
-      </div>
-      
-      <div className={styles.tokenContainer} ref={tokenRef}>
-        <Canvas
-          camera={{ 
-            position: [0, 0, 10],
-            fov: 45,
-            near: 0.1,
-            far: 1000
-          }}
-        >
-          <ambientLight intensity={2.5} color="#FF3399" />
-          <pointLight position={[10, 10, 10]} intensity={4} color="#FF3399" />
-          <pointLight position={[-10, -10, -10]} intensity={3} color="#FF3399" />
-          <pointLight position={[0, 0, 5]} intensity={3.5} color="#FF3399" />
-          <spotLight position={[0, 5, 0]} intensity={5} color="#FF3399" angle={0.5} penumbra={1} />
-          <Environment background={false} preset="warehouse" />
-          <RotatingToken />
-        </Canvas>
-      </div>
-    </section>
+        
+        <div className={styles.tokenContainer} ref={tokenRef}>
+          <Canvas
+            camera={{ 
+              position: [0, 0, 10],
+              fov: 45,
+              near: 0.1,
+              far: 1000
+            }}
+          >
+            <ambientLight intensity={2.5} color="#FF3399" />
+            <pointLight position={[10, 10, 10]} intensity={4} color="#FF3399" />
+            <pointLight position={[-10, -10, -10]} intensity={3} color="#FF3399" />
+            <pointLight position={[0, 0, 5]} intensity={3.5} color="#FF3399" />
+            <spotLight position={[0, 5, 0]} intensity={5} color="#FF3399" angle={0.5} penumbra={1} />
+            <Environment background={false} preset="warehouse" />
+            <RotatingToken />
+          </Canvas>
+        </div>
+      </section>
     </Parallax>
   )
 } 

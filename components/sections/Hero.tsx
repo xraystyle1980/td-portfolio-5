@@ -6,12 +6,11 @@ import { Caveat } from 'next/font/google';
 import Navigation from '@/components/layout/Navigation/Navigation'
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { SplitText } from 'gsap/SplitText';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { SplitText } from 'gsap/dist/SplitText';
 import SplitType from 'split-type';
 import localFont from 'next/font/local'
 
-gsap.registerPlugin(ScrollTrigger, SplitText);
 ScrollTrigger.defaults({
   markers: false
 });
@@ -33,6 +32,8 @@ export default function Hero() {
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const splitRef = useRef<SplitType | null>(null);
   const textRef = useRef<HTMLHeadingElement>(null);
+  const wordRef = useRef<HTMLSpanElement>(null);
+  const buildWordRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     if (!waveRef.current) return;
@@ -120,6 +121,109 @@ export default function Hero() {
     };
   }, []);
 
+  useEffect(() => {
+    if (!wordRef.current || !buildWordRef.current) return;
+
+    // Setup word swap animation for "Stuff/Shit"
+    const word = wordRef.current;
+    const buildWord = buildWordRef.current;
+    let currentAnimation: gsap.core.Tween | null = null;
+    let buildAnimation: gsap.core.Tween | null = null;
+    
+    // Build/Make swap handlers
+    const handleBuildMouseEnter = () => {
+      if (buildAnimation) buildAnimation.kill();
+      buildAnimation = gsap.to(buildWord, {
+        opacity: 0,
+        y: -20,
+        duration: 0.15,
+        ease: 'power2.in',
+        onComplete: () => {
+          buildWord.textContent = 'Make';
+          gsap.to(buildWord, {
+            opacity: 1,
+            y: 0,
+            duration: 0.15,
+            ease: 'power2.out'
+          });
+        }
+      });
+    };
+
+    const handleBuildMouseLeave = () => {
+      if (buildAnimation) buildAnimation.kill();
+      buildAnimation = gsap.to(buildWord, {
+        opacity: 0,
+        y: 20,
+        duration: 0.15,
+        ease: 'power2.in',
+        onComplete: () => {
+          buildWord.textContent = 'Build';
+          gsap.to(buildWord, {
+            opacity: 1,
+            y: 0,
+            duration: 0.15,
+            ease: 'power2.out'
+          });
+        }
+      });
+    };
+
+    // Stuff/Shit swap handlers
+    const handleMouseEnter = () => {
+      if (currentAnimation) currentAnimation.kill();
+      currentAnimation = gsap.to(word, {
+        opacity: 0,
+        y: -20,
+        duration: 0.15,
+        ease: 'power2.in',
+        onComplete: () => {
+          word.textContent = 'Shit';
+          gsap.to(word, {
+            opacity: 1,
+            y: 0,
+            duration: 0.15,
+            ease: 'power2.out'
+          });
+        }
+      });
+    };
+
+    const handleMouseLeave = () => {
+      if (currentAnimation) currentAnimation.kill();
+      currentAnimation = gsap.to(word, {
+        opacity: 0,
+        y: 20,
+        duration: 0.15,
+        ease: 'power2.in',
+        onComplete: () => {
+          word.textContent = 'Stuff';
+          gsap.to(word, {
+            opacity: 1,
+            y: 0,
+            duration: 0.15,
+            ease: 'power2.out'
+          });
+        }
+      });
+    };
+
+    // Add event listeners
+    word.addEventListener('mouseenter', handleMouseEnter);
+    word.addEventListener('mouseleave', handleMouseLeave);
+    buildWord.addEventListener('mouseenter', handleBuildMouseEnter);
+    buildWord.addEventListener('mouseleave', handleBuildMouseLeave);
+
+    return () => {
+      if (currentAnimation) currentAnimation.kill();
+      if (buildAnimation) buildAnimation.kill();
+      word.removeEventListener('mouseenter', handleMouseEnter);
+      word.removeEventListener('mouseleave', handleMouseLeave);
+      buildWord.removeEventListener('mouseenter', handleBuildMouseEnter);
+      buildWord.removeEventListener('mouseleave', handleBuildMouseLeave);
+    };
+  }, []);
+
   return (
     <section className={`${styles.hero} ${cooper.variable}`} suppressHydrationWarning>
       <div className={styles.heroContent}>
@@ -130,11 +234,11 @@ export default function Hero() {
           <div className={styles.content} ref={containerRef}>
             <div className={styles.headlineWrapper}>
               <h1 ref={textRef} className={styles.heroHeadline}>
-                <span className={styles.heroWord}>Build</span>
+                <span ref={buildWordRef} className={styles.heroWord}>Build</span>
                 <br />
                 <span className={styles.heroWord}>Cool</span>
                 <br />
-                <span className={styles.heroWord}>Shit</span>
+                <span ref={wordRef} className={styles.heroWord}>Stuff</span>
               </h1>
             </div>
           </div>

@@ -4,11 +4,16 @@ import dynamic from 'next/dynamic'
 import { Suspense, useEffect, useState, useRef } from 'react'
 import styles from './page.module.css'
 import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import { ScrollSmoother } from 'gsap/dist/ScrollSmoother'
 import { SplitText } from 'gsap/dist/SplitText'
-import AboutMe from '../components/sections/AboutMe'
+import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin'
+import AboutMe from '@/components/sections/AboutMe'
 import Work from '@/components/sections/Work'
+import Playground from '@/components/sections/Playground'
+
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger, ScrollSmoother, SplitText, ScrollToPlugin)
 
 // Define interface for Scene3D props
 interface Scene3DProps {
@@ -28,27 +33,122 @@ export default function HomePage() {
   const contentRef = useRef<HTMLDivElement>(null)
   const headingRef = useRef<HTMLHeadingElement>(null)
   const wordRef = useRef<HTMLSpanElement>(null)
-  const aboutContentRef = useRef<HTMLDivElement>(null)
-  const aboutHeadingRef = useRef<HTMLHeadingElement>(null)
-  const aboutTextRef = useRef<HTMLParagraphElement>(null)
   const buildWordRef = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      gsap.registerPlugin(ScrollTrigger, ScrollSmoother, SplitText)
-      
-      // Set default markers to false
-      ScrollTrigger.defaults({
-        markers: false
-      })
+    if (!wordRef.current || !buildWordRef.current) return
 
+    // Setup word swap animation for "Stuff/Shit"
+    const word = wordRef.current
+    const buildWord = buildWordRef.current
+    let currentAnimation: gsap.core.Tween | null = null
+    let buildAnimation: gsap.core.Tween | null = null
+    
+    // Build/Make swap handlers
+    const handleBuildMouseEnter = () => {
+      if (buildAnimation) buildAnimation.kill()
+      buildAnimation = gsap.to(buildWord, {
+        opacity: 0,
+        y: -20,
+        duration: 0.15,
+        ease: 'power2.in',
+        onComplete: () => {
+          buildWord.textContent = 'Make'
+          gsap.to(buildWord, {
+            opacity: 1,
+            y: 0,
+            duration: 0.15,
+            ease: 'power2.out'
+          })
+        }
+      })
+    }
+
+    const handleBuildMouseLeave = () => {
+      if (buildAnimation) buildAnimation.kill()
+      buildAnimation = gsap.to(buildWord, {
+        opacity: 0,
+        y: 20,
+        duration: 0.15,
+        ease: 'power2.in',
+        onComplete: () => {
+          buildWord.textContent = 'Build'
+          gsap.to(buildWord, {
+            opacity: 1,
+            y: 0,
+            duration: 0.15,
+            ease: 'power2.out'
+          })
+        }
+      })
+    }
+
+    // Stuff/Shit swap handlers
+    const handleMouseEnter = () => {
+      if (currentAnimation) currentAnimation.kill()
+      currentAnimation = gsap.to(word, {
+        opacity: 0,
+        y: -20,
+        duration: 0.15,
+        ease: 'power2.in',
+        onComplete: () => {
+          word.textContent = 'Shit'
+          gsap.to(word, {
+            opacity: 1,
+            y: 0,
+            duration: 0.15,
+            ease: 'power2.out'
+          })
+        }
+      })
+    }
+
+    const handleMouseLeave = () => {
+      if (currentAnimation) currentAnimation.kill()
+      currentAnimation = gsap.to(word, {
+        opacity: 0,
+        y: 20,
+        duration: 0.15,
+        ease: 'power2.in',
+        onComplete: () => {
+          word.textContent = 'Stuff'
+          gsap.to(word, {
+            opacity: 1,
+            y: 0,
+            duration: 0.15,
+            ease: 'power2.out'
+          })
+        }
+      })
+    }
+
+    // Add event listeners
+    word.addEventListener('mouseenter', handleMouseEnter)
+    word.addEventListener('mouseleave', handleMouseLeave)
+    buildWord.addEventListener('mouseenter', handleBuildMouseEnter)
+    buildWord.addEventListener('mouseleave', handleBuildMouseLeave)
+
+    return () => {
+      if (currentAnimation) currentAnimation.kill()
+      if (buildAnimation) buildAnimation.kill()
+      word.removeEventListener('mouseenter', handleMouseEnter)
+      word.removeEventListener('mouseleave', handleMouseLeave)
+      buildWord.removeEventListener('mouseenter', handleBuildMouseEnter)
+      buildWord.removeEventListener('mouseleave', handleBuildMouseLeave)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      // Initialize ScrollSmoother
       let smoother = ScrollSmoother.create({
         wrapper: smoothWrapperRef.current,
         content: contentRef.current,
-        smooth: 1.5,
-        normalizeScroll: true,
+        smooth: 1,
+        normalizeScroll: false,
         ignoreMobileResize: true,
         effects: true,
+        smoothTouch: 0,
         onUpdate: (self) => {
           const progress = self.progress
           setScroll(progress)
@@ -56,181 +156,32 @@ export default function HomePage() {
         }
       })
 
-      // Setup about section animation
-      ScrollTrigger.create({
-        trigger: '#about',
-        start: 'top 70%',
-        once: true,
-        id: 'about-content-reveal',
-        onEnter: () => {
-          const tl = gsap.timeline({
-            defaults: {
-              duration: 1,
-              ease: 'power3.out'
-            }
-          })
-
-          if (aboutContentRef.current && aboutHeadingRef.current && aboutTextRef.current) {
-            tl.to(aboutContentRef.current, {
-              opacity: 1,
-              duration: 0.6
-            })
-            .to(aboutHeadingRef.current, {
-              y: 0,
-              opacity: 1,
-              duration: 1.2,
-              ease: 'elastic.out(1, 0.75)'
-            }, '-=0.3')
-            .to(aboutTextRef.current, {
-              y: 0,
-              opacity: 1,
-              duration: 0.8,
-              ease: 'power2.out'
-            }, '-=0.6')
-          }
-        }
-      })
-
       // Setup work section animation
-      ScrollTrigger.create({
-        trigger: '.projects',
+      const workTrigger = ScrollTrigger.create({
+        trigger: '#work',
         start: 'top 70%',
         once: true,
         id: 'work-content-reveal',
         onEnter: () => {
-          gsap.from('.projects > *', {
-            y: 100,
-            opacity: 0,
-            duration: 1,
-            stagger: 0.2,
-            ease: 'power3.out'
-          })
+          const projectElements = document.querySelectorAll('.projects > *')
+          if (projectElements.length > 0) {
+            gsap.fromTo(projectElements, 
+              { autoAlpha: 0, y: 100 },
+              { 
+                autoAlpha: 1,
+                y: 0,
+                duration: 1,
+                stagger: 0.2,
+                ease: 'power3.out'
+              }
+            )
+          }
         }
       })
 
-      const cleanupFunctions: (() => void)[] = []
-
-      // Setup word swap animation for "Stuff/Shit"
-      if (wordRef.current) {
-        const word = wordRef.current
-        let currentAnimation: gsap.core.Tween | null = null
-        
-        const handleMouseEnter = () => {
-          if (currentAnimation) {
-            currentAnimation.kill()
-          }
-          
-          currentAnimation = gsap.to(word, {
-            opacity: 0,
-            y: -20,
-            duration: 0.15,
-            ease: 'power2.in',
-            onComplete: () => {
-              word.textContent = 'Shit'
-              gsap.to(word, {
-                opacity: 1,
-                y: 0,
-                duration: 0.15,
-                ease: 'power2.out'
-              })
-            }
-          })
-        }
-
-        const handleMouseLeave = () => {
-          if (currentAnimation) {
-            currentAnimation.kill()
-          }
-          
-          currentAnimation = gsap.to(word, {
-            opacity: 0,
-            y: 20,
-            duration: 0.15,
-            ease: 'power2.in',
-            onComplete: () => {
-              word.textContent = 'Stuff'
-              gsap.to(word, {
-                opacity: 1,
-                y: 0,
-                duration: 0.15,
-                ease: 'power2.out'
-              })
-            }
-          })
-        }
-
-        word.addEventListener('mouseenter', handleMouseEnter)
-        word.addEventListener('mouseleave', handleMouseLeave)
-
-        cleanupFunctions.push(() => {
-          if (currentAnimation) currentAnimation.kill()
-          word.removeEventListener('mouseenter', handleMouseEnter)
-          word.removeEventListener('mouseleave', handleMouseLeave)
-        })
-      }
-
-      // Setup word swap animation for "Build/Make"
-      if (buildWordRef.current) {
-        const buildWord = buildWordRef.current
-        let buildAnimation: gsap.core.Tween | null = null
-        
-        const handleBuildMouseEnter = () => {
-          if (buildAnimation) {
-            buildAnimation.kill()
-          }
-          
-          buildAnimation = gsap.to(buildWord, {
-            opacity: 0,
-            y: -20,
-            duration: 0.15,
-            ease: 'power2.in',
-            onComplete: () => {
-              buildWord.textContent = 'Make'
-              gsap.to(buildWord, {
-                opacity: 1,
-                y: 0,
-                duration: 0.15,
-                ease: 'power2.out'
-              })
-            }
-          })
-        }
-
-        const handleBuildMouseLeave = () => {
-          if (buildAnimation) {
-            buildAnimation.kill()
-          }
-          
-          buildAnimation = gsap.to(buildWord, {
-            opacity: 0,
-            y: 20,
-            duration: 0.15,
-            ease: 'power2.in',
-            onComplete: () => {
-              buildWord.textContent = 'Build'
-              gsap.to(buildWord, {
-                opacity: 1,
-                y: 0,
-                duration: 0.15,
-                ease: 'power2.out'
-              })
-            }
-          })
-        }
-
-        buildWord.addEventListener('mouseenter', handleBuildMouseEnter)
-        buildWord.addEventListener('mouseleave', handleBuildMouseLeave)
-
-        cleanupFunctions.push(() => {
-          if (buildAnimation) buildAnimation.kill()
-          buildWord.removeEventListener('mouseenter', handleBuildMouseEnter)
-          buildWord.removeEventListener('mouseleave', handleBuildMouseLeave)
-        })
-      }
-
       return () => {
         smoother && smoother.kill()
-        cleanupFunctions.forEach(cleanup => cleanup())
+        workTrigger.kill()
       }
     }
   }, [])
@@ -267,21 +218,15 @@ export default function HomePage() {
             </section>
 
             {/* About Section */}
-            <AboutMe />
+            <Suspense fallback={null}>
+              <AboutMe />
+            </Suspense>
 
             {/* Work Section */}
             <Work />
 
             {/* Playground Section */}
-            <section id="playground" className={styles.section}>
-              <div className={styles.sectionContent}>
-                <h2 className={styles.sectionHeading}>Playground</h2>
-                <div className={styles.playgroundGrid}>
-                  {/* Playground items will go here */}
-                </div>
-                <a href="/playground" className={styles.button}>View Playground</a>
-              </div>
-            </section>
+            <Playground />
 
             {/* Contact Section */}
             <section id="contact" className={styles.section}>

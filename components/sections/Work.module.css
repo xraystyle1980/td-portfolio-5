@@ -1,5 +1,5 @@
 .container {
-  padding: 8rem 0;
+  padding: 4rem 0;
 }
 
 .intro {
@@ -7,8 +7,7 @@
   margin: 0 auto;
   text-align: left;
   padding: 0rem;
-  margin-bottom: 8rem;
-  background-color: aliceblue;
+  margin-bottom: 4rem;
 }
 
 .title {
@@ -34,6 +33,8 @@
 .projects {
   display: flex;
   flex-direction: column;
+  gap: 4rem;
+  margin-bottom: 0;
 }
 
 @media (max-width: 1200px) {
@@ -44,11 +45,12 @@
 
 @media (max-width: 768px) {
   .container {
-    padding: 6rem 0;
+    padding: 3rem 0;
   }
 
   .intro {
     padding: 0 3rem;
+    margin-bottom: 3rem;
   }
 
   .title {
@@ -58,19 +60,29 @@
   .description {
     font-size: 1.25rem;
   }
+
+  .projects {
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
 }
 
 @media (max-width: 480px) {
   .container {
-    padding: 4rem 0;
+    padding: 2rem 0;
   }
 
   .intro {
     padding: 0 2rem;
-    margin-bottom: 4rem;
+    margin-bottom: 2rem;
   }
 
   .title {
     font-size: 100px;
+  }
+
+  .projects {
+    gap: 2rem;
+    margin-bottom: 2rem;
   }
 } 
