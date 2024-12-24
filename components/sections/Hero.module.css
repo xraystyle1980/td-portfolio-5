@@ -1,23 +1,116 @@
-.heroWord {
-  display: inline-block;
-  cursor: pointer;
-  pointer-events: auto !important;
-  user-select: text;
+.hero {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.heroContent {
   position: relative;
   z-index: 200;
+  pointer-events: none;
+  user-select: text;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.contentOverlay {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  position: relative;
+  z-index: 15;
+  width: 100%;
+}
+
+.headlineWrapper {
+  position: relative;
+  z-index: 20;
+}
+
+.heroHeadline {
+  font-family: var(--font-cooper);
+  font-size: 240px;
+  line-height: 0.45;
+  margin: 0;
+  color: #F39;
+  text-shadow: -12px 12px 0px #000;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: #000;
+  font-variation-settings: "wght" 900;
+  letter-spacing: -0.02em;
+  mix-blend-mode: screen;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  pointer-events: none;
+}
+
+.heroWord {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  user-select: none;
+  -webkit-user-select: none;
+  pointer-events: auto;
+  transition: transform 0.2s ease;
+}
+
+/* Fixed widths for each word */
+.heroWord:first-child {
+  width: 4.2em; /* For "Build/Make" */
+}
+
+.heroWord:last-child {
+  width: 4.5em; /* For "Stuff/Shit" */
+}
+
+.heroWord:active {
+  transform: scale(0.98);
+}
+
+.heroWord::before {
+  content: '';
+  position: absolute;
+  top: -0.05em;
+  left: -0.05em;
+  right: -0.05em;
+  bottom: -0.05em;
+  z-index: -1;
 }
 
 .heroWord:hover {
   color: #F39;
 }
 
-.sceneContainer {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 5;
-  pointer-events: auto;
-  background: #FAF4F0;
+.staticWord {
+  display: inline-block;
+  position: relative;
+  padding: 0;
+  margin: 0;
+  min-width: max-content;
+  text-align: left;
+  user-select: none;
+  -webkit-user-select: none;
+  pointer-events: none;
 }
  

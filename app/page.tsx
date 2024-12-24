@@ -8,6 +8,7 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import { ScrollSmoother } from 'gsap/dist/ScrollSmoother'
 import { SplitText } from 'gsap/dist/SplitText'
 import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin'
+import Hero from '@/components/sections/Hero'
 import AboutMe from '@/components/sections/AboutMe'
 import Work from '@/components/sections/Work'
 import Playground from '@/components/sections/Playground'
@@ -31,112 +32,6 @@ export default function HomePage() {
   const [currentSection, setCurrentSection] = useState(0)
   const smoothWrapperRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
-  const headingRef = useRef<HTMLHeadingElement>(null)
-  const wordRef = useRef<HTMLSpanElement>(null)
-  const buildWordRef = useRef<HTMLSpanElement>(null)
-
-  useEffect(() => {
-    if (!wordRef.current || !buildWordRef.current) return
-
-    // Setup word swap animation for "Stuff/Shit"
-    const word = wordRef.current
-    const buildWord = buildWordRef.current
-    let currentAnimation: gsap.core.Tween | null = null
-    let buildAnimation: gsap.core.Tween | null = null
-    
-    // Build/Make swap handlers
-    const handleBuildMouseEnter = () => {
-      if (buildAnimation) buildAnimation.kill()
-      buildAnimation = gsap.to(buildWord, {
-        opacity: 0,
-        y: -20,
-        duration: 0.15,
-        ease: 'power2.in',
-        onComplete: () => {
-          buildWord.textContent = 'Make'
-          gsap.to(buildWord, {
-            opacity: 1,
-            y: 0,
-            duration: 0.15,
-            ease: 'power2.out'
-          })
-        }
-      })
-    }
-
-    const handleBuildMouseLeave = () => {
-      if (buildAnimation) buildAnimation.kill()
-      buildAnimation = gsap.to(buildWord, {
-        opacity: 0,
-        y: 20,
-        duration: 0.15,
-        ease: 'power2.in',
-        onComplete: () => {
-          buildWord.textContent = 'Build'
-          gsap.to(buildWord, {
-            opacity: 1,
-            y: 0,
-            duration: 0.15,
-            ease: 'power2.out'
-          })
-        }
-      })
-    }
-
-    // Stuff/Shit swap handlers
-    const handleMouseEnter = () => {
-      if (currentAnimation) currentAnimation.kill()
-      currentAnimation = gsap.to(word, {
-        opacity: 0,
-        y: -20,
-        duration: 0.15,
-        ease: 'power2.in',
-        onComplete: () => {
-          word.textContent = 'Shit'
-          gsap.to(word, {
-            opacity: 1,
-            y: 0,
-            duration: 0.15,
-            ease: 'power2.out'
-          })
-        }
-      })
-    }
-
-    const handleMouseLeave = () => {
-      if (currentAnimation) currentAnimation.kill()
-      currentAnimation = gsap.to(word, {
-        opacity: 0,
-        y: 20,
-        duration: 0.15,
-        ease: 'power2.in',
-        onComplete: () => {
-          word.textContent = 'Stuff'
-          gsap.to(word, {
-            opacity: 1,
-            y: 0,
-            duration: 0.15,
-            ease: 'power2.out'
-          })
-        }
-      })
-    }
-
-    // Add event listeners
-    word.addEventListener('mouseenter', handleMouseEnter)
-    word.addEventListener('mouseleave', handleMouseLeave)
-    buildWord.addEventListener('mouseenter', handleBuildMouseEnter)
-    buildWord.addEventListener('mouseleave', handleBuildMouseLeave)
-
-    return () => {
-      if (currentAnimation) currentAnimation.kill()
-      if (buildAnimation) buildAnimation.kill()
-      word.removeEventListener('mouseenter', handleMouseEnter)
-      word.removeEventListener('mouseleave', handleMouseLeave)
-      buildWord.removeEventListener('mouseenter', handleBuildMouseEnter)
-      buildWord.removeEventListener('mouseleave', handleBuildMouseLeave)
-    }
-  }, [])
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -153,8 +48,6 @@ export default function HomePage() {
           const progress = self.progress
           setScroll(progress)
           setCurrentSection(Math.floor(progress * 5))
-          // Add/remove scroll class based on scroll position
-          document.body.classList.toggle('is-scrolled', window.scrollY > 100)
         }
       })
 
@@ -207,17 +100,7 @@ export default function HomePage() {
         <div id="smooth-content" ref={contentRef} className={styles.smoothContent}>
           <main className={styles.main}>
             {/* Hero Section */}
-            <section id="hero" className={styles.section}>
-              <div className={styles.heroContent}>
-                <h1 ref={headingRef} className={styles.mainHeading}>
-                  <span ref={buildWordRef} className={styles.swapWord}>Build</span>
-                  <br />
-                  Cool
-                  <br />
-                  <span ref={wordRef} className={styles.swapWord}>Stuff</span>
-                </h1>
-              </div>
-            </section>
+            <Hero />
 
             {/* About Section */}
             <Suspense fallback={null}>

@@ -8,7 +8,6 @@ import styles from './AboutMe.module.css'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import { Group } from 'three'
-import { Parallax } from '@/components/effects'
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger)
@@ -70,11 +69,11 @@ function RotatingToken() {
 }
 
 export default function AboutMe() {
+  const containerRef = useRef(null)
   const contentRef = useRef(null)
   const headingRef = useRef(null)
   const textRef = useRef(null)
   const tokenRef = useRef(null)
-  const containerRef = useRef(null)
 
   useEffect(() => {
     // Token scale animation
@@ -180,36 +179,34 @@ export default function AboutMe() {
   }, [])
 
   return (
-    <Parallax speed={0.125}> 
-      <section id="about" className={styles.aboutSection}>
-        <div className={styles.container} ref={containerRef}>
-          <div className={styles.content} ref={contentRef}>
-            <h2 className={styles.heading} ref={headingRef}>Hello 👋</h2>
-            <p className={styles.text} ref={textRef}>
-              I'm Matt Trice, an Atlanta-based Product Designer, Design Leader, Complex Problem Solver, and Code Tinkerer. Let's work together and build something innovative and impactful.
-            </p>
-          </div>
+    <section id="about" className={styles.aboutSection}>
+      <div className={styles.container} ref={containerRef}>
+        <div className={styles.content} ref={contentRef}>
+          <h2 className={styles.heading} ref={headingRef}>Hello 👋</h2>
+          <p className={styles.text} ref={textRef}>
+            I'm Matt Trice, an Atlanta-based Product Designer, Design Leader, Complex Problem Solver, and Code Tinkerer. Let's work together and build something innovative and impactful.
+          </p>
         </div>
-        
-        <div className={styles.tokenContainer} ref={tokenRef}>
-          <Canvas
-            camera={{ 
-              position: [0, 0, 10],
-              fov: 45,
-              near: 0.1,
-              far: 1000
-            }}
-          >
-            <ambientLight intensity={2.5} color="#FF3399" />
-            <pointLight position={[10, 10, 10]} intensity={4} color="#FF3399" />
-            <pointLight position={[-10, -10, -10]} intensity={3} color="#FF3399" />
-            <pointLight position={[0, 0, 5]} intensity={3.5} color="#FF3399" />
-            <spotLight position={[0, 5, 0]} intensity={5} color="#FF3399" angle={0.5} penumbra={1} />
-            <Environment background={false} preset="warehouse" />
-            <RotatingToken />
-          </Canvas>
-        </div>
-      </section>
-    </Parallax>
+      </div>
+      
+      <div className={styles.tokenContainer} ref={tokenRef}>
+        <Canvas
+          camera={{ 
+            position: [0, 0, 10],
+            fov: 45,
+            near: 0.1,
+            far: 1000
+          }}
+        >
+          <ambientLight intensity={2.5} color="#FF3399" />
+          <pointLight position={[10, 10, 10]} intensity={4} color="#FF3399" />
+          <pointLight position={[-10, -10, -10]} intensity={3} color="#FF3399" />
+          <pointLight position={[0, 0, 5]} intensity={3.5} color="#FF3399" />
+          <spotLight position={[0, 5, 0]} intensity={5} color="#FF3399" angle={0.5} penumbra={1} />
+          <Environment background={false} preset="warehouse" />
+          <RotatingToken />
+        </Canvas>
+      </div>
+    </section>
   )
 } 

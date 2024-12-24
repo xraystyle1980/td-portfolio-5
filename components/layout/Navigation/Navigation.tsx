@@ -1,14 +1,13 @@
 'use client'
 
-import { useEffect, useState, useRef } from 'react'
+import { useState, useRef } from 'react'
 import styles from './Navigation.module.css'
 import gsap from 'gsap'
 import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin'
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 
 // Register GSAP plugins
 if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
+  gsap.registerPlugin(ScrollToPlugin)
 }
 
 // Declare ScrollSmoother type
@@ -24,19 +23,18 @@ declare global {
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const logoRef = useRef<HTMLDivElement>(null)
 
   const scrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId)
     if (section) {
       const smoother = window.ScrollSmoother?.get()
       if (smoother) {
-        smoother.scrollTo(section, true)
+        smoother.scrollTo(section, false)
       } else {
         gsap.to(window, {
-          duration: 1,
+          duration: 0.5,
           scrollTo: { y: section, offsetY: 0 },
-          ease: "power3.inOut"
+          ease: "power2.out"
         })
       }
       setIsMenuOpen(false)
@@ -47,7 +45,6 @@ export default function Navigation() {
     <nav className={styles.nav}>
       <div className={styles.wrapper}>
         <div 
-          ref={logoRef}
           className={styles.logo}
           onClick={() => scrollToSection('hero')}
         >

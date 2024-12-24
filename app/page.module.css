@@ -1,7 +1,6 @@
 .pageWrapper {
   position: relative;
   width: 100%;
-  min-height: 100vh;
   background: transparent;
   color: #FFF;
   overflow: hidden;
@@ -24,7 +23,6 @@
 }
 
 .smoothContent {
-  min-height: 100vh;
   pointer-events: auto;
 }
 
@@ -36,10 +34,13 @@
   flex-direction: column;
   align-items: stretch;
   pointer-events: auto;
+  overflow-x: hidden;
+  background: rgba(0, 11, 31, 0.13);
+  backdrop-filter: blur(0px);
 }
 
 .section {
-  min-height: 100vh;
+  padding: 6rem 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -53,49 +54,6 @@
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
-}
-
-/* Hero Content */
-.heroContent {
-  position: relative;
-  z-index: 200;
-  pointer-events: none;
-  user-select: text;
-  max-width: 1400px;
-  margin: 0 auto;
-  width: 100%;
-  padding: 0;
-}
-
-.heroLogo {
-  color: #F39;
-  text-shadow: -2px 2px 0 #000;
-  font-family: var(--font-cooper);
-  font-size: 2rem;
-  font-style: normal;
-  font-weight: 900;
-  line-height: 85%;
-  letter-spacing: -1px;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #000;
-  mix-blend-mode: screen;
-  will-change: transform;
-}
-
-/* Hero Section */
-.mainHeading {
-  font-family: var(--font-cooper);
-  font-size: 240px;
-  line-height: 0.85;
-  margin-bottom: 1rem;
-  color: #F39;
-  width: min-content;
-  text-shadow: -12px 12px 0px #000;
-  -webkit-text-stroke-width: 3px;
-  -webkit-text-stroke-color: #000;
-  font-variation-settings: "wght" 900;
-  letter-spacing: -0.02em;
-  mix-blend-mode: screen;
 }
 
 /* Section Headings */
@@ -120,22 +78,6 @@
   text-shadow: -1px 1px 0px #000;
 }
 
-/* Work Grid */
-.workGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
-}
-
-/* Playground Grid */
-.playgroundGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
-}
-
 /* Button */
 .button {
   margin-top: 2rem;
@@ -158,10 +100,6 @@
 
 /* Responsive Styles */
 @media (max-width: 1200px) {
-  .mainHeading {
-    font-size: 180px;
-  }
-
   .sectionHeading {
     font-size: 100px;
   }
@@ -172,10 +110,6 @@
     padding: 2rem;
   }
 
-  .mainHeading {
-    font-size: 120px;
-  }
-
   .sectionHeading {
     font-size: 80px;
   }
@@ -183,80 +117,14 @@
   .sectionText {
     font-size: 20px;
   }
-
-  .heroLogo {
-    font-size: 1.75rem;
-  }
 }
 
 @media (max-width: 480px) {
-  .mainHeading {
-    font-size: 80px;
-  }
-
   .sectionHeading {
     font-size: 60px;
   }
 
   .sectionText {
     font-size: 18px;
-  }
-
-  .heroLogo {
-    font-size: 1.5rem;
-  }
-}
-
-.swapWord {
-  display: inline-block;
-  cursor: pointer;
-  perspective: 1000px;
-  transform-style: preserve-3d;
-  position: relative;
-  z-index: 200;
-  pointer-events: auto !important;
-  user-select: text;
-  text-align: left;
-  will-change: transform, opacity;
-}
-
-.swapWord:hover {
-  color: #F39;
-}
-
-/* About Section */
-.aboutSection {
-  background: #161616;
-  position: relative;
-  padding: 6rem;
-  margin: 4rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  perspective: 1000px;
-  min-height: 80vh;
-  border-radius: 2rem;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-}
-
-.aboutContent {
-  max-width: 1200px;
-  width: 100%;
-}
-
-.aboutContent .sectionHeading {
-  transform: translateY(50px);
-  opacity: 0;
-}
-
-.aboutContent .sectionText {
-  transform: translateY(30px);
-  opacity: 0;
-}
-
-@media (max-width: 768px) {
-  .aboutSection {
-    padding: 4rem 2rem;
-    margin: 2rem;
   }
 } 
