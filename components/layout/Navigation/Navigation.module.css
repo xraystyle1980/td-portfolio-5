@@ -22,32 +22,34 @@
 .logo {
   color: #F39;
   text-shadow: -4px 4px 0 #000,
-               -6px 6px 0 rgb(0, 0, 0);
+               -6px 6px 0 #000;
   paint-order: stroke;
   -webkit-text-stroke-width: 2px;
   -webkit-text-stroke-color: #000;
   font-family: var(--font-cooper);
   font-style: normal;
   font-weight: 900;
-  font-size: 2rem;
   line-height: 85%;
   letter-spacing: -1.5px;
   cursor: pointer;
   pointer-events: auto;
-  transition: all 0.2s ease;
+  position: fixed;
+  left: 10rem;
+  will-change: transform, font-size;
   transform: translateY(-2px);
 }
 
 .logo:hover {
-  transform: translateY(1px);
+  transform: translateY(1px) !important;
   text-shadow: -2px 2px 0 #000,
-               -3px 3px 0 rgb(0, 0, 0);
+               -3px 3px 0 #000;
 }
 
 .links {
   display: flex;
   gap: 2rem;
   pointer-events: auto;
+  margin-left: auto;
 }
 
 .link {
@@ -62,7 +64,7 @@
   padding: 0.5rem 1rem;
   cursor: pointer;
   text-shadow: -4px 4px 0 #000,
-               -6px 6px 0 rgba(0, 0, 0);
+               -6px 6px 0 #000;
   paint-order: stroke;
   -webkit-text-stroke-width: 2px;
   -webkit-text-stroke-color: #000;
@@ -75,7 +77,7 @@
 .link:hover {
   transform: translateY(1px);
   text-shadow: -2px 2px 0 #000,
-               -4px 4px 0 rgba(0, 0, 0);
+               -3px 3px 0 #000;
 }
 
 /* Mobile styles */
