@@ -50,6 +50,15 @@ export default function Navigation() {
         >
           Trice.Design
         </div>
+        <button 
+          className={`${styles.hamburger} ${isMenuOpen ? styles.open : ''}`}
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label="Toggle menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
         <div className={`${styles.links} ${isMenuOpen ? styles.open : ''}`}>
           <button 
             className={styles.link}

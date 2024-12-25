@@ -1,7 +1,7 @@
 'use client'
 
-import { useRef, useEffect } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
+import { useRef, useEffect, useState } from 'react'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Environment } from '@react-three/drei'
 import TokenFace from '../3d/TokenFace'
 import styles from './AboutMe.module.css'
@@ -14,6 +14,24 @@ gsap.registerPlugin(ScrollTrigger)
 
 function RotatingToken() {
   const groupRef = useRef<Group>(null)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 768px)')
+    const handleResize = (e: MediaQueryListEvent | MediaQueryList) => {
+      setIsMobile(e.matches)
+    }
+
+    // Initial check
+    handleResize(mediaQuery)
+
+    // Add listener for changes
+    mediaQuery.addListener(handleResize)
+
+    return () => {
+      mediaQuery.removeListener(handleResize)
+    }
+  }, [])
 
   useEffect(() => {
     if (!groupRef.current) return
@@ -61,7 +79,7 @@ function RotatingToken() {
       ref={groupRef} 
       rotation={[0.2, 0, 0]} 
       scale={3.2}
-      position={[2, 0, 0]}
+      position={isMobile ? [0, 0, 0] : [2, 0, 0]}
     >
       <TokenFace />
     </group>
