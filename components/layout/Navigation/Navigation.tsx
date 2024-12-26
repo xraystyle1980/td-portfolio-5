@@ -1,14 +1,8 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import styles from './Navigation.module.css'
 import gsap from 'gsap'
-import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin'
-
-// Register GSAP plugins
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollToPlugin)
-}
 
 // Declare ScrollSmoother type
 declare global {
@@ -22,23 +16,32 @@ declare global {
 }
 
 export default function Navigation() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
+  const menuRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const initGSAP = async () => {
+      const { default: ScrollToPlugin } = await import('gsap/ScrollToPlugin')
+      
+      // Register plugins
+      gsap.registerPlugin(ScrollToPlugin)
+    }
+
+    initGSAP()
+  }, [])
 
   const scrollToSection = (sectionId: string) => {
-    const section = document.getElementById(sectionId)
-    if (section) {
-      const smoother = window.ScrollSmoother?.get()
-      if (smoother) {
-        smoother.scrollTo(section, false)
-      } else {
-        gsap.to(window, {
-          duration: 0.5,
-          scrollTo: { y: section, offsetY: 0 },
-          ease: "power2.out"
-        })
-      }
-      setIsMenuOpen(false)
+    const smoother = window.ScrollSmoother?.get()
+    if (smoother) {
+      smoother.scrollTo(`#${sectionId}`, true)
+    } else {
+      gsap.to(window, {
+        duration: 1,
+        scrollTo: `#${sectionId}`,
+        ease: 'power2.inOut'
+      })
     }
+    setIsOpen(false)
   }
 
   return (
@@ -51,15 +54,15 @@ export default function Navigation() {
           Trice.Design
         </div>
         <button 
-          className={`${styles.hamburger} ${isMenuOpen ? styles.open : ''}`}
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          className={`${styles.hamburger} ${isOpen ? styles.open : ''}`}
+          onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle menu"
         >
           <span></span>
           <span></span>
           <span></span>
         </button>
-        <div className={`${styles.links} ${isMenuOpen ? styles.open : ''}`}>
+        <div className={`${styles.links} ${isOpen ? styles.open : ''}`}>
           <button 
             className={styles.link}
             onClick={() => scrollToSection('about')}
@@ -74,15 +77,9 @@ export default function Navigation() {
           </button>
           <button 
             className={styles.link}
-            onClick={() => scrollToSection('product-design')}
+            onClick={() => scrollToSection('playground')}
           >
-            Product Design
-          </button>
-          <button 
-            className={styles.link}
-            onClick={() => scrollToSection('writing')}
-          >
-            Writing
+            Playground
           </button>
           <button 
             className={styles.link}

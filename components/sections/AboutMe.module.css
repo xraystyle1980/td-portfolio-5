@@ -1,4 +1,4 @@
-.aboutSection {
+.about {
   height: 100vh;
   display: flex;
   align-items: center;
@@ -79,7 +79,7 @@
 }
 
 @media (max-width: 768px) {
-  .aboutSection {
+  .about {
     height: auto;
     min-height: 100vh;
     margin: 2rem;

@@ -4,20 +4,13 @@ import dynamic from 'next/dynamic'
 import { Suspense, useEffect, useState, useRef } from 'react'
 import styles from './page.module.css'
 import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
-import { ScrollSmoother } from 'gsap/dist/ScrollSmoother'
-import { SplitText } from 'gsap/dist/SplitText'
-import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin'
 import Hero from '@/components/sections/Hero'
 import AboutMe from '@/components/sections/AboutMe'
 import Work from '@/components/sections/Work'
 import Playground from '@/components/sections/Playground'
 import UIDesign from '@/components/sections/UIDesign'
 
-// Register GSAP plugins
-gsap.registerPlugin(ScrollTrigger, ScrollSmoother, SplitText, ScrollToPlugin)
-
-// Define interface for Scene3D props //
+// Define interface for Scene3D props
 interface Scene3DProps {
   scroll: number
   currentSection: number
@@ -28,59 +21,99 @@ const Scene3D = dynamic<Scene3DProps>(() => import('./Scene3D'), {
   ssr: false 
 })
 
+interface ScrollSmootherInstance {
+  progress: number
+  kill: () => void
+}
+
 export default function HomePage() {
   const [scroll, setScroll] = useState(0)
   const [currentSection, setCurrentSection] = useState(0)
   const smoothWrapperRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
+  const [isClient, setIsClient] = useState(false)
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      // Initialize ScrollSmoother
-      let smoother = ScrollSmoother.create({
-        wrapper: smoothWrapperRef.current,
-        content: contentRef.current,
-        smooth: 1,
-        normalizeScroll: false,
-        ignoreMobileResize: true,
-        effects: true,
-        smoothTouch: 0,
-        onUpdate: (self) => {
-          const progress = self.progress
-          setScroll(progress)
-          setCurrentSection(Math.floor(progress * 5))
-        }
-      })
-
-      // Setup work section animation
-      const workTrigger = ScrollTrigger.create({
-        trigger: '#work',
-        start: 'top 70%',
-        once: true,
-        id: 'work-content-reveal',
-        onEnter: () => {
-          const projectElements = document.querySelectorAll('.projects > *')
-          if (projectElements.length > 0) {
-            gsap.fromTo(projectElements, 
-              { autoAlpha: 0, y: 100 },
-              { 
-                autoAlpha: 1,
-                y: 0,
-                duration: 1,
-                stagger: 0.2,
-                ease: 'power3.out'
-              }
-            )
-          }
-        }
-      })
-
-      return () => {
-        smoother && smoother.kill()
-        workTrigger.kill()
-      }
-    }
+    setIsClient(true)
   }, [])
+
+  useEffect(() => {
+    if (!isClient) return
+
+    let ctx = gsap.context(() => {
+      const initGSAP = async () => {
+        try {
+          // Import GSAP plugins
+          const ScrollTrigger = (await import('gsap/dist/ScrollTrigger')).default
+          const ScrollSmoother = (await import('gsap/dist/ScrollSmoother')).default
+          const SplitText = (await import('gsap/dist/SplitText')).default
+          const ScrollToPlugin = (await import('gsap/dist/ScrollToPlugin')).default
+
+          // Register plugins
+          gsap.registerPlugin(
+            ScrollTrigger,
+            ScrollSmoother,
+            SplitText,
+            ScrollToPlugin
+          )
+
+          // Initialize ScrollSmoother
+          if (smoothWrapperRef.current && contentRef.current) {
+            const smoother = ScrollSmoother.create({
+              smooth: 1,
+              effects: true,
+              normalizeScroll: true,
+              smoothTouch: 0.1,
+              wrapper: smoothWrapperRef.current,
+              content: contentRef.current,
+              onUpdate: (self: ScrollSmootherInstance) => {
+                const progress = self.progress
+                setScroll(progress)
+                setCurrentSection(Math.floor(progress * 5))
+              }
+            })
+
+            // Setup work section animation
+            const workTrigger = ScrollTrigger.create({
+              trigger: '#work',
+              start: 'top 70%',
+              once: true,
+              onEnter: () => {
+                const projectElements = document.querySelectorAll('.projects > *')
+                if (projectElements.length > 0) {
+                  gsap.fromTo(projectElements, 
+                    { autoAlpha: 0, y: 100 },
+                    { 
+                      autoAlpha: 1,
+                      y: 0,
+                      duration: 1,
+                      stagger: 0.2,
+                      ease: 'power3.out'
+                    }
+                  )
+                }
+              }
+            })
+
+            return () => {
+              smoother.kill()
+              workTrigger.kill()
+            }
+          }
+        } catch (error) {
+          console.error('Error initializing GSAP:', error)
+        }
+      }
+
+      initGSAP()
+    })
+
+    return () => ctx.revert()
+  }, [isClient])
+
+  if (!isClient) {
+    return null // or a loading state
+  }
 
   return (
     <div className={styles.pageWrapper}>
@@ -98,7 +131,11 @@ export default function HomePage() {
         ref={smoothWrapperRef} 
         className={styles.smoothWrapper}
       >
-        <div id="smooth-content" ref={contentRef} className={styles.smoothContent}>
+        <div 
+          id="smooth-content" 
+          ref={contentRef} 
+          className={styles.smoothContent}
+        >
           <main className={styles.main}>
             {/* Hero Section */}
             <Hero />

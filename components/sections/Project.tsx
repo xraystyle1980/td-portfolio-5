@@ -3,7 +3,6 @@
 import { useEffect, useRef } from 'react'
 import styles from './Project.module.css'
 import gsap from 'gsap'
-import ScrollTrigger from 'gsap/dist/ScrollTrigger'
 
 interface ProjectProps {
   title: string
@@ -14,61 +13,58 @@ interface ProjectProps {
   index?: number
 }
 
-export default function Project({ title, description, imageSrc, imageAlt, inverted = false, index = 0 }: ProjectProps) {
-  const sectionRef = useRef(null)
-  const contentRef = useRef(null)
-  const imageRef = useRef(null)
+export default function Project({ 
+  title, 
+  description, 
+  imageSrc, 
+  imageAlt,
+  inverted = false,
+  index = 0 
+}: ProjectProps) {
+  const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    const initGSAP = async () => {
+      const { default: ScrollTrigger } = await import('gsap/ScrollTrigger')
+      
+      // Register plugins
       gsap.registerPlugin(ScrollTrigger)
+
+      if (!containerRef.current) return
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top bottom-=100',
+          end: 'bottom top+=100',
+          toggleActions: 'play none none reverse'
+        }
+      })
+
+      tl.from(containerRef.current, {
+        y: 100,
+        opacity: 0,
+        duration: 1,
+        delay: index * 0.2,
+        ease: 'power3.out'
+      })
     }
 
-    const ctx = gsap.context(() => {
-      const baseDelay = index * 0.1
-
-      gsap.from(contentRef.current, {
-        x: inverted ? 100 : -100,
-        opacity: 0,
-        duration: 1,
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top bottom',
-          end: 'top center',
-          scrub: index ? 1 : false,
-          toggleActions: 'play none none reverse'
-        }
-      })
-
-      gsap.from(imageRef.current, {
-        x: inverted ? -100 : 100,
-        opacity: 0,
-        duration: 1,
-        delay: 0.2 + baseDelay,
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top bottom',
-          end: 'top center',
-          scrub: index ? 1 : false,
-          toggleActions: 'play none none reverse'
-        }
-      })
-    })
-
-    return () => ctx.revert()
-  }, [inverted, index])
+    initGSAP()
+  }, [index])
 
   return (
-    <section ref={sectionRef} className={`${styles.project} ${inverted ? styles.inverted : ''}`}>
-      <div className={styles.container}>
-        <div ref={contentRef} className={styles.content}>
-          <h2>{title}</h2>
-          <p>{description}</p>
-        </div>
-        <div ref={imageRef} className={styles.imageContainer}>
-          <img src={imageSrc} alt={imageAlt} />
-        </div>
+    <div 
+      ref={containerRef}
+      className={`${styles.project} ${inverted ? styles.inverted : ''}`}
+    >
+      <div className={styles.content}>
+        <h2>{title}</h2>
+        <p>{description}</p>
       </div>
-    </section>
+      <div className={styles.imageContainer}>
+        <img src={imageSrc} alt={imageAlt} />
+      </div>
+    </div>
   )
 } 

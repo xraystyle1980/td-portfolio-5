@@ -3,12 +3,7 @@
 import styles from './Hero.module.css';
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import localFont from 'next/font/local'
-
-ScrollTrigger.defaults({
-  markers: false
-});
 
 const cooper = localFont({
   src: '../../public/fonts/Cooper-var.ttf',
@@ -20,6 +15,22 @@ export default function Hero() {
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const wordRef = useRef<HTMLSpanElement>(null);
   const buildWordRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    const initGSAP = async () => {
+      const { default: ScrollTrigger } = await import('gsap/ScrollTrigger')
+      
+      // Register plugins
+      gsap.registerPlugin(ScrollTrigger)
+
+      // Initialize GSAP defaults
+      ScrollTrigger.defaults({
+        markers: false
+      })
+    }
+
+    initGSAP()
+  }, [])
 
   return (
     <section id="hero" className={`${styles.hero} ${cooper.variable}`} suppressHydrationWarning>

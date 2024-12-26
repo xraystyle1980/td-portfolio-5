@@ -2,20 +2,6 @@
 
 import { useEffect } from 'react'
 import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
-import { ScrollSmoother } from 'gsap/dist/ScrollSmoother'
-import { SplitText } from 'gsap/dist/SplitText'
-import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin'
-
-// Register all GSAP plugins at the top level
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(
-    ScrollTrigger,
-    ScrollSmoother,
-    SplitText,
-    ScrollToPlugin
-  )
-}
 
 export default function ClientLayout({
   children,
@@ -23,21 +9,45 @@ export default function ClientLayout({
   children: React.ReactNode
 }) {
   useEffect(() => {
-    // Initialize GSAP defaults
-    ScrollTrigger.defaults({
-      markers: false
-    });
+    // Import plugins dynamically
+    const registerPlugins = async () => {
+      const [
+        ScrollTrigger,
+        ScrollSmoother,
+        SplitText,
+        ScrollToPlugin
+      ] = await Promise.all([
+        import('gsap/ScrollTrigger'),
+        import('gsap/ScrollSmoother'),
+        import('gsap/SplitText'),
+        import('gsap/ScrollToPlugin')
+      ])
 
-    // Clear any existing GSAP instances on mount
-    ScrollTrigger.getAll().forEach(st => st.kill());
-    gsap.killTweensOf("*");
+      // Register plugins
+      gsap.registerPlugin(
+        ScrollTrigger.default,
+        ScrollSmoother.default,
+        SplitText.default,
+        ScrollToPlugin.default
+      )
+
+      // Initialize GSAP defaults
+      ScrollTrigger.default.defaults({
+        markers: false
+      })
+    }
+
+    registerPlugins()
 
     return () => {
       // Cleanup GSAP on unmount
-      ScrollTrigger.getAll().forEach(st => st.kill());
-      gsap.killTweensOf("*");
-    };
-  }, []);
+      if (typeof window !== 'undefined') {
+        const ScrollTrigger = require('gsap/ScrollTrigger').default
+        ScrollTrigger.getAll().forEach((st: any) => st.kill())
+        gsap.killTweensOf("*")
+      }
+    }
+  }, [])
 
-  return <>{children}</>;
+  return <>{children}</>
 } 
