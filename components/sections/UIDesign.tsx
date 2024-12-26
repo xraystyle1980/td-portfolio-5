@@ -4,7 +4,7 @@ import styles from './UIDesign.module.css'
 
 export default function UIDesign() {
   return (
-    <div id="ui-design" className={styles.container}>
+    <section id="ui-design" className={styles.container}>
       <div className={styles.intro}>
         <h2 className={styles.title}>UI Design</h2>
       </div>
@@ -26,7 +26,7 @@ export default function UIDesign() {
           <img src="/portfolio/sarcophagus_app--product2.png" alt="Sarcophagus App" />
         </div>
       </div>
-    </div>
+    </section>
   )
 } 
 

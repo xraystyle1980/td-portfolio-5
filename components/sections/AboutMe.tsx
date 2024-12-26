@@ -221,9 +221,10 @@ export default function AboutMe() {
       </div>
       <div ref={containerRef} className={styles.container}>
         <div className={styles.content}>
-          <h2 ref={headingRef} className={styles.heading}>Hey, I'm Trice 👋</h2>
+          {/* WARNING: DO NOT MODIFY THE HEADLINE OR BIO TEXT BELOW */}
+          <h2 ref={headingRef} className={styles.heading}>Hello 👋</h2>
           <p ref={textRef} className={styles.text}>
-            I'm a Product Designer based in Atlanta, GA. I specialize in creating digital experiences that are both beautiful and functional. With a background in both design and development, I bring a unique perspective to every project.
+            I'm Matt Trice, an ATL-based Product Designer with a track record of design leadership, embracing complex problems, and crafting elegant solutions that deliver meaningful business impact.
           </p>
         </div>
       </div>

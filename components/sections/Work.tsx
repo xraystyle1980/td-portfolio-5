@@ -4,7 +4,7 @@ import styles from './Work.module.css'
 
 export default function Work() {
   return (
-    <div id="work" className={styles.container}>
+    <section id="work" className={styles.work}>
       <div className={styles.intro}>
         <h2 className={styles.title}>Case Studies</h2>
       </div>
@@ -17,6 +17,6 @@ export default function Work() {
           />
         ))}
       </div>
-    </div>
+    </section>
   )
 } 

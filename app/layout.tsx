@@ -35,8 +35,8 @@ export default function RootLayout({
     <html lang="en" className={`${cooper.variable} ${sourceSerif.variable}`} suppressHydrationWarning>
       <body suppressHydrationWarning>
         <Scene3DWrapper />
+        <Navigation />
         <ClientLayout>
-          <Navigation />
           {children}
           <Footer />
         </ClientLayout>

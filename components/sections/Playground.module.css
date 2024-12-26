@@ -12,6 +12,7 @@
 
 .title {
   font-family: var(--font-cooper);
+  letter-spacing: -2px;
   font-size: 260px;
   line-height: 85%;
   margin: 0 0 2rem;
@@ -33,7 +34,7 @@
 }
 
 .experiment {
-  border: 2px solid black;
+  border: 4px solid black;
   background: #161616;
   color: #FFF;
   border-radius: 4rem;
@@ -95,7 +96,7 @@
   .experiments {
     grid-template-columns: 1fr;
     gap: 3rem;
-    padding: 0 3rem;
+    
   }
 
   .experiment {
@@ -112,6 +113,10 @@
 }
 
 @media (max-width: 480px) {
+  .experiments {
+    padding: 0 0.65rem;
+  }
+
   .container {
     padding: 2rem 0;
   }
@@ -122,12 +127,11 @@
   }
 
   .title {
-    font-size: 100px;
+    font-size: 60px;
   }
 
   .experiments {
     gap: 2rem;
-    padding: 0 2rem;
   }
 
   .experiment {

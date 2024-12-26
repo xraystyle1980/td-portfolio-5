@@ -20,22 +20,14 @@ export default function ProjectSection({ project, className = '' }: ProjectSecti
               )}
             </div>
             <p className={styles.description}>{project.description}</p>
-            {project.team && (
-              <p className={styles.team}>Team: {project.team}</p>
-            )}
-            <div className={styles.technologies}>
-              {project.technologies.map((tech, index) => (
-                <span key={index} className={styles.tech}>
-                  {tech}
-                </span>
-              ))}
-            </div>
+     
+            
             {project.link && (
               <a 
                 href={project.link} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className={styles.link}
+                className={styles.button}
               >
                 View Project →
               </a>
