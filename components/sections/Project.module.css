@@ -31,15 +31,18 @@
 }
 
 .content h2 {
-  font-family: Bilgres;
-  font-size: 4rem;
+  font-family: var(--font-cooper);
+  font-size: 2.25rem;
   line-height: 1;
   margin-bottom: 2rem;
+  color: #F39;
+  font-variation-settings: "wght" 800;
 }
 
 .content p {
   font-size: 1.25rem;
   line-height: 1.6;
+  color: #FFF;
 }
 
 .imageContainer {
@@ -63,6 +66,6 @@
   }
 
   .content h2 {
-    font-size: 3rem;
+    font-size: 2rem;
   }
 } 

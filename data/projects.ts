@@ -3,45 +3,37 @@ import { Project } from '@/types/project'
 export const projects: Project[] = [
   {
     title: "Decent App",
-    description: "A decentralized social media platform built on Bitcoin, focusing on user sovereignty and data ownership. The app enables users to create, share, and monetize content while maintaining control over their digital identity.",
-    role: "Lead Designer & Frontend Developer",
+    description: "The Decent app focuses on a standardized toolkit and framework that can be universally adopted by new and existing DAOs. By focusing on open-source principles and transparency, Decent DAO intends to enable a more equitable distribution of power and resources within digital communities.",
+    role: "Lead Product Designer",
     technologies: ["React Native", "TypeScript", "Bitcoin", "Lightning Network", "Nostr"],
-    link: "https://decent.social",
+    link: "https://app.decentdao.org",
     year: "2023",
-    company: "Decent Labs"
+    company: "Decent Labs",
+    duration: "Q1 2023 - Q3 2024",
+    team: "2 Designers, 4 Engineers, Product",
+    imageUrl: "/portfolio/decent_app--hero.png"
   },
   {
     title: "Decent Design System",
-    description: "A comprehensive design system and component library built to unify the user experience across Decent's products. Features a dark mode-first approach with accessibility and performance at its core.",
-    role: "Design System Architect",
-    technologies: ["React", "TypeScript", "Storybook", "Styled Components", "Figma"],
+    description: "The Decent Design System is designed to streamline the workflow for both developers and designers, making it easier and faster to build. It plays a key role in supporting Decent DAO's products by ensuring consistent, scalable, and efficient collaboration between design and development teams.",
+    role: "Lead Product Designer",
+    technologies: ["Chakra UI", "Storybook", "Figma API", "React", "TypeScript"],
     year: "2023",
-    company: "Decent Labs"
+    company: "Decent Labs",
+    duration: "2023 - Ongoing",
+    team: "Front End Engineer, Design Team",
+    imageUrl: "/portfolio/decent_ds--hero.png"
   },
   {
-    title: "Sarcophagus",
-    description: "A decentralized dead man's switch built on Ethereum. The platform allows users to encrypt and schedule the delivery of sensitive information to designated recipients after a specified time period.",
-    role: "UI/UX Designer",
-    technologies: ["React", "Ethereum", "Web3.js", "TypeScript", "Figma"],
-    link: "https://sarcophagus.io",
-    year: "2022",
-    company: "Decent Labs"
-  },
-  {
-    title: "Lumen",
-    description: "A Bitcoin wallet and Lightning Network node management interface. The project focuses on making Lightning Network operations accessible to non-technical users while maintaining security.",
-    role: "Product Designer",
-    technologies: ["React", "TypeScript", "Bitcoin", "Lightning Network", "Electron"],
-    year: "2022",
-    company: "Decent Labs"
-  },
-  {
-    title: "BRD Docs",
-    description: "A comprehensive documentation platform for BRD's blockchain infrastructure and wallet SDK. The project aimed to make blockchain integration easier for developers.",
-    role: "Technical Writer & Designer",
+    title: "Blockset BRD Docs",
+    description: "In 2021, BRD was putting the finishing touches on their new whitelisting product called Blockset. Decent was hired to design and build a custom documentation site and marketing page, including a Developer Sandbox to test out API requests.",
+    role: "Lead Product Designer",
     technologies: ["Docusaurus", "React", "Markdown", "JavaScript"],
     link: "https://developer.brd.com",
     year: "2021",
-    company: "BRD"
+    company: "BRD",
+    duration: "Q1 2021 - Q3 2021",
+    team: "Decent Design and Engineering + BRD Design and Engineering",
+    imageUrl: "/portfolio/blockset_docs--hero.png"
   }
 ] 

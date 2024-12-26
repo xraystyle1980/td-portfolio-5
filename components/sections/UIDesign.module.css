@@ -1,48 +1,115 @@
-.uiDesign {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  position: relative;
-  background-color: #000;
-  color: #FAF4F0;
-}
-
 .container {
-  width: 100%;
-  max-width: 1200px;
+  padding: 4rem 0;
+}
+
+.intro {
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 4rem 2rem;
+  text-align: left;
+  padding: 0rem;
+  margin-bottom: 4rem;
 }
 
-.content {
-  margin-top: 2rem;
+.title {
+  font-family: var(--font-cooper);
+  font-size: 56px;
+  line-height: 85%;
+  margin: 0 0 2rem;
+  color: #F39;
+  font-variation-settings: "wght" 800;
 }
 
-.container h2 {
-  font-family: Bilgres;
-  font-size: 4rem;
-  line-height: 1;
-}
-
-.grid {
+.experiments {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
-  margin-top: 3rem;
+  gap: 4rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 5rem;
 }
 
-.gridItem img {
+.experiment {
+  border: 2px solid black;
+  background: #161616;
+  color: #FFF;
+  border-radius: 4rem;
+  box-shadow: -12px 12px 0px #000;
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 16/9;
+}
+
+.experiment h3 {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  font-family: var(--font-cooper);
+  font-size: 2rem;
+  color: #F39;
+  margin: 0;
+  z-index: 1;
+  font-variation-settings: "wght" 800;
+  text-shadow: -2px 2px 0px #000;
+}
+
+.experiment img {
   width: 100%;
-  height: auto;
-  border-radius: 1rem;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+@media (max-width: 1200px) {
+  .title {
+    font-size: 48px;
+  }
 }
 
 @media (max-width: 768px) {
-  .grid {
-    grid-template-columns: 1fr;
+  .container {
+    padding: 3rem 0;
   }
 
-  .container h2 {
-    font-size: 3rem;
+  .intro {
+    padding: 0 3rem;
+    margin-bottom: 3rem;
+  }
+
+  .title {
+    font-size: 40px;
+  }
+
+  .experiments {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    padding: 0 3rem;
+  }
+
+  .experiment {
+    padding: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 2rem 0;
+  }
+
+  .intro {
+    padding: 0 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .title {
+    font-size: 32px;
+  }
+
+  .experiments {
+    gap: 2rem;
+    padding: 0 2rem;
+  }
+
+  .experiment {
+    border-radius: 2rem;
   }
 } 

@@ -7,6 +7,8 @@ export interface Project {
   imageUrl?: string
   year: string | number
   company?: string
+  duration?: string
+  team?: string
 }
 
 export interface ProjectSectionProps {

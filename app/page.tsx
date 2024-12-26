@@ -12,6 +12,7 @@ import Hero from '@/components/sections/Hero'
 import AboutMe from '@/components/sections/AboutMe'
 import Work from '@/components/sections/Work'
 import Playground from '@/components/sections/Playground'
+import UIDesign from '@/components/sections/UIDesign'
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother, SplitText, ScrollToPlugin)
@@ -112,6 +113,9 @@ export default function HomePage() {
 
             {/* Playground Section */}
             <Playground />
+
+            {/* UI Design Section */}
+            <UIDesign />
 
             {/* Contact Section */}
             <section id="contact" className={styles.section}>

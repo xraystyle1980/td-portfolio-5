@@ -6,7 +6,7 @@ export default function Work() {
   return (
     <div id="work" className={styles.container}>
       <div className={styles.intro}>
-        <h2 className={styles.title}>Work</h2>
+        <h2 className={styles.title}>Case Studies</h2>
       </div>
       <div className={`${styles.projects} projects`}>
         {projects.map((project, index) => (

@@ -90,18 +90,56 @@
 }
 
 .section h2 {
-  font-size: 3rem;
+  font-family: var(--font-cooper);
+  font-size: 2.25rem;
   margin-bottom: 1rem;
-  color: #fff;
+  color: #F39;
+  font-variation-settings: "wght" 800;
+  will-change: transform;
+}
+
+.section h3 {
+  font-family: var(--font-cooper);
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #F39;
+  font-variation-settings: "wght" 800;
+  will-change: transform;
+}
+
+.section h4 {
+  font-family: var(--font-cooper);
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+  color: #F39;
+  font-variation-settings: "wght" 800;
   will-change: transform;
 }
 
 .section p {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   max-width: 600px;
   line-height: 1.5;
-  color: rgba(255, 255, 255, 0.8);
+  color: #F39;
   will-change: transform;
+}
+
+@media (max-width: 768px) {
+  .section h2 {
+    font-size: 2rem;
+  }
+  
+  .section h3 {
+    font-size: 1.75rem;
+  }
+  
+  .section h4 {
+    font-size: 1.5rem;
+  }
+  
+  .section p {
+    font-size: 1.125rem;
+  }
 }
 
 .split-line {

@@ -20,6 +20,7 @@
   p {
     @apply text-gray-600;
     font-family: 'Source Serif Pro', serif;
+    color: #FFF;
   }
 }
 

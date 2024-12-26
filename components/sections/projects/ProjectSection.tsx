@@ -12,12 +12,17 @@ export default function ProjectSection({ project, className = '' }: ProjectSecti
             <h2 className={styles.title}>{project.title}</h2>
             <div className={styles.details}>
               <p className={styles.role}>{project.role}</p>
-              <p className={styles.year}>{project.year}</p>
+              {project.duration && (
+                <p className={styles.duration}>{project.duration}</p>
+              )}
               {project.company && (
                 <p className={styles.company}>{project.company}</p>
               )}
             </div>
             <p className={styles.description}>{project.description}</p>
+            {project.team && (
+              <p className={styles.team}>Team: {project.team}</p>
+            )}
             <div className={styles.technologies}>
               {project.technologies.map((tech, index) => (
                 <span key={index} className={styles.tech}>

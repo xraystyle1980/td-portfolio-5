@@ -4,6 +4,7 @@ import { Caveat, Source_Serif_4 } from 'next/font/google'
 import Navigation from '@/components/layout/Navigation/Navigation'
 import localFont from 'next/font/local'
 import ClientLayout from './ClientLayout'
+import Footer from '@/components/layout/Footer'
 
 const caveat = Caveat({
   subsets: ['latin'],
@@ -38,6 +39,7 @@ export default function RootLayout({
         <ClientLayout>
           <Navigation />
           {children}
+          <Footer />
         </ClientLayout>
       </body>
     </html>

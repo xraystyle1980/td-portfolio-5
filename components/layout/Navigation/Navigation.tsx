@@ -74,9 +74,15 @@ export default function Navigation() {
           </button>
           <button 
             className={styles.link}
-            onClick={() => scrollToSection('playground')}
+            onClick={() => scrollToSection('product-design')}
           >
-            Playground
+            Product Design
+          </button>
+          <button 
+            className={styles.link}
+            onClick={() => scrollToSection('writing')}
+          >
+            Writing
           </button>
           <button 
             className={styles.link}
