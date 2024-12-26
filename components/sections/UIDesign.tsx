@@ -11,7 +11,7 @@ export default function UIDesign() {
       <div className={styles.experiments}>
         <div className={styles.experiment}>
           <h3>Frostbyte</h3>
-          <img src="/portfolio/frostbyte_website--product2.png" alt="Frostbyte UI" />
+          <img src="/portfolio/frostbye_website--product2.png" alt="Frostbyte UI" />
         </div>
         <div className={styles.experiment}>
           <h3>Sarcophagus</h3>
@@ -29,3 +29,6 @@ export default function UIDesign() {
     </div>
   )
 } 
+
+
+

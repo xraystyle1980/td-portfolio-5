@@ -1,10 +1,11 @@
-import type { Metadata } from "next";
 import "./globals.css";
 import { Caveat, Source_Serif_4 } from 'next/font/google'
-import Navigation from '@/components/layout/Navigation/Navigation'
+import Navigation from '@/components/layout/Navigation'
 import localFont from 'next/font/local'
 import ClientLayout from './ClientLayout'
 import Footer from '@/components/layout/Footer'
+import Scene3DWrapper from './Scene3DWrapper'
+import { metadata } from './metadata'
 
 const caveat = Caveat({
   subsets: ['latin'],
@@ -23,10 +24,7 @@ const cooper = localFont({
   variable: '--font-cooper'
 })
 
-export const metadata: Metadata = {
-  title: 'Trice.Design',
-  description: 'Portfolio of Trice Design',
-};
+export { metadata }
 
 export default function RootLayout({
   children,
@@ -36,6 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${cooper.variable} ${sourceSerif.variable}`} suppressHydrationWarning>
       <body suppressHydrationWarning>
+        <Scene3DWrapper />
         <ClientLayout>
           <Navigation />
           {children}

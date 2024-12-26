@@ -82,8 +82,8 @@ export default function RetroGrid({ size = 400, scroll = 0 }: Props) {
     
     // Move grid forward with shorter loop distance
     const moveSpeed = 4000
-    const loopPoint = 2000            // Shorter loop point for seamless transition
-    const scrollZ = (scroll * moveSpeed) % loopPoint
+    const loopPoint = 2000
+    const scrollZ = -(scroll * moveSpeed) % loopPoint
     gridRef.current.position.z = scrollZ
 
     // Fade in effect
