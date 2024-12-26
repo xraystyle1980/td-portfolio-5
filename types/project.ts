@@ -4,6 +4,7 @@ export interface Project {
   role: string
   technologies: string[]
   link?: string
+  route?: string
   imageUrl?: string
   year: string | number
   company?: string

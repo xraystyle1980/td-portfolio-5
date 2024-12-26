@@ -4,10 +4,9 @@
 
 .intro {
   max-width: 1400px;
-  margin: 0 auto;
   text-align: left;
   padding: 0rem;
-  margin-bottom: 4rem;
+  margin: 8rem auto 1rem;
 }
 
 .title {
@@ -15,7 +14,6 @@
   letter-spacing: -2px;
   font-size: 260px;
   line-height: 85%;
-  margin: 0 0 2rem;
   color: #F39;
   -webkit-text-stroke: 2px #000;
   text-shadow: -4px 4px 0 #000;

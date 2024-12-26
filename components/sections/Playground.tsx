@@ -7,7 +7,7 @@ export default function Playground() {
   return (
     <section id="playground" className={styles.playground}>
       <div className={styles.intro}>
-        <h2 className={styles.title}>Playground</h2>
+        <h2 className={styles.title}>More Design</h2>
       </div>
       <div className={styles.container}>
         <div className={`${styles.experiments} experiments`}>

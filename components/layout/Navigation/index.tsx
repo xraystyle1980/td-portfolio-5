@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react'
 import styles from './Navigation.module.css'
 import gsap from 'gsap'
+import { usePathname, useRouter } from 'next/navigation'
 
 // Declare ScrollSmoother type
 declare global {
@@ -18,6 +19,8 @@ declare global {
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
+  const pathname = usePathname()
+  const router = useRouter()
 
   useEffect(() => {
     const initGSAP = async () => {
@@ -44,12 +47,28 @@ export default function Navigation() {
     setIsOpen(false)
   }
 
+  const handleLogoClick = async () => {
+    if (pathname === '/') {
+      // If on home page, scroll to top
+      scrollToSection('hero')
+    } else {
+      // If on any other page, navigate to home and scroll to top
+      await router.push('/')
+      window.scrollTo(0, 0)
+      const smoother = window.ScrollSmoother?.get()
+      if (smoother) {
+        smoother.scrollTo(0, true)
+      }
+    }
+    setIsOpen(false)
+  }
+
   return (
     <nav className={styles.nav}>
       <div className={styles.wrapper}>
         <div 
           className={styles.logo}
-          onClick={() => scrollToSection('hero')}
+          onClick={handleLogoClick}
         >
           Trice.Design
         </div>
@@ -65,25 +84,69 @@ export default function Navigation() {
         <div className={`${styles.links} ${isOpen ? styles.open : ''}`}>
           <button 
             className={styles.link}
-            onClick={() => scrollToSection('about')}
+            onClick={async () => {
+              if (pathname === '/') {
+                scrollToSection('about')
+              } else {
+                await router.push('/')
+                window.scrollTo(0, 0)
+                const smoother = window.ScrollSmoother?.get()
+                if (smoother) {
+                  smoother.scrollTo('#about', true)
+                }
+              }
+            }}
           >
             About
           </button>
           <button 
             className={styles.link}
-            onClick={() => scrollToSection('work')}
+            onClick={async () => {
+              if (pathname === '/') {
+                scrollToSection('work')
+              } else {
+                await router.push('/')
+                window.scrollTo(0, 0)
+                const smoother = window.ScrollSmoother?.get()
+                if (smoother) {
+                  smoother.scrollTo('#work', true)
+                }
+              }
+            }}
           >
             Work
           </button>
           <button 
             className={styles.link}
-            onClick={() => scrollToSection('playground')}
+            onClick={async () => {
+              if (pathname === '/') {
+                scrollToSection('playground')
+              } else {
+                await router.push('/')
+                window.scrollTo(0, 0)
+                const smoother = window.ScrollSmoother?.get()
+                if (smoother) {
+                  smoother.scrollTo('#playground', true)
+                }
+              }
+            }}
           >
             Playground
           </button>
           <button 
             className={styles.link}
-            onClick={() => scrollToSection('contact')}
+            onClick={async () => {
+              if (pathname === '/') {
+                scrollToSection('contact')
+              } else {
+                await router.push('/')
+                window.scrollTo(0, 0)
+                const smoother = window.ScrollSmoother?.get()
+                if (smoother) {
+                  smoother.scrollTo('#contact', true)
+                }
+              }
+            }}
           >
             Contact
           </button>

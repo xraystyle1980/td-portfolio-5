@@ -36,7 +36,7 @@ export default function HomePage() {
       <Playground />
 
       {/* UI Design Section */}
-      <UIDesign />
+      {/* <UIDesign /> */}
     </main>
   )
 }
