@@ -17,7 +17,7 @@ import UIDesign from '@/components/sections/UIDesign'
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother, SplitText, ScrollToPlugin)
 
-// Define interface for Scene3D props
+// Define interface for Scene3D props //
 interface Scene3DProps {
   scroll: number
   currentSection: number
