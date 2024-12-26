@@ -44,10 +44,10 @@ export default function HomePage() {
       const initGSAP = async () => {
         try {
           // Import GSAP plugins
-          const ScrollTrigger = (await import('gsap/dist/ScrollTrigger')).default
-          const ScrollSmoother = (await import('gsap/dist/ScrollSmoother')).default
-          const SplitText = (await import('gsap/dist/SplitText')).default
-          const ScrollToPlugin = (await import('gsap/dist/ScrollToPlugin')).default
+          const ScrollTrigger = (await import('gsap/ScrollTrigger')).default
+          const ScrollSmoother = (await import('gsap/ScrollSmoother')).default
+          const SplitText = (await import('gsap/SplitText')).default
+          const ScrollToPlugin = (await import('gsap/ScrollToPlugin')).default
 
           // Register plugins
           gsap.registerPlugin(
