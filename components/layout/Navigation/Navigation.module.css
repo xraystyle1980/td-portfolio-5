@@ -3,7 +3,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  padding: 2rem;
+  padding: 1rem 2rem;
   z-index: 1000;
   pointer-events: none;
 }
@@ -11,6 +11,7 @@
 .wrapper {
   max-width: 1400px;
   margin: 0 auto;
+  padding: 0 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -19,11 +20,12 @@
 
 .logo {
   font-family: var(--font-cooper);
-  font-size: 2rem;
-  color: #F39;
-  text-shadow: -4px 4px 0px #000;
-  -webkit-text-stroke-width: 1px;
+  font-size: 3rem;
+  color: #FFF;
+  text-shadow: -6px 6px 0px #000;
+  -webkit-text-stroke-width: 4px;
   -webkit-text-stroke-color: #000;
+  paint-order: stroke fill;
   font-variation-settings: "wght" 800;
   cursor: pointer;
   pointer-events: auto;
@@ -44,7 +46,7 @@
 .link {
   font-family: var(--font-cooper);
   font-size: 1.5rem;
-  color: #F39;
+  color: #FFF;
   text-shadow: -2px 2px 0px #000;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #000;

@@ -131,7 +131,7 @@ export default function Navigation() {
               }
             }}
           >
-            Playground
+            More Design
           </button>
           <button 
             className={styles.link}
