@@ -1,49 +1,29 @@
 .container {
-  padding: 4rem 0;
+  composes: section from './section.module.css';
 }
 
 .intro {
-  max-width: 1400px;
-  text-align: left;
-  padding: 0rem;
+  composes: intro from './section.module.css';
   margin: 8rem auto 1rem;
 }
 
 .title {
-  font-family: var(--font-cooper);
-  letter-spacing: -2px;
-  font-size: 260px;
-  line-height: 85%;
-  color: #F39;
-  -webkit-text-stroke: 2px #000;
-  text-shadow: -8px 8px 0 #000;
-  font-weight: 900;
-  text-transform: capitalize;
-  font-variation-settings: "wght" 900;
+  composes: title from './section.module.css';
 }
 
 .experiments {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 4rem;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 5rem;
+  composes: grid from './section.module.css';
 }
 
 .experiment {
-  border: 4px solid black;
-  background: #161616;
-  color: #FFF;
-  border-radius: 4rem;
-  box-shadow: -12px 12px 0px #000;
-  padding: 4rem;
+  composes: card from './section.module.css';
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  border-radius: 2rem;
 }
 
-.experiment h3 {
+.experimentTitle {
   font-family: var(--font-cooper);
   font-size: 2.6rem;
   line-height: 1;
@@ -52,12 +32,9 @@
   font-variation-settings: "wght" 800;
 }
 
-.experiment p {
-  font-family: var(--font-source-serif);
-  font-size: 1.5rem;
-  line-height: 1.6;
+.experimentText {
+  composes: text from './section.module.css';
   margin: 0;
-  color: #FFF;
 }
 
 .experimentLink {
@@ -68,76 +45,21 @@
 }
 
 .experimentLink:hover {
-  transform: translateY(-8px);
-}
-
-@media (max-width: 1200px) {
-  .title {
-    font-size: 180px;
-  }
+  transform: translateY(-4px);
 }
 
 @media (max-width: 768px) {
-  .container {
-    padding: 3rem 0;
-  }
-
   .intro {
-    padding: 0 3rem;
-    margin-bottom: 3rem;
+    margin: 4rem auto 1rem;
   }
 
-  .title {
-    font-size: 120px;
-  }
-
-  .experiments {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-    
-  }
-
-  .experiment {
-    padding: 3rem;
-  }
-
-  .experiment h3 {
-    font-size: 3rem;
-  }
-
-  .experiment p {
-    font-size: 1.25rem;
+  .experimentTitle {
+    font-size: 2rem;
   }
 }
 
 @media (max-width: 480px) {
-  .experiments {
-    padding: 0 0.65rem;
-  }
-
-  .container {
-    padding: 2rem 0;
-  }
-
   .intro {
-    padding: 0 2rem;
-    margin-bottom: 2rem;
-  }
-
-  .title {
-    font-size: 60px;
-  }
-
-  .experiments {
-    gap: 2rem;
-  }
-
-  .experiment {
-    padding: 2rem;
-    border-radius: 2rem;
-  }
-
-  .experiment h3 {
-    font-size: 2.5rem;
+    margin: 2rem auto 1rem;
   }
 } 

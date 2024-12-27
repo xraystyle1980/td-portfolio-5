@@ -1,26 +1,9 @@
 .about {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  margin: 5rem;
-  box-sizing: border-box;
-  position: relative;
+  composes: section fullHeight from './section.module.css';
 }
 
 .container {
-  border: 4px solid black;
-  background: rgba(22, 22, 22, 1); /* Reduced opacity for glass effect */
-  color: #FFF;
-  border-radius: 4rem;
-  box-shadow: -12px 12px 0px #000;
-  max-width: 1400px;
-  width: 100%;
-  height: 50%;
-  margin: 0 auto;
-  padding: 4rem;
-  display: flex;
-  align-items: center;
-  position: relative;
+  composes: container darkContainer from './section.module.css';
 }
 
 .content {
@@ -29,49 +12,38 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  pointer-events: auto;
   position: relative;
-  z-index: 3;
+  z-index: 2;
 }
 
 .heading {
-  font-family: var(--font-cooper);
-  font-size: 120px;
-  line-height: 0.9;
-  margin-bottom: 2rem;
-  color: #F39;
-  text-shadow: -8px 8px 0px #000;
-  -webkit-text-stroke-width: 2px;
-  -webkit-text-stroke-color: #000;
-  font-variation-settings: "wght" 800;
+  composes: titleLarge from './section.module.css';
+  line-height: auto;
+  letter-spacing: -0.02em;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .text {
-  font-size: 24px;
-  line-height: 1.5;
+  composes: text from './section.module.css';
   max-width: 600px;
-  color: #FFF;
   text-shadow: -1px 1px 0px #000;
 }
 
 .tokenContainer {
-  width: 150%;
-  height: 150%;
   position: absolute;
   right: -25%;
-  top: -50vh;
+  top: 50%;
   transform: translateY(-50%);
+  width: 150%;
+  height: 150%;
+  z-index: 1;
   pointer-events: none;
-  z-index: 2;
-  will-change: top;
   overflow: visible;
 }
 
 @media (max-width: 1200px) {
-  .container {
-    padding: 3rem 2rem;
-  }
-
   .tokenContainer {
     width: 120%;
     height: 120%;
@@ -79,26 +51,8 @@
 }
 
 @media (max-width: 768px) {
-  .about {
-    height: auto;
-    min-height: 100vh;
-    margin: 0rem;
-  }
-
-  .container {
-    flex-direction: column;
-    text-align: left;
-    padding: 3rem 1rem;
-    border-radius: 2rem;
-    margin: 0 2rem;
-  }
-
-  .heading {
-    font-size: 80px;
-  }
-
-  .text {
-    margin: 0 auto;
+  .content {
+    max-width: 100%;
   }
 
   .tokenContainer {
@@ -107,28 +61,11 @@
     position: absolute;
     left: 0;
     top: 200px;
-    transform: translateY(-50%);
-    pointer-events: none;
-    z-index: 0;
-    will-change: top;
-    overflow: visible;
   }
 }
 
 @media (max-width: 480px) {
-  .container {
-    margin: 0 0.65rem;
-  }
-
-  .tokenContainer {
-    z-index: 0;
-  }
-
-  .text {
-    font-size: 22px;
-  }
-
-  .heading {
-    font-size: 70px;
+  .about {
+    margin: 1rem;
   }
 }

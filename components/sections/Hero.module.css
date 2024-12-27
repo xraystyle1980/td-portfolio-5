@@ -1,32 +1,18 @@
 .hero {
-  height: 100vh;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
+  composes: section fullHeight from './section.module.css';
   overflow: hidden;
-  box-sizing: border-box;
 }
 
 .heroContent {
-  position: relative;
-  z-index: 200;
-  pointer-events: none;
-  user-select: text;
-  max-width: 1400px;
-  margin: 0 auto;
-  width: 100%;
-  padding: 0 2rem;
+  composes: container from './section.module.css';
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
+  z-index: 2;
 }
 
 .contentOverlay {
-  position: relative;
-  z-index: 10;
   width: 100%;
   display: flex;
   align-items: center;
@@ -34,34 +20,18 @@
 }
 
 .content {
-  position: relative;
-  z-index: 15;
   width: 100%;
   display: flex;
   flex-direction: column;
 }
 
-.headlineWrapper {
-  position: relative;
-  z-index: 20;
-}
-
 .heroHeadline {
-  font-family: var(--font-cooper);
-  font-size: 240px;
+  composes: title from './section.module.css';
   line-height: 0.45;
-  margin: 0;
-  color: #F39;
-  text-shadow: -12px 12px 0px #000;
-  -webkit-text-stroke-width: 3px;
-  -webkit-text-stroke-color: #000;
-  font-variation-settings: "wght" 900;
   letter-spacing: -0.02em;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  position: relative;
-  z-index: 1;
 }
 
 .staticWord {
@@ -74,36 +44,10 @@
   -webkit-user-select: none;
 }
 
-@media (max-width: 1200px) {
-  .heroHeadline {
-    font-size: 180px;
-    text-shadow: -10px 10px 0px #000;
-    -webkit-text-stroke-width: 2px;
-  }
-}
-
-@media (max-width: 768px) {
-  .heroHeadline {
-    font-size: 160px;
-    text-shadow: -8px 8px 0px #000;
-  }
-}
-
-@media (max-width: 480px) {
-  .heroHeadline {
-    font-size: 124px;
-    text-shadow: -6px 6px 0px #000;
-  }
+@media (max-width: 480px) {  
   .heroHeadline span {
     text-align: center;
     width: 100%;
-  }
-}
-
-@media (max-width: 390px) {
-  .heroHeadline {
-    font-size: 102px;
-    text-shadow: -6px 6px 0px #000;
   }
 }
  

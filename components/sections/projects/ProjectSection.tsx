@@ -1,6 +1,7 @@
 import { ProjectSectionProps } from '@/types/project'
 import styles from './ProjectSection.module.css'
 import Link from 'next/link'
+import { ArrowRight } from '@/components/icons/ArrowRight'
 
 export default function ProjectSection({ project, className = '' }: ProjectSectionProps) {
   return (
@@ -25,7 +26,8 @@ export default function ProjectSection({ project, className = '' }: ProjectSecti
               className={styles.button}
               scroll={true}
             >
-              View Case Study →
+              View Case Study
+              <ArrowRight className={styles.buttonIcon} />
             </Link>
           ) : project.link && (
             <a 
@@ -34,7 +36,8 @@ export default function ProjectSection({ project, className = '' }: ProjectSecti
               rel="noopener noreferrer"
               className={styles.button}
             >
-              View Project →
+              View Project
+              <ArrowRight className={styles.buttonIcon} />
             </a>
           )}
         </div>
