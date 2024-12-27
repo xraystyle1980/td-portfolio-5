@@ -3,9 +3,8 @@
 import styles from '@/styles/casestudy.module.css'
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
 
-export default function ExperimentsPage() {
+export default function GenerativeUICaseStudy() {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -27,7 +26,7 @@ export default function ExperimentsPage() {
   }, [])
 
   if (isLoading) {
-    return null
+    return null // or a loading spinner if preferred
   }
 
   return (
@@ -36,20 +35,17 @@ export default function ExperimentsPage() {
       <section className={styles.hero}>
         <div className={styles.heroContent}>
           <div className={styles.heroText}>
-            <h1 className={styles.title}>Experiments</h1>
+            <h1 className={styles.title}>Generative UI</h1>
             <div className={styles.details}>
               <div className={styles.detailGroup}>
                 <h3 className={styles.detailLabel}>Category</h3>
-                <p className={styles.detailText}>Interactive Experiences</p>
+                <p className={styles.detailText}>UI Design & Development</p>
               </div>
               <div className={styles.detailGroup}>
                 <h3 className={styles.detailLabel}>Tools</h3>
-                <p className={styles.detailText}>Three.js, WebGL, React</p>
+                <p className={styles.detailText}>React, Three.js, GSAP</p>
               </div>
             </div>
-            <Link href="/experiments/3d-particles" className={styles.caseStudyButton}>
-              Try the 3D Experience
-            </Link>
           </div>
         </div>
       </section>
@@ -63,8 +59,8 @@ export default function ExperimentsPage() {
             </div>
             <div className={styles.sectionText}>
               <div className={styles.subsection}>
-                <h3 className={styles.subsectionTitle}>The Laboratory</h3>
-                <p className={styles.subsectionText}>A collection of interactive experiments exploring the boundaries of web technology. From 3D graphics to generative art, each experiment pushes the limits of what's possible in the browser.</p>
+                <h3 className={styles.subsectionTitle}>The Concept</h3>
+                <p className={styles.subsectionText}>Exploring the possibilities of generative design in user interfaces. Creating dynamic, responsive, and interactive UI components that adapt and evolve based on user interaction and data.</p>
               </div>
             </div>
           </div>
@@ -80,22 +76,8 @@ export default function ExperimentsPage() {
             </div>
             <div className={styles.sectionText}>
               <div className={styles.subsection}>
-                <h3 className={styles.subsectionTitle}>Interactive Experiences</h3>
-                <p className={styles.subsectionText}>Each experiment explores different aspects of web technology and interaction design.</p>
-                <div className={styles.buttonGroup}>
-                  <Link href="/experiments/3d-particles" className={styles.button}>
-                    Fly Around
-                  </Link>
-                  <Link href="/experiments/creative-coding" className={styles.button}>
-                    Creative Coding
-                  </Link>
-                  <Link href="/experiments/generative-ui" className={styles.button}>
-                    Generative UI
-                  </Link>
-                  <Link href="/experiments/design-systems" className={styles.button}>
-                    Design Systems
-                  </Link>
-                </div>
+                <h3 className={styles.subsectionTitle}>Dynamic Components</h3>
+                <p className={styles.subsectionText}>A collection of UI components that incorporate generative elements and dynamic animations.</p>
                 <div className={styles.imageGrid}>
                   {/* Add images here */}
                 </div>

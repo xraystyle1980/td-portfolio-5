@@ -91,6 +91,24 @@ export default function TokenFace({
 
   return (
     <group ref={groupRef}>
+      {/* Pink light for glow effect */}
+      <pointLight
+        position={[1, 1, 1]}
+        intensity={35}
+        color="#F39"
+        distance={10}
+        decay={1}
+      />
+      
+      {/* Ambient pink glow */}
+      <pointLight
+        position={[-1, -1, -1]}
+        intensity={20}
+        color="#F39"
+        distance={10}
+        decay={1}
+      />
+
       {/* Invisible hit area */}
       <mesh 
         visible={false}

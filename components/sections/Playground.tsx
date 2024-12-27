@@ -16,18 +16,24 @@ export default function Playground() {
             <p className={styles.experimentText}>WebGL experiments with Three.js and React Three Fiber. Exploring creative ways to blend 3D graphics with web interfaces.</p>
           </div>
         </Link>
-        <div className={styles.experiment}>
-          <h3 className={styles.experimentTitle}>Creative Coding</h3>
-          <p className={styles.experimentText}>Generative art and interactive animations using WebGL, Canvas, and SVG. Building unique visual experiences.</p>
-        </div>
-        <div className={styles.experiment}>
-          <h3 className={styles.experimentTitle}>UI Experiments</h3>
-          <p className={styles.experimentText}>Pushing the boundaries of web interfaces with experimental interactions and animations.</p>
-        </div>
-        <div className={styles.experiment}>
-          <h3 className={styles.experimentTitle}>Design Systems</h3>
-          <p className={styles.experimentText}>Building flexible and scalable design systems with modern web technologies.</p>
-        </div>
+        <Link href="/experiments/creative-coding" className={styles.experimentLink}>
+          <div className={styles.experiment}>
+            <h3 className={styles.experimentTitle}>Creative Coding</h3>
+            <p className={styles.experimentText}>Generative art and interactive animations using WebGL, Canvas, and SVG. Building unique visual experiences.</p>
+          </div>
+        </Link>
+        <Link href="/experiments/generative-ui" className={styles.experimentLink}>
+          <div className={styles.experiment}>
+            <h3 className={styles.experimentTitle}>UI Experiments</h3>
+            <p className={styles.experimentText}>Pushing the boundaries of web interfaces with experimental interactions and animations.</p>
+          </div>
+        </Link>
+        <Link href="/experiments/design-systems" className={styles.experimentLink}>
+          <div className={styles.experiment}>
+            <h3 className={styles.experimentTitle}>Design Systems</h3>
+            <p className={styles.experimentText}>Building flexible and scalable design systems with modern web technologies.</p>
+          </div>
+        </Link>
       </div>
     </section>
   )

@@ -1,6 +1,7 @@
 .hero {
   composes: section fullHeight from './section.module.css';
   overflow: hidden;
+  z-index: 1;
 }
 
 .heroContent {

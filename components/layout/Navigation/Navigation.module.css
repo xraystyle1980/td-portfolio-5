@@ -29,7 +29,13 @@
   font-variation-settings: "wght" 800;
   cursor: pointer;
   pointer-events: auto;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
+}
+
+.logo.scrolled {
+  font-size: 2rem;
+  text-shadow: -4px 4px 0px #000;
+  -webkit-text-stroke-width: 3px;
 }
 
 .logo:hover {

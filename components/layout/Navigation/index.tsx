@@ -18,6 +18,7 @@ declare global {
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
   const router = useRouter()
@@ -31,6 +32,16 @@ export default function Navigation() {
     }
 
     initGSAP()
+  }, [])
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY
+      setIsScrolled(scrollPosition > 50)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   const scrollToSection = (sectionId: string) => {
@@ -67,7 +78,7 @@ export default function Navigation() {
     <nav className={styles.nav}>
       <div className={styles.wrapper}>
         <div 
-          className={styles.logo}
+          className={`${styles.logo} ${isScrolled ? styles.scrolled : ''}`}
           onClick={handleLogoClick}
         >
           Trice.Design
