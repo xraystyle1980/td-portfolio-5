@@ -1,6 +1,6 @@
 'use client'
 
-import styles from './page.module.css'
+import styles from '@/styles/casestudy.module.css'
 import { projects } from '@/data/projects'
 import { useEffect } from 'react'
 
