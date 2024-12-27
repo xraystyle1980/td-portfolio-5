@@ -4,7 +4,7 @@
 
 .intro {
   composes: intro from './section.module.css';
-  margin: 8rem auto 1rem;
+  margin: 8rem auto 6rem;
 }
 
 .title {
@@ -20,7 +20,6 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  border-radius: 2rem;
 }
 
 .experimentTitle {
@@ -51,6 +50,10 @@
 @media (max-width: 768px) {
   .intro {
     margin: 4rem auto 1rem;
+  }
+
+  .experiments {
+    padding: 1.65rem;
   }
 
   .experimentTitle {

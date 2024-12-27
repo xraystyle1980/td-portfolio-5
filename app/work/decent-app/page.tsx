@@ -95,7 +95,30 @@ export default function DecentAppCaseStudy() {
                 <p className={styles.subsectionText}>It became clear that the market needed Fractal less than we had initially forecasted. That said, we recognized that Fractal had good bones and a solid codebase. By analyzing market trends and customer feedback, we identified new opportunities. We had to pivot.</p>
               </div>
               <div className={styles.imageGrid}>
-                {/* Add your before/after images here */}
+                <Image
+                  src="/portfolio/decent-app--fractal-decent-1.png"
+                  alt="Before and after of Fractal to Decent"
+                  width={1200}
+                  height={800}
+                />
+                <Image
+                  src="/portfolio/decent-app--fractal-decent-2.png"
+                  alt="Before and after of Fractal to Decent"
+                  width={1200}
+                  height={800}
+                />
+                <Image
+                  src="/portfolio/decent-app--fractal-decent-3.png"
+                  alt="Before and after of Fractal to Decent"
+                  width={1200}
+                  height={800}
+                />
+                <Image
+                  src="/portfolio/decent-app--fractal-decent-4.png"
+                  alt="Before and after of Fractal to Decent"
+                  width={1200}
+                  height={800}
+                />
               </div>
             </div>
           </div>
@@ -113,7 +136,30 @@ export default function DecentAppCaseStudy() {
             <div className={styles.sectionText}>
               <p className={styles.subsectionText}>I worked closely with design, product, and engineering teams, leveraging a "pair programming" approach to shape our design strategy. Together with the product team, we developed structured feedback and testing sessions to gather user insights and identify key pain points, which guided our design iterations.</p>
               <div className={styles.imageGrid}>
-                {/* Add your strategy images here */}
+                <Image
+                  src="/portfolio/decent-app--brainstorm-1.png"
+                  alt="Brainstorming new feature flows"
+                  width={1200}
+                  height={800}
+                />
+                <Image
+                  src="/portfolio/decent-app--brainstorm-2.png"
+                  alt="Brainstorming how new features could work"
+                  width={1200}
+                  height={800}
+                />
+                <Image
+                  src="/portfolio/decent-app--whiteboard-1.png"
+                  alt="White-boarding in Figjam"
+                  width={1200}
+                  height={800}
+                />
+                <Image
+                  src="/portfolio/decent-app--whiteboard-2.png"
+                  alt="Mapping the Information Architecture"
+                  width={1200}
+                  height={800}
+                />
               </div>
             </div>
           </div>
@@ -131,7 +177,42 @@ export default function DecentAppCaseStudy() {
             <div className={styles.sectionText}>
               <p className={styles.subsectionText}>During the rebranding from Fractal to Decent, we focused on building scalable design components in both Figma and the application. This led to the creation of a UI component library, integrated with Chakra UI, which streamlined development and ensured scalability for future growth.</p>
               <div className={styles.imageGrid}>
-                {/* Add your rebranding images here */}
+                <Image
+                  src="/portfolio/decent-app--components-1.png"
+                  alt="Capturing reusable components in the Design System"
+                  width={1200}
+                  height={800}
+                />
+                <Image
+                  src="/portfolio/decent-app--components-2.png"
+                  alt="Capturing reusable components in the Design System"
+                  width={1200}
+                  height={800}
+                />
+                <Image
+                  src="/portfolio/decent-app--complex-1.png"
+                  alt="Complex components"
+                  width={1200}
+                  height={800}
+                />
+                <Image
+                  src="/portfolio/decent-app--complex-2.png"
+                  alt="Complex components"
+                  width={1200}
+                  height={800}
+                />
+                <Image
+                  src="/portfolio/decent-app--ui-kit-1.png"
+                  alt="A list of bespoke components for the Decent app"
+                  width={1200}
+                  height={800}
+                />
+                <Image
+                  src="/portfolio/decent-app--ui-kit-2.png"
+                  alt="A full UI kit was created based on the Decent product"
+                  width={1200}
+                  height={800}
+                />
               </div>
             </div>
           </div>
@@ -149,7 +230,18 @@ export default function DecentAppCaseStudy() {
             <div className={styles.sectionText}>
               <p className={styles.subsectionText}>As a continuous improvement champion and QA evangelist, I worked directly with the design team, engineers, and product to provide detailed GitHub feedback to refine designs. This hands-on approach ensured solutions were both user-friendly and technically sound.</p>
               <div className={styles.imageGrid}>
-                {/* Add your QA images here */}
+                <Image
+                  src="/portfolio/decent-app--qa-1.png"
+                  alt="Capturing detailed QA notes"
+                  width={1200}
+                  height={800}
+                />
+                <Image
+                  src="/portfolio/decent-app--qa-2.png"
+                  alt="Capturing detailed QA notes before entering into GitHub"
+                  width={1200}
+                  height={800}
+                />
               </div>
             </div>
           </div>
