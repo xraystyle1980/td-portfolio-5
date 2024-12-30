@@ -25,15 +25,15 @@ export default function DecentDesignSystemCaseStudy() {
             <div className={styles.details}>
               <div className={styles.detailGroup}>
                 <h3 className={styles.detailLabel}>Role</h3>
-                <p className={styles.detailText}>{project.role}</p>
+                <p className={styles.detailText}>Lead Product Designer</p>
               </div>
               <div className={styles.detailGroup}>
                 <h3 className={styles.detailLabel}>Duration</h3>
-                <p className={styles.detailText}>{project.duration}</p>
+                <p className={styles.detailText}>Q3 2022 – Q4 2023</p>
               </div>
               <div className={styles.detailGroup}>
                 <h3 className={styles.detailLabel}>Team</h3>
-                <p className={styles.detailText}>Decent Design and Engineering</p>
+                <p className={styles.detailText}>3 Designers, 5 Engineers, Product Manager</p>
               </div>
             </div>
           </div>
@@ -51,163 +51,148 @@ export default function DecentDesignSystemCaseStudy() {
         </div>
       </section>
 
-      {/* Overview Section */}
-      <section className={styles.section}>
+      {/* Main Content Section */}
+      <section className={styles.section} data-section="content">
         <div className={styles.sectionContent}>
+          {/* Overview */}
           <div className={styles.sectionGrid}>
             <div className={styles.sectionIntro}>
               <h2 className={styles.sectionTitle}>Overview</h2>
             </div>
             <div className={styles.sectionText}>
-              <div className={styles.subsection}>
-                <h3 className={styles.subsectionTitle}>The Challenge</h3>
-                <p className={styles.subsectionText}>The Decent Design System was created to streamline the workflow for both developers and designers, making it easier and faster to build. It plays a key role in supporting Decent DAO's products by ensuring consistent, scalable, and efficient collaboration between design and development teams.</p>
-              </div>
-              <div className={styles.subsection}>
-                <h3 className={styles.subsectionTitle}>The Approach</h3>
-                <p className={styles.subsectionText}>By focusing on creating a standardized toolkit and framework, we developed a system that could be universally adopted across all Decent products. This included establishing design tokens, component libraries, and documentation that bridges the gap between design and development.</p>
-              </div>
+              <p className={styles.subsectionText}>
+                Scaling a product across a diverse ecosystem requires consistency, efficiency, and collaboration. The Decent Design System was built to address this challenge by creating a unified design language that streamlined workflows, improved team alignment, and delivered consistent user experiences.
+              </p>
+              <p className={styles.subsectionText}>
+                As the Product Design Director, I spearheaded the development of the design system, working closely across the organization to ensure it met the needs of both developers and designers. Through this collaborative effort, the design system became a key enabler of scalability and innovation across the organization.
+              </p>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Process Section */}
-      <section className={styles.section}>
-        <div className={styles.sectionContent}>
+          {/* The Journey */}
           <div className={styles.sectionGrid}>
             <div className={styles.sectionIntro}>
-              <h2 className={styles.sectionTitle}>Process</h2>
-              <h3 className={styles.sectionSubtitle}>Building a Foundation</h3>
+              <h2 className={styles.sectionTitle}>The Journey</h2>
             </div>
             <div className={styles.sectionText}>
-              <div className={styles.subsection}>
-                <h3 className={styles.subsectionTitle}>Style Guide</h3>
-                <p className={styles.subsectionText}>The core elements that underpin the design system, such as colors, typography, spacing, and grid systems. These components establish a consistent visual language across all platforms.</p>
-                <div className={styles.imageGrid}>
-                  <Image
-                    src="/portfolio/decent-design-system--typography.png"
-                    alt="Decent Typography"
-                    width={1200}
-                    height={800}
-                  />
-                  <Image
-                    src="/portfolio/decent-design-system--spacing.png"
-                    alt="Spacing system based on Chakra defaults"
-                    width={1200}
-                    height={800}
-                  />
-                  <Image
-                    src="/portfolio/decent-design-system--brand.png"
-                    alt="Decent brand specs"
-                    width={1200}
-                    height={800}
-                  />
-                </div>
-              </div>
-
-              {/* Components Section */}
-              <div className={styles.subsection}>
-                <h3 className={styles.subsectionTitle}>Components & Patterns</h3>
-                <p className={styles.subsectionText}>Composable, reusable, and customizable, these building blocks promote efficiency and consistency across design and development.</p>
-                <div className={styles.imageGrid}>
-                  <Image
-                    src="/portfolio/decent-design-system--inputs.png"
-                    alt="UI text inputs from the Design System"
-                    width={1200}
-                    height={800}
-                  />
-                  <Image
-                    src="/portfolio/decent-design-system--buttons.png"
-                    alt="Buttons from the Design System"
-                    width={1200}
-                    height={800}
-                  />
-                  <Image
-                    src="/portfolio/decent-design-system--atomic.png"
-                    alt="Atomic design in action"
-                    width={1200}
-                    height={800}
-                  />
-                  <Image
-                    src="/portfolio/decent-design-system--mobile.png"
-                    alt="Mobile navigation patterns"
-                    width={1200}
-                    height={800}
-                  />
-                </div>
-              </div>
-
-              {/* Design Tokens Section */}
-              <div className={styles.subsection}>
-                <h3 className={styles.subsectionTitle}>Variables aka Design Tokens</h3>
-                <p className={styles.subsectionText}>Design tokens are variables that store visual design attributes, such as colors, fonts, and spacing values. They enable dynamic updates and modifications, ensuring that design adjustments are efficiently implemented across all platforms and products.</p>
-                <div className={styles.imageGrid}>
-                  <Image
-                    src="/portfolio/decent-design-system--colors.png"
-                    alt="Color variables used as design tokens"
-                    width={1200}
-                    height={800}
-                  />
-                </div>
-              </div>
-
-              {/* Documentation Section */}
-              <div className={styles.subsection}>
-                <h3 className={styles.subsectionTitle}>Documentation</h3>
-                <p className={styles.subsectionText}>Comprehensive resources that provide teams with clear guidelines on how to use and contribute to the design system. This documentation helps maintain alignment and enables the design system to evolve alongside the needs of the team and products.</p>
-                <div className={styles.imageGrid}>
-                  <Image
-                    src="/portfolio/decent-design-system--notion.png"
-                    alt="A Notion portal for the Design System"
-                    width={1200}
-                    height={800}
-                  />
-                  <Image
-                    src="/portfolio/decent-design-system--qa.png"
-                    alt="Capturing detailed QA in Notion"
-                    width={1200}
-                    height={800}
-                  />
-                </div>
-              </div>
+              <p className={styles.subsectionText}>
+                The lack of a cohesive design framework had created inefficiencies: duplicated efforts, inconsistent branding, and communication silos. These challenges were not only slowing development but also impacting the user experience.
+              </p>
+              <p className={styles.subsectionText}>
+                Recognizing potential for improvement, I spearheaded the effort to build a design system MVP that bridged the divide between design and development.
+              </p>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Implementation Section */}
-      <section className={styles.section}>
-        <div className={styles.sectionContent}>
-          <div className={styles.sectionGrid}>
-            <div className={styles.sectionIntro}>
-              <h2 className={styles.sectionTitle}>Implementation</h2>
-              <h3 className={styles.sectionSubtitle}>Bringing it All Together</h3>
-            </div>
-            <div className={styles.sectionText}>
-              <div className={styles.subsection}>
-                <h3 className={styles.subsectionTitle}>Documentation</h3>
-                <p className={styles.subsectionText}>Comprehensive documentation was created to ensure both designers and developers could effectively use the system. This included usage guidelines, component specifications, and best practices for implementation.</p>
-              </div>
-              <div className={styles.subsection}>
-                <h3 className={styles.subsectionTitle}>Integration</h3>
-                <p className={styles.subsectionText}>The design system was seamlessly integrated into the development workflow through a combination of Figma components and React components, ensuring a smooth handoff between design and development teams.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Results Section */}
-      <section className={styles.section}>
-        <div className={styles.sectionContent}>
+          {/* Impact */}
           <div className={styles.sectionGrid}>
             <div className={styles.sectionIntro}>
               <h2 className={styles.sectionTitle}>Impact</h2>
-              <h3 className={styles.sectionSubtitle}>Measuring Success</h3>
             </div>
             <div className={styles.sectionText}>
-              <p className={styles.subsectionText}>The implementation of the Decent Design System significantly improved development efficiency and design consistency across all Decent products. It reduced design decision-making time, streamlined the development process, and established a shared language between design and development teams.</p>
+              <div className={styles.subsection}>
+                <h3 className={styles.subsectionTitle}>Design Outcomes</h3>
+                <ul className={styles.subsectionList}>
+                  <li>Contributed to a Unified Design Language: Developed a comprehensive style guide covering colors, typography, and grid systems, ensuring visual consistency.</li>
+                  <li>Created Reusable Components: Designed modular UI elements that streamlined design and development processes.</li>
+                  <li>Implemented Design Tokens: Integrated dynamic attributes that allowed for design ownership over color palettes.</li>
+                  <li>Developed Comprehensive Documentation: Created and maintained documentation guidelines to assist teams in adopting and contributing to the system.</li>
+                </ul>
+              </div>
+              <div className={styles.subsection}>
+                <h3 className={styles.subsectionTitle}>Design Impacts Organizational Change</h3>
+                <ul className={styles.subsectionList}>
+                  <li>Reduced Cognitive Load for Developers: Simplified decision-making during development by providing clear design standards.</li>
+                  <li>Increased Development Velocity: Enabled faster project timelines through reusable components and scalable workflows.</li>
+                  <li>Enhanced Team Collaboration: Improved alignment between design and engineering teams, reducing bottlenecks and miscommunication.</li>
+                  <li>Empowered Team Contributions: Equipped teams with tools and guidelines to independently create solutions that adhered to design standards.</li>
+                </ul>
+              </div>
+              <div className={styles.subsection}>
+                <h3 className={styles.subsectionTitle}>Business Outcomes</h3>
+                <ul className={styles.subsectionList}>
+                  <li>Improved Efficiency: Reduced duplication of efforts and streamlined collaboration, cutting down project timelines.</li>
+                  <li>Accelerated Product Development: Supported faster feature rollouts and scalability as new requirements emerged.</li>
+                  <li>Reinforced Brand Identity: A consistent visual language strengthened the brand's credibility and recognition.</li>
+                </ul>
+              </div>
+              <div className={styles.subsection}>
+                <h3 className={styles.subsectionTitle}>Financial Impact</h3>
+                <ul className={styles.subsectionList}>
+                  <li>Increased Revenue: Faster time-to-market and improved product adoption drove higher earnings.</li>
+                  <li>Decreased Costs: Reduced design and development inefficiencies contribute to operational savings.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Strategy & Execution */}
+          <div className={styles.sectionGrid}>
+            <div className={styles.sectionIntro}>
+              <h2 className={styles.sectionTitle}>Strategy & Execution</h2>
+            </div>
+            <div className={styles.sectionText}>
+              <div className={styles.subsection}>
+                <h3 className={styles.subsectionTitle}>Collaborative Design & Development</h3>
+                <p className={styles.subsectionText}>
+                  I interviewed my teammates across the org to uncover pain points during their product design, design handoff processes. Through testing and feedback sessions, we refined the system and our approach iteratively to craft a design system that fits the needs of the organization.
+                </p>
+              </div>
+              <div className={styles.subsection}>
+                <h3 className={styles.subsectionTitle}>Systematizing Scalability</h3>
+                <p className={styles.subsectionText}>
+                  The system was built with growth in mind. By implementing design tokens and modular components, the design system scaled seamlessly as new products and features were developed. Comprehensive documentation ensured that even as the organization expanded, the design system remained accessible and intuitive.
+                </p>
+              </div>
+              <div className={styles.subsection}>
+                <h3 className={styles.subsectionTitle}>Outcome-Oriented Process</h3>
+                <p className={styles.subsectionText}>
+                  Every decision, from component naming conventions to documentation format, was aligned with measurable outcomes:
+                </p>
+                <ul className={styles.subsectionList}>
+                  <li>Higher engagement: Team adoption metrics indicated increased usage of shared components.</li>
+                  <li>Faster builds: Reduced iteration cycles led to measurable time savings on projects.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Key Learnings */}
+          <div className={styles.sectionGrid}>
+            <div className={styles.sectionIntro}>
+              <h2 className={styles.sectionTitle}>Key Learnings & Reflections</h2>
+            </div>
+            <div className={styles.sectionText}>
+              <div className={styles.subsection}>
+                <h3 className={styles.subsectionTitle}>Design as a Tool for Empowerment</h3>
+                <p className={styles.subsectionText}>
+                  The system did more than improve efficiency—it empowered teams to innovate confidently within a unified framework.
+                </p>
+              </div>
+              <div className={styles.subsection}>
+                <h3 className={styles.subsectionTitle}>Collaboration Drives Success</h3>
+                <p className={styles.subsectionText}>
+                  Bringing together diverse voices ensured the design system met the real-world needs of every stakeholder.
+                </p>
+              </div>
+              <div className={styles.subsection}>
+                <h3 className={styles.subsectionTitle}>Scalability is Strategy</h3>
+                <p className={styles.subsectionText}>
+                  Building a flexible, scalable foundation allowed the system to adapt seamlessly to organizational growth and future needs.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Summary */}
+          <div className={styles.sectionGrid}>
+            <div className={styles.sectionIntro}>
+              <h2 className={styles.sectionTitle}>Summary</h2>
+            </div>
+            <div className={styles.sectionText}>
+              <p className={styles.subsectionText}>
+                The Decent Design System represents the intersection of creativity, collaboration, and strategy. By unifying visual language, empowering teams, and enabling scalable development, the system became more than a tool—it became a driver of growth and efficiency across the organization.
+              </p>
             </div>
           </div>
         </div>

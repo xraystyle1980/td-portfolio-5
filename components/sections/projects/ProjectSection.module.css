@@ -63,38 +63,12 @@
 }
 
 .button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1.5rem;
-  font-family: var(--font-cooper);
-  font-size: 2.5rem;
-  color: #F39;
-  border: 3px solid black;
-  background: #202020;
-  box-shadow: -8px 8px 0px #000;
-  text-decoration: none;
-  padding: 2rem 3rem;
-  transition: all 0.2s ease;
-  font-variation-settings: "wght" 800;
-  letter-spacing: -1.5px;
+  composes: primaryButton from '@/styles/casestudy.module.css';
   width: fit-content;
 }
 
-.button:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: -10px 10px 0px #000;
-}
-
 .buttonIcon {
-  width: 48px;
-  height: 48px;
-  color: #F39;
-}
-
-.link:hover {
-  color: #FFF;
-  border-color: #FFF;
+  composes: svg from '@/styles/casestudy.module.css';
 }
 
 .imageContainer {

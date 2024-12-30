@@ -4,6 +4,7 @@ import styles from '@/styles/casestudy.module.css'
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { Icon } from '@/components/icons/Icon'
 
 export default function ExperimentsPage() {
   const [isLoading, setIsLoading] = useState(true)
@@ -47,8 +48,9 @@ export default function ExperimentsPage() {
                 <p className={styles.detailText}>Three.js, WebGL, React</p>
               </div>
             </div>
-            <Link href="/experiments/3d-particles" className={styles.caseStudyButton}>
+            <Link href="/experiments/3d-particles" className={styles.primaryButton}>
               Try the 3D Experience
+              <Icon name="arrow-right" />
             </Link>
           </div>
         </div>
@@ -83,17 +85,21 @@ export default function ExperimentsPage() {
                 <h3 className={styles.subsectionTitle}>Interactive Experiences</h3>
                 <p className={styles.subsectionText}>Each experiment explores different aspects of web technology and interaction design.</p>
                 <div className={styles.buttonGroup}>
-                  <Link href="/experiments/3d-particles" className={styles.button}>
+                  <Link href="/experiments/3d-particles" className={styles.primaryButton}>
                     Fly Around
+                    <Icon name="arrow-right" />
                   </Link>
-                  <Link href="/experiments/creative-coding" className={styles.button}>
+                  <Link href="/experiments/creative-coding" className={styles.primaryButton}>
                     Creative Coding
+                    <Icon name="arrow-right" />
                   </Link>
-                  <Link href="/experiments/generative-ui" className={styles.button}>
+                  <Link href="/experiments/generative-ui" className={styles.primaryButton}>
                     Generative UI
+                    <Icon name="arrow-right" />
                   </Link>
-                  <Link href="/experiments/design-systems" className={styles.button}>
+                  <Link href="/experiments/design-systems" className={styles.primaryButton}>
                     Design Systems
+                    <Icon name="arrow-right" />
                   </Link>
                 </div>
                 <div className={styles.imageGrid}>

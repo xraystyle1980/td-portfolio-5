@@ -25,20 +25,20 @@ export default function DecentAppCaseStudy() {
             <div className={styles.details}>
               <div className={styles.detailGroup}>
                 <h3 className={styles.detailLabel}>Role</h3>
-                <p className={styles.detailText}>{project.role}</p>
+                <p className={styles.detailText}>Lead Product Designer</p>
               </div>
               <div className={styles.detailGroup}>
                 <h3 className={styles.detailLabel}>Duration</h3>
-                <p className={styles.detailText}>{project.duration}</p>
+                <p className={styles.detailText}>Q1 2023 – Q3 2024</p>
               </div>
               <div className={styles.detailGroup}>
                 <h3 className={styles.detailLabel}>Team</h3>
-                <p className={styles.detailText}>{project.team}</p>
+                <p className={styles.detailText}>2 Designers, 4 Engineers, Product Manager</p>
               </div>
               <div className={styles.detailGroup}>
                 <h3 className={styles.detailLabel}>Website</h3>
                 <p className={styles.detailText}>
-                  <a href={project.link} target="_blank" rel="noopener noreferrer">
+                  <a href="https://app.decentdao.org" target="_blank" rel="noopener noreferrer">
                     app.decentdao.org
                   </a>
                 </p>
@@ -59,205 +59,145 @@ export default function DecentAppCaseStudy() {
         </div>
       </section>
 
-      {/* Overview Section */}
-      <section className={styles.section}>
+      {/* Main Content Section */}
+      <section className={styles.section} data-section="content">
         <div className={styles.sectionContent}>
+          {/* Overview */}
           <div className={styles.sectionGrid}>
             <div className={styles.sectionIntro}>
               <h2 className={styles.sectionTitle}>Overview</h2>
             </div>
             <div className={styles.sectionText}>
-              <div className={styles.subsection}>
-                <h3 className={styles.subsectionTitle}>The DAO</h3>
-                <p className={styles.subsectionText}>Decent DAO aims to provide a standardized approach to building and managing DAOs, emphasizing the importance of decentralized governance and community ownership. By focusing on open-source principles and transparency, Decent DAO intends to enable a more equitable distribution of power and resources within digital communities.</p>
-              </div>
-              <div className={styles.subsection}>
-                <h3 className={styles.subsectionTitle}>The App</h3>
-                <p className={styles.subsectionText}>The Decent app focuses on a standardized toolkit and framework that can be universally adopted by new and existing DAOs. This includes creating interoperable smart contracts, governance models that can adapt to different communities' needs, and a comprehensive set of guidelines for launching and managing DAOs effectively.</p>
-              </div>
+              <p className={styles.subsectionText}>
+                The Decent app was built to empower decentralized autonomous organizations (DAOs) with a standardized toolkit for governance, collaboration, and management. At its core, the app aimed to simplify and enhance the operational capabilities of DAOs. Achieving this goal required a pivot and redesign of the original Fractal app.
+              </p>
+              <p className={styles.subsectionText}>
+                As the Lead Product Designer, I worked closely with product, engineering, and brand designers to lead the transformation of the app from its original iteration, Fractal, into Decent. Along the way, we navigated challenges, uncovered opportunities, and delivered measurable results that extended beyond design into tangible business outcomes.
+              </p>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Redesign Section */}
-      <section className={styles.section}>
-        <div className={styles.sectionContent}>
+          {/* The Journey */}
           <div className={styles.sectionGrid}>
             <div className={styles.sectionIntro}>
-              <h2 className={styles.sectionTitle}>Redesign</h2>
-              <h3 className={styles.sectionSubtitle}>The redesign from Fractal to Decent</h3>
+              <h2 className={styles.sectionTitle}>The Journey</h2>
+            </div>
+            <div className={styles.sectionText}>
+              <p className={styles.subsectionText}>
+                When market feedback showed that Fractal's customizable DAO structure wasn't meeting user needs, the team decided to pivot. This shift brought a new challenge: redefining the product's value while ensuring scalability and ease of use.
+              </p>
+              <p className={styles.subsectionText}>
+                My role was to bridge the gap between user needs and business goals, crafting a solution that felt intuitive, trustworthy, and impactful. The journey involved aligning cross-functional teams, designing with scalability in mind, and creating an experience that met both user and stakeholder needs.
+              </p>
+            </div>
+          </div>
+
+          {/* Impact */}
+          <div className={styles.sectionGrid}>
+            <div className={styles.sectionIntro}>
+              <h2 className={styles.sectionTitle}>Impact</h2>
             </div>
             <div className={styles.sectionText}>
               <div className={styles.subsection}>
-                <h3 className={styles.subsectionTitle}>We had to Pivot</h3>
-                <p className={styles.subsectionText}>Before it became the Decent app, it was known as Fractal. Fractal enabled DAOs to customize their organizational structure with the intention of unlocking a new level of coordination both within and between DAO communities.</p>
-                <p className={styles.subsectionText}>It became clear that the market needed Fractal less than we had initially forecasted. That said, we recognized that Fractal had good bones and a solid codebase. By analyzing market trends and customer feedback, we identified new opportunities. We had to pivot.</p>
+                <h3 className={styles.subsectionTitle}>Design Outcomes</h3>
+                <ul className={styles.subsectionList}>
+                  <li>Aligned brand vision with product goals: Established a consistent design system across platforms to build trust and relevance.</li>
+                  <li>Internal usability testing: Streamlined the app's core features, addressing key pain points to improve the user experience.</li>
+                  <li>Design system integration: Introduced scalable components to improve design-to-development efficiency.</li>
+                </ul>
               </div>
-              <div className={styles.imageGrid}>
-                <Image
-                  src="/portfolio/decent-app--fractal-decent-1.png"
-                  alt="Before and after of Fractal to Decent"
-                  width={1200}
-                  height={800}
-                />
-                <Image
-                  src="/portfolio/decent-app--fractal-decent-2.png"
-                  alt="Before and after of Fractal to Decent"
-                  width={1200}
-                  height={800}
-                />
-                <Image
-                  src="/portfolio/decent-app--fractal-decent-3.png"
-                  alt="Before and after of Fractal to Decent"
-                  width={1200}
-                  height={800}
-                />
-                <Image
-                  src="/portfolio/decent-app--fractal-decent-4.png"
-                  alt="Before and after of Fractal to Decent"
-                  width={1200}
-                  height={800}
-                />
+              <div className={styles.subsection}>
+                <h3 className={styles.subsectionTitle}>Customer Outcomes</h3>
+                <ul className={styles.subsectionList}>
+                  <li>Perceived the app as more modern and trustworthy, leading to quicker task completion.</li>
+                  <li>Experienced less confusion and found the platform better aligned to their needs.</li>
+                </ul>
+              </div>
+              <div className={styles.subsection}>
+                <h3 className={styles.subsectionTitle}>Business Outcomes</h3>
+                <ul className={styles.subsectionList}>
+                  <li>Improved brand alignment, increasing trust in the product.</li>
+                  <li>Reduced time-on-task and user friction, driving higher engagement.</li>
+                  <li>Established a foundation for monetization by increasing adoption of DAO tooling.</li>
+                </ul>
+              </div>
+              <div className={styles.subsection}>
+                <h3 className={styles.subsectionTitle}>Financial Outcomes</h3>
+                <ul className={styles.subsectionList}>
+                  <li>Increased revenue through higher user engagement and reduced operational costs.</li>
+                  <li>Boosted profitability by enabling efficient scaling.</li>
+                </ul>
               </div>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Strategy Section - Collaboration */}
-      <section className={styles.section}>
-        <div className={styles.sectionContent}>
+          {/* Strategy & Execution */}
           <div className={styles.sectionGrid}>
             <div className={styles.sectionIntro}>
-              <h2 className={styles.sectionTitle}>Strategy</h2>
-              <h3 className={styles.sectionSubtitle}>Collaborative effort to improve the user experience</h3>
+              <h2 className={styles.sectionTitle}>Strategy & Execution</h2>
             </div>
             <div className={styles.sectionText}>
-              <p className={styles.subsectionText}>I worked closely with design, product, and engineering teams, leveraging a "pair programming" approach to shape our design strategy. Together with the product team, we developed structured feedback and testing sessions to gather user insights and identify key pain points, which guided our design iterations.</p>
-              <div className={styles.imageGrid}>
-                <Image
-                  src="/portfolio/decent-app--brainstorm-1.png"
-                  alt="Brainstorming new feature flows"
-                  width={1200}
-                  height={800}
-                />
-                <Image
-                  src="/portfolio/decent-app--brainstorm-2.png"
-                  alt="Brainstorming how new features could work"
-                  width={1200}
-                  height={800}
-                />
-                <Image
-                  src="/portfolio/decent-app--whiteboard-1.png"
-                  alt="White-boarding in Figjam"
-                  width={1200}
-                  height={800}
-                />
-                <Image
-                  src="/portfolio/decent-app--whiteboard-2.png"
-                  alt="Mapping the Information Architecture"
-                  width={1200}
-                  height={800}
-                />
+              <div className={styles.subsection}>
+                <h3 className={styles.subsectionTitle}>Collaborative Design & Testing</h3>
+                <p className={styles.subsectionText}>
+                  To ensure the redesign met both user and business needs, I worked closely with engineers, product teams, and stakeholders. Through usability testing and rapid prototyping, we iterated on designs that addressed user pain points while maintaining operational efficiency.
+                </p>
+              </div>
+              <div className={styles.subsection}>
+                <h3 className={styles.subsectionTitle}>Rebranding for Scalability</h3>
+                <p className={styles.subsectionText}>
+                  The rebrand included the development of a UI component library in Figma, seamlessly integrated with Chakra UI. This system reduced design and engineering debt, making it easier to scale as the app evolved.
+                </p>
+              </div>
+              <div className={styles.subsection}>
+                <h3 className={styles.subsectionTitle}>Outcome-Oriented Design</h3>
+                <p className={styles.subsectionText}>
+                  Each design decision was framed around its potential to drive outcomes:
+                </p>
+                <ul className={styles.subsectionList}>
+                  <li>Reducing user friction directly correlated with increased user engagement.</li>
+                  <li>Streamlined design systems improved operational efficiency and reduced development costs.</li>
+                </ul>
               </div>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Strategy Section - Rebranding */}
-      <section className={styles.section}>
-        <div className={styles.sectionContent}>
+          {/* Key Learnings */}
           <div className={styles.sectionGrid}>
             <div className={styles.sectionIntro}>
-              <h2 className={styles.sectionTitle}>Strategy</h2>
-              <h3 className={styles.sectionSubtitle}>Rebranding & Scalability</h3>
+              <h2 className={styles.sectionTitle}>Key Learnings & Reflections</h2>
             </div>
             <div className={styles.sectionText}>
-              <p className={styles.subsectionText}>During the rebranding from Fractal to Decent, we focused on building scalable design components in both Figma and the application. This led to the creation of a UI component library, integrated with Chakra UI, which streamlined development and ensured scalability for future growth.</p>
-              <div className={styles.imageGrid}>
-                <Image
-                  src="/portfolio/decent-app--components-1.png"
-                  alt="Capturing reusable components in the Design System"
-                  width={1200}
-                  height={800}
-                />
-                <Image
-                  src="/portfolio/decent-app--components-2.png"
-                  alt="Capturing reusable components in the Design System"
-                  width={1200}
-                  height={800}
-                />
-                <Image
-                  src="/portfolio/decent-app--complex-1.png"
-                  alt="Complex components"
-                  width={1200}
-                  height={800}
-                />
-                <Image
-                  src="/portfolio/decent-app--complex-2.png"
-                  alt="Complex components"
-                  width={1200}
-                  height={800}
-                />
-                <Image
-                  src="/portfolio/decent-app--ui-kit-1.png"
-                  alt="A list of bespoke components for the Decent app"
-                  width={1200}
-                  height={800}
-                />
-                <Image
-                  src="/portfolio/decent-app--ui-kit-2.png"
-                  alt="A full UI kit was created based on the Decent product"
-                  width={1200}
-                  height={800}
-                />
+              <div className={styles.subsection}>
+                <h3 className={styles.subsectionTitle}>Design as a Catalyst for Trust</h3>
+                <p className={styles.subsectionText}>
+                  By prioritizing consistency and usability, we created a platform that users felt confident adopting.
+                </p>
+              </div>
+              <div className={styles.subsection}>
+                <h3 className={styles.subsectionTitle}>Collaboration as a Growth Driver</h3>
+                <p className={styles.subsectionText}>
+                  Cross-functional alignment amplified the impact of the design system, reducing bottlenecks and fostering innovation.
+                </p>
+              </div>
+              <div className={styles.subsection}>
+                <h3 className={styles.subsectionTitle}>Outcome-Oriented Decision Making</h3>
+                <p className={styles.subsectionText}>
+                  Shifting focus to measurable business outcomes during the design process created clarity, helping the team prioritize efforts that would maximize user impact and operational efficiency.
+                </p>
               </div>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Strategy Section - QA */}
-      <section className={styles.section}>
-        <div className={styles.sectionContent}>
-          <div className={styles.sectionGrid}>
-            <div className={styles.sectionIntro}>
-              <h2 className={styles.sectionTitle}>Strategy</h2>
-              <h3 className={styles.sectionSubtitle}>QA, Testing, & Continuous Improvement</h3>
-            </div>
-            <div className={styles.sectionText}>
-              <p className={styles.subsectionText}>As a continuous improvement champion and QA evangelist, I worked directly with the design team, engineers, and product to provide detailed GitHub feedback to refine designs. This hands-on approach ensured solutions were both user-friendly and technically sound.</p>
-              <div className={styles.imageGrid}>
-                <Image
-                  src="/portfolio/decent-app--qa-1.png"
-                  alt="Capturing detailed QA notes"
-                  width={1200}
-                  height={800}
-                />
-                <Image
-                  src="/portfolio/decent-app--qa-2.png"
-                  alt="Capturing detailed QA notes before entering into GitHub"
-                  width={1200}
-                  height={800}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Summary Section */}
-      <section className={styles.section}>
-        <div className={styles.sectionContent}>
+          {/* Summary */}
           <div className={styles.sectionGrid}>
             <div className={styles.sectionIntro}>
               <h2 className={styles.sectionTitle}>Summary</h2>
-              <h3 className={styles.sectionSubtitle}>What did we learn?</h3>
             </div>
             <div className={styles.sectionText}>
-              <p className={styles.subsectionText}>The pre-existing Fractal design system streamlined the process of updating the brand, allowing for efficient changes without sacrificing consistency. By planning ahead and keeping the users' needs in focus, we ensured the updates were not only seamless but also impactful.</p>
+              <p className={styles.subsectionText}>
+                The redesign of the Decent App showcases the power of thoughtful design to drive both customer satisfaction and business success. By focusing on user needs and operational scalability, we not only delivered a better product but also created value that resonated across the organization.
+              </p>
             </div>
           </div>
         </div>

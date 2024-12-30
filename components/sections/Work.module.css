@@ -1,5 +1,10 @@
 .work {
   composes: section from './section.module.css';
+  background: linear-gradient(180deg, 
+    rgba(22, 22, 22, 0) 0%,
+    rgba(22, 22, 22, 0.94) 20%,
+    rgba(22, 22, 22, 0.94) 100%
+  );
 }
 
 .intro {

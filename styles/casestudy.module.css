@@ -112,6 +112,15 @@
   position: relative;
 }
 
+/* Content section gradient */
+.section[data-section="content"] {
+  background: linear-gradient(180deg, 
+    rgba(22, 22, 22, 0) 0%,
+    rgba(22, 22, 22, 0.94) 10%,
+    rgba(22, 22, 22, 0.94) 100%
+  );
+}
+
 .sectionContent {
   max-width: 1400px;
   margin: 0 auto;
@@ -131,6 +140,11 @@
   grid-template-columns: 1fr 2fr;
   gap: 4rem;
   align-items: start;
+  margin-bottom: 8rem;
+}
+
+.sectionGrid:last-child {
+  margin-bottom: 0;
 }
 
 .sectionIntro {
@@ -314,45 +328,69 @@
 }
 
 .buttonGroup {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
   margin: 2rem 0;
 }
 
-.button {
-  background: linear-gradient(45deg, #00ffff, #0066ff);
-  border: none;
-  padding: 1rem 2rem;
-  border-radius: 2rem;
-  color: white;
-  font-size: 1.2rem;
-  cursor: pointer;
-  transition: transform 0.2s;
-  text-decoration: none;
-}
-
-.button:hover {
-  transform: scale(1.05);
-}
-
-.caseStudyButton {
-  display: inline-block;
+.primaryButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
   background: #F39;
-  border: 4px solid #000;
+  border: 12px solid #000;
   padding: 1.5rem 3rem;
-  border-radius: 0;
-  color: white;
-  font-size: 1.5rem;
+  border-radius: 1.25rem;
+  color: rgb(0, 0, 0);
+  font-size: 2.25rem;
+  letter-spacing: -1px;
   font-family: var(--font-cooper);
+  font-weight: 800;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.165s ease;
   text-decoration: none;
-  box-shadow: -8px 8px 0px #000;
+  box-shadow: -12px 12px 0px #000;
   margin-top: 2rem;
 }
 
-.caseStudyButton:hover {
-  transform: translate(-2px, 2px);
+.primaryButton svg {
+  width: 3rem;
+  height: 3rem;
+  transition: transform 0.165s ease;
+}
+
+.primaryButton:hover {
+  transform: translate(-6px, 6px);
   box-shadow: -6px 6px 0px #000;
-} 
+}
+
+.primaryButton:hover svg {
+  /* transform: translateX(4px); */
+}
+
+.primaryButton:active {
+  transform: translate(-12px, 12px);
+  box-shadow: 0px 0px 0px #000;
+  color: #000;
+  background-color: rgb(255, 108, 49);
+}
+
+@media (max-width: 768px) {
+  .buttonGroup {
+    grid-template-columns: 1fr;
+  }
+  
+  .primaryButton {
+    font-size: 1.75rem;
+    padding: 1.25rem 2.5rem;
+    border-width: 8px;
+    box-shadow: -8px 8px 0px #000;
+  }
+  
+  .primaryButton svg {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}

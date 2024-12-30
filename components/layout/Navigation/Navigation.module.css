@@ -22,25 +22,25 @@
   font-family: var(--font-cooper);
   font-size: 3rem;
   color: #FFF;
-  text-shadow: -6px 6px 0px #000;
-  -webkit-text-stroke-width: 4px;
+  text-shadow: -8px 8px 0px #000;
+  -webkit-text-stroke-width: 10px;
   -webkit-text-stroke-color: #000;
   paint-order: stroke fill;
   font-variation-settings: "wght" 800;
   cursor: pointer;
   pointer-events: auto;
-  transition: all 0.3s ease;
+  transition: all 0.165s ease;
+}
+
+.logo:hover {
+  transform: translate(-4px, 4px);
+  text-shadow: -4px 4px 0px #000;
 }
 
 .logo.scrolled {
   font-size: 2rem;
   text-shadow: -4px 4px 0px #000;
   -webkit-text-stroke-width: 3px;
-}
-
-.logo:hover {
-  transform: translate(2px, -2px);
-  text-shadow: -6px 6px 0px #000;
 }
 
 .links {
