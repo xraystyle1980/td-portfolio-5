@@ -99,32 +99,23 @@ export default function AboutMe() {
 
   useEffect(() => {
     const initGSAP = async () => {
+      console.log('🚀 Initializing GSAP...')
       const { default: ScrollTrigger } = await import('gsap/ScrollTrigger')
       
-      // Register plugins
       gsap.registerPlugin(ScrollTrigger)
+      console.log('📍 ScrollTrigger registered')
 
-      // Token scale animation
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: "#about",
-          start: 'top 90%',
-          end: 'top 40%',
-          toggleActions: 'play none none reverse',
-          scrub: 0.5
-        }
-      })
+      let isFirstLoad = true
 
       // Token container position animation
       const tokenTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: "#about",
-          start: 'top 90%',
-          end: 'center center',
-          toggleActions: 'play none none reverse',
-          scrub: true
-        }
+        paused: true,
+        immediateRender: false
       })
+
+      // Check if elements exist
+      console.log('📌 Token ref exists:', !!tokenRef.current)
+      console.log('📌 Container ref exists:', !!containerRef.current)
 
       tokenTl.fromTo(tokenRef.current,
         {
@@ -133,9 +124,39 @@ export default function AboutMe() {
         {
           top: '50%',
           duration: 1,
-          ease: "none"
+          ease: "power2.inOut",
+          onStart: () => console.log('🎬 Token animation started'),
+          onComplete: () => {
+            console.log('✅ Token animation completed')
+            isFirstLoad = false
+          }
         }
       )
+
+      ScrollTrigger.create({
+        trigger: "#about",
+        start: 'top 90%',
+        end: 'center center',
+        onEnter: () => {
+          console.log('🎯 Token section entered viewport')
+          if (!isFirstLoad || tokenTl.progress() === 0) {
+            tokenTl.play()
+          }
+        },
+        onLeaveBack: () => {
+          console.log('⬆️ Token section left viewport (scrolling up)')
+          if (tokenTl.progress() === 1) {
+            tokenTl.reverse()
+          }
+        },
+        onEnterBack: () => {
+          console.log('⬇️ Token section entered viewport (scrolling down)')
+          tokenTl.play()
+        },
+        onRefresh: () => {
+          console.log('🔄 ScrollTrigger refreshed')
+        }
+      })
 
       // Container reveal animation
       const containerTl = gsap.timeline({
@@ -202,11 +223,20 @@ export default function AboutMe() {
         )
 
       return () => {
+        console.log('🧹 Cleaning up ScrollTrigger instances')
         ScrollTrigger.getAll().forEach((st: any) => st.kill())
       }
     }
 
-    initGSAP()
+    // Initialize after a brief delay
+    const timer = setTimeout(() => {
+      console.log('⏰ Starting delayed initialization')
+      initGSAP()
+    }, 300)
+
+    return () => {
+      clearTimeout(timer)
+    }
   }, [])
 
   return (

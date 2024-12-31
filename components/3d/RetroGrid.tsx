@@ -126,11 +126,15 @@ export default function RetroGrid({ size = 400, scroll = 0 }: Props) {
 
   // Frame update handling
   useFrame((state, deltaTime) => {
-    // Only update if scroll changed
-    if (prevScrollRef.current !== scroll) {
-      updatePosition(scroll)
-      prevScrollRef.current = scroll
-    }
+    if (!gridRef.current) return
+    
+    // Move grid forward, loop when necessary
+    const moveSpeed = 4000
+    const loopPoint = 6000
+    const scrollZ = (scroll * moveSpeed) % loopPoint
+    gridRef.current.position.z = scrollZ
+
+    // Update opacity
     updateOpacity(deltaTime)
   })
 
