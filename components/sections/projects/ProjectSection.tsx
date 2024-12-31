@@ -1,5 +1,6 @@
 import { ProjectSectionProps } from '@/types/project'
 import styles from './ProjectSection.module.css'
+import sharedStyles from '@/styles/shared.module.css'
 import Link from 'next/link'
 import { ArrowRight } from '@/components/icons/ArrowRight'
 

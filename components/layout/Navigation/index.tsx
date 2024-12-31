@@ -11,6 +11,7 @@ declare global {
     ScrollSmoother?: {
       get(): {
         scrollTo(target: HTMLElement | string | number, smooth?: boolean): void
+        paused(paused: boolean): void
       }
     }
   }
@@ -58,18 +59,12 @@ export default function Navigation() {
     setIsOpen(false)
   }
 
-  const handleLogoClick = async () => {
-    if (pathname === '/') {
-      // If on home page, scroll to top
-      scrollToSection('hero')
+  const handleLogoClick = () => {
+    const smoother = window.ScrollSmoother?.get()
+    if (smoother) {
+      smoother.scrollTo(0, true)
     } else {
-      // If on any other page, navigate to home and scroll to top
-      await router.push('/')
-      window.scrollTo(0, 0)
-      const smoother = window.ScrollSmoother?.get()
-      if (smoother) {
-        smoother.scrollTo(0, true)
-      }
+      window.scrollTo({ top: 0, behavior: 'smooth' })
     }
     setIsOpen(false)
   }
@@ -93,6 +88,15 @@ export default function Navigation() {
           <span></span>
         </button>
         <div className={`${styles.links} ${isOpen ? styles.open : ''}`}>
+          <button 
+            className={styles.link}
+            onClick={async () => {
+              await router.push('/')
+              setIsOpen(false)
+            }}
+          >
+            Home
+          </button>
           <button 
             className={styles.link}
             onClick={async () => {

@@ -22,13 +22,37 @@ function Scene({ scroll }: { scroll: number }) {
   const targetFov = useRef(45)
   const isAnimating = useRef(true)
 
-  useEffect(() => {
+  // Reset scene state
+  const resetScene = () => {
+    currentPos.current.set(0, 600, 0)
+    targetPos.current.set(0, 1200, -800)
+    currentRot.current = [-0.1, 0, 0]
+    targetRot.current = [-0.7, 0, 0]
+    currentFov.current = 80
+    targetFov.current = 45
+    isAnimating.current = true
+
     if (cameraRef.current) {
       cameraRef.current.position.set(currentPos.current.x, currentPos.current.y, currentPos.current.z)
       cameraRef.current.rotation.set(currentRot.current[0], currentRot.current[1], currentRot.current[2])
       cameraRef.current.fov = currentFov.current
       cameraRef.current.updateProjectionMatrix()
     }
+  }
+
+  useEffect(() => {
+    // Initial setup
+    if (cameraRef.current) {
+      cameraRef.current.position.set(currentPos.current.x, currentPos.current.y, currentPos.current.z)
+      cameraRef.current.rotation.set(currentRot.current[0], currentRot.current[1], currentRot.current[2])
+      cameraRef.current.fov = currentFov.current
+      cameraRef.current.updateProjectionMatrix()
+    }
+
+    // Listen for reset events
+    const handleReset = () => resetScene()
+    window.addEventListener('scene-reset', handleReset)
+    return () => window.removeEventListener('scene-reset', handleReset)
   }, [])
 
   useFrame(({ camera }) => {

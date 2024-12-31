@@ -14,8 +14,12 @@ export default function BlocksetBRDDocsCaseStudy() {
       // Set loading state
       setIsLoading(true)
       
-      // Force immediate scroll to top
+      // Force scroll to top
       window.scrollTo(0, 0)
+      const smoother = window.ScrollSmoother?.get()
+      if (smoother) {
+        smoother.scrollTo(0, false)
+      }
       
       // Ensure content is loaded before showing
       const timer = setTimeout(() => {

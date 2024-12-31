@@ -63,12 +63,12 @@
 }
 
 .button {
-  composes: primaryButton from '@/styles/casestudy.module.css';
-  width: fit-content;
+  composes: primaryButton from '../../../styles/shared.module.css';
 }
 
 .buttonIcon {
-  composes: svg from '@/styles/casestudy.module.css';
+  width: 3rem;
+  height: 3rem;
 }
 
 .imageContainer {
