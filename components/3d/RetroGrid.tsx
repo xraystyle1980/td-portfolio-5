@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useMemo } from 'react'
+import { useRef, useMemo, useCallback, useEffect } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import { Line } from '@react-three/drei'
@@ -20,6 +20,7 @@ export default function RetroGrid({ size = 400, scroll = 0 }: Props) {
   const gridRef = useRef<THREE.Group>(null)
   const opacityRef = useRef(0)
   const targetOpacity = useRef(1)
+  const prevScrollRef = useRef(scroll)
 
   // Create perspective grid lines
   const linePoints = useMemo(() => {
@@ -77,23 +78,38 @@ export default function RetroGrid({ size = 400, scroll = 0 }: Props) {
     return pairs
   }, [linePoints])
 
-  useFrame(() => {
+  // Optimize scroll position calculation
+  const updatePosition = useCallback((scrollValue: number) => {
     if (!gridRef.current) return
-    
-    // Move grid forward with shorter loop distance
     const moveSpeed = 4000
     const loopPoint = 2000
-    const scrollZ = -(scroll * moveSpeed) % loopPoint
+    const scrollZ = -(scrollValue * moveSpeed) % loopPoint
     gridRef.current.position.z = scrollZ
+  }, [])
 
-    // Fade in effect
-    opacityRef.current = THREE.MathUtils.lerp(opacityRef.current, targetOpacity.current, 0.02)
+  // Optimize opacity update with delta time
+  const updateOpacity = useCallback((deltaTime: number) => {
+    if (!gridRef.current) return
+    opacityRef.current = THREE.MathUtils.lerp(
+      opacityRef.current,
+      targetOpacity.current,
+      0.02 * deltaTime * 60
+    )
     const lines = gridRef.current.children as LineWithMaterial[]
     lines.forEach(line => {
       if (line.material) {
         line.material.opacity = opacityRef.current
       }
     })
+  }, [])
+
+  useFrame((state, deltaTime) => {
+    // Only update if scroll changed
+    if (prevScrollRef.current !== scroll) {
+      updatePosition(scroll)
+      prevScrollRef.current = scroll
+    }
+    updateOpacity(deltaTime)
   })
 
   return (

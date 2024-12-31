@@ -1,19 +1,32 @@
 'use client'
 
+import { useEffect, useState } from 'react'
+import Image from 'next/image'
 import styles from '@/styles/casestudy.module.css'
 import { projects } from '@/data/projects'
-import { useEffect } from 'react'
-import Image from 'next/image'
 
 export default function BlocksetBRDDocsCaseStudy() {
   const project = projects.find(p => p.route === '/work/blockset-brd-docs')
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    // Reset scroll position on mount
-    window.scrollTo(0, 0)
+    if (typeof window !== 'undefined') {
+      // Set loading state
+      setIsLoading(true)
+      
+      // Force immediate scroll to top
+      window.scrollTo(0, 0)
+      
+      // Ensure content is loaded before showing
+      const timer = setTimeout(() => {
+        setIsLoading(false)
+      }, 100)
+
+      return () => clearTimeout(timer)
+    }
   }, [])
 
-  if (!project) return null
+  if (!project || isLoading) return null
 
   return (
     <main className={styles.main}>

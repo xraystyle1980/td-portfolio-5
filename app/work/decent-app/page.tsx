@@ -2,24 +2,117 @@
 
 import styles from '@/styles/casestudy.module.css'
 import { projects } from '@/data/projects'
-import { useEffect } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import Image from 'next/image'
+import gsap from 'gsap'
 
 export default function DecentAppCaseStudy() {
   const project = projects.find(p => p.route === '/work/decent-app')
+  const [isLoading, setIsLoading] = useState(true)
+  const heroImageRef = useRef(null)
 
   useEffect(() => {
-    // Reset scroll position on mount
-    window.scrollTo(0, 0)
+    if (typeof window !== 'undefined') {
+      setIsLoading(true)
+      window.scrollTo(0, 0)
+      const timer = setTimeout(() => {
+        setIsLoading(false)
+      }, 300)
+      return () => clearTimeout(timer)
+    }
   }, [])
 
-  if (!project) return null
+  useEffect(() => {
+    if (!isLoading) {
+      // Initial animation with bounce effect
+      gsap.fromTo(heroImageRef.current,
+        {
+          opacity: 0,
+          scale: 0.5,
+        },
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 1,
+          ease: "elastic.out(1, 0.5)", // Bouncy effect
+        }
+      )
+
+      // Mouse move effect
+      const handleMouseMove = (e: MouseEvent) => {
+        const { clientX, clientY } = e
+        const { innerWidth, innerHeight } = window
+        
+        // Calculate mouse position relative to center of screen (-1 to 1)
+        const xPos = (clientX / innerWidth - 0.5) * 2
+        const yPos = (clientY / innerHeight - 0.5) * 2
+        
+        // Apply subtle movement
+        gsap.to(heroImageRef.current, {
+          x: xPos * 15,
+          y: yPos * 15,
+          rotateX: yPos * -3,
+          rotateY: xPos * 3,
+          duration: 0.8,
+          ease: "power2.out"
+        })
+      }
+
+      window.addEventListener('mousemove', handleMouseMove)
+      
+      return () => {
+        window.removeEventListener('mousemove', handleMouseMove)
+      }
+    }
+  }, [isLoading])
+
+  if (!project || isLoading) return null
 
   return (
     <main className={styles.main}>
       {/* Hero Section */}
-      <section className={styles.hero}>
-        <div className={styles.heroContent}>
+      <section className={styles.hero} style={{ margin: '2rem' }}>
+        {project.imageUrl && (
+          <div 
+            ref={heroImageRef}
+            className={styles.heroImage}
+            style={{ 
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              height: '100%',
+              opacity: 0,
+              willChange: 'transform',
+              zIndex: 0,
+              border: '4px solid #000',
+              boxShadow: '-12px 12px 0px #000'
+            }}
+          >
+            <Image
+              src={project.imageUrl}
+              alt={project.title}
+              width={1600}
+              height={1000}
+              priority
+              style={{ 
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover'
+              }}
+            />
+            <div style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: 'linear-gradient(to bottom, rgba(22, 22, 22, 0.5) 0%, rgba(22, 22, 22, 0.85) 100%)',
+              zIndex: 1
+            }} />
+          </div>
+        )}
+        <div className={styles.heroContent} style={{ position: 'relative', zIndex: 2 }}>
           <div className={styles.heroText}>
             <h1 className={styles.title}>{project.title}</h1>
             <div className={styles.details}>
@@ -33,7 +126,7 @@ export default function DecentAppCaseStudy() {
               </div>
               <div className={styles.detailGroup}>
                 <h3 className={styles.detailLabel}>Team</h3>
-                <p className={styles.detailText}>2 Designers, 4 Engineers, Product Manager</p>
+                <p className={styles.detailText}>2 Designers, 4 Engineers, PM</p>
               </div>
               <div className={styles.detailGroup}>
                 <h3 className={styles.detailLabel}>Website</h3>
@@ -45,22 +138,14 @@ export default function DecentAppCaseStudy() {
               </div>
             </div>
           </div>
-          {project.imageUrl && (
-            <div className={styles.heroImage}>
-              <Image
-                src={project.imageUrl}
-                alt={project.title}
-                width={1200}
-                height={800}
-                priority
-              />
-            </div>
-          )}
         </div>
       </section>
 
       {/* Main Content Section */}
-      <section className={styles.section} data-section="content">
+      <section 
+        className={styles.section} 
+        data-section="content"
+      >
         <div className={styles.sectionContent}>
           {/* Overview */}
           <div className={styles.sectionGrid}>
