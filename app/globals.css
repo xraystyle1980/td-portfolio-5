@@ -64,9 +64,9 @@ html {
 
 @font-face {
   font-family: 'Cooper';
-  src: url('/fonts/Cooper-var.ttf') format('truetype-variations');
+  src: url('/fonts/Cooper-var.ttf') format('truetype-variations'),
+       url('/fonts/Cooper-var.ttf') format('truetype');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
-  font-variation-settings: "wght" 900;
 }

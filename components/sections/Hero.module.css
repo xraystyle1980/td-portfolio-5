@@ -33,10 +33,21 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  gap: 0;
+}
+
+.headlineWord {
+  display: block;
+  position: relative;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .staticWord {
-  display: inline-block;
+  display: block;
   position: relative;
   padding: 0;
   margin: 0;

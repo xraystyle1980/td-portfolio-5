@@ -1,70 +1,99 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import Image from 'next/image'
 import styles from '@/styles/casestudy.module.css'
 import { projects } from '@/data/projects'
+import { useEffect, useState, useRef } from 'react'
+import Image from 'next/image'
+import gsap from 'gsap'
+import localFont from 'next/font/local'
+
+const cooper = localFont({
+  src: '../../../public/fonts/Cooper-var.ttf',
+  variable: '--font-cooper',
+  preload: true
+})
 
 export default function DecentDesignSystemCaseStudy() {
   const project = projects.find(p => p.route === '/work/decent-design-system')
   const [isLoading, setIsLoading] = useState(true)
+  const heroImageRef = useRef(null)
+  const contentRef = useRef(null)
 
+  // Handle initial load
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      // Set loading state
+    if (typeof window === 'undefined' || !project) return
+
+    const initPage = async () => {
       setIsLoading(true)
-      
+
       // Force scroll to top
       window.scrollTo(0, 0)
       const smoother = window.ScrollSmoother?.get()
       if (smoother) {
         smoother.scrollTo(0, false)
       }
-      
-      // Ensure content is loaded before showing
-      const timer = setTimeout(() => {
+
+      // Small delay to ensure layout is ready
+      await new Promise(resolve => setTimeout(resolve, 100))
+
+      // Initialize content
+      if (heroImageRef.current && contentRef.current) {
+        // Animate hero image
+        gsap.fromTo(heroImageRef.current,
+          {
+            opacity: 0,
+            scale: 0.95,
+            x: '100%'
+          },
+          {
+            opacity: 1,
+            scale: 1,
+            x: 0,
+            duration: 1.4,
+            ease: "power3.out"
+          }
+        )
+
         setIsLoading(false)
-      }, 100)
-
-      return () => clearTimeout(timer)
+      }
     }
-  }, [])
 
-  if (!project || isLoading) return null
+    initPage()
+  }, [project])
+
+  if (!project) return null
 
   return (
-    <main className={styles.main}>
-      {/* Hero Section */}
+    <main className={`${styles.main} ${cooper.variable}`}>
       <section className={styles.hero}>
+        {project.imageUrl && (
+          <div className={styles.heroImage} ref={heroImageRef}>
+            <Image
+              src={project.imageUrl}
+              alt={project.title}
+              fill
+              priority
+              quality={90}
+            />
+            <div className={styles.heroImageOverlay} />
+          </div>
+        )}
         <div className={styles.heroContent}>
-          <div className={styles.heroText}>
-            <h1 className={styles.title}>{project.title}</h1>
-            <div className={styles.details}>
-              <div className={styles.detailGroup}>
-                <h3 className={styles.detailLabel}>Role</h3>
-                <p className={styles.detailText}>Lead Product Designer</p>
-              </div>
-              <div className={styles.detailGroup}>
-                <h3 className={styles.detailLabel}>Duration</h3>
-                <p className={styles.detailText}>Q3 2022 – Q4 2023</p>
-              </div>
-              <div className={styles.detailGroup}>
-                <h3 className={styles.detailLabel}>Team</h3>
-                <p className={styles.detailText}>3 Designers, 5 Engineers, Product Manager</p>
-              </div>
+          <h1 className={styles.title}>{project.title}</h1>
+          <div className={styles.details}>
+            <div className={styles.detailGroup}>
+              <h3 className={styles.detailLabel}>Role</h3>
+              <p className={styles.detailText}>Lead Product Designer</p>
+            </div>
+            <div className={styles.detailGroup}>
+              <h3 className={styles.detailLabel}>Duration</h3>
+              <p className={styles.detailText}>Q3 2022 – Q4 2023</p>
+            </div>
+            <div className={styles.detailGroup}>
+              <h3 className={styles.detailLabel}>Team</h3>
+              <p className={styles.detailText}>3 Designers, 5 Engineers, Product Manager</p>
             </div>
           </div>
-          {project.imageUrl && (
-            <div className={styles.heroImage}>
-              <Image
-                src={project.imageUrl}
-                alt={project.title}
-                width={1200}
-                height={800}
-                priority
-              />
-            </div>
-          )}
         </div>
       </section>
 

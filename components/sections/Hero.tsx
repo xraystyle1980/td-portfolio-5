@@ -7,7 +7,8 @@ import localFont from 'next/font/local'
 
 const cooper = localFont({
   src: '../../public/fonts/Cooper-var.ttf',
-  variable: '--font-cooper'
+  variable: '--font-cooper',
+  preload: true
 })
 
 export default function Hero() {
@@ -39,11 +40,9 @@ export default function Hero() {
           <div className={styles.content} ref={containerRef}>
             <div className={styles.headlineWrapper}>
               <h1 ref={headlineRef} className={styles.heroHeadline}>
-                <span ref={buildWordRef}>Build</span>
-                <br />
-                <span className={styles.staticWord}>Cool</span>
-                <br />
-                <span ref={wordRef}>Stuff</span>
+                <span ref={buildWordRef} className={styles.headlineWord}>Build</span>
+                <span className={`${styles.headlineWord} ${styles.staticWord}`}>Cool</span>
+                <span ref={wordRef} className={styles.headlineWord}>Stuff</span>
               </h1>
             </div>
           </div>
