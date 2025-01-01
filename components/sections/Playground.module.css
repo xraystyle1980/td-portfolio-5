@@ -17,9 +17,7 @@
 }
 
 .experiment {
-  composes: card from './section.module.css';
-  display: flex;
-  flex-direction: column;
+  composes: darkCard from './section.module.css';
   gap: 2rem;
 }
 

@@ -98,6 +98,8 @@ export default function AboutMe() {
   const textRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
+    // CRITICAL: This initialization setup ensures proper loading of GSAP and ScrollTrigger
+    // DO NOT modify the initialization order or timing as it affects the token animation
     const initGSAP = async () => {
       console.log('🚀 Initializing GSAP...')
       const { default: ScrollTrigger } = await import('gsap/ScrollTrigger')
@@ -105,18 +107,25 @@ export default function AboutMe() {
       gsap.registerPlugin(ScrollTrigger)
       console.log('📍 ScrollTrigger registered')
 
+      // CRITICAL: This flag controls the initial animation behavior
+      // DO NOT remove - it prevents unwanted animation triggers on page load
       let isFirstLoad = true
 
-      // Token container position animation
+      // CRITICAL: Token Animation Configuration
+      // This setup ensures proper token movement and positioning
+      // The timeline must be paused and immediateRender false to prevent flashing
       const tokenTl = gsap.timeline({
         paused: true,
         immediateRender: false
       })
 
-      // Check if elements exist
+      // Element existence checks for debugging
       console.log('📌 Token ref exists:', !!tokenRef.current)
       console.log('📌 Container ref exists:', !!containerRef.current)
 
+      // CRITICAL: Token Animation Definition
+      // This animation moves the token from above viewport to the About section
+      // DO NOT modify the position values without testing all scroll scenarios
       tokenTl.fromTo(tokenRef.current,
         {
           top: '-50vh',
@@ -133,6 +142,13 @@ export default function AboutMe() {
         }
       )
 
+      // CRITICAL: ScrollTrigger Configuration
+      // This setup controls when the token animates based on scroll position
+      // DO NOT modify these triggers without testing all scroll scenarios:
+      // 1. Initial page load
+      // 2. Scrolling down past About
+      // 3. Scrolling back up
+      // 4. Returning from case study pages
       ScrollTrigger.create({
         trigger: "#about",
         start: 'top 90%',
@@ -158,7 +174,9 @@ export default function AboutMe() {
         }
       })
 
-      // Container reveal animation
+      // CRITICAL: Container Animation
+      // This animation reveals the About section content
+      // Synchronized with scroll position for smooth reveal
       const containerTl = gsap.timeline({
         scrollTrigger: {
           trigger: "#about",
@@ -184,7 +202,9 @@ export default function AboutMe() {
         }
       )
 
-      // Text animations timeline
+      // CRITICAL: Text Animation
+      // Staggers the reveal of heading and text content
+      // Synchronized with container animation
       const textTl = gsap.timeline({
         scrollTrigger: {
           trigger: "#about",
@@ -222,13 +242,17 @@ export default function AboutMe() {
           "-=0.8"
         )
 
+      // CRITICAL: Cleanup
+      // Ensures proper disposal of ScrollTrigger instances
       return () => {
         console.log('🧹 Cleaning up ScrollTrigger instances')
         ScrollTrigger.getAll().forEach((st: any) => st.kill())
       }
     }
 
-    // Initialize after a brief delay
+    // CRITICAL: Initialization Timing
+    // 300ms delay ensures proper setup of WebGL context and DOM
+    // DO NOT remove or reduce this delay as it affects animation reliability
     const timer = setTimeout(() => {
       console.log('⏰ Starting delayed initialization')
       initGSAP()

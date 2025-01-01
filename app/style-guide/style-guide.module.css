@@ -1,0 +1,295 @@
+/* Base Styles */
+.main {
+  composes: variables from '@/styles/shared.module.css';
+  position: relative;
+  min-height: 100vh;
+  color: var(--text-color);
+  background: #000;
+}
+
+.contentWrapper {
+  position: relative;
+  z-index: 1;
+  padding: var(--spacing-lg);
+  min-height: 100vh;
+  background: linear-gradient(to bottom, 
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.05) 10%,
+    rgba(255, 255, 255, 0.08) 100%
+  );
+}
+
+.section {
+  composes: container from '@/styles/shared.module.css';
+  backdrop-filter: blur(10px);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius);
+  background: rgba(255, 255, 255, 0.1);
+  border: var(--border-width) solid rgba(255, 255, 255, 0.1);
+}
+
+.title {
+  composes: displayText from '@/styles/shared.module.css';
+  font-size: var(--font-size-heading);
+  margin-bottom: var(--spacing-lg);
+  text-align: center;
+}
+
+.category {
+  margin-bottom: var(--spacing-xl);
+  background: rgba(255, 255, 255, 0.05);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.categoryTitle {
+  composes: displayText from '@/styles/shared.module.css';
+  font-size: var(--font-size-subheading);
+  margin-bottom: var(--spacing-md);
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: var(--spacing-sm);
+}
+
+.example {
+  margin-bottom: var(--spacing-lg);
+}
+
+.label {
+  font-size: 1rem;
+  margin-bottom: var(--spacing-sm);
+  color: var(--accent-color);
+  font-family: var(--font-mono);
+}
+
+/* Base Card Styles */
+.card {
+  composes: card from '@/styles/shared.module.css';
+}
+
+.darkContainer {
+  composes: card from '@/styles/shared.module.css';
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.sectionContent {
+  composes: card from '@/styles/shared.module.css';
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.workItem {
+  background: rgba(255, 255, 255, 0.05);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Container Patterns */
+.container {
+  composes: container from '@/styles/shared.module.css';
+  background: var(--card-background);
+  border: var(--border-width) solid var(--border-color);
+}
+
+.sectionContainer {
+  composes: container from '@/styles/shared.module.css';
+  background: var(--card-background);
+  border: var(--border-width) solid var(--border-color);
+  padding: var(--spacing-md);
+}
+
+.gridContainer {
+  composes: gridColumns2 from '@/styles/shared.module.css';
+  composes: container from '@/styles/shared.module.css';
+  background: var(--card-background);
+  border: var(--border-width) solid var(--border-color);
+}
+
+.gridContainer > div {
+  background: rgba(255, 255, 255, 0.05);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Consolidated Components */
+.cardBase {
+  composes: card from '@/styles/shared.module.css';
+}
+
+.cardFlex {
+  composes: card from '@/styles/shared.module.css';
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.cardGrid {
+  composes: card from '@/styles/shared.module.css';
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-lg);
+}
+
+/* Property Examples */
+.propertyGroup {
+  margin-bottom: var(--spacing-lg);
+  padding: var(--spacing-md);
+  background: rgba(255, 255, 255, 0.03);
+  border: var(--border-width) solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--border-radius);
+}
+
+.propertyGroupHeading {
+  composes: displayText from '@/styles/shared.module.css';
+  font-size: var(--font-size-subheading);
+  margin-bottom: var(--spacing-md);
+}
+
+/* Spacing Examples */
+.spacingExample {
+  display: flex;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+.spacing {
+  background: rgba(255, 255, 255, 0.05);
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-color);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.spacing[data-size="xs"] { width: var(--spacing-xs); height: var(--spacing-xs); }
+.spacing[data-size="sm"] { width: var(--spacing-sm); height: var(--spacing-sm); }
+.spacing[data-size="md"] { width: var(--spacing-md); height: var(--spacing-md); }
+.spacing[data-size="lg"] { width: var(--spacing-lg); height: var(--spacing-lg); }
+
+/* Color Examples */
+.colorGrid {
+  composes: gridBase from '@/styles/shared.module.css';
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.colorSwatch {
+  height: 100px;
+  padding: var(--spacing-sm);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  border-radius: var(--border-radius);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+}
+
+.colorSwatch[data-color="background"] { background: var(--card-background); color: var(--text-color); }
+.colorSwatch[data-color="text"] { background: var(--text-color); color: var(--card-background); }
+.colorSwatch[data-color="accent"] { background: var(--accent-color); color: var(--text-color); }
+.colorSwatch[data-color="border"] { background: var(--border-color); color: var(--text-color); }
+.colorSwatch[data-color="transparent"] { 
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  color: var(--text-color);
+}
+
+/* Shadow Examples */
+.shadowGrid {
+  composes: gridBase from '@/styles/shared.module.css';
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.shadowExample {
+  background: var(--card-background);
+  padding: var(--spacing-md);
+  border: var(--border-width) solid var(--border-color);
+  text-align: center;
+  color: var(--text-color);
+}
+
+.shadowExample[data-shadow="lg"] { box-shadow: var(--shadow-lg); }
+.shadowExample[data-shadow="md"] { box-shadow: var(--shadow-md); }
+.shadowExample[data-shadow="sm"] { box-shadow: var(--shadow-sm); }
+
+/* Border Radius Examples */
+.radiusGrid {
+  composes: gridBase from '@/styles/shared.module.css';
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.radiusExample {
+  background: var(--card-background);
+  padding: var(--spacing-md);
+  border: var(--border-width) solid var(--border-color);
+  text-align: center;
+  color: var(--text-color);
+}
+
+.radiusExample[data-radius="lg"] { border-radius: var(--border-radius); }
+.radiusExample[data-radius="sm"] { border-radius: calc(var(--border-radius) * 0.5); }
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+  .contentWrapper {
+    padding: var(--spacing-md-laptop);
+  }
+
+  .section {
+    padding: var(--spacing-md-laptop);
+  }
+
+  .category {
+    padding: var(--spacing-md-laptop);
+  }
+}
+
+@media (max-width: 768px) {
+  .contentWrapper {
+    padding: var(--spacing-md-tablet);
+  }
+
+  .section {
+    padding: var(--spacing-md-tablet);
+  }
+
+  .category {
+    padding: var(--spacing-md-tablet);
+  }
+
+  .cardFlex {
+    flex-direction: column;
+  }
+
+  .cardGrid,
+  .gridContainer {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .contentWrapper {
+    padding: var(--spacing-md-mobile);
+  }
+
+  .section {
+    padding: var(--spacing-md-mobile);
+  }
+
+  .category {
+    padding: var(--spacing-md-mobile);
+  }
+
+  .title {
+    font-size: var(--font-size-heading-mobile);
+  }
+
+  .categoryTitle {
+    font-size: var(--font-size-subheading-mobile);
+  }
+} 

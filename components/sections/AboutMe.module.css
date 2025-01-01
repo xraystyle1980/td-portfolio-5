@@ -60,7 +60,7 @@
     height: 100%;
     position: absolute;
     left: 0;
-    top: 200px;
+    transform: translateY(-50%);
   }
 }
 

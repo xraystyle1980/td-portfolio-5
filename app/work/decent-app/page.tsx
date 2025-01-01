@@ -85,24 +85,24 @@ export default function DecentAppCaseStudy() {
             <h1 className={styles.title}>{project.title}</h1>
             <div className={styles.details}>
               <div className={styles.detailGroup}>
-                <h3 className={styles.detailLabel}>Role</h3>
-                <p className={styles.detailText}>Lead Product Designer</p>
+                <div className={styles.detailLabel}>ROLE</div>
+                <div className={styles.detailText}>Lead Product Designer</div>
               </div>
               <div className={styles.detailGroup}>
-                <h3 className={styles.detailLabel}>Duration</h3>
-                <p className={styles.detailText}>Q1 2023 – Q3 2024</p>
+                <div className={styles.detailLabel}>DURATION</div>
+                <div className={styles.detailText}>Q1 2023 – Q3 2024</div>
               </div>
               <div className={styles.detailGroup}>
-                <h3 className={styles.detailLabel}>Team</h3>
-                <p className={styles.detailText}>2 Designers, 4 Engineers, PM</p>
+                <div className={styles.detailLabel}>TEAM</div>
+                <div className={styles.detailText}>2 Designers, 4 Engineers, PM</div>
               </div>
               <div className={styles.detailGroup}>
-                <h3 className={styles.detailLabel}>Website</h3>
-                <p className={styles.detailText}>
+                <div className={styles.detailLabel}>WEBSITE</div>
+                <div className={styles.detailText}>
                   <a href="https://app.decentdao.org" target="_blank" rel="noopener noreferrer">
                     app.decentdao.org
                   </a>
-                </p>
+                </div>
               </div>
             </div>
           </div>
@@ -110,10 +110,7 @@ export default function DecentAppCaseStudy() {
       </section>
 
       {/* Main Content Section */}
-      <section 
-        className={styles.section} 
-        data-section="content"
-      >
+      <section className={`${styles.section} ${styles.gradientBg}`} data-section="content">
         <div className={styles.sectionContent}>
           {/* Overview */}
           <div className={`${styles.sectionOverview} ${styles.sectionOverviewText}`}>
@@ -156,9 +153,9 @@ export default function DecentAppCaseStudy() {
               <div className={styles.subsection}>
                 <h3 className={styles.subsectionTitle}>Design Outcomes</h3>
                 <ul className={styles.subsectionList}>
-                  <li>Aligned brand vision with product goals: Established a consistent design system across platforms to build trust and relevance.</li>
-                  <li>Internal usability testing: Streamlined the app's core features, addressing key pain points to improve the user experience.</li>
-                  <li>Design system integration: Introduced scalable components to improve design-to-development efficiency.</li>
+                  <li className={styles.subsectionListItem}>Aligned brand vision with product goals: Established a consistent design system across platforms to build trust and relevance.</li>
+                  <li className={styles.subsectionListItem}>Internal usability testing: Streamlined the app's core features, addressing key pain points to improve the user experience.</li>
+                  <li className={styles.subsectionListItem}>Design system integration: Introduced scalable components to improve design-to-development efficiency.</li>
                 </ul>
               </div>
               <div className={styles.subsection}>
