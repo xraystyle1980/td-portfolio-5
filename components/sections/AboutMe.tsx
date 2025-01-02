@@ -276,7 +276,7 @@ export default function AboutMe() {
       <div ref={containerRef} className={styles.container}>
         <div className={styles.content}>
           {/* WARNING: DO NOT MODIFY THE HEADLINE OR BIO TEXT BELOW */}
-          <h1 ref={headingRef} className={styles.heading}>Hello 👋</h1>
+          <h1 ref={headingRef} className={styles.heading}>Helloo 👋</h1>
           <p ref={textRef} className={styles.text}>
             I'm Matt Trice, an ATL-based Product Designer with a track record of design leadership, embracing complex problems, and crafting elegant solutions that deliver meaningful business impact.
           </p>
