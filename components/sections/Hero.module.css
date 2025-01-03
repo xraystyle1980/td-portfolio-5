@@ -28,7 +28,7 @@
 
 .heroHeadline {
   composes: title from './section.module.css';
-  line-height: 0.45;
+  /* line-height: 0.45; */
   letter-spacing: -0.02em;
   display: flex;
   flex-direction: column;

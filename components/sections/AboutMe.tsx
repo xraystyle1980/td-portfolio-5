@@ -160,7 +160,7 @@ export default function AboutMe() {
               end: 'top 25%',
               toggleActions: 'play none none reverse',
               scrub: 0.5,
-              id: "text-reveal",
+              id: "🐳-text-reveal",
               markers: true,
             },
             y: 0,

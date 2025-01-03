@@ -5,7 +5,7 @@ import ClientLayout from './ClientLayout'
 import Footer from '@/components/layout/Footer'
 import Scene3DWrapper from './Scene3DWrapper'
 import { metadata } from './metadata'
-import NavigationWrapper from '@/components/layout/NavigationWrapper'
+import Navigation from '@/components/layout/Navigation'
 
 const caveat = Caveat({
   subsets: ['latin'],
@@ -35,7 +35,7 @@ export default function RootLayout({
     <html lang="en" className={`${cooper.variable} ${sourceSerif.variable}`} suppressHydrationWarning>
       <body suppressHydrationWarning>
         <Scene3DWrapper />
-        <NavigationWrapper />
+        <Navigation />
         <ClientLayout>
           {children}
           <Footer />

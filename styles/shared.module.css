@@ -92,20 +92,20 @@
 }
 
 .cardTransparent {
-  composes: cardBase;
+  /* composes: cardBase; */
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .cardFlex {
-  composes: cardBase;
+  /* composes: cardBase; */
   display: flex;
   gap: var(--spacing-md);
 }
 
 .cardGrid {
-  composes: cardBase;
+  /* composes: cardBase; */
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: var(--spacing-lg);
@@ -127,7 +127,7 @@
 }
 
 .gridColumns2 {
-  composes: gridBase;
+  /* composes: gridBase; */
   grid-template-columns: repeat(2, 1fr);
   gap: var(--spacing-lg);
 }
@@ -141,7 +141,7 @@
 }
 
 .containerFull {
-  composes: container;
+  /* composes: container; */
   max-width: none;
 }
 
@@ -160,7 +160,7 @@
 }
 
 .primaryButton {
-  composes: buttonBase;
+  /* composes: buttonBase; */
   background: var(--color-accent);
   color: var(--color-border);
   padding: var(--spacing-md) var(--spacing-lg);

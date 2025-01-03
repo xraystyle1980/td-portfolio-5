@@ -17,6 +17,7 @@
     "@react-three/rapier": "^1.2.1",
     "@types/stats.js": "^0.17.3",
     "@types/three": "^0.159.0",
+    "clsx": "^2.1.1",
     "gsap": "npm:@gsap/shockingly@^3.12.5",
     "next": "14.2.20",
     "pixelarticons": "^1.8.0",
