@@ -12,11 +12,6 @@
     overflow-x: hidden;
   }
 
-  h1 {
-    @apply text-4xl font-bold mb-4;
-    font-family: 'Bilgres', sans-serif;
-  }
-
   p {
     @apply text-gray-600;
     font-family: 'Source Serif Pro', serif;
@@ -36,15 +31,6 @@
 
 /* Add any other global styles you need */
 
-@font-face {
-  font-family: 'Bilgres';
-  src: url('/fonts/Bilgres.woff2') format('woff2'),
-       url('/fonts/Bilgres.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
 html {
   scroll-behavior: smooth;
 }
@@ -56,17 +42,67 @@ html {
 }
 
 @font-face {
-  font-family: 'Banigar-Round';
-  src: url('/fonts/Banigar-Round_VariableFont-VF.ttf') format('truetype-variations');
-  font-weight: 100 900;
-  font-display: swap;
-}
-
-@font-face {
   font-family: 'Cooper';
-  src: url('/fonts/Cooper-var.ttf') format('truetype-variations'),
-       url('/fonts/Cooper-var.ttf') format('truetype');
+  src: url('/fonts/Cooper-var.ttf') format('truetype-variations');
+       /* url('/fonts/Cooper-var.ttf') format('truetype'); */
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
+}
+
+
+/* CSS Variables */
+:root {
+  /* Colors */
+  --color-background: #1d2329;
+  --color-dark: #1d2329;
+  /* --color-card: #1d2329; */
+  --color-text: #FFF;
+  --color-accent: #F39;
+  --color-border: #000;
+
+  /* Typography */
+  --font-cooper: 'Cooper Black', serif;
+  --font-source-serif: 'Source Serif 4', serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  
+  --font-size-heading: 3rem;
+  --font-size-subheading: 2rem;
+  --font-size-body-large: 1.5rem;
+  --font-size-body: 1.25rem;
+  --font-size-small: 1rem;
+  
+  --line-height-tight: 1;
+  --line-height-normal: 1.4;
+  --line-height-relaxed: 1.6;
+
+  /* Spacing */
+  --spacing-xs: 1rem;
+  --spacing-sm: 2rem;
+  --spacing-md: 3rem;
+  --spacing-lg: 4rem;
+  --spacing-xl: 6rem;
+
+  /* Responsive Spacing */
+  --spacing-md-laptop: 2.5rem;
+  --spacing-md-tablet: 2rem;
+  --spacing-md-mobile: 1.5rem;
+
+  /* Layout */
+  --max-width: 1400px;
+  --border-width: 4px;
+  --border-width-mobile: 2px;
+  --border-radius: 1rem;
+  --border-radius-mobile: 0.5rem;
+
+  /* Effects */
+  --shadow-lg: -12px 12px 0 var(--color-border);
+  --shadow-md: -8px 8px 0 var(--color-border);
+  --shadow-sm: -6px 6px 0 var(--color-border);
+  --shadow-md-mobile: -4px 4px 0 var(--color-border);
+
+  /* Responsive Typography */
+  --font-size-heading-mobile: 2rem;
+  --font-size-subheading-mobile: 1.5rem;
+  --font-size-body-mobile: 1rem;
 }

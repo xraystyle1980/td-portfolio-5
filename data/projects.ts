@@ -2,7 +2,7 @@ import { Project } from '@/types/project'
 
 export const projects: Project[] = [
   {
-    title: "Build Cool Stuff",
+    title: "Decent App",
     description: "The Decent app focuses on a standardized toolkit and framework that can be universally adopted by new and existing DAOs. By focusing on open-source principles and transparency, Decent DAO intends to enable a more equitable distribution of power and resources within digital communities.",
     role: "Lead Product Designer",
     technologies: ["React Native", "TypeScript", "Bitcoin", "Lightning Network", "Nostr"],

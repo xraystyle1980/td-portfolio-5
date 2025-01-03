@@ -9,11 +9,10 @@ export default function Work() {
         <h2 className={styles.title}>Case Studies</h2>
       </div>
       <div className={`${styles.projects} projects`}>
-        {projects.map((project, index) => (
+        {projects.map((project) => (
           <ProjectSection 
             key={project.title} 
             project={project}
-            className={index % 2 === 0 ? styles.even : styles.odd}
           />
         ))}
       </div>

@@ -1,5 +1,5 @@
 .main {
-  /* composes: variables from './shared.module.css'; */
+  composes: variables from './shared.module.css';
   position: relative;
   display: flex;
   flex-direction: column;
@@ -8,22 +8,22 @@
 }
 
 .sectionImage {
-  /* composes: imageBase from './shared.module.css'; */
+  composes: imageBase from './shared.module.css';
   width: 100%;
   height: auto;
 }
 
-/* .sectionText { */
-  /* composes: text from '@/components/sections/section.module.css'; */
-/* } */
+.sectionText {
+  composes: text from '@/components/sections/section.module.css';
+}
 
 .sectionOverviewText {
-  /* composes: text from '@/components/sections/section.module.css'; */
+  composes: text from '@/components/sections/section.module.css';
   max-width: 1000px;
 }
 
 .sectionTitle {
-  /* composes: displayText from './shared.module.css'; */
+  composes: displayText from './shared.module.css';
   font-size: 2.6rem;
   margin-bottom: 2rem;
   -webkit-text-stroke: 4px #000;
@@ -31,7 +31,7 @@
 }
 
 .subsectionTitle {
-  /* composes: displayText from './shared.module.css'; */
+  composes: displayText from './shared.module.css';
   font-size: 2.6rem;
   margin: 0;
   -webkit-text-stroke: 4px #000;
@@ -39,7 +39,7 @@
 }
 
 .sectionGrid {
-  /* composes: grid from '@/components/sections/section.module.css'; */
+  composes: grid from '@/components/sections/section.module.css';
   margin-bottom: 4rem;
 }
 
@@ -146,7 +146,7 @@
 
 /* Content Section */
 .contentWrapper {
-  /* composes: darkContainer from '@/components/sections/section.module.css'; */
+  composes: darkContainer from '@/components/sections/section.module.css';
   max-width: 1400px;
   margin: 0 auto;
   display: flex;
@@ -192,9 +192,9 @@
   gap: 1rem;
 }
 
-/* .subsectionListItem { */
-  /* composes: text from '@/components/sections/section.module.css'; */
-/* } */
+.subsectionListItem {
+  composes: text from '@/components/sections/section.module.css';
+}
 
 /* Media Queries */
 @media (max-width: 1200px) {
