@@ -1,6 +1,7 @@
 'use client';
 
 import styles from './Hero.module.css';
+import sharedStyles from '@/styles/shared.module.css';
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import localFont from 'next/font/local'
@@ -37,18 +38,14 @@ export default function Hero() {
 
   return (
     <section id="hero" className={clsx(styles.hero, cooper.variable)}>
-      <div className={styles.heroContent}>
-        <div className={styles.contentOverlay}>
+      <div className={clsx(sharedStyles.container, styles.heroContent)}>
           <div className={styles.content} ref={containerRef}>
-            <div className={styles.headlineWrapper}>
-              <h1 ref={headlineRef} className={styles.heroHeadline}>
-                <span ref={buildWordRef} className={styles.headlineWord}>Build</span>
-                <span className={`${styles.headlineWord} ${styles.staticWord}`}>Cool</span>
-                <span ref={wordRef} className={styles.headlineWord}>Stuff</span>
+              <h1 ref={headlineRef} className={clsx(sharedStyles.displayText, styles.heroHeadlineDisplay, styles.heroHeadline)}>
+                <span ref={buildWordRef}>Build</span>
+                <span>Cool</span>
+                <span ref={wordRef}>Stuff</span>
               </h1>
-            </div>
           </div>
-        </div>
       </div>
     </section>
   )

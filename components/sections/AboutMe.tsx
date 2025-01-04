@@ -156,7 +156,7 @@ export default function AboutMe() {
   }, []);
 
   return (
-    <section id="about" className={clsx(styles.about, styles.section_fullHeight)}>
+    <section id="about" className={clsx(sharedStyles.container, styles.about)}>
       <div ref={tokenRef} className={styles.tokenContainer}>
         <Canvas>
           <Suspense fallback={null}>
@@ -167,8 +167,8 @@ export default function AboutMe() {
       </div>
       <div ref={containerRef} className={sharedStyles.darkContainer}>
         <div className={styles.content}>
-          <h1 ref={headingRef} className={styles.heading}>Hello 👋</h1>
-          <p ref={textRef} className={styles.text}>
+          <h1 ref={headingRef} className={clsx(sharedStyles.displayText, sharedStyles.sectionTitle, styles.aboutHeadline)}>Hello 👋</h1>
+          <p ref={textRef} className={clsx(sharedStyles.textBase, sharedStyles.larger)}>
             I'm Matt Trice, an ATL-based Product Designer with a track record of design leadership, embracing complex problems, and crafting elegant solutions that deliver meaningful business impact.
           </p>
         </div>

@@ -1,17 +1,12 @@
 import { ProjectSectionProps } from '@/types/project';
 import clsx from 'clsx';
-import styles from './ProjectSection.module.css';
 import sharedStyles from '@/styles/shared.module.css';
+import styles from './ProjectSection.module.css';
 import Link from 'next/link';
 import { ArrowRight } from '@/components/icons/ArrowRight';
 
 export default function ProjectSection({ project, className = '' }: ProjectSectionProps) {
-  // Combine container classes
-  const containerClasses = clsx(
-    sharedStyles.darkContainer, // Centralized dark container styling
-    styles.projectContentContainer,
-    className                  // Any additional custom className
-  );
+ 
 
   const buttonClasses = clsx(
     // styles.button, 
@@ -20,16 +15,16 @@ export default function ProjectSection({ project, className = '' }: ProjectSecti
   const imageClasses = clsx(styles.image, sharedStyles.responsiveImage);
 
   return (
-    <section className={styles.projectContainer}>
-      <div className={containerClasses}>
+    <div className={sharedStyles.container}>
+      <div className={clsx(sharedStyles.darkContainer, styles.projectContentContainer)}>
         <div className={styles.content}>
-          <h2 className={clsx(styles.title, sharedStyles.displayText)}>{project.title}</h2>
+          <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionTitle)}>{project.title}</h2>
           <div className={styles.details}>
-            <p className={styles.role}>{project.role}</p>
+            <p>{project.role}</p>
             {project.duration && <p className={styles.duration}>{project.duration}</p>}
             {project.company && <p className={styles.company}>{project.company}</p>}
           </div>
-          <p className={styles.description}>{project.description}</p>
+          <p className={clsx(sharedStyles.textBase, sharedStyles.larger)}>{project.description}</p>
 
           {/* Button with static label */}
           <Link href={project.route || '#'} className={buttonClasses} scroll={true}>
@@ -45,6 +40,6 @@ export default function ProjectSection({ project, className = '' }: ProjectSecti
           </div>
         )}
       </div>
-    </section>
+    </div>
   );
 }

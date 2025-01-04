@@ -1,26 +1,15 @@
 import { projects } from '@/data/projects'
 import ProjectSection from './projects/ProjectSection'
+import sharedStyles from '@/styles/shared.module.css'
 import styles from './Work.module.css'
+import clsx from 'clsx'
+
+
 export default function Work() {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   return (
-    <section id="work" className={styles.work}>
-      <div className={styles.intro}>
-        <h2 className={styles.title}>Case Studies</h2>
+    <section id="work" className={clsx(sharedStyles.paddingBottom, styles.work)}>
+      <div className={clsx(sharedStyles.container, styles.intro)}>
+        <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionHeading)}>Case Studies</h2>
       </div>
       <div className={`${styles.projects} projects`}>
         {projects.map((project) => (

@@ -13,7 +13,6 @@
   }
 
   p {
-    @apply text-gray-600;
     font-family: 'Source Serif Pro', serif;
     color: #FFF;
   }
@@ -50,9 +49,20 @@ html {
   font-display: swap;
 }
 
+canvas {
+  width: 100%;
+  height: 100%;
+  display: block; /* Prevent extra space caused by inline elements */
+}
+
 
 /* CSS Variables */
 :root {
+  /* Define global breakpoints for consistency */
+  --breakpoint-sm: 480px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1200px;
+
   /* Colors */
   --color-background: #1d2329;
   --color-dark: #1d2329;
@@ -66,8 +76,9 @@ html {
   --font-source-serif: 'Source Serif 4', serif;
   --font-mono: 'JetBrains Mono', monospace;
   
+  --font-size-section-heading-hero: 16rem;
   --font-size-section-heading: 16rem;
-  --font-size-section-title: 4rem;
+  --font-size-section-title: 6rem;
   --font-size-heading: 3rem;
   --font-size-subheading: 2rem;
   --font-size-body-large: 1.5rem;
@@ -103,9 +114,14 @@ html {
   --shadow-md-mobile: -4px 4px 0 var(--color-border);
 
   /* Responsive Typography */
+  --font-size-section-heading-hero-tablet: 11rem;
+  --font-size-section-heading-hero-mobile: 8rem;
   --font-size-section-heading-tablet: 9rem;
   --font-size-section-heading-mobile: 6rem;
+  --font-size-section-title-tablet: 4.5rem;
+  --font-size-section-title-mobile: 3.85rem;
   --font-size-heading-mobile: 2rem;
   --font-size-subheading-mobile: 1.5rem;
   --font-size-body-mobile: 1rem;
 }
+

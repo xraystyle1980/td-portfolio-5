@@ -1,28 +1,23 @@
-/* .about {
-  composes: section fullHeight from './section.module.css';
-  min-height: 100vh; 
-  display: flex;
-  align-items: center;
-} */
 
 .about {
   min-height: 100vh; /* Ensure section fills the viewport */
   display: flex; /* Enable flex layout */
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
-  /* overflow: hidden; Prevent content overflow */
   position: relative; /* Maintain positioning for children */
   width: 100%; /* Ensure section spans full width */
 }
 
+.aboutHeadline {
+  margin-bottom: var(--spacing-sm);
+}
+
 .content {
-  flex: 1;
-  max-width: 800px;
+  max-width: 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   position: relative;
-  z-index: 2;
 }
 
 .heading {
@@ -33,19 +28,12 @@
   align-items: flex-start;
 }
 
-.text {
-  max-width: 600px;
-  text-shadow: -1px 1px 0px #000;
-}
-
 .tokenContainer {
   position: absolute;
-  right: -25%;
   top: 50%;
   transform: translateY(-50%);
-  width: 150%;
+  width: 100vw;
   height: 150%;
-  z-index: 1;
   pointer-events: none;
   overflow: visible;
 }
@@ -57,7 +45,11 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 768px) {  
+  .aboutHeadline {
+    margin-bottom: var(--spacing-xs);
+  }
+
   .content {
     max-width: 100%;
   }
@@ -68,11 +60,6 @@
     position: absolute;
     left: 0;
     transform: translateY(-50%);
-  }
-}
-
-@media (max-width: 480px) {
-  .about {
-    margin: 1rem;
+    z-index: -100;
   }
 }
