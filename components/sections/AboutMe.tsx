@@ -5,9 +5,11 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { Environment } from '@react-three/drei';
 import TokenFace from '../3d/TokenFace';
 import styles from './AboutMe.module.css';
+import sharedStyles from '@/styles/shared.module.css';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Group } from 'three';
+import clsx from 'clsx';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -38,6 +40,9 @@ function RotatingToken() {
 
       if (!group) return;
 
+      // Debugging: Log groupRef dimensions
+      console.log('RotatingToken groupRef:', group);
+
       gsap.fromTo(
         group.scale,
         {
@@ -53,17 +58,19 @@ function RotatingToken() {
             toggleActions: "play none none reverse",
             scrub: 0.5,
             id: "🤷‍♂️-token-scale",
-            markers: process.env.NODE_ENV === "development", // Show markers in development
+            markers: false,
+            onUpdate: (self) => {
+              console.log('ScrollTrigger Progress (Token Scale):', self.progress);
+            },
           },
           x: 2.8,
           y: 2.8,
           z: 2.8,
-          ease: "none", // Linear scroll animation
+          ease: "none",
         }
       );
     });
 
-    // Force ScrollTrigger refresh
     const rafId = requestAnimationFrame(() => {
       ScrollTrigger.refresh();
     });
@@ -100,7 +107,12 @@ export default function AboutMe() {
   const textRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
-    // Delay GSAP initialization to stabilize layout
+    // Debugging: Log initial layout dimensions
+    const section = document.querySelector('#about');
+    if (section) {
+      console.log('About Section Dimensions:', section.getBoundingClientRect());
+    }
+
     const initGSAP = () => {
       let ctx = gsap.context(() => {
         gsap.fromTo(
@@ -115,63 +127,18 @@ export default function AboutMe() {
               end: 'center center',
               toggleActions: 'play none none reverse',
               scrub: true,
-              id: "👀-toking",
-              markers: true,
+              id: "🪙-token",
+              markers: false,
+              onUpdate: (self) => {
+                console.log('ScrollTrigger Progress (Token):', self.progress);
+              },
             },
             top: '50%',
             ease: "none",
           }
         );
-
-        gsap.fromTo(
-          containerRef.current,
-          {
-            scale: 0.95,
-            opacity: 0,
-            y: 30,
-          },
-          {
-            scrollTrigger: {
-              trigger: "#about",
-              start: 'top 50%',
-              end: 'top 30%',
-              toggleActions: 'play none none reverse',
-              scrub: 0.5,
-              id: "💩-container-reveal",
-              markers: true,
-            },
-            scale: 1,
-            opacity: 1,
-            y: 0,
-            ease: "power2.out",
-          }
-        );
-
-        gsap.fromTo(
-          [headingRef.current, textRef.current],
-          {
-            y: 50,
-            opacity: 0,
-          },
-          {
-            scrollTrigger: {
-              trigger: "#about",
-              start: 'top 45%',
-              end: 'top 25%',
-              toggleActions: 'play none none reverse',
-              scrub: 0.5,
-              id: "🐳-text-reveal",
-              markers: true,
-            },
-            y: 0,
-            opacity: 1,
-            stagger: 0.2,
-            ease: "power2.out",
-          }
-        );
       });
 
-      // Force ScrollTrigger refresh after all animations
       const rafId = requestAnimationFrame(() => {
         ScrollTrigger.refresh();
       });
@@ -189,7 +156,7 @@ export default function AboutMe() {
   }, []);
 
   return (
-    <section id="about" className={styles.about}>
+    <section id="about" className={clsx(styles.about, styles.section_fullHeight)}>
       <div ref={tokenRef} className={styles.tokenContainer}>
         <Canvas>
           <Suspense fallback={null}>
@@ -198,9 +165,8 @@ export default function AboutMe() {
           </Suspense>
         </Canvas>
       </div>
-      <div ref={containerRef} className={styles.container}>
+      <div ref={containerRef} className={sharedStyles.darkContainer}>
         <div className={styles.content}>
-          {/* WARNING: DO NOT MODIFY THE HEADLINE OR BIO TEXT BELOW */}
           <h1 ref={headingRef} className={styles.heading}>Hello 👋</h1>
           <p ref={textRef} className={styles.text}>
             I'm Matt Trice, an ATL-based Product Designer with a track record of design leadership, embracing complex problems, and crafting elegant solutions that deliver meaningful business impact.

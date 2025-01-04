@@ -9,18 +9,21 @@ export default function ProjectSection({ project, className = '' }: ProjectSecti
   // Combine container classes
   const containerClasses = clsx(
     sharedStyles.darkContainer, // Centralized dark container styling
-    sharedStyles.cardFlex,
+    styles.projectContentContainer,
     className                  // Any additional custom className
   );
 
-  const buttonClasses = clsx(styles.button, sharedStyles.primaryButton);
+  const buttonClasses = clsx(
+    // styles.button, 
+    sharedStyles.primaryButton
+  );
   const imageClasses = clsx(styles.image, sharedStyles.responsiveImage);
 
   return (
-    <section className={styles.projectSection}>
+    <section className={styles.projectContainer}>
       <div className={containerClasses}>
         <div className={styles.content}>
-          <h2 className={styles.title}>{project.title}</h2>
+          <h2 className={clsx(styles.title, sharedStyles.displayText)}>{project.title}</h2>
           <div className={styles.details}>
             <p className={styles.role}>{project.role}</p>
             {project.duration && <p className={styles.duration}>{project.duration}</p>}
@@ -30,8 +33,8 @@ export default function ProjectSection({ project, className = '' }: ProjectSecti
 
           {/* Button with static label */}
           <Link href={project.route || '#'} className={buttonClasses} scroll={true}>
-            View Case Study
-            <ArrowRight className={styles.buttonIcon} />
+            <span>View Case Study</span>
+            <span><ArrowRight className={sharedStyles.buttonIcon} /></span>
           </Link>
         </div>
 

@@ -4,6 +4,8 @@ import styles from './Hero.module.css';
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import localFont from 'next/font/local'
+import clsx from 'clsx'
+
 
 const cooper = localFont({
   src: '../../public/fonts/Cooper-var.ttf',
@@ -34,7 +36,7 @@ export default function Hero() {
   }, [])
 
   return (
-    <section id="hero" className={`${styles.hero} ${cooper.variable}`} suppressHydrationWarning>
+    <section id="hero" className={clsx(styles.hero, cooper.variable)}>
       <div className={styles.heroContent}>
         <div className={styles.contentOverlay}>
           <div className={styles.content} ref={containerRef}>

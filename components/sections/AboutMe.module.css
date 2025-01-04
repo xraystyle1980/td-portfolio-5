@@ -1,9 +1,18 @@
-.about {
+/* .about {
   composes: section fullHeight from './section.module.css';
-}
+  min-height: 100vh; 
+  display: flex;
+  align-items: center;
+} */
 
-.container {
-  composes: container darkContainer from './section.module.css';
+.about {
+  min-height: 100vh; /* Ensure section fills the viewport */
+  display: flex; /* Enable flex layout */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  /* overflow: hidden; Prevent content overflow */
+  position: relative; /* Maintain positioning for children */
+  width: 100%; /* Ensure section spans full width */
 }
 
 .content {
@@ -17,7 +26,6 @@
 }
 
 .heading {
-  composes: titleLarge from './section.module.css';
   line-height: auto;
   letter-spacing: -0.02em;
   display: flex;
@@ -26,7 +34,6 @@
 }
 
 .text {
-  composes: text from './section.module.css';
   max-width: 600px;
   text-shadow: -1px 1px 0px #000;
 }

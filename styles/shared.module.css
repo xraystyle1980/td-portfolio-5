@@ -23,7 +23,7 @@
   -webkit-text-stroke-width: var(--border-width);
   -webkit-text-stroke-color: var(--color-border);
   paint-order: stroke fill;
-  font-variation-settings: "wght" 800;
+  font-variation-settings: "wght" 900;
 }
 
 /* Card System */
@@ -88,7 +88,6 @@
 .darkContainer {
   background: var(--color-dark);
   padding: var(--spacing-lg);
-  /* border-radius: var(--border-radius); */
   border: var(--border-width) solid var(--color-border);
   box-shadow: var(--shadow-lg);
 }
@@ -107,24 +106,51 @@
   text-decoration: none;
 }
 
+.buttonIcon {
+  width: 3rem;
+  height: 3rem;
+  margin: 0 var(--spacing-xs);
+}
+
 .primaryButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--font-cooper);
+  font-variation-settings: "wght" 800;
   background: var(--color-accent);
   color: var(--color-border);
-  padding: var(--spacing-md) var(--spacing-lg);
-  font-size: 3.5rem;
-  letter-spacing: -2px;
-  font-weight: 800;
-  box-shadow: -12px 12px 0 var(--color-border);
+  padding: var(--spacing-xs);
+  font-size: 2.4rem;
+  box-shadow: var(--shadow-lg);
   margin-top: var(--spacing-md);
-  border-width: 12px;
+  border-width: 4px;
   border-radius: var(--border-radius);
+  border-color: var(--color-border);
   position: relative;
   white-space: nowrap;
+ /* Transition for smooth effects */
+ transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .primaryButton:hover {
+  /* Hover transform */
   transform: translate(-6px, 6px);
-  box-shadow: -6px 6px 0 var(--color-border);
+
+  /* Translate box-shadow */
+  box-shadow: -6px 6px 0 var(--color-border); /* Adjust offset to match transform */
+}
+
+.primaryButton span {
+  transition: transform 0.3s ease; /* Smoothly transition position */
+}
+
+.primaryButton:hover span:first-child {
+  transform: translateX(0px); /* Move left */
+}
+
+.primaryButton:hover span:last-child {
+  transform: translateX(4px); /* Move right */
 }
 
 .primaryButton:active {
@@ -176,8 +202,8 @@
 }
 
 @media (max-width: 768px) {
-  .container {
-    padding: 0 var(--spacing-md-tablet);
+  .darkContainer {
+    padding: var(--spacing-md-tablet);
   }
 
   .cardBase {
@@ -208,10 +234,9 @@
   }
 
   .primaryButton {
-    font-size: 2.5rem;
-    padding: var(--spacing-sm) var(--spacing-md);
-    border-width: 8px;
-    box-shadow: -8px 8px 0 var(--color-border);
+    font-size: 1.5rem;
+    padding: var(--spacing-xs);
+    margin: var(--spacing-xs) 0;
   }
 
   .projectDetails {
@@ -221,8 +246,8 @@
 }
 
 @media (max-width: 480px) {
-  .container {
-    padding: 0 var(--spacing-md-mobile);
+  .darkContainer {
+    padding: var(--spacing-md-mobile);
   }
 
   .displayText {
@@ -231,13 +256,6 @@
 
   .textBase {
     font-size: var(--font-size-body-mobile);
-  }
-
-  .primaryButton {
-    font-size: 2rem;
-    padding: var(--spacing-xs) var(--spacing-sm);
-    border-width: 4px;
-    box-shadow: -4px 4px 0 var(--color-border);
   }
 
   .projectDetails {

@@ -1,5 +1,6 @@
 .hero {
-  composes: section fullHeight from './section.module.css';
+  /* composes: section fullHeight from './section.module.css'; */
+  height: 100vh;
   overflow: hidden;
   z-index: 1;
 }

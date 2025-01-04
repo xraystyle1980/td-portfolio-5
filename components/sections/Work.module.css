@@ -5,6 +5,7 @@
     rgba(22, 22, 22, 0.94) 20%,
     rgba(22, 22, 22, 0.94) 100%
   );
+  padding: var(--spacing-xs);
 }
 
 .intro {
@@ -15,7 +16,7 @@
 
 .title {
   font-family: var(--font-cooper);
-  font-size: 260px;
+  font-size: var(--font-size-section-heading);
   line-height: 85%;
   letter-spacing: -2px;
   margin: 0 0 2rem;
@@ -41,12 +42,15 @@
 
 @media (max-width: 768px) {
   .projects {
-    gap: 3rem;
+    gap: 5rem;
+  }
+  .title {
+    font-size: var(--font-size-section-heading-tablet);
   }
 }
 
 @media (max-width: 480px) {
-  .projects {
-    gap: 2rem;
+  .title {
+    font-size: var(--font-size-section-heading-mobile);
   }
 } 

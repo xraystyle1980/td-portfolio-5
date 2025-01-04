@@ -1,15 +1,14 @@
 /* Base Styles for ProjectSection */
-.projectSection {
+.projectContainer {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-  padding: 2rem;
-  position: relative;
   box-sizing: border-box;
   max-width: 1400px;
   margin: 0 auto;
-  /* background: var(--color-dark); */
+}
+
+.projectContentContainer {
+  display: flex;
+  gap: var(--spacing-md);
 }
 
 /* Container */
@@ -28,11 +27,8 @@
 }
 
 .title {
-  font-family: var(--font-cooper);
   font-size: 3rem;
   line-height: 1.6;
-  color: #f39;
-  margin: 0;
 }
 
 .details {
@@ -49,28 +45,6 @@
   font-size: 1.5rem;
   line-height: 1.6;
   color: #fff;
-}
-
-/* Button */
-.button {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: var(--color-primary);
-  color: var(--color-light);
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  border-radius: var(--radius-sm);
-  transition: background 0.3s ease;
-}
-
-.button:hover {
-  background: var(--color-primary-hover);
-}
-
-.buttonIcon {
-  width: 1rem;
-  height: 1rem;
 }
 
 /* Image Section */
@@ -92,10 +66,10 @@
 
 /* Responsive Adjustments */
 @media (max-width: 1200px) {
-  .container {
+  /* .container {
     padding: 2rem;
     flex-direction: column;
-  }
+  } */
 }
 
 @media (max-width: 1024px) {
@@ -104,6 +78,14 @@
   }
   .description {
     font-size: 1.25rem;
+  }
+  .projectContentContainer {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: var(--spacing-md);
+  }
+  .imageContainer {
+    max-width: 100%;
   }
 }
 

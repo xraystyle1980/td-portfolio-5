@@ -66,12 +66,13 @@ html {
   --font-source-serif: 'Source Serif 4', serif;
   --font-mono: 'JetBrains Mono', monospace;
   
+  --font-size-section-heading: 16rem;
+  --font-size-section-title: 4rem;
   --font-size-heading: 3rem;
   --font-size-subheading: 2rem;
   --font-size-body-large: 1.5rem;
   --font-size-body: 1.25rem;
   --font-size-small: 1rem;
-  
   --line-height-tight: 1;
   --line-height-normal: 1.4;
   --line-height-relaxed: 1.6;
@@ -102,6 +103,8 @@ html {
   --shadow-md-mobile: -4px 4px 0 var(--color-border);
 
   /* Responsive Typography */
+  --font-size-section-heading-tablet: 9rem;
+  --font-size-section-heading-mobile: 6rem;
   --font-size-heading-mobile: 2rem;
   --font-size-subheading-mobile: 1.5rem;
   --font-size-body-mobile: 1rem;

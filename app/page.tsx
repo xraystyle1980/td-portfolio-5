@@ -32,7 +32,7 @@ export default function HomePage() {
       <Work />
 
       {/* Playground Section */}
-      <Playground />
+      {/* <Playground /> */}
 
     </main>
   )

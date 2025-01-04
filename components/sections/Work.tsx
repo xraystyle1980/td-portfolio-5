@@ -1,8 +1,22 @@
 import { projects } from '@/data/projects'
 import ProjectSection from './projects/ProjectSection'
 import styles from './Work.module.css'
-
 export default function Work() {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   return (
     <section id="work" className={styles.work}>
       <div className={styles.intro}>
