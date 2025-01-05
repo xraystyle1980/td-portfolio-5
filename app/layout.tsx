@@ -1,17 +1,11 @@
 import "./globals.css";
-import { Caveat, Source_Serif_4 } from 'next/font/google'
+import { Source_Serif_4 } from 'next/font/google'
 import localFont from 'next/font/local'
 import ClientLayout from './ClientLayout'
 import Footer from '@/components/layout/Footer'
 import Scene3DWrapper from './Scene3DWrapper'
 import { metadata } from './metadata'
 import Navigation from '@/components/layout/Navigation'
-
-const caveat = Caveat({
-  subsets: ['latin'],
-  weight: ['700'],
-  display: 'swap',
-})
 
 const sourceSerif = Source_Serif_4({
   subsets: ['latin'],

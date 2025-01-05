@@ -40,7 +40,7 @@ export default function Hero() {
     <section id="hero" className={clsx(styles.hero, cooper.variable)}>
       <div className={clsx(sharedStyles.container, styles.heroContent)}>
           <div className={styles.content} ref={containerRef}>
-              <h1 ref={headlineRef} className={clsx(sharedStyles.displayText, styles.heroHeadlineDisplay, styles.heroHeadline)}>
+              <h1 ref={headlineRef} className={clsx(sharedStyles.displayText, styles.heroHeadlineDisplay, styles.heroHeadline)} data-text="Build Cool Stuff">
                 <span ref={buildWordRef}>Build</span>
                 <span>Cool</span>
                 <span ref={wordRef}>Stuff</span>

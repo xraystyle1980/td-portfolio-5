@@ -128,7 +128,7 @@ export default function AboutMe() {
               toggleActions: 'play none none reverse',
               scrub: true,
               id: "🪙-token",
-              markers: false,
+              markers: true,
               onUpdate: (self) => {
                 console.log('ScrollTrigger Progress (Token):', self.progress);
               },

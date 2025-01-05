@@ -15,7 +15,28 @@
 
 .heroHeadline {
   font-size: var(--font-size-section-heading-hero);
+  /* text-shadow: var(--shadow-lg); */
+  position: relative; /* Needed for pseudo-element positioning */
+  text-shadow: 0 0 96px rgba(0, 0, 0, 0.36),
+               -12px 12px 0px rgba(0, 0, 0, 1),
+               -6px 6px 0px rgba(0, 0, 0, 1);
+               
 }
+
+.heroHeadline::before {
+  content: attr(data-text); /* Duplicate the text content */
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  color: transparent; /* Prevent double rendering of text color */
+  -webkit-text-stroke-width: var(--border-width-xl);
+  -webkit-text-stroke-color: black; /* Apply the stroke color */
+  mix-blend-mode: normal; /* Blend stroke independently */
+  z-index: -1; /* Send the stroke below the main text */
+}
+
+
+
 
 .heroContent {
   display: flex;

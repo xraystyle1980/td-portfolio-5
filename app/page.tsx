@@ -1,12 +1,12 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import { Suspense, useEffect, useState } from 'react'
 import styles from './page.module.css'
-import Hero from '@/components/sections/Hero'
-import AboutMe from '@/components/sections/AboutMe'
+import HeroAbout from '@/components/sections/HeroAbout'
+// import Hero from '@/components/sections/Hero'
+// import AboutMe from '@/components/sections/AboutMe'
 import Work from '@/components/sections/Work'
-import Playground from '@/components/sections/Playground'
+// import Playground from '@/components/sections/Playground'
 
 // Define interface for Scene3D props
 interface Scene3DProps {
@@ -23,10 +23,10 @@ export default function HomePage() {
   return (
     <main className={styles.main}>
       {/* Hero Section */}
-      <Hero />
+      <HeroAbout />
 
       {/* About Section */}
-      <AboutMe />
+      {/* <AboutMe /> */}
 
       {/* Work Section */}
       <Work />

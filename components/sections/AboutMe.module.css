@@ -10,6 +10,8 @@
 
 .aboutHeadline {
   margin-bottom: var(--spacing-sm);
+  text-shadow: var(--shadow-md);
+  -webkit-text-stroke-width: var(--border-width-md);
 }
 
 .content {

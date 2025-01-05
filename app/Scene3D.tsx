@@ -5,7 +5,6 @@ import { PerspectiveCamera } from '@react-three/drei'
 import RetroGrid from '@/components/3d/RetroGrid'
 import { useRef, useEffect } from 'react'
 import { Vector3, MathUtils, PerspectiveCamera as ThreePerspectiveCamera } from 'three'
-import styles from './Scene3D.module.css'
 
 interface Scene3DProps {
   scroll: number

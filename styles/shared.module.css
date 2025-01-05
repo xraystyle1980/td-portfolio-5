@@ -50,9 +50,6 @@
   font-family: var(--font-cooper);
   line-height: var(--line-height-tight);
   color: var(--color-accent);
-  text-shadow: var(--shadow-md);
-  -webkit-text-stroke-width: var(--border-width);
-  -webkit-text-stroke-color: var(--color-border);
   paint-order: stroke fill;
   font-variation-settings: "wght" 900;
 }

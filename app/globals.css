@@ -102,13 +102,17 @@ canvas {
 
   /* Layout */
   --max-width: 1400px;
-  --border-width: 4px;
-  --border-width-mobile: 2px;
+  --border-width-sm: 2px;
+  --border-width-md: 4px;
+  --border-width-lg: 8px;
+  --border-width-xl: 12px;
+  --border-width-xxl: 16px;
   --border-radius: 1rem;
   --border-radius-mobile: 0.5rem;
 
   /* Effects */
-  --shadow-lg: -12px 12px 0 var(--color-border);
+  --shadow-lg: -12px 12px 0 var(--color-border),
+               -6px 6px 0 var(--color-border);
   --shadow-md: -8px 8px 0 var(--color-border);
   --shadow-sm: -6px 6px 0 var(--color-border);
   --shadow-md-mobile: -4px 4px 0 var(--color-border);

@@ -16,19 +16,7 @@ interface LineWithMaterial extends THREE.Object3D {
   }
 }
 
-/**
- * RetroGrid Component
- * 
- * Current State (2024-01):
- * - Grid geometry and line generation is working correctly
- * - Opacity transitions are working
- * - Scroll movement needs fixing
- * 
- * Integration Points:
- * - Receives scroll progress (0 to 1) from ScrollSmoother
- * - Should move smoothly based on scroll position
- * - Should create infinite scrolling effect by looping
- */
+
 export default function RetroGrid({ size = 400, scroll = 0 }: Props) {
   const gridRef = useRef<THREE.Group>(null)
   const opacityRef = useRef(0)
@@ -146,7 +134,7 @@ export default function RetroGrid({ size = 400, scroll = 0 }: Props) {
         <Line
           key={i}
           points={points}
-          color="#F39"
+          color="#CC0066"
           lineWidth={3}
           transparent
           opacity={0}
