@@ -10,6 +10,7 @@ import TokenFace from '../3d/TokenFace';
 import styles from './HeroAbout.module.css';
 import sharedStyles from '@/styles/shared.module.css';
 import localFont from 'next/font/local';
+import { Group } from 'three';
 
 const cooper = localFont({
   src: '../../public/fonts/Cooper-var.ttf',
@@ -20,7 +21,7 @@ const cooper = localFont({
 gsap.registerPlugin(ScrollTrigger);
 
 function RotatingToken() {
-  const groupRef = useRef(null);
+  const groupRef = useRef<Group | null>(null); // Explicitly typed
 
   useFrame(({ clock }) => {
     if (groupRef.current) {
@@ -61,9 +62,9 @@ function RotatingToken() {
 }
 
 export default function HeroAbout() {
-  const headlineRef = useRef(null);
-  const tokenContainerRef = useRef(null);
-  const aboutContentRef = useRef(null);
+  const headlineRef = useRef<HTMLHeadingElement | null>(null);
+  const tokenContainerRef = useRef<HTMLDivElement | null>(null);
+  const aboutContentRef = useRef<HTMLDivElement | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -71,46 +72,52 @@ export default function HeroAbout() {
 
     const ctx = gsap.context(() => {
       // Token Pinning and Scrolling
-      ScrollTrigger.create({
-        trigger: "#hero",
-        start: "top top",
-        endTrigger: "#about",
-        end: "bottom top",
-        scrub: true,
-        pin: tokenContainerRef.current,
-        id: "token-pin",
-      });
+      if (tokenContainerRef.current) {
+        ScrollTrigger.create({
+          trigger: "#hero",
+          start: "top top",
+          endTrigger: "#about",
+          end: "bottom top",
+          scrub: true,
+          pin: tokenContainerRef.current,
+          id: "token-pin",
+        });
+      }
 
       // Headline Animation
-      gsap.fromTo(
-        headlineRef.current.querySelectorAll('span'),
-        { y: 100, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          stagger: 0.2,
-          ease: 'bounce.out',
-          duration: 1.5,
-        }
-      );
+      if (headlineRef.current) {
+        gsap.fromTo(
+          headlineRef.current.querySelectorAll('span'),
+          { y: 100, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            stagger: 0.2,
+            ease: 'bounce.out',
+            duration: 1.5,
+          }
+        );
+      }
 
       // About Section Content Animation
-      gsap.fromTo(
-        aboutContentRef.current,
-        { opacity: 0, y: 50 },
-        {
-          scrollTrigger: {
-            trigger: "#about",
-            start: "top 80%",
-            end: "top 50%",
-            toggleActions: "play none none reverse",
-          },
-          opacity: 1,
-          y: 0,
-          duration: 1.5,
-          ease: "power2.out",
-        }
-      );
+      if (aboutContentRef.current) {
+        gsap.fromTo(
+          aboutContentRef.current,
+          { opacity: 0, y: 50 },
+          {
+            scrollTrigger: {
+              trigger: "#about",
+              start: "top 80%",
+              end: "top 50%",
+              toggleActions: "play none none reverse",
+            },
+            opacity: 1,
+            y: 0,
+            duration: 1.5,
+            ease: "power2.out",
+          }
+        );
+      }
     });
 
     return () => ctx.revert();
