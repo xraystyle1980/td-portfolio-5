@@ -39,10 +39,9 @@ function RotatingToken() {
       { x: 3.2, y: 3.2, z: 3.2 },
       {
         scrollTrigger: {
-          trigger: "#about",
-          start: "top 90%",
-          end: "top 40%",
-          toggleActions: "play none none reverse",
+          trigger: "#hero",
+          start: "top top",
+          end: "bottom top",
           scrub: 0.5,
           id: "token-scale",
         },
@@ -63,33 +62,26 @@ function RotatingToken() {
 
 export default function HeroAbout() {
   const headlineRef = useRef(null);
-  const tokenRef = useRef(null);
-  const contentRef = useRef(null);
+  const tokenContainerRef = useRef(null);
+  const aboutContentRef = useRef(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     if (!isLoaded) return;
 
     const ctx = gsap.context(() => {
-      // Token scroll animation
-      gsap.fromTo(
-        tokenRef.current,
-        { top: '-50vh' },
-        {
-          scrollTrigger: {
-            trigger: "#about",
-            start: 'top 90%',
-            end: 'center center',
-            toggleActions: 'play none none reverse',
-            scrub: true,
-            id: "token-position",
-          },
-          top: '50%',
-          ease: "none",
-        }
-      );
+      // Token Pinning and Scrolling
+      ScrollTrigger.create({
+        trigger: "#hero",
+        start: "top top",
+        endTrigger: "#about",
+        end: "bottom top",
+        scrub: true,
+        pin: tokenContainerRef.current,
+        id: "token-pin",
+      });
 
-      // Headline animation
+      // Headline Animation
       gsap.fromTo(
         headlineRef.current.querySelectorAll('span'),
         { y: 100, opacity: 0 },
@@ -99,6 +91,24 @@ export default function HeroAbout() {
           stagger: 0.2,
           ease: 'bounce.out',
           duration: 1.5,
+        }
+      );
+
+      // About Section Content Animation
+      gsap.fromTo(
+        aboutContentRef.current,
+        { opacity: 0, y: 50 },
+        {
+          scrollTrigger: {
+            trigger: "#about",
+            start: "top 80%",
+            end: "top 50%",
+            toggleActions: "play none none reverse",
+          },
+          opacity: 1,
+          y: 0,
+          duration: 1.5,
+          ease: "power2.out",
         }
       );
     });
@@ -128,9 +138,7 @@ export default function HeroAbout() {
             </h1>
           </div>
         </div>
-      </section>
-      <section id="about" className={clsx(sharedStyles.container, styles.about)}>
-        <div ref={tokenRef} className={styles.tokenContainer}>
+        <div ref={tokenContainerRef} className={styles.tokenContainer}>
           <Canvas>
             <Suspense fallback={null}>
               <Environment preset="city" />
@@ -138,7 +146,9 @@ export default function HeroAbout() {
             </Suspense>
           </Canvas>
         </div>
-        <div className={sharedStyles.darkContainer}>
+      </section>
+      <section id="about" className={clsx(sharedStyles.container, styles.about)}>
+        <div ref={aboutContentRef} className={sharedStyles.darkContainer}>
           <div className={styles.content}>
             <h1 className={clsx(sharedStyles.displayText, sharedStyles.sectionTitle, styles.aboutHeadline)}>Hello 👋</h1>
             <p className={clsx(sharedStyles.textBase, sharedStyles.larger)}>
