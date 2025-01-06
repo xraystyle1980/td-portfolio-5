@@ -6,7 +6,7 @@
 
 /* Ensures the section is full-screen and positioned correctly */
 .wrapper {
-    /* position: fixed;  */
+    position: fixed; 
     top: 0;
     left: 0;
     width: 100vw;

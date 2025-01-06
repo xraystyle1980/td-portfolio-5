@@ -15,10 +15,10 @@ function Scene({ scroll }: Scene3DProps) {
   const cameraRef = useRef<ThreePerspectiveCamera>(null)
   
   // Define static camera positions for perspective
-  const initialPosition = new Vector3(0, 500, 1500)
-  const targetPosition = new Vector3(0, 500, 8000) // Minimal forward movement for a subtle perspective
-  const initialRotation: [number, number, number] = [0, 0, 0]
-  const targetRotation: [number, number, number] = [0, 0, 0] // Minimal or no rotation change
+  const initialPosition = new Vector3(0, 500, -500)
+  const targetPosition = new Vector3(0, 500, -8000) 
+  const initialRotation: [number, number, number] = [-0.75, 0, 0]
+  const targetRotation: [number, number, number] = [-0.75, 0, 0] // Rotation change
 
   useFrame(() => {
     if (cameraRef.current) {

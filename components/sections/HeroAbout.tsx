@@ -54,9 +54,9 @@ export default function HeroAbout() {
 
   return (
     <div className={styles.gradient}>
-      <section id="heroAbout" className={clsx(styles.heroAbout)}>
+      <section id="heroAbout" className={clsx(styles.heroAbout200vh)}> 
         <div id="hero" className={clsx(sharedStyles.container, styles.heroContent)}>
-          <div className={styles.content}>
+          <div className={styles.contentWrapper}>
             <h1 ref={headlineRef} className={clsx(sharedStyles.displayText, styles.heroHeadline)}>
               <span>Build</span>
               <span>Cool</span>
