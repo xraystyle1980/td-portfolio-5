@@ -20,6 +20,19 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${cooper.variable} ${sourceSerif.variable}`} style={{ fontFamily: 'var(--font-source-serif), var(--font-cooper)' }}>
       <body>
+        <AppProvider>
+          {/* Place Scene3DWrapper and Navigation outside of SmoothScroll */}
+          <Scene3DWrapper />
+          <Navigation />
+          <SmoothScroll>
+            <ClientLayout>
+              {children}
+              <Footer />
+            </ClientLayout>
+          </SmoothScroll>
+        </AppProvider>
+      </body>
+      {/* <body>
         <SmoothScroll>
           <AppProvider>
             <Scene3DWrapper />
@@ -30,7 +43,7 @@ export default function RootLayout({
             </ClientLayout>
           </AppProvider>
         </SmoothScroll>
-      </body>
+      </body> */}
     </html>
   )
 }
