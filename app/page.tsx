@@ -26,9 +26,6 @@ export default function HomePage() {
       {/* Case Studies Section */}
       <CaseStudies />
 
-      {/* Playground Section */}
-      {/* <Playground /> */}
-
     </main>
   )
 }

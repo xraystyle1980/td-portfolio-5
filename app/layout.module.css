@@ -6,7 +6,6 @@
   width: 100%;
   background: transparent;
   color: #FFF;
-  /* overflow: hidden; */
   min-height: 100vh;
   isolation: isolate;
 }

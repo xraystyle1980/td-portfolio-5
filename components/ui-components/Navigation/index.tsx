@@ -94,18 +94,6 @@ export default function Navigation() {
           >
             Case Studies
           </button>
-          {/* <button
-            className={styles.link}
-            onClick={() => scrollToSection('playground')}
-          >
-            Playground
-          </button>
-          <button
-            className={styles.link}
-            onClick={() => scrollToSection('contact')}
-          >
-            Contact
-          </button> */}
         </div>
       </div>
     </nav>
