@@ -87,6 +87,7 @@ canvas {
   /* Responsive Typography */
   --font-size-section-heading-hero-tablet: 11rem;
   --font-size-section-heading-hero-mobile: 8rem;
+  --font-size-section-heading-hero-mobile-sm: 6rem;
   --font-size-section-heading-tablet: 9rem;
   --font-size-section-heading-mobile: 6rem;
   --font-size-section-title-tablet: 4.5rem;

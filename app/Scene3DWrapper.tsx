@@ -17,7 +17,7 @@ export default function Scene3DWrapper() {
     const trigger = ScrollTrigger.create({
       trigger: '#retrogrid-section', // Target section
       start: 'top top', // Start animation when section reaches viewport
-      end: '+=8000', // Adjust scroll distance based on RetroGrid scaling
+      end: '+=16000', // Adjust scroll distance based on RetroGrid scaling
       scrub: true, // Smooth syncing with scroll
       onUpdate: (self) => {
         setScrollPosition(self.progress) // Pass progress (0–1) to Scene3D

@@ -1,10 +1,11 @@
 'use client'
 
 import { useGLTF } from '@react-three/drei'
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import { Group } from 'three'
 import gsap from 'gsap'
 import { ThreeEvent } from '@react-three/fiber'
+
 
 // Make all props optional with default values
 interface TokenFaceProps {
