@@ -3,9 +3,7 @@
 import dynamic from 'next/dynamic'
 import styles from './page.module.css'
 import HeroAbout from '@/components/sections/HeroAbout'
-// import Hero from '@/components/sections/Hero'
-// import AboutMe from '@/components/sections/AboutMe'
-import Work from '@/components/sections/Work'
+import CaseStudies from '@/components/sections/CaseStudies'
 // import Playground from '@/components/sections/Playground'
 
 // Define interface for Scene3D props
@@ -25,11 +23,8 @@ export default function HomePage() {
       {/* Hero Section */}
       <HeroAbout />
 
-      {/* About Section */}
-      {/* <AboutMe /> */}
-
-      {/* Work Section */}
-      <Work />
+      {/* Case Studies Section */}
+      <CaseStudies />
 
       {/* Playground Section */}
       {/* <Playground /> */}

@@ -1,68 +1,22 @@
-'use client'
+'use client';
 
-import styles from '@/styles/casestudy.module.css'
-import { projects } from '@/data/projects'
-import { useEffect, useState, useRef } from 'react'
-import Image from 'next/image'
-import gsap from 'gsap'
-import localFont from 'next/font/local'
+import styles from '@/styles/casestudy.module.css';
+import { projects } from '@/data/projects';
+import { useRef } from 'react';
+import Image from 'next/image';
+import localFont from 'next/font/local';
 
 const cooper = localFont({
   src: '../../../public/fonts/Cooper-var.ttf',
   variable: '--font-cooper',
-  preload: true
-})
+  preload: true,
+});
 
 export default function BlocksetBRDDocsCaseStudy() {
-  const project = projects.find(p => p.route === '/work/blockset-brd-docs')
-  const [isLoading, setIsLoading] = useState(true)
-  const heroImageRef = useRef(null)
-  const contentRef = useRef(null)
+  const project = projects.find((p) => p.route === '/case-studies/blockset-brd-docs');
+  const heroImageRef = useRef(null);
 
-  // Handle initial load
-  useEffect(() => {
-    if (typeof window === 'undefined' || !project) return
-
-    const initPage = async () => {
-      setIsLoading(true)
-
-      // Force scroll to top
-      window.scrollTo(0, 0)
-      const smoother = window.ScrollSmoother?.get()
-      if (smoother) {
-        smoother.scrollTo(0, false)
-      }
-
-      // Small delay to ensure layout is ready
-      await new Promise(resolve => setTimeout(resolve, 100))
-
-      // Initialize content
-      if (heroImageRef.current && contentRef.current) {
-        // Animate hero image
-        gsap.fromTo(heroImageRef.current,
-          {
-            opacity: 0,
-            scale: 0.95,
-            x: '100%'
-          },
-          {
-            opacity: 1,
-            scale: 1,
-            x: 0,
-            duration: 1.4,
-            ease: "power3.out"
-          }
-        )
-
-        setIsLoading(false)
-      }
-    }
-
-    initPage()
-  }, [project])
-
-  if (!project) return null
-
+  if (!project) return null;
   return (
     <main className={`${styles.main} ${cooper.variable}`}>
       <section className={styles.hero}>

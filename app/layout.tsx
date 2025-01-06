@@ -1,11 +1,15 @@
 import "./globals.css";
 import { Source_Serif_4 } from 'next/font/google'
 import localFont from 'next/font/local'
+import { AppProvider } from '@/contexts/AppContext'
 import ClientLayout from './ClientLayout'
-import Footer from '@/components/layout/Footer'
+import Footer from '@/components/layout-components/Footer'
 import Scene3DWrapper from './Scene3DWrapper'
 import { metadata } from './metadata'
-import Navigation from '@/components/layout/Navigation'
+import Navigation from '@/components/layout-components/Navigation'
+
+// import SmoothScroll from '@/components/SmoothScroll';
+// import Loading from '@/components/Loading';
 
 const sourceSerif = Source_Serif_4({
   subsets: ['latin'],
@@ -26,14 +30,16 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${cooper.variable} ${sourceSerif.variable}`} suppressHydrationWarning>
-      <body suppressHydrationWarning>
-        <Scene3DWrapper />
-        <Navigation />
-        <ClientLayout>
-          {children}
-          <Footer />
-        </ClientLayout>
+    <html lang="en" className={`${cooper.variable} ${sourceSerif.variable}`}>
+      <body>
+        <AppProvider>
+          <Scene3DWrapper />
+          <Navigation />
+          <ClientLayout>
+            {children}
+            <Footer />
+          </ClientLayout>
+        </AppProvider>
       </body>
     </html>
   )

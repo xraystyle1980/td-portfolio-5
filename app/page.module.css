@@ -1,5 +1,5 @@
 .canvasContainer {
-  position: fixed;
+  /* position: fixed; */
   top: 0;
   left: 0;
   width: 100%;
@@ -9,13 +9,13 @@
 }
 
 .main {
-  position: relative;
+  /* position: relative; */
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   pointer-events: auto;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
   background: transparent;
 }
 
