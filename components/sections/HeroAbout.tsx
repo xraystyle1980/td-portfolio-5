@@ -9,7 +9,6 @@ import { Environment } from '@react-three/drei';
 import TokenFace from '../3d/TokenFace';
 import styles from './HeroAbout.module.css';
 import sharedStyles from '@/styles/shared.module.css';
-import localFont from 'next/font/local';
 import { Group } from 'three';
 
 // gsap.registerPlugin(ScrollTrigger);

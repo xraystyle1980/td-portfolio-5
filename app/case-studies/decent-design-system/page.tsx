@@ -4,13 +4,7 @@ import styles from '@/styles/casestudy.module.css';
 import { projects } from '@/data/projects';
 import { useRef } from 'react';
 import Image from 'next/image';
-import localFont from 'next/font/local';
 
-const cooper = localFont({
-  src: '../../../public/fonts/Cooper-var.ttf',
-  variable: '--font-cooper',
-  preload: true,
-});
 
 export default function DecentDesignSystemCaseStudy() {
   const project = projects.find((p) => p.route === '/case-studies/decent-design-system');
@@ -19,7 +13,7 @@ export default function DecentDesignSystemCaseStudy() {
   if (!project) return null;
 
   return (
-    <main className={`${styles.main} ${cooper.variable}`}>
+    <main className={`${styles.main}`}>
       <section className={styles.hero}>
         {project.imageUrl && (
           <div className={styles.heroImage} ref={heroImageRef}>

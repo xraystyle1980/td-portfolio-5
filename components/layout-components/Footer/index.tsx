@@ -1,16 +1,11 @@
 'use client';
 
 import styles from './Footer.module.css';
-import localFont from 'next/font/local'
 
-const cooper = localFont({
-  src: '../../../public/fonts/Cooper-var.ttf',
-  variable: '--font-cooper'
-})
 
 export default function Footer() {
   return (
-    <footer className={`${styles.footer} ${cooper.variable}`}>
+    <footer className={`${styles.footer}`}>
       <div className={styles.socialLinks}>
         
         <a href="https://www.linkedin.com/in/tricedigital/" target="_blank" rel="noopener noreferrer">

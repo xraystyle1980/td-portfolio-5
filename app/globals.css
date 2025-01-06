@@ -1,53 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@400;600;700&display=swap');
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@layer base {
-  body {
-    @apply antialiased;
-    background-color: #FAF4F0;
-    font-family: 'Source Serif Pro', serif;
-    overflow-x: hidden;
-  }
-
-  p {
-    font-family: 'Source Serif Pro', serif;
-    color: #FFF;
-  }
-}
-
-/* Navigation and layout styles */
-.container {
-  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
-}
-
-/* Add spacing utilities */
-.section-padding {
-  @apply py-24;
-}
-
-/* Add any other global styles you need */
-
 html {
   scroll-behavior: smooth;
 }
 
-/* Hide GSAP scroll indicators */
-.scroller-start,
-.scroller-end {
-  display: none !important;
-}
-
-@font-face {
-  font-family: 'Cooper';
-  src: url('/fonts/Cooper-var.ttf') format('truetype-variations');
-       /* url('/fonts/Cooper-var.ttf') format('truetype'); */
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
 
 canvas {
   width: 100%;
@@ -66,16 +20,11 @@ canvas {
   /* Colors */
   --color-background: #1d2329;
   --color-dark: #1d2329;
-  /* --color-card: #1d2329; */
   --color-text: #FFF;
   --color-accent: #F39;
   --color-border: #000;
 
-  /* Typography */
-  --font-cooper: 'Cooper Black', serif;
-  --font-source-serif: 'Source Serif 4', serif;
-  --font-mono: 'JetBrains Mono', monospace;
-  
+  /* Typography */ 
   --font-size-section-heading-hero: 16rem;
   --font-size-section-heading: 16rem;
   --font-size-section-title: 6rem;
@@ -87,6 +36,17 @@ canvas {
   --line-height-tight: 1;
   --line-height-normal: 1.4;
   --line-height-relaxed: 1.6;
+
+  /* Responsive Typography */
+  --font-size-section-heading-hero-tablet: 11rem;
+  --font-size-section-heading-hero-mobile: 8rem;
+  --font-size-section-heading-tablet: 9rem;
+  --font-size-section-heading-mobile: 6rem;
+  --font-size-section-title-tablet: 4.5rem;
+  --font-size-section-title-mobile: 3.85rem;
+  --font-size-heading-mobile: 2rem;
+  --font-size-subheading-mobile: 1.5rem;
+  --font-size-body-mobile: 1rem;
 
   /* Spacing */
   --spacing-xs: 1rem;
@@ -116,16 +76,4 @@ canvas {
   --shadow-md: -8px 8px 0 var(--color-border);
   --shadow-sm: -6px 6px 0 var(--color-border);
   --shadow-md-mobile: -4px 4px 0 var(--color-border);
-
-  /* Responsive Typography */
-  --font-size-section-heading-hero-tablet: 11rem;
-  --font-size-section-heading-hero-mobile: 8rem;
-  --font-size-section-heading-tablet: 9rem;
-  --font-size-section-heading-mobile: 6rem;
-  --font-size-section-title-tablet: 4.5rem;
-  --font-size-section-title-mobile: 3.85rem;
-  --font-size-heading-mobile: 2rem;
-  --font-size-subheading-mobile: 1.5rem;
-  --font-size-body-mobile: 1rem;
 }
-
