@@ -85,9 +85,9 @@ canvas {
   --line-height-relaxed: 1.6;
 
   /* Responsive Typography */
-  --font-size-section-heading-hero-tablet: 11rem;
-  --font-size-section-heading-hero-mobile: 8rem;
-  --font-size-section-heading-hero-mobile-sm: 6rem;
+  --font-size-section-heading-hero-tablet: 13rem;
+  --font-size-section-heading-hero-mobile: 9.5rem;
+  --font-size-section-heading-hero-mobile-sm: 7rem;
   --font-size-section-heading-tablet: 9rem;
   --font-size-section-heading-mobile: 6rem;
   --font-size-section-title-tablet: 4.5rem;
@@ -119,9 +119,9 @@ canvas {
   --border-radius-mobile: 0.5rem;
 
   /* Effects */
-  --shadow-lg: -12px 12px 0 var(--color-border),
-               -6px 6px 0 var(--color-border);
+  --shadow-lg: -12px 12px 0 var(--color-border);
+               /* -6px 6px 0 var(--color-border); */
   --shadow-md: -8px 8px 0 var(--color-border);
-  --shadow-sm: -6px 6px 0 var(--color-border);
+  --shadow-sm: -2px 2px 0 var(--color-border);
   --shadow-md-mobile: -4px 4px 0 var(--color-border);
 }

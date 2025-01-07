@@ -22,8 +22,8 @@
   font-family: var(--font-cooper);
   font-size: 3rem;
   color: #FFF;
-  text-shadow: -8px 8px 0px #000;
-  -webkit-text-stroke-width: 10px;
+  text-shadow: var(--shadow-md);
+  -webkit-text-stroke-width: 6px;
   -webkit-text-stroke-color: #000;
   paint-order: stroke fill;
   font-variation-settings: "wght" 800;
