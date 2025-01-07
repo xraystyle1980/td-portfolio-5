@@ -4,6 +4,7 @@
     rgba(22, 22, 22, 0.36) 40%,
     rgba(22, 22, 22, 0.84) 100%
   );
+  position: relative;
 }
 
 .heroAbout200vh {
@@ -16,10 +17,16 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 0 var(--spacing-md-laptop);
+  position: relative;
+  z-index: 2;
 }
 
 .heroContent {
   height: 100vh;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
 }
 
 .aboutContent {
@@ -30,11 +37,10 @@
 .tokenContainer {
   position: absolute;
   top: 0;
-  left: 0;
-  width: 100vw;
-  height: 200vh;
-  z-index: 0;
-  overflow: visible;
+  right: 0;
+  width: 60%;
+  height: 100vh;
+  z-index: 1;
 }
 
 .contentWrapper {
@@ -45,6 +51,7 @@
   justify-content: center;
   padding: 2rem;
   z-index: 10;
+  width: 50%;
 }
 
 .heroHeadline {

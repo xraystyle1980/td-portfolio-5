@@ -11,7 +11,9 @@ import styles from './HeroAbout.module.css';
 import sharedStyles from '@/styles/shared.module.css';
 import { Group } from 'three';
 
-gsap.registerPlugin(ScrollTrigger);
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 function RotatingToken({ groupRef }: { groupRef: React.RefObject<Group> }) {
   useFrame(({ clock }) => {
@@ -21,7 +23,7 @@ function RotatingToken({ groupRef }: { groupRef: React.RefObject<Group> }) {
   });
 
   return (
-    <group ref={groupRef}>
+    <group ref={groupRef} position={[0, 2, 0]} scale={[2, 2, 2]}>
       <TokenFace />
     </group>
   );
@@ -29,27 +31,41 @@ function RotatingToken({ groupRef }: { groupRef: React.RefObject<Group> }) {
 
 export default function HeroAbout() {
   const groupRef = useRef<Group | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const tokenContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    gsap.to('.tokenContainer', {
-      scrollTrigger: {
-        trigger: '.tokenContainer',
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: true,
+    if (typeof window === 'undefined') return;
+    
+    const ctx = gsap.context(() => {
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: "top top",
+        end: "bottom bottom",
+        markers: true,
+        scrub: 1,
+        pin: tokenContainerRef.current,
+        anticipatePin: 1,
         onUpdate: (self) => {
-          const progress = self.progress;
           if (groupRef.current) {
-            groupRef.current.position.y = progress * -5; // Adjust as needed
+            const progress = self.progress;
+            groupRef.current.position.y = 2 - (progress * 6);
+            
+            groupRef.current.position.x = Math.sin(progress * Math.PI) * 1;
+            
+            const scale = 2 - (progress * 0.5);
+            groupRef.current.scale.set(scale, scale, scale);
           }
         },
-      },
+      });
     });
+
+    return () => ctx.revert();
   }, []);
 
   return (
     <div className={styles.gradient}>
-      <section id="heroAbout" className={clsx(styles.heroAbout200vh)}> 
+      <section ref={sectionRef} id="heroAbout" className={clsx(styles.heroAbout200vh)}> 
         <div id="hero" className={clsx(sharedStyles.container, styles.heroContent)}>
           <div className={styles.contentWrapper}>
             <h1 className={clsx(sharedStyles.displayText, styles.heroHeadline)}>
@@ -59,7 +75,7 @@ export default function HeroAbout() {
             </h1>
           </div>
         </div>
-        <div className={styles.tokenContainer}>
+        <div ref={tokenContainerRef} className={styles.tokenContainer}>
           <Canvas>
             <Suspense fallback={null}>
               <Environment preset="city" />
