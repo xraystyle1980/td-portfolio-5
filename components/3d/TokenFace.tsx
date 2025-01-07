@@ -30,6 +30,26 @@ export default function TokenFace({
   const modelRef = useRef<Group>(null)
   const isAnimating = useRef(false)
 
+  // Initial bounce animation
+  useEffect(() => {
+    if (modelRef.current) {
+      const startY = modelRef.current.position.y;
+      
+      // Set initial position
+      gsap.set(modelRef.current.position, {
+        y: startY + 2
+      });
+
+      // Bounce animation
+      gsap.to(modelRef.current.position, {
+        y: startY,
+        duration: 1.2,
+        ease: "bounce.out",
+        delay: 0.3 // Slight delay to sync with text
+      });
+    }
+  }, []);
+
   const handleClick = (e: ThreeEvent<MouseEvent>) => {
     e.stopPropagation()
     

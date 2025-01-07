@@ -23,7 +23,7 @@ function RotatingToken({ groupRef }: { groupRef: React.RefObject<Group> }) {
   });
 
   return (
-    <group ref={groupRef} position={[0, 2, 0]} scale={[2, 2, 2]}>
+    <group ref={groupRef} position={[0, 0.15, 1]} scale={[1.9, 1.9, 1.9]}>
       <TokenFace />
     </group>
   );
@@ -33,30 +33,83 @@ export default function HeroAbout() {
   const groupRef = useRef<Group | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const tokenContainerRef = useRef<HTMLDivElement>(null);
+  const heroTextRef = useRef<HTMLDivElement>(null);
+  const aboutTextRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    
+
     const ctx = gsap.context(() => {
+      // Initial Load Animation - Text Fade In
+      const tl = gsap.timeline({
+        delay: 0.2
+      });
+      
+      tl.to(".heroText", {
+        opacity: 1,
+        duration: 1,
+        stagger: 0.15,
+        ease: "power2.inOut"
+      });
+
+      // Token Scroll Animation
       ScrollTrigger.create({
         trigger: sectionRef.current,
         start: "top top",
         end: "bottom bottom",
         markers: true,
-        scrub: 1,
+        scrub: 2,
         pin: tokenContainerRef.current,
-        anticipatePin: 1,
         onUpdate: (self) => {
           if (groupRef.current) {
             const progress = self.progress;
-            groupRef.current.position.y = 2 - (progress * 6);
             
-            groupRef.current.position.x = Math.sin(progress * Math.PI) * 1;
+            // Basic downward movement
+            const startY = 0.15;
+            const endY = -0.85;
+            groupRef.current.position.y = gsap.utils.interpolate(startY, endY, progress);
             
-            const scale = 2 - (progress * 0.5);
+            // Scale animation through midpoint
+            const initialScale = 1.9;
+            const peakScale = 2.8;
+            
+            // Create a bell curve for scale
+            let scale = initialScale;
+            if (progress < 0.5) {
+              scale = gsap.utils.interpolate(initialScale, peakScale, progress * 2);
+            } else {
+              scale = gsap.utils.interpolate(peakScale, initialScale, (progress - 0.5) * 2);
+            }
+            
             groupRef.current.scale.set(scale, scale, scale);
           }
         },
+      });
+
+      // About Section Animation
+      gsap.set(aboutTextRef.current, {
+        opacity: 0,
+        x: -100
+      });
+
+      ScrollTrigger.create({
+        trigger: aboutTextRef.current,
+        start: "top center",
+        onEnter: () => {
+          gsap.to(aboutTextRef.current, {
+            opacity: 1,
+            x: 0,
+            duration: 1,
+            ease: "power2.out"
+          });
+        },
+        onLeaveBack: () => {
+          gsap.to(aboutTextRef.current, {
+            opacity: 0,
+            x: -100,
+            duration: 1
+          });
+        }
       });
     });
 
@@ -67,23 +120,26 @@ export default function HeroAbout() {
     <div className={styles.gradient}>
       <section ref={sectionRef} id="heroAbout" className={clsx(styles.heroAbout200vh)}> 
         <div id="hero" className={clsx(sharedStyles.container, styles.heroContent)}>
-          <div className={styles.contentWrapper}>
+          <div ref={heroTextRef} className={styles.contentWrapper}>
             <h1 className={clsx(sharedStyles.displayText, styles.heroHeadline)}>
-              <span>Build</span>
-              <span>Cool</span>
-              <span>Stuff</span>
+              <span className="heroText">Build</span>
+              <span className="heroText">Cool</span>
+              <span className="heroText">Stuff</span>
             </h1>
           </div>
         </div>
         <div ref={tokenContainerRef} className={styles.tokenContainer}>
-          <Canvas>
+          <Canvas
+            camera={{ position: [0, 0, 6], fov: 45 }}
+            style={{ width: '100%', height: '100%' }}
+          >
             <Suspense fallback={null}>
               <Environment preset="city" />
               <RotatingToken groupRef={groupRef} />
             </Suspense>
           </Canvas>
         </div>
-        <div id="about" className={clsx(styles.aboutContainer, styles.aboutContent)}>
+        <div id="about" ref={aboutTextRef} className={clsx(styles.aboutContainer, styles.aboutContent)}>
           <div className={styles.content}>
             <h1 className={clsx(sharedStyles.displayText, sharedStyles.sectionTitle, styles.aboutHeadline)}>Hello 👋</h1>
             <p className={clsx(sharedStyles.textBase, sharedStyles.larger)}>
