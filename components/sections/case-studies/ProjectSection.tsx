@@ -15,7 +15,7 @@ export default function ProjectSection({ project, className = '' }: ProjectSecti
   const imageClasses = clsx(styles.image, sharedStyles.responsiveImage);
 
   return (
-    <div className={sharedStyles.container}>
+    <div className={sharedStyles.containerFull}>
       <div className={clsx(sharedStyles.darkContainer, styles.projectContentContainer)}>
         <div className={styles.content}>
           <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionTitle)}>{project.title}</h2>

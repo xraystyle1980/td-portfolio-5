@@ -1,6 +1,6 @@
 'use client';
 
-import styles from '@/styles/casestudy.module.css';
+import styles from '@/styles/casestudy-shared.module.css';
 import { projects } from '@/data/projects';
 import { useRef } from 'react';
 import Image from 'next/image';

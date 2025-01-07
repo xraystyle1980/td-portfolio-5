@@ -22,7 +22,7 @@
   font-family: var(--font-cooper);
   font-size: 3rem;
   color: #FFF;
-  text-shadow: var(--shadow-md);
+  text-shadow: var(--shadow-sm);
   -webkit-text-stroke-width: 6px;
   -webkit-text-stroke-color: #000;
   paint-order: stroke fill;
