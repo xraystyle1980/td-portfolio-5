@@ -15,31 +15,29 @@ export default function ProjectSection({ project, className = '' }: ProjectSecti
   const imageClasses = clsx(styles.image, sharedStyles.responsiveImage);
 
   return (
-    <div className={sharedStyles.containerFull}>
-      <div className={clsx(sharedStyles.darkContainer, styles.projectContentContainer)}>
-        <div className={styles.content}>
-          <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionTitle)}>{project.title}</h2>
-          <div className={styles.details}>
-            <p>{project.role}</p>
-            {project.duration && <p className={styles.duration}>{project.duration}</p>}
-            {project.company && <p className={styles.company}>{project.company}</p>}
-          </div>
-          <p className={clsx(sharedStyles.textBase, sharedStyles.larger)}>{project.description}</p>
-
-          {/* Button with static label */}
-          <Link href={project.route || '#'} className={buttonClasses} scroll={true}>
-            <span>View Case Study</span>
-            <span><ArrowRight className={sharedStyles.buttonIcon} /></span>
-          </Link>
+    <div className={clsx(sharedStyles.darkContainer, styles.projectContentContainer)}>
+      <div className={styles.content}>
+        <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionTitle)}>{project.title}</h2>
+        <div className={styles.details}>
+          <p>{project.role}</p>
+          {project.duration && <p className={styles.duration}>{project.duration}</p>}
+          {project.company && <p className={styles.company}>{project.company}</p>}
         </div>
+        <p className={clsx(sharedStyles.textBase, sharedStyles.larger)}>{project.description}</p>
 
-        {/* Render Image */}
-        {project.imageUrl && (
-          <div className={styles.imageContainer}>
-            <img src={project.imageUrl} alt={project.title} className={imageClasses} />
-          </div>
-        )}
+        {/* Button with static label */}
+        <Link href={project.route || '#'} className={buttonClasses}>
+          <span>View Case Study</span>
+          <span><ArrowRight className={sharedStyles.buttonIcon} /></span>
+        </Link>
       </div>
+
+      {/* Render Image */}
+      {project.imageUrl && (
+        <div className={styles.imageContainer}>
+          <img src={project.imageUrl} alt={project.title} className={imageClasses} />
+        </div>
+      )}
     </div>
   );
 }
