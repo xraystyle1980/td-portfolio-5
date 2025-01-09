@@ -37,15 +37,15 @@ export default function TokenFace({
       
       // Set initial position
       gsap.set(modelRef.current.position, {
-        y: startY + 2
+        y: startY + 6  // Start above
       });
 
-      // Bounce animation
+      // Simple bounce animation
       gsap.to(modelRef.current.position, {
         y: startY,
-        duration: 1.2,
+        duration: 1,
         ease: "bounce.out",
-        delay: 0.3 // Slight delay to sync with text
+        delay: 0.2
       });
     }
   }, []);

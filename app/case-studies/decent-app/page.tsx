@@ -1,3 +1,4 @@
+// Decent App Case Study Page
 'use client';
 
 import styles from '@/styles/casestudy-shared.module.css';
@@ -15,7 +16,7 @@ export default function DecentAppCaseStudy() {
 
   return (
     <div>
-      <main className={clsx(styles.main, sharedStyles.containerFull)}>
+      <main className={sharedStyles.main}>
         {/* Hero Section */}
         <section className={styles.hero}>
           {project.imageUrl && (

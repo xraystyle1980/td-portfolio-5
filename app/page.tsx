@@ -1,10 +1,10 @@
+// App Home Page
 'use client'
 
 import dynamic from 'next/dynamic'
-import styles from './page.module.css'
+import sharedStyles from '@/styles/shared.module.css'
 import HeroAbout from '@/components/sections/HeroAbout'
 import CaseStudies from '@/components/sections/CaseStudies'
-// import Playground from '@/components/sections/Playground'
 
 // Define interface for Scene3D props
 interface Scene3DProps {
@@ -19,12 +19,14 @@ const Scene3D = dynamic<Scene3DProps>(() => import('./Scene3D'), {
 
 export default function HomePage() {
   return (
-    <main className={styles.main}>
+    <main className={sharedStyles.main}>
       {/* Hero Section */}
       <HeroAbout />
 
       {/* Case Studies Section */}
-      <CaseStudies />
+      <div id="case-studies-outer" className={sharedStyles.gradientBottomTop}>
+        <CaseStudies />
+      </div>
 
     </main>
   )

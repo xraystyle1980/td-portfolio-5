@@ -106,7 +106,8 @@ p {
   --font-size-section-title: 6rem;
   --font-size-heading: 3rem;
   --font-size-subheading: 2rem;
-  --font-size-body-large: 1.5rem;
+  --font-size-body-lg: 1.5rem;
+  --font-size-body-xl: 2.2rem;
   --font-size-body: 1.25rem;
   --font-size-small: 1rem;
   --line-height-tight: 1;
@@ -118,7 +119,9 @@ p {
   --font-size-section-heading-hero-mobile: 9.5rem;
   --font-size-section-heading-hero-mobile-sm: 7rem;
   --font-size-section-heading-tablet: 9rem;
+  --font-size-section-heading-tablet-sm: 6rem;
   --font-size-section-heading-mobile: 6rem;
+  --font-size-section-heading-mobile-sm: 4.5rem;
   --font-size-section-title-tablet: 4.5rem;
   --font-size-section-title-mobile: 3.85rem;
   --font-size-heading-mobile: 2rem;

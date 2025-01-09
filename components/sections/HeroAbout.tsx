@@ -16,8 +16,12 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, SplitText);
 }
 
-function RotatingToken({ groupRef }: { groupRef: React.RefObject<Group> }) {
+function RotatingToken({ groupRef, onFloatAnimCreated }: { 
+  groupRef: React.RefObject<Group>;
+  onFloatAnimCreated: (anim: gsap.core.Tween) => void;
+}) {
   const [xPosition, setXPosition] = useState(0);
+  const floatAnimRef = useRef<gsap.core.Tween | null>(null);
 
   useEffect(() => {
     const updatePosition = () => {
@@ -25,15 +29,15 @@ function RotatingToken({ groupRef }: { groupRef: React.RefObject<Group> }) {
       let newPosition;
       
       if (width > 1200) {
-        newPosition = 0;      // Default position for large screens
+        newPosition = 4;      // Right of text for large screens
       } else if (width > 1000) {
-        newPosition = 2;      // Slightly right
+        newPosition = 3;      // Right of text for medium-large screens
       } else if (width > 768) {
-        newPosition = 1.5;    // More centered
+        newPosition = 2;      // Right of text for tablets
       } else if (width > 400) {
-        newPosition = 1;      // Even more centered
+        newPosition = 1.5;    // Closer to text for small devices
       } else {
-        newPosition = 0.5;    // Most centered for mobile
+        newPosition = 1;      // Closest to text for mobile
       }
       
       setXPosition(newPosition);
@@ -47,14 +51,65 @@ function RotatingToken({ groupRef }: { groupRef: React.RefObject<Group> }) {
     return () => window.removeEventListener('resize', updatePosition);
   }, []);
 
-  useFrame(({ clock }) => {
-    if (groupRef.current) {
-      groupRef.current.rotation.y = clock.getElapsedTime() * 0.5;
+  useEffect(() => {
+    if (!groupRef.current) return;
+    
+    const group = groupRef.current;
+
+    // Reset position and kill any existing animations
+    if (floatAnimRef.current) {
+      floatAnimRef.current.kill();
     }
-  });
+
+    // Set initial position high above viewport
+    gsap.set(group.position, {
+      y: 6  // Start way above
+    });
+
+    // Create and store the bounce animation
+    const bounceAnim = gsap.to(group.position, {
+      y: 0,  // Final resting position
+      duration: 1.2,
+      ease: "bounce.out",
+      delay: 0.5,  // Delay to sync with text
+      paused: true, // Start paused
+      onComplete: startFloating
+    });
+
+    // Start the bounce animation
+    bounceAnim.play();
+
+    // Start floating animation
+    function startFloating() {
+      // Kill any existing floating animation
+      if (floatAnimRef.current) {
+        floatAnimRef.current.kill();
+      }
+
+      // Create new floating animation that continues throughout
+      floatAnimRef.current = gsap.to(group.position, {
+        y: "+=0.3",  // Float up by 0.3 units
+        duration: 2,
+        ease: "power1.inOut",
+        yoyo: true,  // Go back and forth
+        repeat: -1   // Repeat indefinitely
+      });
+
+      // Pass the animation reference up
+      onFloatAnimCreated(floatAnimRef.current);
+    }
+
+    // Cleanup
+    return () => {
+      if (floatAnimRef.current) {
+        floatAnimRef.current.kill();
+      }
+      bounceAnim.kill();
+    };
+  }, [onFloatAnimCreated]);
 
   return (
-    <group ref={groupRef} position={[xPosition, 0.15, 2]} scale={[1.9, 1.9, 1.9]}>
+    <group ref={groupRef} position={[xPosition, 6, 0]} scale={[4.5, 4.5, 4.5]}>
       <TokenFace />
     </group>
   );
@@ -66,27 +121,28 @@ export default function HeroAbout() {
   const tokenContainerRef = useRef<HTMLDivElement>(null);
   const heroTextRef = useRef<HTMLDivElement>(null);
   const aboutTextRef = useRef<HTMLDivElement>(null);
+  const floatAnimRef = useRef<gsap.core.Tween | null>(null);
+
+  const handleFloatAnimCreated = (anim: gsap.core.Tween) => {
+    floatAnimRef.current = anim;
+  };
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
     const ctx = gsap.context(() => {
-      console.log('GSAP Context started');
-      
       // Get the headline text
       const headline = heroTextRef.current?.querySelector('h1');
-      console.log('Found headline:', headline);
       if (!headline) return;
 
       // Get the pre-split words
       const words = headline.querySelectorAll(`.${styles.splitWord}`);
-      console.log('Found split words:', words);
 
       // Set initial state
       gsap.set(words, {
         opacity: 0,
         visibility: "hidden",
-        fontVariationSettings: "'wght' 100"
+        fontVariationSettings: "'wght' 400"
       });
 
       // Initial Load Animation - Text Fade In with Weight and Letter Spacing
@@ -114,39 +170,17 @@ export default function HeroAbout() {
         duration: 0.9,
         stagger: 0.05,
         ease: "back.out(1.7)",
-      }, "-=0.78"); // Start slightly before first animation ends
+      }, "-=0.78");
 
-      // Add hover animation for individual words
-      if (headline) {
-        const wordElements = headline.querySelectorAll(`.${styles.splitWord}`);
-        wordElements.forEach(word => {
-          word.addEventListener('mouseenter', () => {
-            gsap.to(word, {
-              letterSpacing: "-0.02em",
-              duration: 0.24,
-              ease: "back.out(1.7)",
-            });
-          });
-
-          word.addEventListener('mouseleave', () => {
-            gsap.to(word, {
-              letterSpacing: "-0.05em",
-              duration: 0.4,
-              ease: "power2.out"
-            });
-          });
-        });
-      }
-
-      // Hero Text Scroll Animation - Move Up Only
+      // Hero Text Scroll Animation
       gsap.to(heroTextRef.current, {
         y: -200,
+        opacity: 0,
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top top",
           end: "+=500",
           scrub: 1,
-          markers: false
         }
       });
 
@@ -154,35 +188,50 @@ export default function HeroAbout() {
       ScrollTrigger.create({
         trigger: sectionRef.current,
         start: "top top",
-        end: "60% center",
+        end: "bottom bottom",
         markers: false,
-        scrub: 2,
+        scrub: 2.5,
         pin: tokenContainerRef.current,
         anticipatePin: 1,
         onUpdate: (self) => {
           if (groupRef.current) {
             const progress = self.progress;
+            const easedProgress = gsap.parseEase("power3.inOut")(progress);
             
-            // Basic downward movement
-            const startY = 0.15;
-            const endY = -1.2; // Reduced end position
-            groupRef.current.position.y = gsap.utils.interpolate(startY, endY, progress);
-            
-            // Scale animation through midpoint
-            const initialScale = 1.9;
-            const peakScale = 2.8;
-            
-            // Create a bell curve for scale
-            let scale = initialScale;
-            if (progress < 0.5) {
-              scale = gsap.utils.interpolate(initialScale, peakScale, progress * 2);
-            } else {
-              scale = gsap.utils.interpolate(peakScale, initialScale, (progress - 0.5) * 2);
+            // Move the container down
+            if (tokenContainerRef.current) {
+              const startContainerY = 0;
+              const endContainerY = window.innerHeight * 0.94; // 40% down the viewport
+              const currentContainerY = gsap.utils.interpolate(startContainerY, endContainerY, easedProgress);
+              tokenContainerRef.current.style.transform = `translateY(${currentContainerY}px)`;
             }
             
+            // Scale animation with eased progress
+            const startScale = 4.5;
+            const endScale = 2.8;
+            const scale = gsap.utils.interpolate(startScale, endScale, easedProgress);
             groupRef.current.scale.set(scale, scale, scale);
+
+            // Rotations with eased progress
+            const startRotationY = 0;
+            const endRotationY = Math.PI;
+            const currentRotationY = gsap.utils.interpolate(startRotationY, endRotationY, easedProgress);
+            
+            const startRotationZ = 0;
+            const endRotationZ = Math.PI * 0.05;
+            const currentRotationZ = gsap.utils.interpolate(startRotationZ, endRotationZ, easedProgress);
+
+            // Apply rotations
+            groupRef.current.rotation.y = currentRotationY;
+            groupRef.current.rotation.z = currentRotationZ;
           }
         },
+        onLeave: () => {
+          // No need to handle floating animation here anymore
+        },
+        onEnterBack: () => {
+          // No need to handle floating animation here anymore
+        }
       });
 
       // About Section Animation
@@ -216,7 +265,7 @@ export default function HeroAbout() {
               y: 0,
               duration: 0.8,
               ease: "back.out(1.4)"
-            }, "-=0.4"); // Start before headline animation finishes
+            }, "-=0.4");
           },
           onLeaveBack: () => {
             // Reverse animation when scrolling back up
@@ -236,39 +285,42 @@ export default function HeroAbout() {
   }, []);
 
   return (
-    <div className={styles.gradient}>
-      <section ref={sectionRef} id="heroAbout" className={clsx(styles.heroAbout200vh)}> 
-        <div id="hero" className={clsx(sharedStyles.container, styles.heroContent)}>
-          <div ref={heroTextRef} className={styles.contentWrapper}>
-            <h1 className={clsx(sharedStyles.displayText, styles.heroHeadline)}>
-              <span className={styles.splitWord}>Build</span>
-              <span className={styles.splitWord}>Cool</span>
-              <span className={styles.splitWord}>Stuff</span>
-            </h1>
-          </div>
+    <section ref={sectionRef} id="heroAbout" className={clsx(styles.heroAbout200vh, sharedStyles.gradientTopBottom)}> 
+      <div id="hero" className={clsx(sharedStyles.container, styles.heroContent)}>
+        <div ref={heroTextRef} className={styles.contentWrapper}>
+          <h1 className={clsx(sharedStyles.displayText, styles.heroHeadline)}>
+            <span className={styles.splitWord}>Build</span>
+            <span className={styles.splitWord}>Cool</span>
+            <span className={styles.splitWord}>Stuff</span>
+          </h1>
         </div>
-        <div ref={tokenContainerRef} className={styles.tokenContainer}>
-          <Canvas
-            camera={{ position: [0, 0, 10], fov: 35 }}
-            style={{ width: '100%', height: '100%' }}
-          >
-            <Suspense fallback={null}>
-              <Environment preset="city" />
-              <RotatingToken groupRef={groupRef} />
-            </Suspense>
-          </Canvas>
+      </div>
+      <div ref={tokenContainerRef} className={styles.tokenContainer}>
+        <Canvas
+          camera={{ 
+            position: [0, 0, 10], 
+            fov: 35,
+            near: 0.1,
+            far: 100 
+          }}
+          style={{ width: '100%', height: '100%' }}
+        >
+          <Suspense fallback={null}>
+            <Environment preset="city" />
+            <RotatingToken groupRef={groupRef} onFloatAnimCreated={handleFloatAnimCreated} />
+          </Suspense>
+        </Canvas>
+      </div>
+      <div id="about" ref={aboutTextRef} className={clsx(sharedStyles.container, styles.aboutContent)}>
+        <div className={styles.bioContent}>
+          <h1 className={clsx(sharedStyles.displayText, styles.aboutHeadline)}>
+            Hello <span className={styles.waveEmoji}>👋</span>
+          </h1>
+          <p className={styles.aboutParagraph}>
+            I'm Matt Trice, an ATL-based Product Designer with a track record of design leadership, embracing complex problems, and crafting elegant solutions that deliver meaningful business impact.
+          </p>
         </div>
-        <div id="about" ref={aboutTextRef} className={clsx(styles.aboutContainer, styles.aboutContent)}>
-          <div className={styles.content}>
-            <h1 className={clsx(sharedStyles.displayText, styles.aboutHeadline)}>
-              Hello <span className={styles.waveEmoji}>👋</span>
-            </h1>
-            <p className={clsx(styles.textBase, styles.aboutParagraph)}>
-              I'm Matt Trice, an ATL-based Product Designer with a track record of design leadership, embracing complex problems, and crafting elegant solutions that deliver meaningful business impact.
-            </p>
-          </div>
-        </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 }
