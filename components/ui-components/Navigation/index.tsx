@@ -50,11 +50,11 @@ export default function Navigation() {
   };
 
   return (
-    <nav className={styles.nav}>
+    <nav className={`${styles.nav} ${isScrolled ? styles.scrolled : ''}`}>
       <div className={styles.wrapper}>
         {/* Logo */}
         <div
-          className={`${styles.logo} ${isScrolled ? styles.scrolled : ''}`}
+          className={styles.logo}
           onClick={handleLogoClick}
         >
           {isMobile ? 'TD' : 'Trice.Design'}

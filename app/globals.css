@@ -96,7 +96,7 @@ p {
   /* Colors */
   --color-background: #1d2329;
   --color-dark: #1d2329;
-  --color-text: #FFF;
+  --color-text: #e9e9e9;
   --color-accent: #F39;
   --color-border: #000;
 
@@ -104,12 +104,32 @@ p {
   --font-size-section-heading-hero: 16rem;
   --font-size-section-heading: 16rem;
   --font-size-section-title: 6rem;
+
   --font-size-heading: 3rem;
-  --font-size-subheading: 2rem;
-  --font-size-body-lg: 1.5rem;
+
+  --font-size-sub-title: 2rem;
+
+
+  /* 
+  Body Typography 
+  */ 
   --font-size-body-xl: 2.2rem;
-  --font-size-body: 1.25rem;
+  --font-size-body-lg: 1.85rem;
+  --font-size-body: 1.5rem;
+
+  /* Responsive */
+  --font-size-body-xl-tablet: 1.9rem;
+  --font-size-body-lg-tablet: 1.65rem;
+  --font-size-body-tablet: 1.4rem;
+
+  --font-size-body-xl-mobile: 1.5rem;
+  --font-size-body-lg-mobile: 1.35rem;
+  --font-size-body-mobile: 1.2rem;
+
+
+
   --font-size-small: 1rem;
+
   --line-height-tight: 1;
   --line-height-normal: 1.4;
   --line-height-relaxed: 1.6;
@@ -118,15 +138,24 @@ p {
   --font-size-section-heading-hero-tablet: 13rem;
   --font-size-section-heading-hero-mobile: 9.5rem;
   --font-size-section-heading-hero-mobile-sm: 7rem;
+
   --font-size-section-heading-tablet: 9rem;
   --font-size-section-heading-tablet-sm: 6rem;
   --font-size-section-heading-mobile: 6rem;
   --font-size-section-heading-mobile-sm: 4.5rem;
+
   --font-size-section-title-tablet: 4.5rem;
-  --font-size-section-title-mobile: 3.85rem;
+  --font-size-section-title-mobile: 3.85rem;  
+  --font-size-section-title-mobile-sm: 3rem;  
+
   --font-size-heading-mobile: 2rem;
-  --font-size-subheading-mobile: 1.5rem;
-  --font-size-body-mobile: 1rem;
+
+  --font-size-sub-title-tablet: 1.65rem;
+  --font-size-sub-title-mobile: 1.25rem;
+
+
+
+
 
   /* Spacing */
   --spacing-xs: 1rem;

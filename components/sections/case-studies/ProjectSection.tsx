@@ -19,11 +19,11 @@ export default function ProjectSection({ project, className = '' }: ProjectSecti
       <div className={styles.content}>
         <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionTitle)}>{project.title}</h2>
         <div className={styles.details}>
-          <p>{project.role}</p>
-          {project.duration && <p className={styles.duration}>{project.duration}</p>}
-          {project.company && <p className={styles.company}>{project.company}</p>}
+          <span>{project.role}</span>
+          {project.duration && <span>{project.duration}</span>}
+          {project.company && <span>{project.company}</span>}
         </div>
-        <p className={clsx(sharedStyles.textBase, sharedStyles.larger)}>{project.description}</p>
+        <p className={clsx(sharedStyles.textBase, sharedStyles.large)}>{project.description}</p>
 
         {/* Button with static label */}
         <Link href={project.route || '#'} className={buttonClasses}>

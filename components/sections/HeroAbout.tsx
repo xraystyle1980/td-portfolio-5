@@ -316,9 +316,11 @@ export default function HeroAbout() {
           <h1 className={clsx(sharedStyles.displayText, styles.aboutHeadline)}>
             Hello <span className={styles.waveEmoji}>👋</span>
           </h1>
-          <p className={styles.aboutParagraph}>
-            I'm Matt Trice, an ATL-based Product Designer with a track record of design leadership, embracing complex problems, and crafting elegant solutions that deliver meaningful business impact.
-          </p>
+          <div className={sharedStyles.darkContainer}>
+            <p className={clsx(sharedStyles.textBase, sharedStyles.larger)}>
+              I'm Matt Trice, an ATL-based Product Designer with a track record of design leadership, embracing complex problems, and crafting elegant solutions that deliver meaningful business impact.
+            </p>
+          </div>
         </div>
       </div>
     </section>

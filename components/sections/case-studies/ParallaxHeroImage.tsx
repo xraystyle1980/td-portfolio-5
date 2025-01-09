@@ -35,42 +35,18 @@ export default function ParallaxHeroImage({ imageUrl, alt, heroContentRef }: Par
 
       // Parallax effect on scroll
       gsap.to(container, {
-        yPercent: 30,
+        yPercent: 11,
         ease: "none",
         scrollTrigger: {
           trigger: container,
           start: "top top",
           end: "bottom top",
           scrub: true,
-          markers: true // Debug markers
+          markers: false // Debug markers
         }
       });
 
-      // Mouse movement effect
-      let imageXTo = gsap.quickTo(container, "rotationY", {duration: 0.6, ease: "power3.out"}),
-          imageYTo = gsap.quickTo(container, "rotationX", {duration: 0.6, ease: "power3.out"}),
-          contentXTo = gsap.quickTo(heroContent, "x", {duration: 0.6, ease: "power3.out"}),
-          contentYTo = gsap.quickTo(heroContent, "y", {duration: 0.6, ease: "power3.out"});
-
-      const handleMouseMove = (e: MouseEvent) => {
-        console.log('Mouse moving'); // Debug log
-        const rect = container.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        
-        // Image rotation
-        const rotateY = (e.clientX - centerX) / 15;
-        const rotateX = (e.clientY - centerY) / 15;
-        imageXTo(-rotateX);
-        imageYTo(rotateY);
-
-        // Hero content movement (opposite direction for parallax effect)
-        const moveX = (e.clientX - centerX) / 15; // Made more noticeable
-        const moveY = (e.clientY - centerY) / 15;
-        contentXTo(-moveX);
-        contentYTo(-moveY);
-      };
-
+      // Mouse enter/leave effects
       const handleMouseEnter = () => {
         console.log('Mouse enter'); // Debug log
         gsap.to(container, {
@@ -78,25 +54,15 @@ export default function ParallaxHeroImage({ imageUrl, alt, heroContentRef }: Par
           duration: 0.3,
           ease: "power2.out"
         });
-        window.addEventListener('mousemove', handleMouseMove);
       };
 
       const handleMouseLeave = () => {
         console.log('Mouse leave'); // Debug log
         gsap.to(container, {
           scale: 1,
-          rotationX: 0,
-          rotationY: 0,
           duration: 0.6,
           ease: "power3.out"
         });
-        gsap.to(heroContent, {
-          x: 0,
-          y: 0,
-          duration: 0.6,
-          ease: "power3.out"
-        });
-        window.removeEventListener('mousemove', handleMouseMove);
       };
 
       // Add event listeners to the entire hero section
@@ -109,7 +75,6 @@ export default function ParallaxHeroImage({ imageUrl, alt, heroContentRef }: Par
         return () => {
           heroSection.removeEventListener('mouseenter', handleMouseEnter);
           heroSection.removeEventListener('mouseleave', handleMouseLeave);
-          window.removeEventListener('mousemove', handleMouseMove);
         };
       }
     });

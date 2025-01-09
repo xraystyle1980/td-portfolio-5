@@ -8,7 +8,7 @@ export const projects: Project[] = [
     technologies: ["React Native", "TypeScript", "Bitcoin", "Lightning Network", "Nostr"],
     route: "/case-studies/decent-app",
     year: "2023",
-    company: "Decent Labs",
+    company: "Decent DAO",
     duration: "Q1 2023 - Q3 2024",
     team: "2 Designers, 4 Engineers, Product",
     imageUrl: "/portfolio/decent_app--hero.png"

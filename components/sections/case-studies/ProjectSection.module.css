@@ -110,6 +110,9 @@
   .content {
     gap: 1rem;
   }
+  .details {
+    padding: var(--spacing-sm) 0;
+  }
 }
 
 @media (max-width: 640px) {
