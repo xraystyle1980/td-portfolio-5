@@ -7,6 +7,8 @@ import { projects } from '@/data/projects';
 import { useRef } from 'react';
 import clsx from 'clsx';
 import ParallaxHeroImage from '@/components/sections/case-studies/ParallaxHeroImage';
+import ImageGallery from '@/components/sections/case-studies/ImageGallery';
+import { galleryImages } from './galleryData';
 
 export default function DecentAppCaseStudy() {
   const project = projects.find((p) => p.route === '/case-studies/decent-app');
@@ -69,6 +71,13 @@ export default function DecentAppCaseStudy() {
                 <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionTitle)}>The Journey</h2>
                 <p className={sharedStyles.textBase}>When market feedback showed that Fractal's customizable DAO structure wasn't meeting user needs, the team decided to pivot. This shift brought a new challenge: redefining the product's value while ensuring scalability and ease of use.</p>
                 <p className={sharedStyles.textBase}>My role was to bridge the gap between user needs and business goals, crafting a solution that felt intuitive, trustworthy, and impactful. The journey involved aligning cross-functional teams, designing with scalability in mind, and creating an experience that met both user and stakeholder needs.</p>
+              </div>
+
+              {/* Interface Gallery */}
+              <div className={sharedStyles.contentContainer}>
+                <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionTitle)}>Interface Gallery</h2>
+                <p className={sharedStyles.textBase}>Key screens from the Decent app showcasing the redesigned interface and improved user experience.</p>
+                <ImageGallery images={galleryImages} />
               </div>
           
               {/* Impact */}

@@ -137,6 +137,7 @@ export default function HeroAbout() {
 
       // Get the pre-split words
       const words = headline.querySelectorAll(`.${styles.splitWord}`);
+      const stuffWord = words[2]; // The word "stuff"
 
       // Set initial state
       gsap.set(words, {
@@ -172,10 +173,47 @@ export default function HeroAbout() {
         ease: "back.out(1.7)",
       }, "-=0.78");
 
+      // Simple word change animation
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: "top top",
+        end: "+=300",
+        scrub: true,
+        markers: true, // Add markers to debug
+        onUpdate: (self) => {
+          if (self.progress > 0.5 && stuffWord.textContent === "Stuff") {
+            gsap.to(stuffWord, {
+              opacity: 0,
+              duration: 0.3,
+              onComplete: () => {
+                stuffWord.textContent = "Shit";
+                gsap.to(stuffWord, {
+                  opacity: 1,
+                  duration: 0.3
+                });
+              }
+            });
+          } else if (self.progress < 0.5 && stuffWord.textContent === "Shit") {
+            gsap.to(stuffWord, {
+              opacity: 0,
+              duration: 0.3,
+              onComplete: () => {
+                stuffWord.textContent = "Stuff";
+                gsap.to(stuffWord, {
+                  opacity: 1,
+                  duration: 0.3
+                });
+              }
+            });
+          }
+        }
+      });
+
+      // Comment out other scroll animations temporarily
+      /*
       // Hero Text Scroll Animation
       gsap.to(heroTextRef.current, {
         y: -200,
-        opacity: 0,
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top top",
@@ -201,7 +239,7 @@ export default function HeroAbout() {
             // Move the container down
             if (tokenContainerRef.current) {
               const startContainerY = 0;
-              const endContainerY = window.innerHeight * 0.94; // 40% down the viewport
+              const endContainerY = window.innerHeight * 0.94;
               const currentContainerY = gsap.utils.interpolate(startContainerY, endContainerY, easedProgress);
               tokenContainerRef.current.style.transform = `translateY(${currentContainerY}px)`;
             }
@@ -225,14 +263,9 @@ export default function HeroAbout() {
             groupRef.current.rotation.y = currentRotationY;
             groupRef.current.rotation.z = currentRotationZ;
           }
-        },
-        onLeave: () => {
-          // No need to handle floating animation here anymore
-        },
-        onEnterBack: () => {
-          // No need to handle floating animation here anymore
         }
       });
+      */
 
       // About Section Animation
       const aboutHeadline = aboutTextRef.current?.querySelector('h1');
