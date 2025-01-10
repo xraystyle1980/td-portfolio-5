@@ -140,3 +140,52 @@
   }
 
 }
+
+.sectionIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #161616;
+  border: 2px solid #000;
+  box-shadow: -4px 4px 0px #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  transition: all 0.2s ease;
+  color: var(--color-accent);
+}
+
+.sectionIcon:hover {
+  transform: translate(2px, -2px);
+  box-shadow: -6px 6px 0px #000;
+}
+
+@media (max-width: 768px) {
+  .sectionIcon {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.subsectionTitle {
+  font-size: var(--font-size-section-heading-sm);
+  font-family: var(--font-cooper);
+  font-variation-settings: "wght" 700;
+  margin-bottom: var(--spacing-sm);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.subsectionIcon {
+  color: var(--color-accent);
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .subsectionTitle {
+    font-size: var(--font-size-section-heading-sm-mobile);
+    gap: 0.5rem;
+  }
+}

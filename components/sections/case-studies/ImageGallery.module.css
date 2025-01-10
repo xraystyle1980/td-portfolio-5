@@ -12,8 +12,15 @@
 
 .thumbnailWrapper {
   position: relative;
-  aspect-ratio: 3/2;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.thumbnailImage {
+  position: relative;
+  aspect-ratio: 3/2;
   overflow: hidden;
   border-radius: var(--radius-md);
   background-color: var(--color-background-darker);
@@ -28,6 +35,13 @@
 
 .thumbnailWrapper:hover .thumbnail {
   transform: scale(1.05);
+}
+
+.thumbnailCaption {
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  line-height: 1.4;
+  padding: 0 0.25rem;
 }
 
 .modalOverlay {
@@ -49,19 +63,37 @@
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 1.5rem;
   padding: 2rem;
 }
 
+.imageContainer {
+  max-height: calc(90vh - 100px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .fullSizeImage {
-  max-width: 90%;
-  max-height: 90%;
+  max-width: 90vw;
+  max-height: 100%;
   width: auto;
   height: auto;
   object-fit: contain;
   border-radius: var(--radius-lg);
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+}
+
+.modalCaption {
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  line-height: 1.5;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .closeButton {
@@ -115,4 +147,8 @@
     height: 40px;
     font-size: 1.75rem;
   }
+}
+
+.imageCaption {
+  display: none;
 } 

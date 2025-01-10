@@ -56,7 +56,7 @@ a.link {
 }
 
 .contentContainer {
-  padding: var(--spacing-lg) 0;
+  padding: var(--spacing-md) 0 0;
 }
 
 .paddingBottom {

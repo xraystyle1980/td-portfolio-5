@@ -8,6 +8,8 @@ import { useRef } from 'react';
 import clsx from 'clsx';
 import ParallaxHeroImage from '@/components/sections/case-studies/ParallaxHeroImage';
 import ImageGallery from '@/components/sections/case-studies/ImageGallery';
+import CaseStudyImage from '@/components/sections/case-studies/CaseStudyImage';
+import { Icon } from '@/components/icons/Icon';
 import { galleryImages } from './galleryData';
 
 export default function DecentAppCaseStudy() {
@@ -70,25 +72,35 @@ export default function DecentAppCaseStudy() {
               <div className={sharedStyles.contentContainer}>
                 <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionTitle)}>The Journey</h2>
                 <p className={sharedStyles.textBase}>When market feedback showed that Fractal's customizable DAO structure wasn't meeting user needs, the team decided to pivot. This shift brought a new challenge: redefining the product's value while ensuring scalability and ease of use.</p>
+                
+                <CaseStudyImage
+                  src="/images/decent-app/gallery/placeholder-1.jpg"
+                  alt="Original Fractal interface showing customizable DAO structure"
+                  width={1920}
+                  height={1080}
+                  caption="UPDATE The original Fractal interface with customizable DAO structure"
+                />
+                
                 <p className={sharedStyles.textBase}>My role was to bridge the gap between user needs and business goals, crafting a solution that felt intuitive, trustworthy, and impactful. The journey involved aligning cross-functional teams, designing with scalability in mind, and creating an experience that met both user and stakeholder needs.</p>
               </div>
 
               {/* Interface Gallery */}
               <div className={sharedStyles.contentContainer}>
-                <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionTitle)}>Interface Gallery</h2>
+                <h3 className={sharedStyles.subsectionTitle}>Interface Gallery</h3>
                 <p className={sharedStyles.textBase}>Key screens from the Decent app showcasing the redesigned interface and improved user experience.</p>
                 <ImageGallery images={galleryImages} />
               </div>
           
               {/* Impact */}
               <div className={sharedStyles.contentContainer}>
-                <div>
-                  <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionTitle)}>Impact</h2>
-                </div>
+                <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionTitle)}>Impact</h2>
                 <div className={sharedStyles.gridColumns2}>
                   
                   <div>
-                    <h3 className={sharedStyles.subsectionTitle}>Design Impact</h3>
+                    <Icon name="chart-up" size={48} className={styles.subsectionIcon} />
+                    <h3 className={sharedStyles.subsectionTitle}>
+                      Design Impact
+                    </h3>
                     <ul className={clsx(sharedStyles.subsectionList, sharedStyles.textBase)}>
                       <li>Aligned brand vision with product goals: Established a consistent design system across platforms to build trust and relevance.</li>
                       <li>Internal usability testing: Streamlined the app's core features, addressing key pain points to improve the user experience.</li>
@@ -97,28 +109,37 @@ export default function DecentAppCaseStudy() {
                   </div>
                   
                   <div>
-                      <h3 className={sharedStyles.subsectionTitle}>Customer Impact</h3>
-                      <ul className={clsx(sharedStyles.subsectionList, sharedStyles.textBase)}>
-                        <li>Perceived the app as more modern and trustworthy, leading to quicker task completion.</li>
-                        <li>Experienced less confusion and found the platform better aligned to their needs.</li>
-                      </ul>
+                    <Icon name="arrow-right" size={48} className={styles.subsectionIcon} />
+                    <h3 className={sharedStyles.subsectionTitle}>
+                      Customer Impact
+                    </h3>
+                    <ul className={clsx(sharedStyles.subsectionList, sharedStyles.textBase)}>
+                      <li>Perceived the app as more modern and trustworthy, leading to quicker task completion.</li>
+                      <li>Experienced less confusion and found the platform better aligned to their needs.</li>
+                    </ul>
                   </div>
 
                   <div>
-                      <h3 className={sharedStyles.subsectionTitle}>Business Impact</h3>
-                      <ul className={clsx(sharedStyles.subsectionList, sharedStyles.textBase)}>
-                        <li>Improved brand alignment, increasing trust in the product.</li>
-                        <li>Reduced time-on-task and user friction, driving higher engagement.</li>
-                        <li>Established a foundation for monetization by increasing adoption of DAO tooling.</li>
-                      </ul>
+                    <Icon name="arrow-right" size={48} className={styles.subsectionIcon} />
+                    <h3 className={sharedStyles.subsectionTitle}>
+                      Business Impact
+                    </h3>
+                    <ul className={clsx(sharedStyles.subsectionList, sharedStyles.textBase)}>
+                      <li>Improved brand alignment, increasing trust in the product.</li>
+                      <li>Reduced time-on-task and user friction, driving higher engagement.</li>
+                      <li>Established a foundation for monetization by increasing adoption of DAO tooling.</li>
+                    </ul>
                   </div>
 
                   <div>
-                      <h3 className={sharedStyles.subsectionTitle}>Financial Impact</h3>
-                      <ul className={clsx(sharedStyles.subsectionList, sharedStyles.textBase)}>
-                        <li>Increased revenue through higher user engagement and reduced operational costs.</li>
-                        <li>Boosted profitability by enabling efficient scaling.</li>
-                      </ul>
+                    <Icon name="chart-up" size={48} className={styles.subsectionIcon} />
+                    <h3 className={sharedStyles.subsectionTitle}>
+                      Financial Impact
+                    </h3>
+                    <ul className={clsx(sharedStyles.subsectionList, sharedStyles.textBase)}>
+                      <li>Increased revenue through higher user engagement and reduced operational costs.</li>
+                      <li>Boosted profitability by enabling efficient scaling.</li>
+                    </ul>
                   </div>
                 </div>
               </div>
@@ -130,14 +151,17 @@ export default function DecentAppCaseStudy() {
                 </div>
                 <div className={sharedStyles.gridColumns3}>
                   <div>
+                    <Icon name="arrow-right" size={48} className={styles.subsectionIcon} />
                     <h3 className={sharedStyles.subsectionTitle}>Collaborative Design & Testing</h3>
                     <p className={sharedStyles.textBase}>To ensure the redesign met both user and business needs, I worked closely with engineers, product teams, and stakeholders. Through usability testing and rapid prototyping, we iterated on designs that addressed user pain points while maintaining operational efficiency.</p>
                   </div>
                   <div>
+                    <Icon name="arrow-right" size={48} className={styles.subsectionIcon} />
                     <h3 className={sharedStyles.subsectionTitle}>Rebranding for Scalability</h3>
                     <p className={sharedStyles.textBase}>The rebrand included the development of a UI component library in Figma, seamlessly integrated with Chakra UI. This system reduced design and engineering debt, making it easier to scale as the app evolved.</p>
                   </div>
                   <div>
+                    <Icon name="arrow-right" size={48} className={styles.subsectionIcon} />
                     <h3 className={sharedStyles.subsectionTitle}>Outcome-Oriented Design</h3>
                     <p className={sharedStyles.textBase}>Each design decision was framed around its potential to drive outcomes:</p>
                     <ul className={clsx(sharedStyles.subsectionList, sharedStyles.textBase)}>
@@ -155,14 +179,17 @@ export default function DecentAppCaseStudy() {
                 </div>
                 <div className={sharedStyles.gridColumns3}>
                   <div>
+                    <Icon name="arrow-right" size={48} className={styles.subsectionIcon} />
                     <h3 className={sharedStyles.subsectionTitle}>Design as a Catalyst for Trust</h3>
                     <p className={sharedStyles.textBase}>By prioritizing consistency and usability, we created a platform that users felt confident adopting.</p>
                   </div>
                   <div>
+                    <Icon name="arrow-right" size={48} className={styles.subsectionIcon} />
                     <h3 className={sharedStyles.subsectionTitle}>Collaboration as a Growth Driver</h3>
                     <p className={sharedStyles.textBase}>Cross-functional alignment amplified the impact of the design system, reducing bottlenecks and fostering innovation.</p>
                   </div>
                   <div>
+                    <Icon name="arrow-right" size={48} className={styles.subsectionIcon} />
                     <h3 className={sharedStyles.subsectionTitle}>Outcome-Oriented Decision Making</h3>
                     <p className={sharedStyles.textBase}>Shifting focus to measurable business outcomes during the design process created clarity, helping the team prioritize efforts that would maximize user impact and operational efficiency.</p>
                   </div>
@@ -172,7 +199,7 @@ export default function DecentAppCaseStudy() {
               {/* Summary */}
               <div className={sharedStyles.contentContainer}>
                 <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionTitle)}>Summary</h2>
-                <p className={sharedStyles.textBase}>The redesign of the Decent App showcases the power of thoughtful design to drive both customer satisfaction and business success. By focusing on user needs and operational scalability, we not only delivered a better product but also created value that resonated across the organization.</p>
+                <p className={clsx(sharedStyles.textBase, sharedStyles.large)}>The redesign of the Decent App showcases the power of thoughtful design to drive both customer satisfaction and business success. By focusing on user needs and operational scalability, we not only delivered a better product but also created value that resonated across the organization.</p>
               </div>
               
             </div>

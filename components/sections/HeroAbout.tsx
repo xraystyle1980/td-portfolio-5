@@ -174,6 +174,7 @@ export default function HeroAbout() {
       }, "-=0.78");
 
       // Simple word change animation
+      /*
       ScrollTrigger.create({
         trigger: sectionRef.current,
         start: "top top",
@@ -208,26 +209,15 @@ export default function HeroAbout() {
           }
         }
       });
+      */
 
-      // Comment out other scroll animations temporarily
-      /*
-      // Hero Text Scroll Animation
-      gsap.to(heroTextRef.current, {
-        y: -200,
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: "+=500",
-          scrub: 1,
-        }
-      });
-
+      // Uncomment token scroll animation
       // Token Scroll Animation
       ScrollTrigger.create({
         trigger: sectionRef.current,
         start: "top top",
         end: "bottom bottom",
-        markers: false,
+        markers: true,
         scrub: 2.5,
         pin: tokenContainerRef.current,
         anticipatePin: 1,
@@ -265,7 +255,6 @@ export default function HeroAbout() {
           }
         }
       });
-      */
 
       // About Section Animation
       const aboutHeadline = aboutTextRef.current?.querySelector('h1');

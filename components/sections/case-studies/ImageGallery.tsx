@@ -10,6 +10,7 @@ interface GalleryImage {
   alt: string;
   width: number;
   height: number;
+  caption?: string;
 }
 
 interface ImageGalleryProps {
@@ -51,36 +52,6 @@ export default function ImageGallery({ images, className = '' }: ImageGalleryPro
     };
   }, [selectedImage, handleClose]);
 
-  const modalContent = selectedImage && (
-    <div 
-      className={styles.modalOverlay} 
-      onClick={handleClose}
-      role="dialog"
-      aria-modal="true"
-      aria-label="Image Gallery"
-    >
-      <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
-        <Image
-          src={selectedImage.src}
-          alt={selectedImage.alt}
-          width={selectedImage.width}
-          height={selectedImage.height}
-          className={styles.fullSizeImage}
-          quality={100}
-          priority={true}
-          loading="eager"
-        />
-        <button 
-          className={styles.closeButton}
-          onClick={handleClose}
-          aria-label="Close gallery"
-        >
-          ×
-        </button>
-      </div>
-    </div>
-  );
-
   return (
     <div className={clsx(styles.galleryContainer, className)}>
       <div className={styles.thumbnailGrid}>
@@ -98,23 +69,63 @@ export default function ImageGallery({ images, className = '' }: ImageGalleryPro
               }
             }}
           >
-            <Image
-              src={image.src}
-              alt={image.alt}
-              width={300}
-              height={200}
-              className={styles.thumbnail}
-              quality={60}
-              placeholder="blur"
-              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="
-              sizes="300px"
-            />
+            <div className={styles.thumbnailImage}>
+              <Image
+                src={image.src}
+                alt={image.alt}
+                width={300}
+                height={200}
+                className={styles.thumbnail}
+                quality={60}
+                placeholder="blur"
+                blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="
+                sizes="300px"
+              />
+            </div>
+            {image.caption && (
+              <div className={styles.thumbnailCaption}>
+                {image.caption}
+              </div>
+            )}
           </div>
         ))}
       </div>
 
-      {mounted && modalContent && createPortal(
-        modalContent,
+      {mounted && selectedImage && createPortal(
+        <div 
+          className={styles.modalOverlay} 
+          onClick={handleClose}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Image Gallery"
+        >
+          <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
+            <div className={styles.imageContainer}>
+              <Image
+                src={selectedImage.src}
+                alt={selectedImage.alt}
+                width={selectedImage.width}
+                height={selectedImage.height}
+                className={styles.fullSizeImage}
+                quality={100}
+                priority={true}
+                loading="eager"
+              />
+            </div>
+            {selectedImage.caption && (
+              <div className={styles.modalCaption}>
+                {selectedImage.caption}
+              </div>
+            )}
+            <button 
+              className={styles.closeButton}
+              onClick={handleClose}
+              aria-label="Close gallery"
+            >
+              ×
+            </button>
+          </div>
+        </div>,
         document.body
       )}
     </div>
