@@ -1,194 +1,175 @@
+// Blockset BRD Docs Case Study Page
 'use client';
 
 import styles from '@/styles/casestudy-shared.module.css';
 import { projects } from '@/data/projects';
 import { useRef } from 'react';
 import Image from 'next/image';
+import { useEffect } from 'react';
+import clsx from 'clsx';
+import ParallaxHeroImage from '@/components/sections/case-studies/ParallaxHeroImage';
+import ImageGallery from '@/components/sections/case-studies/ImageGallery';
+import CaseStudyImage from '@/components/sections/case-studies/CaseStudyImage';
+import { Icon } from '@/components/icons/Icon';
+import { galleryImages } from './galleryData';
+import sharedStyles from '@/styles/shared.module.css';
 
 export default function BlocksetBRDDocsCaseStudy() {
   const project = projects.find((p) => p.route === '/case-studies/blockset-brd-docs');
-  const heroImageRef = useRef(null);
+  const heroContentRef = useRef<HTMLDivElement>(null);
 
   if (!project) return null;
+
   return (
-    <main className={`${styles.main}`}>
-      <section className={styles.hero}>
+    <main className={sharedStyles.main}>
+      <section className={clsx(styles.hero, sharedStyles.gradientBottomTop)}>
         {project.imageUrl && (
-          <div className={styles.heroImage} ref={heroImageRef}>
-            <Image
-              src={project.imageUrl}
-              alt={project.title}
-              fill
-              priority
-              quality={90}
-            />
-            <div className={styles.heroImageOverlay} />
-          </div>
+          <ParallaxHeroImage
+            imageUrl={project.imageUrl}
+            alt={project.title}
+            heroContentRef={heroContentRef}
+          />
         )}
-        <div className={styles.heroContent}>
-          <h1 className={styles.title}>{project.title}</h1>
-          <div className={styles.details}>
+        <div ref={heroContentRef} className={clsx(styles.heroContent)}>
+          <h1 className={clsx(sharedStyles.displayText, sharedStyles.sectionTitle)}>{project.title}</h1>
+          <div className={styles.projectDetails}>
             <div className={styles.detailGroup}>
-              <h3 className={styles.detailLabel}>Role</h3>
-              <p className={styles.detailText}>Lead Product Designer</p>
+              <div className={styles.projectDetailLabel}>ROLE</div>
+              <div className={styles.projectDetailValue}>Lead Product Designer</div>
             </div>
             <div className={styles.detailGroup}>
-              <h3 className={styles.detailLabel}>Duration</h3>
-              <p className={styles.detailText}>Q1 2022 – Q4 2023</p>
+              <div className={styles.projectDetailLabel}>DURATION</div>
+              <div className={styles.projectDetailValue}>Q1 2022 – Q4 2023</div>
             </div>
             <div className={styles.detailGroup}>
-              <h3 className={styles.detailLabel}>Team</h3>
-              <p className={styles.detailText}>2 Designers, 3 Engineers, Product Manager</p>
+              <div className={styles.projectDetailLabel}>TEAM</div>
+              <div className={styles.projectDetailValue}>2 Designers, 3 Engineers, Product Manager</div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Main Content Section */}
-      <section className={styles.section} data-section="content">
-        <div className={styles.sectionContent}>
-          {/* Overview */}
-          <div className={styles.sectionGrid}>
-            <div className={styles.sectionIntro}>
-              <h2 className={styles.sectionTitle}>Overview</h2>
-            </div>
-            <div className={styles.sectionText}>
-              <p className={styles.subsectionText}>
-                Blockset, a blockchain data integration platform, enables engineering teams to build enterprise-grade blockchain applications. To enhance its adoption, the project required a robust documentation platform and a marketing website that could bridge the gap between technical nuance and user onboarding needs.
-              </p>
-              <p className={styles.subsectionText}>
-                As Lead Product Designer, I collaborated with BRD's internal design team, external stakeholders, and my team to create a unified documentation site and marketing page. These efforts helped improve developer confidence, streamline integration processes, and elevate Blockset's market presence.
-              </p>
-            </div>
-          </div>
+      <section className={clsx(styles.contentSections, sharedStyles.darkOverlayBg)}>
+        <div className={clsx(sharedStyles.container)}>
+          <div className={sharedStyles.darkContainer}>
 
-          {/* The Journey */}
-          <div className={styles.sectionGrid}>
-            <div className={styles.sectionIntro}>
-              <h2 className={styles.sectionTitle}>The Journey</h2>
+            <div className={sharedStyles.contentContainer}>
+              <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionTitle)}>Overview</h2>
+              <p className={clsx(sharedStyles.textBase, sharedStyles.large)}>Blockset, a blockchain data integration platform, enables engineering teams to build enterprise-grade blockchain applications. To enhance its adoption, the project required a robust documentation platform and a marketing website that could bridge the gap between technical nuance and user onboarding needs.</p>
+              <p className={clsx(sharedStyles.textBase, sharedStyles.large)}>As Lead Product Designer, I collaborated with BRD's internal design team, external stakeholders, and my team to create a unified documentation site and marketing page. These efforts helped improve developer confidence, streamline integration processes, and elevate Blockset's market presence.</p>
             </div>
-            <div className={styles.sectionText}>
-              <div className={styles.subsection}>
-                <h3 className={styles.subsectionTitle}>Challenges</h3>
-                <ul className={styles.subsectionList}>
-                  <li>Developers needed a clearer, more accessible documentation platform to simplify their onboarding experience.</li>
-                  <li>The marketing website had to present Blockset's technical capabilities in a way that resonated with enterprise clients.</li>
-                </ul>
-              </div>
-              <p className={styles.subsectionText}>
-                I led the design and execution of this initiative on the Decent side, focusing on delivering developer-centric tools while enhancing the platform's business appeal. This required synthesizing input across multiple teams, iterating based on user feedback, and ensuring the final product balanced technical depth with usability.
-              </p>
-            </div>
-          </div>
 
-          {/* Impact */}
-          <div className={styles.sectionGrid}>
-            <div className={styles.sectionIntro}>
-              <h2 className={styles.sectionTitle}>Impact</h2>
+            <div className={sharedStyles.contentContainer}>
+              <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionTitle)}>The Journey</h2>
+              <p className={sharedStyles.textBase}>Developers needed a clearer, more accessible documentation platform to simplify their onboarding experience. The marketing website had to present Blockset's technical capabilities in a way that resonated with enterprise clients.</p>
+              <CaseStudyImage
+                src="/images/blockset-brd-docs/gallery/placeholder-1.jpg"
+                alt="Documentation Platform"
+                width={1920}
+                height={1080}
+                caption="The documentation platform with improved accessibility"
+              />
+              <p className={sharedStyles.textBase}>I led the design and execution of this initiative on the Decent side, focusing on delivering developer-centric tools while enhancing the platform's business appeal. This required synthesizing input across multiple teams, iterating based on user feedback, and ensuring the final product balanced technical depth with usability.</p>
             </div>
-            <div className={styles.sectionText}>
-              <div className={styles.subsection}>
-                <h3 className={styles.subsectionTitle}>Design Outcomes</h3>
-                <ul className={styles.subsectionList}>
-                  <li>Streamlined Information Architecture: Restructured existing documentation to improve accessibility and logical flow for developers.</li>
-                  <li>Synthesized Stakeholder Input: Integrated feedback from BRD's internal teams and external stakeholders to refine the platform's UX.</li>
-                  <li>Developed Interactive Marketing Features: Designed engaging tools, such as a pricing slider and feature prototypes, to showcase Blockset's offerings.</li>
-                  <li>Designed Developer Sandbox: Worked closely with engineers on both teams to design and refine a hands-on environment for testing API requests.</li>
-                </ul>
-              </div>
-              <div className={styles.subsection}>
-                <h3 className={styles.subsectionTitle}>Customer Outcomes</h3>
-                <ul className={styles.subsectionList}>
-                  <li>Enhanced Developer Experience: Developers felt more empowered and confident when integrating Blockset.</li>
-                  <li>Increased Engagement: Clearer documentation and sandbox tools encouraged deeper exploration of Blockset's features.</li>
-                  <li>Improved Perception among Clients: The professional design elevated trust in Blockset's capabilities.</li>
-                </ul>
-              </div>
-              <div className={styles.subsection}>
-                <h3 className={styles.subsectionTitle}>Business Outcomes</h3>
-                <ul className={styles.subsectionList}>
-                  <li>Accelerated Adoption: Enhanced resources streamlined onboarding for enterprises and developers.</li>
-                  <li>Market Differentiation: High-quality documentation set Blockset apart from competitors.</li>
-                  <li>Reduced Support Costs: Developers relied on self-service tools, minimizing the need for technical support.</li>
-                </ul>
-              </div>
-              <div className={styles.subsection}>
-                <h3 className={styles.subsectionTitle}>Financial Outcomes</h3>
-                <ul className={styles.subsectionList}>
-                  <li>Increased Revenue: Improved adoption rates contributed to new client acquisitions and higher revenue.</li>
-                  <li>Lowered Operational Costs: Comprehensive resources reduced support tickets, driving operational efficiency.</li>
-                </ul>
-              </div>
-            </div>
-          </div>
 
-          {/* Strategy & Execution */}
-          <div className={styles.sectionGrid}>
-            <div className={styles.sectionIntro}>
-              <h2 className={styles.sectionTitle}>Strategy & Execution</h2>
+            <div className={sharedStyles.contentContainer}>
+              <h3 className={sharedStyles.subsectionTitle}>Interface Gallery</h3>
+              <p className={sharedStyles.textBase}>Key screens from the Blockset BRD Docs showcasing the redesigned interface and improved user experience.</p>
+              <ImageGallery images={galleryImages} />
             </div>
-            <div className={styles.sectionText}>
-              <div className={styles.subsection}>
-                <h3 className={styles.subsectionTitle}>Collaborative Design Process</h3>
-                <p className={styles.subsectionText}>
-                  I worked closely with BRD's internal design team, stakeholders, and my team to align on project goals. By conducting usability testing and gathering iterative feedback, we ensured that the design addressed user needs and business objectives.
-                </p>
-              </div>
-              <div className={styles.subsection}>
-                <h3 className={styles.subsectionTitle}>Delivering Developer-Focused Solutions</h3>
-                <p className={styles.subsectionText}>
-                  The project prioritized developer tools, such as a sandbox and interactive documentation, to reduce onboarding friction and improve engagement. Clear, action-oriented resources made the integration process seamless.
-                </p>
-              </div>
-              <div className={styles.subsection}>
-                <h3 className={styles.subsectionTitle}>Marketing Website Enhancements</h3>
-                <p className={styles.subsectionText}>
-                  To elevate Blockset's positioning, we designed an interactive and visually compelling website that communicated technical features in an accessible way.
-                </p>
-              </div>
-            </div>
-          </div>
 
-          {/* Key Learnings */}
-          <div className={styles.sectionGrid}>
-            <div className={styles.sectionIntro}>
-              <h2 className={styles.sectionTitle}>Key Learnings & Reflections</h2>
+            <div className={sharedStyles.contentContainer}>
+              <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionTitle)}>Impact</h2>
+              <div className={sharedStyles.gridColumns2}>
+                <div>
+                  <Icon name="chart-up" size={48} className={styles.subsectionIcon} />
+                  <h3 className={sharedStyles.subsectionTitle}>Design Impact</h3>
+                  <ul className={clsx(sharedStyles.subsectionList, sharedStyles.textBase)}>
+                    <li>Streamlined Information Architecture: Restructured existing documentation to improve accessibility and logical flow for developers.</li>
+                    <li>Synthesized Stakeholder Input: Integrated feedback from BRD's internal teams and external stakeholders to refine the platform's UX.</li>
+                    <li>Developed Interactive Marketing Features: Designed engaging tools, such as a pricing slider and feature prototypes, to showcase Blockset's offerings.</li>
+                  </ul>
+                </div>
+                <div>
+                  <Icon name="arrow-right" size={48} className={styles.subsectionIcon} />
+                  <h3 className={sharedStyles.subsectionTitle}>Customer Impact</h3>
+                  <ul className={clsx(sharedStyles.subsectionList, sharedStyles.textBase)}>
+                    <li>Enhanced Developer Experience: Developers felt more empowered and confident when integrating Blockset.</li>
+                    <li>Increased Engagement: Clearer documentation and sandbox tools encouraged deeper exploration of Blockset's features.</li>
+                  </ul>
+                </div>
+                <div>
+                  <Icon name="arrow-right" size={48} className={styles.subsectionIcon} />
+                  <h3 className={sharedStyles.subsectionTitle}>Business Impact</h3>
+                  <ul className={clsx(sharedStyles.subsectionList, sharedStyles.textBase)}>
+                    <li>Accelerated Adoption: Enhanced resources streamlined onboarding for enterprises and developers.</li>
+                    <li>Market Differentiation: High-quality documentation set Blockset apart from competitors.</li>
+                  </ul>
+                </div>
+                <div>
+                  <Icon name="chart-up" size={48} className={styles.subsectionIcon} />
+                  <h3 className={sharedStyles.subsectionTitle}>Financial Impact</h3>
+                  <ul className={clsx(sharedStyles.subsectionList, sharedStyles.textBase)}>
+                    <li>Increased Revenue: Improved adoption rates contributed to new client acquisitions and higher revenue.</li>
+                    <li>Lowered Operational Costs: Comprehensive resources reduced support tickets, driving operational efficiency.</li>
+                  </ul>
+                </div>
+              </div>
             </div>
-            <div className={styles.sectionText}>
-              <div className={styles.subsection}>
-                <h3 className={styles.subsectionTitle}>Empowering Developers Enhances Engagement</h3>
-                <p className={styles.subsectionText}>
-                  By designing developer-centric tools, we significantly reduced friction in the onboarding process, boosting confidence and satisfaction.
-                </p>
-              </div>
-              <div className={styles.subsection}>
-                <h3 className={styles.subsectionTitle}>Collaboration Drives Innovation</h3>
-                <p className={styles.subsectionText}>
-                  Synthesizing feedback across teams ensured that the final product resonated with both technical users and stakeholders.
-                </p>
-              </div>
-              <div className={styles.subsection}>
-                <h3 className={styles.subsectionTitle}>Balancing Complexity and Clarity</h3>
-                <p className={styles.subsectionText}>
-                  Finding the right balance between technical depth and usability was critical in creating resources that were both functional and engaging.
-                </p>
-              </div>
-            </div>
-          </div>
 
-          {/* Summary */}
-          <div className={styles.sectionGrid}>
-            <div className={styles.sectionIntro}>
-              <h2 className={styles.sectionTitle}>Summary</h2>
+            <div className={sharedStyles.contentContainer}>
+              <div>
+                <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionTitle)}>Strategy & Execution</h2>
+              </div>
+              <div className={sharedStyles.gridColumns3}>
+                <div>
+                  <Icon name="arrow-right" size={48} className={styles.subsectionIcon} />
+                  <h3 className={sharedStyles.subsectionTitle}>Collaborative Design Process</h3>
+                  <p className={sharedStyles.textBase}>I worked closely with BRD's internal design team, stakeholders, and my team to align on project goals. By conducting usability testing and gathering iterative feedback, we ensured that the design addressed user needs and business objectives.</p>
+                </div>
+                <div>
+                  <Icon name="arrow-right" size={48} className={styles.subsectionIcon} />
+                  <h3 className={sharedStyles.subsectionTitle}>Delivering Developer-Focused Solutions</h3>
+                  <p className={sharedStyles.textBase}>The project prioritized developer tools, such as a sandbox and interactive documentation, to reduce onboarding friction and improve engagement. Clear, action-oriented resources made the integration process seamless.</p>
+                </div>
+                <div>
+                  <Icon name="arrow-right" size={48} className={styles.subsectionIcon} />
+                  <h3 className={sharedStyles.subsectionTitle}>Marketing Website Enhancements</h3>
+                  <p className={sharedStyles.textBase}>To elevate Blockset's positioning, we designed an interactive and visually compelling website that communicated technical features in an accessible way.</p>
+                </div>
+              </div>
             </div>
-            <div className={styles.sectionText}>
-              <p className={styles.subsectionText}>
-                The Blockset documentation and marketing project illustrates the power of design to align user needs with business goals. By delivering tools that empowered developers and presented Blockset's value clearly, we enhanced the user experience and drove toward measurable business goals.
-              </p>
+
+            <div className={sharedStyles.contentContainer}>
+              <div>
+                <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionTitle)}>Key Learnings & Reflections</h2>
+              </div>
+              <div className={sharedStyles.gridColumns3}>
+                <div>
+                  <Icon name="arrow-right" size={48} className={styles.subsectionIcon} />
+                  <h3 className={sharedStyles.subsectionTitle}>Empowering Developers Enhances Engagement</h3>
+                  <p className={sharedStyles.textBase}>By designing developer-centric tools, we significantly reduced friction in the onboarding process, boosting confidence and satisfaction.</p>
+                </div>
+                <div>
+                  <Icon name="arrow-right" size={48} className={styles.subsectionIcon} />
+                  <h3 className={sharedStyles.subsectionTitle}>Collaboration Drives Innovation</h3>
+                  <p className={sharedStyles.textBase}>Synthesizing feedback across teams ensured that the final product resonated with both technical users and stakeholders.</p>
+                </div>
+                <div>
+                  <Icon name="arrow-right" size={48} className={styles.subsectionIcon} />
+                  <h3 className={sharedStyles.subsectionTitle}>Balancing Complexity and Clarity</h3>
+                  <p className={sharedStyles.textBase}>Finding the right balance between technical depth and usability was critical in creating resources that were both functional and engaging.</p>
+                </div>
+              </div>
+            </div>
+
+            <div className={sharedStyles.contentContainer}>
+              <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionTitle)}>Summary</h2>
+              <p className={clsx(sharedStyles.textBase, sharedStyles.large)}>The Blockset documentation and marketing project illustrates the power of design to align user needs with business goals. By delivering tools that empowered developers and presented Blockset's value clearly, we enhanced the user experience and drove toward measurable business goals.</p>
             </div>
           </div>
         </div>
       </section>
     </main>
-  )
+  );
 } 

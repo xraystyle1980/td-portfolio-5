@@ -217,7 +217,7 @@ export default function HeroAbout() {
         trigger: sectionRef.current,
         start: "top top",
         end: "bottom bottom",
-        markers: true,
+        markers: false,
         scrub: 2.5,
         pin: tokenContainerRef.current,
         anticipatePin: 1,
@@ -263,7 +263,7 @@ export default function HeroAbout() {
       if (aboutHeadline && aboutParagraph) {
         // Set initial states
         gsap.set([aboutHeadline, aboutParagraph], {
-          opacity: 0,
+          opacity: 1,
           y: 50
         });
 
@@ -292,7 +292,7 @@ export default function HeroAbout() {
           onLeaveBack: () => {
             // Reverse animation when scrolling back up
             gsap.to([aboutHeadline, aboutParagraph], {
-              opacity: 0,
+              opacity: 1,
               y: 50,
               duration: 0.5,
               ease: "power2.in",

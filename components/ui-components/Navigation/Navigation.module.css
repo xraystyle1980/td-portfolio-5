@@ -1,3 +1,4 @@
+/* Base Navigation Styles */
 .nav {
   position: fixed;
   top: 0;
@@ -5,17 +6,17 @@
   width: 100%;
   padding: 1rem;
   z-index: 1000;
-  pointer-events: none;
+  pointer-events: auto; /* Ensure interaction */
   transition: all 0.3s ease;
 }
 
 .nav.scrolled {
-  background: rgba(22, 22, 22, 0.55);
+  background: rgba(22, 22, 22, 0.85);
   backdrop-filter: blur(40px);
-  padding: 0.85rem 1rem;
   box-shadow: 0 0 32px rgba(0, 0, 0, 0.5);
 }
 
+/* Wrapper */
 .wrapper {
   max-width: 1400px;
   margin: 0 auto;
@@ -25,6 +26,7 @@
   position: relative;
 }
 
+/* Logo */
 .logo {
   font-family: var(--font-cooper);
   font-size: var(--font-size-body-lg);
@@ -35,7 +37,6 @@
   paint-order: stroke fill;
   font-variation-settings: "wght" 800;
   cursor: pointer;
-  pointer-events: auto;
   transition: all 0.165s ease;
 }
 
@@ -44,15 +45,16 @@
   text-shadow: -4px 4px 0px #000;
 }
 
+/* Mobile Logo */
 .mobileLogo {
-  font-size: 2.5rem; /* Smaller font size for mobile */
-  text-shadow: -6px 6px 0px #000; /* Adjusted shadow for smaller text */
+  font-size: 2.5rem;
+  text-shadow: -6px 6px 0px #000;
 }
 
+/* Navigation Links */
 .links {
   display: flex;
   gap: 1.5rem;
-  pointer-events: auto;
 }
 
 .link {
@@ -64,9 +66,6 @@
   -webkit-text-stroke-color: #000;
   paint-order: fill stroke;
   font-variation-settings: "wght" 800;
-  background: none;
-  border: none;
-  padding: 0;
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -76,35 +75,97 @@
   text-shadow: -3px 3px 0px #000;
 }
 
-.hamburger {
+/* Dropdown */
+.dropdown {
+  position: relative;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: rgba(0, 0, 0, 0.95);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
   display: none;
   flex-direction: column;
-  justify-content: space-between;
-  width: 48px;
-  height: 48px;
-  padding: 12px;
-  background: #161616;
-  border: 2px solid #000;
-  border-radius: 50%;
-  box-shadow: -4px 4px 0px #000;
+  z-index: 1001;
+}
+
+.dropdown:hover .dropdownMenu {
+  display: flex;
+}
+
+.dropdownMenu button {
+  color: #fff;
+  background: none;
+  border: none;
+  text-align: left;
   cursor: pointer;
+  margin: 0.5rem 0;
+}
+
+/* Mobile Menu */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 75%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform: translateX(100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.mobile-menu.open {
+  transform: translateX(0);
+  opacity: 1;
   pointer-events: auto;
-  transition: all 0.2s ease;
-  position: relative;
+}
+
+.mobileLink {
+  font-size: 1.5rem;
+  color: #fff;
+  margin: 1rem 0;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.mobileLink:hover {
+  transform: scale(1.1);
+}
+
+/* Hamburger Menu */
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 32px;
+  height: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
   z-index: 1001;
 }
 
 .hamburger span {
-  display: block;
   width: 100%;
   height: 4px;
-  background: #F39;
+  background: #fff;
   transition: all 0.3s ease;
 }
 
-.hamburger:hover {
-  transform: translate(2px, -2px);
-  box-shadow: -6px 6px 0px #000;
+.hamburger:hover span {
+  background: #f39;
 }
 
 .hamburger.open span:first-child {
@@ -117,36 +178,4 @@
 
 .hamburger.open span:last-child {
   transform: translateY(-8px) rotate(-45deg);
-}
-
-@media (max-width: 1200px) {
-  .hamburger {
-    display: flex;
-  }
-
-  .links {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.9);
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 1.5rem;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    z-index: 1000;
-  }
-
-  .links.open {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  .link {
-    font-size: 2rem;
-  }
 }

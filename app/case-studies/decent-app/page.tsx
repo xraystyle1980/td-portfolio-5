@@ -4,7 +4,7 @@
 import styles from '@/styles/casestudy-shared.module.css';
 import sharedStyles from '@/styles/shared.module.css';
 import { projects } from '@/data/projects';
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import clsx from 'clsx';
 import ParallaxHeroImage from '@/components/sections/case-studies/ParallaxHeroImage';
 import ImageGallery from '@/components/sections/case-studies/ImageGallery';
@@ -15,6 +15,11 @@ import { galleryImages } from './galleryData';
 export default function DecentAppCaseStudy() {
   const project = projects.find((p) => p.route === '/case-studies/decent-app');
   const heroContentRef = useRef<HTMLDivElement>(null);
+
+  // Reset scroll position when component mounts
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, []);
 
   if (!project) return null;
 
