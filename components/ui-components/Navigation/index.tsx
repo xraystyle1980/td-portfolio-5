@@ -13,6 +13,7 @@ export default function Navigation() {
   const pathname = usePathname();
   const [isMobileOpen, setIsMobileOpen] = useState(false); // Mobile menu state
   const [isMobile, setIsMobile] = useState(false); // Track if viewport is mobile
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   // Handle window resize for responsiveness
   useEffect(() => {
@@ -34,7 +35,7 @@ export default function Navigation() {
         y: -100,
         autoAlpha: 0,
         duration: 0.5,
-        onComplete: () => gsap.set('.case-study-nav', { display: 'none' }),
+        onComplete: () => { gsap.set('.case-study-nav', { display: 'none' }); }
       }).to(
         '.home-nav',
         {
@@ -52,7 +53,7 @@ export default function Navigation() {
           y: -100,
           autoAlpha: 0,
           duration: 0.5,
-          onComplete: () => gsap.set('.home-nav', { display: 'none' }),
+          onComplete: () => { gsap.set('.home-nav', { display: 'none' }); }
         })
         .to(
           '.case-study-nav',
@@ -71,10 +72,24 @@ export default function Navigation() {
     setIsMobileOpen((prev) => !prev);
 
     if (!isMobileOpen) {
+      document.body.style.overflow = 'hidden';
       gsap.to('.mobile-menu', { x: 0, autoAlpha: 1, duration: 0.3 });
     } else {
+      document.body.style.overflow = 'auto';
       gsap.to('.mobile-menu', { x: '100%', autoAlpha: 0, duration: 0.3 });
     }
+  };
+
+  // Cleanup body overflow on unmount
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
+
+  // Handle scroll to top
+  const scrollToTop = () => {
+    gsap.to(window, { duration: 1, scrollTo: 0, ease: 'power2.out' });
   };
 
   // Handle navigation and scrolling
@@ -98,10 +113,14 @@ export default function Navigation() {
       {/* Home Navbar */}
       <nav className={`${styles.nav} home-nav`}>
         <div className={styles.wrapper}>
-          <div className={styles.logo}>Home Logo</div>
+          <div className={styles.logo} onClick={scrollToTop}>Home Logo</div>
           <div className={styles.links}>
             {isMobile ? (
-              <button className={styles.hamburger} onClick={toggleMobileMenu}>
+              <button 
+                className={`${styles.hamburger} ${isMobileOpen ? styles.open : ''}`} 
+                onClick={toggleMobileMenu}
+                style={{ position: 'fixed', right: '1rem', top: '1rem' }}
+              >
                 <span></span>
                 <span></span>
                 <span></span>
@@ -123,7 +142,7 @@ export default function Navigation() {
       {/* Case Study Navbar */}
       <nav className={`${styles.nav} case-study-nav`} style={{ display: 'none' }}>
         <div className={styles.wrapper}>
-          <div className={styles.logo}>Case Study Logo</div>
+          <div className={styles.logo} onClick={scrollToTop}>Case Study Logo</div>
           <div className={styles.links}>
             {isMobile ? (
               <button className={styles.hamburger} onClick={toggleMobileMenu}>
@@ -133,8 +152,28 @@ export default function Navigation() {
               </button>
             ) : (
               <>
-                <button className={styles.link} onClick={() => handleNavigation('/')}>Home</button>
-                <button className={styles.link} onClick={() => handleNavigation('/case-study-1')}>Other Case Study</button>
+                <button className={styles.link} onClick={(e) => handleNavigation(e, '/')}>Home</button>
+                <div className={styles.dropdownContainer}>
+                  <button 
+                    className={`${styles.link} ${isDropdownOpen ? styles.active : ''}`}
+                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  >
+                    Case Studies
+                  </button>
+                  {isDropdownOpen && (
+                    <div className={styles.dropdown}>
+                      <button className={styles.dropdownItem} onClick={(e) => handleNavigation(e, '/case-studies/decent-app')}>
+                        Decent App
+                      </button>
+                      <button className={styles.dropdownItem} onClick={(e) => handleNavigation(e, '/case-studies/decent-design-system')}>
+                        Design System
+                      </button>
+                      <button className={styles.dropdownItem} onClick={(e) => handleNavigation(e, '/case-studies/blockset-brd-docs')}>
+                        Blockset Docs
+                      </button>
+                    </div>
+                  )}
+                </div>
               </>
             )}
           </div>
@@ -142,16 +181,49 @@ export default function Navigation() {
       </nav>
 
       {/* Mobile Menu */}
-      <div className={`mobile-menu ${styles.mobileMenu}`} style={{ transform: 'translateX(100%)', opacity: 0 }}>
+      <div className={`mobile-menu ${styles.mobileMenu} ${isMobileOpen ? styles.open : ''}`} style={{ transform: 'translateX(100%)', opacity: 0 }}>
+        <button 
+          className={styles.closeButton}
+          onClick={toggleMobileMenu}
+          aria-label="Close menu"
+        >
+          ×
+        </button>
         {pathname === '/' ? (
           <>
-            <button className={styles.mobileLink} onClick={() => handleNavigation('#about')}>About</button>
-            <button className={styles.mobileLink} onClick={() => handleNavigation('#case-studies')}>Case Studies</button>
+            <button className={styles.mobileLink} onClick={(e) => {
+              handleNavigation(e, '#about');
+              toggleMobileMenu();
+            }}>About</button>
+            <button className={styles.mobileLink} onClick={(e) => {
+              handleNavigation(e, '#case-studies');
+              toggleMobileMenu();
+            }}>Case Studies</button>
           </>
         ) : (
           <>
-            <button className={styles.mobileLink} onClick={() => handleNavigation('/')}>Home</button>
-            <button className={styles.mobileLink} onClick={() => handleNavigation('/case-study-1')}>Other Case Study</button>
+            <button className={styles.mobileLink} onClick={(e) => {
+              handleNavigation(e, '/');
+              toggleMobileMenu();
+            }}>Home</button>
+            <button className={styles.mobileLink} onClick={(e) => {
+              handleNavigation(e, '/case-studies/decent-app');
+              toggleMobileMenu();
+            }}>
+              Decent App
+            </button>
+            <button className={styles.mobileLink} onClick={(e) => {
+              handleNavigation(e, '/case-studies/decent-design-system');
+              toggleMobileMenu();
+            }}>
+              Design System
+            </button>
+            <button className={styles.mobileLink} onClick={(e) => {
+              handleNavigation(e, '/case-studies/blockset-brd-docs');
+              toggleMobileMenu();
+            }}>
+              Blockset Docs
+            </button>
           </>
         )}
       </div>

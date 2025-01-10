@@ -11,14 +11,14 @@
 .gradientTopBottom {
   background: linear-gradient(0deg, 
     rgba(22, 22, 22, 0) 0%,
-    rgba(22, 22, 22, 0.36) 40%,
+    rgba(22, 22, 22, 0.64) 40%,
     rgba(22, 22, 22, 0.90) 100%
   );
 }
 .gradientBottomTop {
   background: linear-gradient(180deg, 
     rgba(22, 22, 22, 0) 0%,
-    rgba(22, 22, 22, 0.80) 40%,
+    rgba(22, 22, 22, 0.72) 40%,
     rgba(22, 22, 22, 0.90) 100%
   );
 }
