@@ -10,25 +10,20 @@
 
 .gradientTopBottom {
   background: linear-gradient(0deg, 
-    rgba(22, 22, 22, 0) 0%,
+    rgba(22, 22, 22, 0.34) 0%,
     rgba(22, 22, 22, 0.64) 40%,
     rgba(22, 22, 22, 0.90) 100%
   );
 }
+
 .gradientBottomTop {
   background: linear-gradient(180deg, 
-    rgba(22, 22, 22, 0) 0%,
+    rgba(22, 22, 22, 0.34) 0%,
     rgba(22, 22, 22, 0.72) 40%,
     rgba(22, 22, 22, 0.90) 100%
   );
 }
-.gradientMiddle {
-  background: linear-gradient(180deg, 
-    rgba(22, 22, 22, 0) 0%,
-    rgba(22, 22, 22, 0.84) 50%,
-    rgba(22, 22, 22, 0) 100%
-  );
-}
+
 .darkOverlayBg {
   background: rgba(22, 22, 22, 0.90);
 }

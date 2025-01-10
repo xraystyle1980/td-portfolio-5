@@ -95,6 +95,7 @@ export default function Navigation() {
   // Handle navigation and scrolling
   const handleNavigation = (event: React.MouseEvent<HTMLButtonElement>, targetId: string) => {
     event.preventDefault(); // Prevent default browser navigation behavior
+    setIsDropdownOpen(false); // Close dropdown when navigating
   
     if (pathname === '/' && targetId.startsWith('#')) {
       // Smooth scroll to section using GSAP
@@ -107,6 +108,11 @@ export default function Navigation() {
       router.push(targetId);
     }
   };
+
+  // Close dropdown on pathname change
+  useEffect(() => {
+    setIsDropdownOpen(false);
+  }, [pathname]);
 
   return (
     <>

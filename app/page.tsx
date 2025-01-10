@@ -39,7 +39,9 @@ export default function HomePage() {
       <HeroAbout />
 
       {/* Case Studies Section */}
-      <CaseStudies />
+      <div className={sharedStyles.gradientBottomTop}>
+        <CaseStudies />
+      </div>
     </main>
   );
 }
