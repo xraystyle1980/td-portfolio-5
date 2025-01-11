@@ -71,17 +71,21 @@
   margin: var(--spacing-xl) 0;
   background-color: rgba(22, 22, 22, 0.78);
   padding: var(--spacing-sm);
-  border-radius: var(--border-radius);
   border: 2px solid var(--color-accent);
   box-shadow: var(--shadow-lg);
 }
 
 .projectDetailLabel {
+  display: flex;
+  margin-bottom: var(--spacing-xs);
+  align-items: center;
+}
+
+.projectDetailLabel h6{
   font-family: var(--font-cooper);
   color: var(--color-accent);
-  font-size: var(--font-size-small);
-  margin-bottom: var(--spacing-xs);
-  font-weight: 800;
+  font-size: var(--font-size-body);
+  margin: 0;
 }
 
 .projectDetailValue {
@@ -111,6 +115,10 @@
     margin: var(--spacing-sm) 0;
     line-height: var(--line-height-tight);
   }
+  .projectDetails {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-sm);
+  }
 }
 
 @media (max-width: 768px) {
@@ -118,7 +126,7 @@
     padding: var(--spacing-sm);
   }
   .heroContent {
-    padding: 2rem;
+    padding: 0;
   }
   .projectDetails {
     grid-template-columns: repeat(2, 1fr);
@@ -135,10 +143,10 @@
     padding: var(--spacing-sm);
     padding-bottom: var(--spacing-lg);
   }
-  .heroContent {
-    padding: 0;
+  .projectDetails {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
   }
-
 }
 
 .sectionIcon {
@@ -181,6 +189,7 @@
 .subsectionIcon {
   color: var(--color-accent);
   flex-shrink: 0;
+  margin-right: var(--spacing-xxs);
 }
 
 @media (max-width: 768px) {

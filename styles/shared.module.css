@@ -51,7 +51,7 @@ a.link {
 }
 
 .contentContainer {
-  padding: var(--spacing-md) 0 0;
+  padding: var(--spacing-md) 0;
 }
 
 .paddingBottom {
@@ -105,7 +105,7 @@ a.link {
 .sectionTitle {
   font-size: var(--font-size-section-title);
   letter-spacing: -0.125rem;
-  margin: var(--spacing-md) 0;
+  margin: var(--spacing-md) 0 var(--spacing-sm);
 }
 
 /* Content Section */
@@ -113,6 +113,7 @@ a.link {
   font-size: var(--font-size-sub-title);
   margin: var(--spacing-sm) 0;
   line-height: var(--line-height-tight);
+  color: var(--color-accent-light);
 }
 
 .subsectionList {
@@ -139,9 +140,11 @@ a.link {
   width: 100%;
   height: auto;
   border-radius: var(--border-radius);
-  border: var(--border-width) solid var(--color-border);
+  /* border: 1px solid var(--color-accent); */
   box-shadow: var(--shadow-md);
 }
+
+
 
 
 
@@ -263,6 +266,9 @@ Responsive Styles
   .sectionTitle {
     font-size: var(--font-size-section-title);
   }
+  .gridColumns3 {
+    gap: var(--spacing-md);
+  }
 }
 
 
@@ -312,6 +318,7 @@ Responsive Styles
 
   .sectionTitle {
     font-size: var(--font-size-section-title-tablet);
+    margin: var(--spacing-sm) 0 var(--spacing-xs);
   }
 
   .paddingBottom {

@@ -69,7 +69,7 @@ export default function ImageGallery({ images, className = '' }: ImageGalleryPro
               }
             }}
           >
-            <div className={styles.thumbnailImage}>
+            <div className={clsx(styles.thumbnailImage, sharedStyles.imageBase)}>
               <Image
                 src={image.src}
                 alt={image.alt}

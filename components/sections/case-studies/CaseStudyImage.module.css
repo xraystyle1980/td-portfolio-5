@@ -7,6 +7,10 @@
 }
 
 .imageWrapper {
+  display: flex;
+  padding: 1rem;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   position: relative;
   border-radius: var(--radius-md);
@@ -15,7 +19,7 @@
 }
 
 .image {
-  width: 100%;
+  width: 80%;
   height: auto;
   display: block;
   border-radius: var(--radius-md);
@@ -28,7 +32,8 @@
 
 .caption {
   text-align: center;
-  color: var(--color-text-muted);
+  font-size: var(--font-size-body-sm);
+  color: var(--color-accent-dark);
   font-style: italic;
   padding: 0 1rem;
 }
@@ -36,5 +41,11 @@
 @media (max-width: 768px) {
   .figure {
     margin: 1.5rem 0;
+  }
+  .image {
+    width: 100%;
+  }
+  .imageWrapper {
+    padding: 0rem;
   }
 } 
