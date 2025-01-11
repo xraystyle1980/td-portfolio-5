@@ -5,7 +5,7 @@ import styles from './Navigation.module.css';
 import { usePathname, useRouter } from 'next/navigation';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import gsap from 'gsap';
-
+import { Icon } from '@/components/icons/Icon';
 gsap.registerPlugin(ScrollToPlugin);
 
 export default function Navigation() {
@@ -164,7 +164,7 @@ export default function Navigation() {
                     className={`${styles.link} ${isDropdownOpen ? styles.active : ''}`}
                     onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                   >
-                    Case Studies
+                    All Case Studies <Icon name="chevron-down" size={24} />
                   </button>
                   {isDropdownOpen && (
                     <div className={styles.dropdown}>

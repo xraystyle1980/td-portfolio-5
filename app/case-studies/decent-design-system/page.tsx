@@ -33,18 +33,37 @@ export default function DecentDesignSystemCaseStudy() {
         <div ref={heroContentRef} className={clsx(styles.heroContent)}>
           <h1 className={clsx(sharedStyles.displayText, sharedStyles.sectionTitle)}>{project.title}</h1>
           <div className={styles.projectDetails}>
+
             <div className={styles.detailGroup}>
-              <div className={styles.projectDetailLabel}>ROLE</div>
-              <div className={styles.projectDetailValue}>Lead Product Designer</div>
+              <div className={styles.projectDetailLabel}>
+                <Icon name="coffee-alt" size={48} className={styles.subsectionIcon} />
+                <h6 className={sharedStyles.displayBase}>Role</h6>
+              </div>
+              <div className={styles.projectDetailValue}>
+                Lead Product Designer
+              </div>
             </div>
+
             <div className={styles.detailGroup}>
-              <div className={styles.projectDetailLabel}>DURATION</div>
-              <div className={styles.projectDetailValue}>Q3 2022 – Q4 2023</div>
+              <div className={styles.projectDetailLabel}>
+                <Icon name="calendar-tomorrow" size={48} className={styles.subsectionIcon} />
+                <h6 className={sharedStyles.displayBase}>Duration</h6>
+              </div>
+              <div className={styles.projectDetailValue}>
+                Q3 2022 – Q4 2023
+              </div>
             </div>
+        
             <div className={styles.detailGroup}>
-              <div className={styles.projectDetailLabel}>TEAM</div>
-              <div className={styles.projectDetailValue}>3 Designers, 5 Engineers, Product Manager</div>
+              <div className={styles.projectDetailLabel}>
+                <Icon name="users" size={48} className={styles.subsectionIcon} />
+                <h6 className={sharedStyles.displayBase}>Team</h6>
+              </div>
+              <div className={styles.projectDetailValue}>
+                3 Designers, 5 Engineers
+              </div>
             </div>
+
           </div>
         </div>
       </section>
@@ -59,30 +78,32 @@ export default function DecentDesignSystemCaseStudy() {
               <p className={clsx(sharedStyles.textBase, sharedStyles.large)}>As the Product Design Director, I spearheaded the development of the design system, working closely across the organization to ensure it met the needs of both developers and designers. Through this collaborative effort, the design system became a key enabler of scalability and innovation across the organization.</p>
             </div>
 
+            <CaseStudyImage
+              src="/images/decent-design-system/gallery/dds-spacing.png"
+              alt="Spacing guidelines establish foundational consistency"
+              width={2048}
+              height={1185}
+              caption="Spacing guidelines establish foundational consistency"
+            />
+
             <div className={sharedStyles.contentContainer}>
               <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionTitle)}>The Journey</h2>
               <p className={sharedStyles.textBase}>The lack of a cohesive design framework had created inefficiencies: duplicated efforts, inconsistent branding, and communication silos. These challenges were not only slowing development but also impacting the user experience.</p>
-              <CaseStudyImage
-                src="/images/decent-design-system/gallery/placeholder-1.jpg"
-                alt="Design System Interface"
-                width={1920}
-                height={1080}
-                caption="The design system interface with unified design language"
-              />
               <p className={sharedStyles.textBase}>Recognizing potential for improvement, I spearheaded the effort to build a design system MVP that bridged the divide between design and development.</p>
             </div>
 
-            <div className={sharedStyles.contentContainer}>
-              <h3 className={sharedStyles.subsectionTitle}>Interface Gallery</h3>
-              <p className={sharedStyles.textBase}>Key screens from the Decent Design System showcasing the unified design language and improved user experience.</p>
-              <ImageGallery images={galleryImages} />
-            </div>
+            <CaseStudyImage
+              src="/images/decent-design-system/gallery/dds-brand-align.png"
+              alt="I worked with the brand team to align the design system with the brand"
+              width={2864}
+              height={1426}
+              caption="I worked with the brand team to align the design system with the brand"
+            />
 
             <div className={sharedStyles.contentContainer}>
               <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionTitle)}>Impact</h2>
               <div className={sharedStyles.gridColumns2}>
                 <div>
-                  <Icon name="chart-up" size={48} className={styles.subsectionIcon} />
                   <h3 className={sharedStyles.subsectionTitle}>Design Impact</h3>
                   <ul className={clsx(sharedStyles.subsectionList, sharedStyles.textBase)}>
                     <li>Contributed to a Unified Design Language: Developed a comprehensive style guide covering colors, typography, and grid systems, ensuring visual consistency.</li>
@@ -91,7 +112,6 @@ export default function DecentDesignSystemCaseStudy() {
                   </ul>
                 </div>
                 <div>
-                  <Icon name="arrow-right" size={48} className={styles.subsectionIcon} />
                   <h3 className={sharedStyles.subsectionTitle}>Customer Impact</h3>
                   <ul className={clsx(sharedStyles.subsectionList, sharedStyles.textBase)}>
                     <li>Reduced Cognitive Load for Developers: Simplified decision-making during development by providing clear design standards.</li>
@@ -99,7 +119,6 @@ export default function DecentDesignSystemCaseStudy() {
                   </ul>
                 </div>
                 <div>
-                  <Icon name="arrow-right" size={48} className={styles.subsectionIcon} />
                   <h3 className={sharedStyles.subsectionTitle}>Business Impact</h3>
                   <ul className={clsx(sharedStyles.subsectionList, sharedStyles.textBase)}>
                     <li>Improved Efficiency: Reduced duplication of efforts and streamlined collaboration, cutting down project timelines.</li>
@@ -107,7 +126,6 @@ export default function DecentDesignSystemCaseStudy() {
                   </ul>
                 </div>
                 <div>
-                  <Icon name="chart-up" size={48} className={styles.subsectionIcon} />
                   <h3 className={sharedStyles.subsectionTitle}>Financial Impact</h3>
                   <ul className={clsx(sharedStyles.subsectionList, sharedStyles.textBase)}>
                     <li>Increased Revenue: Faster time-to-market and improved product adoption drove higher earnings.</li>
@@ -118,22 +136,25 @@ export default function DecentDesignSystemCaseStudy() {
             </div>
 
             <div className={sharedStyles.contentContainer}>
+              <h3 className={sharedStyles.subsectionTitle}>Design System Gallery</h3>
+              <p className={sharedStyles.textBase}>Key screens from the Decent Design System showcasing the unified design language.</p>
+              <ImageGallery images={galleryImages} />
+            </div>
+
+            <div className={sharedStyles.contentContainer}>
               <div>
                 <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionTitle)}>Strategy & Execution</h2>
               </div>
               <div className={sharedStyles.gridColumns3}>
                 <div>
-                  <Icon name="arrow-right" size={48} className={styles.subsectionIcon} />
                   <h3 className={sharedStyles.subsectionTitle}>Collaborative Design & Development</h3>
                   <p className={sharedStyles.textBase}>I interviewed my teammates across the org to uncover pain points during their product design, design handoff processes. Through testing and feedback sessions, we refined the system and our approach iteratively to craft a design system that fits the needs of the organization.</p>
                 </div>
                 <div>
-                  <Icon name="arrow-right" size={48} className={styles.subsectionIcon} />
                   <h3 className={sharedStyles.subsectionTitle}>Systematizing Scalability</h3>
                   <p className={sharedStyles.textBase}>The system was built with growth in mind. By implementing design tokens and modular components, the design system scaled seamlessly as new products and features were developed. Comprehensive documentation ensured that even as the organization expanded, the design system remained accessible and intuitive.</p>
                 </div>
                 <div>
-                  <Icon name="arrow-right" size={48} className={styles.subsectionIcon} />
                   <h3 className={sharedStyles.subsectionTitle}>Outcome-Oriented Process</h3>
                   <p className={sharedStyles.textBase}>Every decision, from component naming conventions to documentation format, was aligned with measurable outcomes:</p>
                   <ul className={clsx(sharedStyles.subsectionList, sharedStyles.textBase)}>
@@ -150,20 +171,36 @@ export default function DecentDesignSystemCaseStudy() {
               </div>
               <div className={sharedStyles.gridColumns3}>
                 <div>
-                  <Icon name="arrow-right" size={48} className={styles.subsectionIcon} />
                   <h3 className={sharedStyles.subsectionTitle}>Design as a Tool for Empowerment</h3>
                   <p className={sharedStyles.textBase}>The system did more than improve efficiency—it empowered teams to innovate confidently within a unified framework.</p>
                 </div>
                 <div>
-                  <Icon name="arrow-right" size={48} className={styles.subsectionIcon} />
                   <h3 className={sharedStyles.subsectionTitle}>Collaboration Drives Success</h3>
                   <p className={sharedStyles.textBase}>Bringing together diverse voices ensured the design system met the real-world needs of every stakeholder.</p>
                 </div>
                 <div>
-                  <Icon name="arrow-right" size={48} className={styles.subsectionIcon} />
                   <h3 className={sharedStyles.subsectionTitle}>Scalability is Strategy</h3>
                   <p className={sharedStyles.textBase}>Building a flexible, scalable foundation allowed the system to adapt seamlessly to organizational growth and future needs.</p>
                 </div>
+              </div>
+            </div>
+
+            <div className={sharedStyles.contentContainer}>
+              <div className={sharedStyles.gridColumns2}>
+                <CaseStudyImage
+                  src="/images/decent-design-system/gallery/dds-ui-topnav.png"
+                  alt="Redesigned top navigation components"
+                  width={2864}
+                  height={1826}
+                  caption="Redesigned top navigation components"
+                />
+                <CaseStudyImage
+                  src="/images/decent-design-system/gallery/dds-menu-components.png"
+                  alt="Menu components in the design system"
+                  width={2864}
+                  height={1826}
+                  caption="Menu components in the design system"
+                />
               </div>
             </div>
 

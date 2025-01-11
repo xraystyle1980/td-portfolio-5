@@ -11,7 +11,7 @@ export const projects: Project[] = [
     company: "Decent DAO",
     duration: "Q1 2023 - Q3 2024",
     team: "2 Designers, 4 Engineers, Product",
-    imageUrl: "/portfolio/decent_app--hero.png"
+    imageUrl: "/images/decent-app/gallery/decent_app--hero.png"
   },
   {
     title: "Decent Design System",
@@ -23,18 +23,18 @@ export const projects: Project[] = [
     company: "Decent Labs",
     duration: "2023 - Ongoing",
     team: "Front End Engineer, Design Team",
-    imageUrl: "/portfolio/decent_ds--hero.png"
+    imageUrl: "/images/decent-design-system/gallery/decent_ds--hero.png"
   },
   {
     title: "Blockset BRD Docs",
     description: "In 2021, BRD was putting the finishing touches on their new whitelisting product called Blockset. Decent was hired to design and build a custom documentation site and marketing page, including a Developer Sandbox to test out API requests.",
     role: "Lead Product Designer",
-    technologies: ["Docusaurus", "React", "Markdown", "JavaScript"],
+    technologies: ["React", "Markdown", "JavaScript"],
     route: "/case-studies/blockset-brd-docs",
     year: "2021",
     company: "BRD",
     duration: "Q1 2021 - Q3 2021",
     team: "Decent Design and Engineering + BRD Design and Engineering",
-    imageUrl: "/portfolio/blockset_docs--hero.png"
+    imageUrl: "/images/blockset-docs/gallery/bset-blockset-hero.png"
   }
 ] 

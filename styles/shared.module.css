@@ -141,7 +141,7 @@ a.link {
   height: auto;
   border-radius: var(--border-radius);
   /* border: 1px solid var(--color-accent); */
-  box-shadow: var(--shadow-md);
+  /* box-shadow: var(--shadow-md); */
 }
 
 

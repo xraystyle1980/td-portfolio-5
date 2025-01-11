@@ -103,9 +103,9 @@ export default function DecentAppCaseStudy() {
                 
                 <CaseStudyImage
                   src="/images/decent-app/gallery/fractal-before.png"
-                  alt="Original Fractal interface"
-                  width={1920}
-                  height={1080}
+                  alt="The original Fractal interface"
+                  width={3809}
+                  height={1755}
                   caption="The original Fractal interface"
                 />
                 

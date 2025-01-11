@@ -33,18 +33,37 @@ export default function BlocksetBRDDocsCaseStudy() {
         <div ref={heroContentRef} className={clsx(styles.heroContent)}>
           <h1 className={clsx(sharedStyles.displayText, sharedStyles.sectionTitle)}>{project.title}</h1>
           <div className={styles.projectDetails}>
+
             <div className={styles.detailGroup}>
-              <div className={styles.projectDetailLabel}>ROLE</div>
-              <div className={styles.projectDetailValue}>Lead Product Designer</div>
+              <div className={styles.projectDetailLabel}>
+                <Icon name="coffee-alt" size={48} className={styles.subsectionIcon} />
+                <h6 className={sharedStyles.displayBase}>Role</h6>
+              </div>
+              <div className={styles.projectDetailValue}>
+                Product Design Director
+              </div>
             </div>
+
             <div className={styles.detailGroup}>
-              <div className={styles.projectDetailLabel}>DURATION</div>
-              <div className={styles.projectDetailValue}>Q1 2022 – Q4 2023</div>
+              <div className={styles.projectDetailLabel}>
+                <Icon name="calendar-tomorrow" size={48} className={styles.subsectionIcon} />
+                <h6 className={sharedStyles.displayBase}>Duration</h6>
+              </div>
+              <div className={styles.projectDetailValue}>
+                Q1 2022 – Q4 2023
+              </div>
             </div>
+
             <div className={styles.detailGroup}>
-              <div className={styles.projectDetailLabel}>TEAM</div>
-              <div className={styles.projectDetailValue}>2 Designers, 3 Engineers, Product Manager</div>
+              <div className={styles.projectDetailLabel}>
+                <Icon name="users" size={48} className={styles.subsectionIcon} />
+                <h6 className={sharedStyles.displayBase}>Team</h6>
+              </div>
+              <div className={styles.projectDetailValue}>
+                2 Designers, 3 Engineers, Product Manager
+              </div>
             </div>
+
           </div>
         </div>
       </section>
@@ -63,11 +82,11 @@ export default function BlocksetBRDDocsCaseStudy() {
               <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionTitle)}>The Journey</h2>
               <p className={sharedStyles.textBase}>Developers needed a clearer, more accessible documentation platform to simplify their onboarding experience. The marketing website had to present Blockset's technical capabilities in a way that resonated with enterprise clients.</p>
               <CaseStudyImage
-                src="/images/blockset-brd-docs/gallery/placeholder-1.jpg"
-                alt="Documentation Platform"
-                width={1920}
-                height={1080}
-                caption="The documentation platform with improved accessibility"
+                src="/images/blockset-docs/gallery/bset-docs-home.png"
+                alt="Blockset Docs Home"
+                width={2880}
+                height={1690}
+                caption="Blockset Docs Home"
               />
               <p className={sharedStyles.textBase}>I led the design and execution of this initiative on the Decent side, focusing on delivering developer-centric tools while enhancing the platform's business appeal. This required synthesizing input across multiple teams, iterating based on user feedback, and ensuring the final product balanced technical depth with usability.</p>
             </div>
@@ -82,7 +101,6 @@ export default function BlocksetBRDDocsCaseStudy() {
               <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionTitle)}>Impact</h2>
               <div className={sharedStyles.gridColumns2}>
                 <div>
-                  <Icon name="chart-up" size={48} className={styles.subsectionIcon} />
                   <h3 className={sharedStyles.subsectionTitle}>Design Impact</h3>
                   <ul className={clsx(sharedStyles.subsectionList, sharedStyles.textBase)}>
                     <li>Streamlined Information Architecture: Restructured existing documentation to improve accessibility and logical flow for developers.</li>
@@ -91,7 +109,6 @@ export default function BlocksetBRDDocsCaseStudy() {
                   </ul>
                 </div>
                 <div>
-                  <Icon name="arrow-right" size={48} className={styles.subsectionIcon} />
                   <h3 className={sharedStyles.subsectionTitle}>Customer Impact</h3>
                   <ul className={clsx(sharedStyles.subsectionList, sharedStyles.textBase)}>
                     <li>Enhanced Developer Experience: Developers felt more empowered and confident when integrating Blockset.</li>
@@ -99,7 +116,6 @@ export default function BlocksetBRDDocsCaseStudy() {
                   </ul>
                 </div>
                 <div>
-                  <Icon name="arrow-right" size={48} className={styles.subsectionIcon} />
                   <h3 className={sharedStyles.subsectionTitle}>Business Impact</h3>
                   <ul className={clsx(sharedStyles.subsectionList, sharedStyles.textBase)}>
                     <li>Accelerated Adoption: Enhanced resources streamlined onboarding for enterprises and developers.</li>
@@ -107,7 +123,6 @@ export default function BlocksetBRDDocsCaseStudy() {
                   </ul>
                 </div>
                 <div>
-                  <Icon name="chart-up" size={48} className={styles.subsectionIcon} />
                   <h3 className={sharedStyles.subsectionTitle}>Financial Impact</h3>
                   <ul className={clsx(sharedStyles.subsectionList, sharedStyles.textBase)}>
                     <li>Increased Revenue: Improved adoption rates contributed to new client acquisitions and higher revenue.</li>
@@ -117,23 +132,28 @@ export default function BlocksetBRDDocsCaseStudy() {
               </div>
             </div>
 
+            <CaseStudyImage
+              src="/images/blockset-docs/gallery/bset-sandbox.png"
+              alt="Developer sandbox to test API requests"
+              width={2880}
+              height={2698}
+              caption="Developer sandbox to test API requests"
+            />
+
             <div className={sharedStyles.contentContainer}>
               <div>
                 <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionTitle)}>Strategy & Execution</h2>
               </div>
               <div className={sharedStyles.gridColumns3}>
                 <div>
-                  <Icon name="arrow-right" size={48} className={styles.subsectionIcon} />
                   <h3 className={sharedStyles.subsectionTitle}>Collaborative Design Process</h3>
                   <p className={sharedStyles.textBase}>I worked closely with BRD's internal design team, stakeholders, and my team to align on project goals. By conducting usability testing and gathering iterative feedback, we ensured that the design addressed user needs and business objectives.</p>
                 </div>
                 <div>
-                  <Icon name="arrow-right" size={48} className={styles.subsectionIcon} />
                   <h3 className={sharedStyles.subsectionTitle}>Delivering Developer-Focused Solutions</h3>
                   <p className={sharedStyles.textBase}>The project prioritized developer tools, such as a sandbox and interactive documentation, to reduce onboarding friction and improve engagement. Clear, action-oriented resources made the integration process seamless.</p>
                 </div>
                 <div>
-                  <Icon name="arrow-right" size={48} className={styles.subsectionIcon} />
                   <h3 className={sharedStyles.subsectionTitle}>Marketing Website Enhancements</h3>
                   <p className={sharedStyles.textBase}>To elevate Blockset's positioning, we designed an interactive and visually compelling website that communicated technical features in an accessible way.</p>
                 </div>
@@ -146,17 +166,14 @@ export default function BlocksetBRDDocsCaseStudy() {
               </div>
               <div className={sharedStyles.gridColumns3}>
                 <div>
-                  <Icon name="arrow-right" size={48} className={styles.subsectionIcon} />
                   <h3 className={sharedStyles.subsectionTitle}>Empowering Developers Enhances Engagement</h3>
                   <p className={sharedStyles.textBase}>By designing developer-centric tools, we significantly reduced friction in the onboarding process, boosting confidence and satisfaction.</p>
                 </div>
                 <div>
-                  <Icon name="arrow-right" size={48} className={styles.subsectionIcon} />
                   <h3 className={sharedStyles.subsectionTitle}>Collaboration Drives Innovation</h3>
                   <p className={sharedStyles.textBase}>Synthesizing feedback across teams ensured that the final product resonated with both technical users and stakeholders.</p>
                 </div>
                 <div>
-                  <Icon name="arrow-right" size={48} className={styles.subsectionIcon} />
                   <h3 className={sharedStyles.subsectionTitle}>Balancing Complexity and Clarity</h3>
                   <p className={sharedStyles.textBase}>Finding the right balance between technical depth and usability was critical in creating resources that were both functional and engaging.</p>
                 </div>
