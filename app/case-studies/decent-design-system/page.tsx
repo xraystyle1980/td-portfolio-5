@@ -4,8 +4,6 @@
 import styles from '@/styles/casestudy-shared.module.css';
 import { projects } from '@/data/projects';
 import { useRef } from 'react';
-import Image from 'next/image';
-import { useEffect } from 'react';
 import clsx from 'clsx';
 import ParallaxHeroImage from '@/components/sections/case-studies/ParallaxHeroImage';
 import ImageGallery from '@/components/sections/case-studies/ImageGallery';

@@ -115,7 +115,7 @@ export default function TokenFace({
       {/* Pink light for glow effect */}
       <pointLight
         position={[1, 1, 1]}
-        intensity={35}
+        intensity={20}
         color="#F39"
         distance={10}
         decay={1}
@@ -124,7 +124,7 @@ export default function TokenFace({
       {/* Ambient pink glow */}
       <pointLight
         position={[-1, -1, -1]}
-        intensity={20}
+        intensity={10}
         color="#F39"
         distance={10}
         decay={1}
@@ -148,6 +148,8 @@ export default function TokenFace({
         object={clonedScene}
         rotation={rotation}
         scale={scale}
+        onClick={undefined}
+        onPointerOver={undefined}
       />
     </group>
   )

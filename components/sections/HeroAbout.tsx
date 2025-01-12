@@ -29,15 +29,15 @@ function RotatingToken({ groupRef, onFloatAnimCreated }: {
       let newPosition;
       
       if (width > 1200) {
-        newPosition = 4;      // Right of text for large screens
+        newPosition = 2.5;      // Slightly outside viewport on large screens
       } else if (width > 1000) {
-        newPosition = 3;      // Right of text for medium-large screens
+        newPosition = 2;        // Aligned with text on medium-large screens
       } else if (width > 768) {
-        newPosition = 2;      // Right of text for tablets
+        newPosition = 1.5;      // Closer in on tablets
       } else if (width > 400) {
-        newPosition = 1.5;    // Closer to text for small devices
+        newPosition = 1;        // Even closer on small devices
       } else {
-        newPosition = 1;      // Closest to text for mobile
+        newPosition = 0.75;     // Closest on mobile
       }
       
       setXPosition(newPosition);
