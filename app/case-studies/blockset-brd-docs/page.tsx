@@ -13,6 +13,7 @@ import CaseStudyImage from '@/components/sections/case-studies/CaseStudyImage';
 import { Icon } from '@/components/icons/Icon';
 import { galleryImages } from './galleryData';
 import sharedStyles from '@/styles/shared.module.css';
+import ContactMe from '@/components/sections/ContactMe';
 
 export default function BlocksetBRDDocsCaseStudy() {
   const project = projects.find((p) => p.route === '/case-studies/blockset-brd-docs');
@@ -36,7 +37,7 @@ export default function BlocksetBRDDocsCaseStudy() {
 
             <div className={styles.detailGroup}>
               <div className={styles.projectDetailLabel}>
-                <Icon name="coffee-alt" size={48} className={styles.subsectionIcon} />
+                <Icon name="coffee-alt" className={styles.subsectionIcon} />
                 <h6 className={sharedStyles.displayBase}>Role</h6>
               </div>
               <div className={styles.projectDetailValue}>
@@ -187,6 +188,11 @@ export default function BlocksetBRDDocsCaseStudy() {
           </div>
         </div>
       </section>
+
+      {/* Contact Section */}
+      <div className={sharedStyles.darkOverlayBg}>
+        <ContactMe id="case-study-connect" />
+      </div>
     </main>
   );
 } 

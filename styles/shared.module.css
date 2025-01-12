@@ -201,19 +201,21 @@ a.link {
   font-size: var(--font-size-body-lg);
   box-shadow: var(--shadow-lg);
   margin-top: var(--spacing-md);
-  border-width: 4px;
   border-radius: var(--border-radius);
   border-color: var(--color-border);
-  position: relative;
   white-space: nowrap;
  /* Transition for smooth effects */
- transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+ transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, letter-spacing 0.2s ease, font-variation-settings 0.2s ease;
+}
+.half {
+  width: 50%;
 }
 
 .primaryButton:hover {
   /* Hover transform */
   transform: translate(-6px, 6px);
-
+  /* Font weight */
+  font-variation-settings: "wght" 900;
   /* Translate box-shadow */
   box-shadow: -6px 6px 0 var(--color-border); /* Adjust offset to match transform */
 }
@@ -222,18 +224,63 @@ a.link {
   transition: transform 0.3s ease; /* Smoothly transition position */
 }
 
-.primaryButton:hover span:first-child {
-  transform: translateX(0px); /* Move left */
-}
-
 .primaryButton:hover span:last-child {
-  transform: translateX(4px); /* Move right */
+  transform: translateX(90%); /* Move right */
 }
 
 .primaryButton:active {
   transform: translate(-12px, 12px);
   box-shadow: none;
   background-color: rgb(255, 108, 49);
+}
+
+
+
+.secondaryButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-cooper);
+  font-size: var(--font-size-body);
+  color: #FFF;
+  background: rgba(255, 255, 255, 0.04);
+  font-variation-settings: "wght" 800;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: var(--spacing-xxs) var(--spacing-xs);
+  border-radius: var(--border-radius);
+  border: 2px solid #FFF;
+  box-shadow: var(--shadow-md);
+  height: 3rem;
+  white-space: nowrap;
+}
+
+.secondaryButton:hover {
+  /* Hover transform */
+  /* transform: translate(-3px, 3px); */
+  /* Font weight */
+  font-variation-settings: "wght" 900;
+  /* Translate box-shadow */
+  box-shadow: -6px 6px 0 var(--color-border); /* Adjust offset to match transform */
+}
+
+.textLink {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-cooper);
+  font-size: var(--font-size-body);
+  color: #FFF;
+  font-variation-settings: "wght" 800;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: transparent;
+  text-decoration: none;
+  border: none;
+}
+
+.textLink:hover {
 }
            
 
@@ -363,8 +410,13 @@ Responsive Styles
 
   .primaryButton {
     font-size: var(--font-size-body-mobile);
-    padding: 0;
+    padding: var(--spacing-xxs);
     margin: var(--spacing-xs) 0;
+  }
+
+  .buttonIcon {
+    width: 1.85rem;
+    height: 1.85rem;
   }
 }
 
@@ -372,11 +424,15 @@ Responsive Styles
 /* Mobile Styles */
 @media (max-width: 480px) {
   .container {
-    padding: var(--spacing-md-mobile);
+    padding: 0;
   }
 
   .sectionHeading {
     font-size: var(--font-size-section-heading-mobile-sm);
+  }
+
+  .sectionHeadingWrapper {
+    padding: 0 var(--spacing-xs);
   }
 
   .sectionTitle {

@@ -167,6 +167,7 @@ p {
   --spacing-md: 3rem;
   --spacing-lg: 4rem;
   --spacing-xl: 6rem;
+  --spacing-xxl: 9rem;
 
   /* Responsive Spacing */
   --spacing-md-laptop: 2.5rem;

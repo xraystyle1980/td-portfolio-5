@@ -1,0 +1,15 @@
+/* Contact Me */
+.half {
+  width: 50%;
+}
+
+@media (max-width: 768px) {
+  .half {
+    width: 100%;
+  }
+}
+
+
+.contentSections {
+    margin-top: var(--spacing-xxl);
+}

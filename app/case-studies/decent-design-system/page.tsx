@@ -13,6 +13,7 @@ import CaseStudyImage from '@/components/sections/case-studies/CaseStudyImage';
 import { Icon } from '@/components/icons/Icon';
 import { galleryImages } from './galleryData';
 import sharedStyles from '@/styles/shared.module.css';
+import ContactMe from '@/components/sections/ContactMe';
 
 export default function DecentDesignSystemCaseStudy() {
   const project = projects.find((p) => p.route === '/case-studies/decent-design-system');
@@ -211,6 +212,11 @@ export default function DecentDesignSystemCaseStudy() {
           </div>
         </div>
       </section>
+
+      {/* Contact Section */}
+      <div className={sharedStyles.darkOverlayBg}>
+        <ContactMe id="case-study-connect" />
+      </div>    
     </main>
   );
 } 

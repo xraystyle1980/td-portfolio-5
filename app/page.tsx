@@ -8,6 +8,7 @@ import CaseStudies from '@/components/sections/CaseStudies';
 import { useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+import ContactMe from '@/components/sections/ContactMe';
 
 gsap.registerPlugin(ScrollToPlugin);
 
@@ -41,6 +42,7 @@ export default function HomePage() {
       {/* Case Studies Section */}
       <div className={sharedStyles.gradientBottomTop}>
         <CaseStudies />
+        <ContactMe />
       </div>
     </main>
   );

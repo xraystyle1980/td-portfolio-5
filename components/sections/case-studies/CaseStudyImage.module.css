@@ -15,7 +15,6 @@
   position: relative;
   border-radius: var(--radius-md);
   overflow: hidden;
-  background-color: var(--color-background-darker);
 }
 
 .image {

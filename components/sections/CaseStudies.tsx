@@ -8,7 +8,7 @@ import clsx from 'clsx'
 export default function Work() {
   return (
     <section id="case-studies" className={clsx(sharedStyles.paddingBottom, sharedStyles.container)}>
-      <div>
+      <div className={sharedStyles.sectionHeadingWrapper}>
         <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionHeading)}>Case Studies</h2>
       </div>
       <div className={`${styles.projects} projects`}>

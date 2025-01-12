@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import styles from './Navigation.module.css';
+import sharedStyles from '../../../styles/shared.module.css';
 import { usePathname, useRouter } from 'next/navigation';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import gsap from 'gsap';
@@ -14,6 +15,7 @@ export default function Navigation() {
   const [isMobileOpen, setIsMobileOpen] = useState(false); // Mobile menu state
   const [isMobile, setIsMobile] = useState(false); // Track if viewport is mobile
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   // Handle window resize for responsiveness
   useEffect(() => {
@@ -24,6 +26,17 @@ export default function Navigation() {
     handleResize(); // Initial check
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Handle scroll position
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+
+    handleScroll(); // Initial check
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   // GSAP animation logic for swapping navbars
@@ -97,16 +110,26 @@ export default function Navigation() {
     event.preventDefault(); // Prevent default browser navigation behavior
     setIsDropdownOpen(false); // Close dropdown when navigating
   
-    if (pathname === '/' && targetId.startsWith('#')) {
-      // Smooth scroll to section using GSAP
-      gsap.to(window, { duration: 1, scrollTo: targetId, ease: 'power2.out' });
-    } else if (targetId.startsWith('#')) {
-      // Navigate to home page and scroll to section after load
-      router.push(`/${targetId}`);
-    } else {
-      // Navigate to other pages
-      router.push(targetId);
+    // If we're on a case study page and clicking connect, scroll to the case study's connect section
+    if (pathname.includes('/case-studies/') && targetId.includes('connect')) {
+      gsap.to(window, { duration: 1, scrollTo: '#case-study-connect', ease: 'power2.out' });
+      return;
     }
+    
+    // If we're on the home page and clicking a section link
+    if (pathname === '/' && targetId.startsWith('#')) {
+      gsap.to(window, { duration: 1, scrollTo: targetId, ease: 'power2.out' });
+      return;
+    }
+    
+    // If we're navigating to a different page
+    if (!targetId.startsWith('#')) {
+      router.push(targetId);
+      return;
+    }
+    
+    // Default case: navigate to home page with hash
+    router.push(`/${targetId}`);
   };
 
   // Close dropdown on pathname change
@@ -117,9 +140,9 @@ export default function Navigation() {
   return (
     <>
       {/* Home Navbar */}
-      <nav className={`${styles.nav} home-nav`}>
+      <nav className={`${styles.nav} ${isScrolled ? styles.scrolled : ''} home-nav`}>
         <div className={styles.wrapper}>
-          <div className={styles.logo} onClick={scrollToTop}>Home Logo</div>
+          <div className={styles.logo} onClick={scrollToTop}>Trice.Design</div>
           <div className={styles.links}>
             {isMobile ? (
               <button 
@@ -133,11 +156,14 @@ export default function Navigation() {
               </button>
             ) : (
               <>
-                <button className={styles.link} onClick={(e) => handleNavigation(e, '#about')}>
+                <button className={sharedStyles.secondaryButton} onClick={(e) => handleNavigation(e, '#about')}>
                   About
                 </button>
-                <button className={styles.link} onClick={(e) => handleNavigation(e, '#case-studies')}>
+                <button className={sharedStyles.secondaryButton} onClick={(e) => handleNavigation(e, '#case-studies')}>
                   Case Studies
+                </button>
+                <button className={sharedStyles.secondaryButton} onClick={(e) => handleNavigation(e, '#connect')}>
+                  Connect
                 </button>
               </>
             )}
@@ -146,9 +172,9 @@ export default function Navigation() {
       </nav>
 
       {/* Case Study Navbar */}
-      <nav className={`${styles.nav} case-study-nav`} style={{ display: 'none' }}>
+      <nav className={`${styles.nav} ${isScrolled ? styles.scrolled : ''} case-study-nav`} style={{ display: 'none' }}>
         <div className={styles.wrapper}>
-          <div className={styles.logo} onClick={scrollToTop}>Case Study Logo</div>
+          <div className={styles.logo} onClick={scrollToTop}>Trice.Design</div>
           <div className={styles.links}>
             {isMobile ? (
               <button className={styles.hamburger} onClick={toggleMobileMenu}>
@@ -158,10 +184,10 @@ export default function Navigation() {
               </button>
             ) : (
               <>
-                <button className={styles.link} onClick={(e) => handleNavigation(e, '/')}>Home</button>
+                <button className={sharedStyles.secondaryButton} onClick={(e) => handleNavigation(e, '/')}>Home</button>
                 <div className={styles.dropdownContainer}>
                   <button 
-                    className={`${styles.link} ${isDropdownOpen ? styles.active : ''}`}
+                    className={`${sharedStyles.secondaryButton} ${isDropdownOpen ? styles.active : ''}`}
                     onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                   >
                     All Case Studies <Icon name="chevron-down" size={24} />
@@ -180,6 +206,9 @@ export default function Navigation() {
                     </div>
                   )}
                 </div>
+                <button className={sharedStyles.secondaryButton} onClick={(e) => handleNavigation(e, pathname === '/' ? '#connect' : '#case-study-connect')}>
+                  Connect
+                </button>
               </>
             )}
           </div>
@@ -197,39 +226,47 @@ export default function Navigation() {
         </button>
         {pathname === '/' ? (
           <>
-            <button className={styles.mobileLink} onClick={(e) => {
+            <button className={sharedStyles.textLink} onClick={(e) => {
               handleNavigation(e, '#about');
               toggleMobileMenu();
             }}>About</button>
-            <button className={styles.mobileLink} onClick={(e) => {
+            <button className={sharedStyles.textLink} onClick={(e) => {
               handleNavigation(e, '#case-studies');
               toggleMobileMenu();
             }}>Case Studies</button>
+            <button className={sharedStyles.textLink} onClick={(e) => {
+              handleNavigation(e, '#connect');
+              toggleMobileMenu();
+            }}>Connect</button>
           </>
         ) : (
           <>
-            <button className={styles.mobileLink} onClick={(e) => {
+            <button className={sharedStyles.textLink} onClick={(e) => {
               handleNavigation(e, '/');
               toggleMobileMenu();
             }}>Home</button>
-            <button className={styles.mobileLink} onClick={(e) => {
+            <button className={sharedStyles.textLink} onClick={(e) => {
               handleNavigation(e, '/case-studies/decent-app');
               toggleMobileMenu();
             }}>
               Decent App
             </button>
-            <button className={styles.mobileLink} onClick={(e) => {
+            <button className={sharedStyles.textLink} onClick={(e) => {
               handleNavigation(e, '/case-studies/decent-design-system');
               toggleMobileMenu();
             }}>
               Design System
             </button>
-            <button className={styles.mobileLink} onClick={(e) => {
+            <button className={sharedStyles.textLink} onClick={(e) => {
               handleNavigation(e, '/case-studies/blockset-brd-docs');
               toggleMobileMenu();
             }}>
               Blockset Docs
             </button>
+            <button className={sharedStyles.textLink} onClick={(e) => {
+              handleNavigation(e, pathname === '/' ? '#connect' : '#case-study-connect');
+              toggleMobileMenu();
+            }}>Connect</button>
           </>
         )}
       </div>

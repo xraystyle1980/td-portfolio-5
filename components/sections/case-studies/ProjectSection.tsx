@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import sharedStyles from '@/styles/shared.module.css';
 import styles from './ProjectSection.module.css';
 import Link from 'next/link';
-import { ArrowRight } from '@/components/icons/ArrowRight';
+import { Icon } from '@/components/icons/Icon';
 
 export default function ProjectSection({ project, className = '' }: ProjectSectionProps) {
   const buttonClasses = clsx(
@@ -22,10 +22,9 @@ export default function ProjectSection({ project, className = '' }: ProjectSecti
         </div>
         <p className={clsx(sharedStyles.textBase, sharedStyles.large)}>{project.description}</p>
 
-        {/* Button with static label */}
         <Link href={project.route || '/default-path'} className={buttonClasses}>
           <span>View Case Study</span>
-          <span><ArrowRight className={sharedStyles.buttonIcon} /></span>
+          <span><Icon name="arrow-right" className={sharedStyles.buttonIcon} /></span>
         </Link>
       </div>
 
