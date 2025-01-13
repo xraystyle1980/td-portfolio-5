@@ -23,25 +23,25 @@ export default function ScrollingTokens() {
       let newSpread, newScale, newFinalScale;
       
       if (width < 400) {
-        newSpread = 1;        // Mobile portrait values
+        newSpread = 0.5;        // Mobile portrait values
+        newScale = 0.5;
+        newFinalScale = 0.7;
+      } else if (width < 768) {
+        newSpread = 0.75;      // Mobile landscape values
+        newScale = 0.6;
+        newFinalScale = 0.8;
+      } else if (width < 1000) {
+        newSpread = 1;      // Tablet values
         newScale = 0.7;
         newFinalScale = 0.9;
-      } else if (width < 768) {
-        newSpread = 1.2;      // Mobile landscape values
-        newScale = 0.75;
-        newFinalScale = 0.95;
-      } else if (width < 1000) {
-        newSpread = 1.5;      // Tablet values
-        newScale = 0.8;
-        newFinalScale = 1;
       } else if (width < 1200) {
-        newSpread = 1.8;      // Desktop small values
-        newScale = 0.85;
-        newFinalScale = 1.1;
+        newSpread = 1.2;      // Desktop small values
+        newScale = 0.75;
+        newFinalScale = 1;
       } else {
-        newSpread = 2;        // Desktop large values
-        newScale = 0.9;
-        newFinalScale = 1.2;
+        newSpread = 1.5;        // Desktop large values
+        newScale = 0.8;
+        newFinalScale = 1.1;
       }
       
       setPositions({
@@ -62,13 +62,13 @@ export default function ScrollingTokens() {
   const initialPositions = [
     { x: -1.5 * positions.spread, y: -12, scale: positions.scale, finalScale: positions.finalScale, speed: 0.8, rotation: { x: 0.2, y: -0.3, z: 0.1 } },
     { x: -0.5 * positions.spread, y: -15, scale: positions.scale, finalScale: positions.finalScale * 0.9, speed: 1, rotation: { x: -0.3, y: 0.2, z: -0.2 } },
-    { x: 1.5 * positions.spread, y: -14, scale: positions.scale, finalScale: positions.finalScale, speed: 0.6, rotation: { x: 0.1, y: 0.3, z: 0.2 } }
+    { x: positions.spread, y: -14, scale: positions.scale, finalScale: positions.finalScale, speed: 0.6, rotation: { x: 0.1, y: 0.3, z: 0.2 } }
   ];
 
   const finalPositions = [
-    { x: -2 * positions.spread, y: 1 },
-    { x: -0.75 * positions.spread, y: -1 },
-    { x: 2 * positions.spread, y: 0.5 }
+    { x: -2 * positions.spread, y: 3 },
+    { x: -0.75 * positions.spread, y: 2 },
+    { x: 2 * positions.spread, y: 2.5 }
   ];
 
   useEffect(() => {
@@ -76,7 +76,7 @@ export default function ScrollingTokens() {
       if (token) {
         const scrollTrigger = {
           trigger: '#connect',
-          start: 'top bottom+=20%',
+          start: 'top bottom+=100%',
           end: 'top center',
           scrub: initialPositions[i].speed,
           markers: false,
@@ -132,27 +132,7 @@ export default function ScrollingTokens() {
   }, []);
 
   return (
-    <group position={[0, 0, 2]}>
-      {/* Pink point lights for each token */}
-      {initialPositions.map((pos, i) => (
-        <group key={`lights-${i}`} position={[pos.x, pos.y, 0]} onClick={undefined} onPointerOver={undefined}>
-          <pointLight
-            position={[1, 1, 1]}
-            intensity={20}
-            color="#F39"
-            distance={10}
-            decay={1}
-          />
-          <pointLight
-            position={[-1, -1, -1]}
-            intensity={10}
-            color="#F39"
-            distance={10}
-            decay={1}
-          />
-        </group>
-      ))}
-
+    <group position={[0, 0, 0]}>
       {/* Tokens */}
       {initialPositions.map((pos, i) => (
         <group 
@@ -163,10 +143,24 @@ export default function ScrollingTokens() {
           position={[pos.x, pos.y, 0]}
           rotation={[pos.rotation.x, pos.rotation.y, pos.rotation.z]}
           scale={[pos.scale, pos.scale, pos.scale]}
-          onClick={undefined}
-          onPointerOver={undefined}
         >
           <TokenFace />
+          <pointLight position={[0, 2, 4]} intensity={15} color="#ff69b4" distance={6} />
+          <mesh 
+            position={[0, 0, 0]} 
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+            onPointerOver={(e) => {
+              document.body.style.cursor = 'pointer';
+            }}
+            onPointerOut={(e) => {
+              document.body.style.cursor = 'auto';
+            }}
+          >
+            <planeGeometry args={[1.5, 1.5]} />
+            <meshBasicMaterial transparent opacity={0} />
+          </mesh>
         </group>
       ))}
     </group>

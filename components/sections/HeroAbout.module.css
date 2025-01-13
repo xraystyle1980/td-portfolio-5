@@ -23,13 +23,13 @@
   text-shadow: var(--shadow-lg);
   text-align: left;
   opacity: 0;
-  font-variation-settings: "wght" 100;
+  font-variation-settings: "wght" 700;
   will-change: opacity, font-variation-settings;
   cursor: pointer;
   pointer-events: auto;
 }
 .heroHeadline:hover .splitWord {
-  letter-spacing: 0.2em;
+  letter-spacing: -2px;
 }
 .heroHeadline span {
   display: block;

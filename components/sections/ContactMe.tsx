@@ -4,14 +4,17 @@ import clsx from 'clsx'
 import { Icon } from '@/components/icons/Icon';
 import { Canvas } from '@react-three/fiber';
 import { Environment } from '@react-three/drei';
-import { Suspense } from 'react';
+import { Suspense, useState } from 'react';
 import ScrollingTokens from '../3d/ScrollingTokens';
+import Loading from '@/components/ui-components/Loading';
 
 interface ContactMeProps {
   id?: string;
 }
 
 export default function ContactMe({ id = 'connect' }: ContactMeProps) {
+  const [isLoading, setIsLoading] = useState(true);
+
   const handleEmailClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     window.location.href = 'mailto:matt@trice.design';
@@ -19,6 +22,7 @@ export default function ContactMe({ id = 'connect' }: ContactMeProps) {
 
   return (        
     <section id={id} className={styles.contentSections}>
+      {isLoading && <Loading />}
       <div className={styles.tokenBackground}>
         <Canvas
           camera={{ 
@@ -27,7 +31,8 @@ export default function ContactMe({ id = 'connect' }: ContactMeProps) {
             near: 0.1,
             far: 100 
           }}
-          style={{ width: '100%', height: '100%', pointerEvents: 'none' }}
+          style={{ width: '100%', height: '100%', pointerEvents: 'auto' }}
+          onCreated={() => setIsLoading(false)}
         >
           <Suspense fallback={null}>
             <Environment preset="city" />

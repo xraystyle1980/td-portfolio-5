@@ -1,20 +1,18 @@
 'use client'
 
 import React from 'react';
+import styles from './Loading.module.css';
 
 export default function Loading() {
-    return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-          backgroundColor: "var(--color-background)",
-          color: "var(--color-text)",
-        }}
-      >
-        <p>Loading...</p>
+  return (
+    <div className={styles.loadingScreen}>
+      <div className={styles.loadingText}>
+        {'Loading...'.split('').map((char, i) => (
+          <span key={i} className={styles.letter} style={{ animationDelay: `${i * 0.1}s` }}>
+            {char}
+          </span>
+        ))}
       </div>
-    );
-  }
+    </div>
+  );
+}

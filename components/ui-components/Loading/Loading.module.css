@@ -1,0 +1,38 @@
+.loadingScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-background);
+  z-index: 100;
+  pointer-events: none;
+}
+
+.loadingText {
+  font-family: var(--font-cooper);
+  font-size: clamp(2rem, 5vw, 4rem);
+  color: var(--color-primary);
+  letter-spacing: -0.05em;
+  display: flex;
+}
+
+.letter {
+  display: inline-block;
+  animation: wave 2s ease-in-out infinite;
+  font-variation-settings: 'wght' 400;
+}
+
+@keyframes wave {
+  0%, 100% { 
+    transform: translateX(0);
+    font-variation-settings: 'wght' 400;
+  }
+  50% { 
+    transform: translateX(8px);
+    font-variation-settings: 'wght' 900;
+  }
+} 

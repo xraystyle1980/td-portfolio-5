@@ -213,11 +213,11 @@ a.link {
 
 .primaryButton:hover {
   /* Hover transform */
-  transform: translate(-6px, 6px);
+  /* transform: translate(-6px, 6px); */
   /* Font weight */
   font-variation-settings: "wght" 900;
   /* Translate box-shadow */
-  box-shadow: -6px 6px 0 var(--color-border); /* Adjust offset to match transform */
+  /* box-shadow: -6px 6px 0 var(--color-border); Adjust offset to match transform */
 }
 
 .primaryButton span {
@@ -231,7 +231,7 @@ a.link {
 .primaryButton:active {
   transform: translate(-12px, 12px);
   box-shadow: none;
-  background-color: rgb(255, 108, 49);
+  background-color: rgb(255, 67, 161);
 }
 
 
@@ -257,12 +257,13 @@ a.link {
 }
 
 .secondaryButton:hover {
-  /* Hover transform */
-  /* transform: translate(-3px, 3px); */
-  /* Font weight */
   font-variation-settings: "wght" 900;
-  /* Translate box-shadow */
-  box-shadow: -6px 6px 0 var(--color-border); /* Adjust offset to match transform */
+}
+
+.secondaryButton:active {
+  transform: translate(-6px, 6px);
+  box-shadow: none;
+  background-color: rgba(0, 0, 0, 0.24);
 }
 
 .textLink {
