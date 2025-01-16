@@ -4,35 +4,88 @@
   left: 0;
   width: 100%;
   height: 100vh;
+  background-color: #161616;
   display: flex;
-  align-items: center;
   justify-content: center;
-  background: var(--color-background);
-  z-index: 100;
-  pointer-events: none;
+  align-items: center;
+  z-index: 9999;
+}
+
+.loadingContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.loadingIcon {
+  position: relative;
+  overflow: hidden;
+}
+
+.loadingIcon::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, #161616);
+  animation: revealMask 2.5s cubic-bezier(0.4, 0, 0.2, 1) 2;
+}
+
+.tokenPath {
+  stroke: #FF69B4;
+  stroke-width: 2;
+  stroke-miterlimit: 10;
+  fill: none;
+  opacity: 0;
+  animation: fadeInOut 2.5s cubic-bezier(0.4, 0, 0.2, 1) 2;
 }
 
 .loadingText {
-  font-family: var(--font-cooper);
-  font-size: clamp(2rem, 5vw, 4rem);
-  color: var(--color-primary);
-  letter-spacing: -0.05em;
   display: flex;
+  font-family: var(--font-cooper);
+  font-size: 1.5rem;
+  color: #fff;
+  letter-spacing: 0.1em;
 }
 
 .letter {
   display: inline-block;
-  animation: wave 2s ease-in-out infinite;
-  font-variation-settings: 'wght' 400;
+  opacity: 0;
+  animation: fadeInUp 0.6s ease forwards;
+  animation-delay: 5s;
 }
 
-@keyframes wave {
-  0%, 100% { 
-    transform: translateX(0);
-    font-variation-settings: 'wght' 400;
+@keyframes revealMask {
+  0% {
+    transform: translateX(-100%);
   }
-  50% { 
-    transform: translateX(8px);
-    font-variation-settings: 'wght' 900;
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 } 
