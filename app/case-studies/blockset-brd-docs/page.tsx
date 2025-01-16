@@ -49,7 +49,7 @@ export default function BlocksetBRDDocsCaseStudy() {
                 <h6 className={sharedStyles.displayBase}>Duration</h6>
               </div>
               <div className={styles.projectDetailValue}>
-                Q1 2022 – Q4 2023
+                Q4 2020 – Q2 2021
               </div>
             </div>
 
