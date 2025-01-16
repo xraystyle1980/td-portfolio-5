@@ -57,6 +57,7 @@ a:not([class]) {
 
 html {
   scroll-behavior: smooth;
+  font-family: var(--font-source-serif), var(--font-cooper);
 }
 
 canvas {

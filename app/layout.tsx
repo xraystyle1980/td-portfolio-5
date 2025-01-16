@@ -21,7 +21,6 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${cooper.variable} ${sourceSerif.variable}`}
-      style={{ fontFamily: 'var(--font-source-serif), var(--font-cooper)' }}
     >
       <head>
         <Script 

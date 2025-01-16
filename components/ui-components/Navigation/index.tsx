@@ -42,41 +42,45 @@ export default function Navigation() {
   // GSAP animation logic for swapping navbars
   useEffect(() => {
     const tl = gsap.timeline();
+    const caseStudyNav = document.querySelector('.case-study-nav');
+    const homeNav = document.querySelector('.home-nav');
+
+    if (!caseStudyNav || !homeNav) return;
+
     if (pathname === '/') {
       // Show home navbar
-      tl.to('.case-study-nav', {
+      gsap.set(homeNav, { display: 'block' });
+      tl.to(caseStudyNav, {
         y: -100,
         autoAlpha: 0,
         duration: 0.5,
-        onComplete: () => { gsap.set('.case-study-nav', { display: 'none' }); }
+        onComplete: () => { gsap.set(caseStudyNav, { display: 'none' }); }
       }).to(
-        '.home-nav',
+        homeNav,
         {
           y: 0,
           autoAlpha: 1,
-          display: 'block',
           duration: 0.5,
         },
         '<'
       );
     } else {
       // Show case study navbar
-      tl.set('.case-study-nav', { display: 'block' })
-        .to('.home-nav', {
-          y: -100,
-          autoAlpha: 0,
+      gsap.set(caseStudyNav, { display: 'block' });
+      tl.to(homeNav, {
+        y: -100,
+        autoAlpha: 0,
+        duration: 0.5,
+        onComplete: () => { gsap.set(homeNav, { display: 'none' }); }
+      }).to(
+        caseStudyNav,
+        {
+          y: 0,
+          autoAlpha: 1,
           duration: 0.5,
-          onComplete: () => { gsap.set('.home-nav', { display: 'none' }); }
-        })
-        .to(
-          '.case-study-nav',
-          {
-            y: 0,
-            autoAlpha: 1,
-            duration: 0.5,
-          },
-          '<'
-        );
+        },
+        '<'
+      );
     }
   }, [pathname]);
 
