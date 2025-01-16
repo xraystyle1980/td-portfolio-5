@@ -17,21 +17,32 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
   useEffect(() => {
     if (typeof window === 'undefined' || !smootherRef.current) return;
 
+    // Create ScrollSmoother
     const smoother = ScrollSmoother.create({
       wrapper: smootherRef.current,
       content: smootherRef.current.querySelector('[data-scroll-content]'),
-      smooth: 1.5, // Controls the smoothness (higher value = slower)
-      effects: true, // Enables ScrollTrigger animations inside ScrollSmoother
+      smooth: 1.5,
+      effects: true,
+      normalizeScroll: true,
+      ignoreMobileResize: true,
     });
 
+    // Refresh ScrollTrigger after a short delay to ensure all content is mounted
+    const refreshTimeout = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 100);
+
     return () => {
+      clearTimeout(refreshTimeout);
       smoother.kill();
     };
   }, []);
 
   return (
     <div ref={smootherRef} style={{ overflow: 'hidden' }}>
-      <div data-scroll-content>{children}</div>
+      <div data-scroll-content data-scroll-section>
+        {children}
+      </div>
     </div>
   );
 }

@@ -74,8 +74,13 @@ export default function ScrollingTokens() {
   useEffect(() => {
     tokensRef.current.forEach((token, i) => {
       if (token) {
+        // Try to find either connect ID
+        const connectElement = document.querySelector('#connect, #case-study-connect');
+        
+        if (!connectElement) return;
+
         const scrollTrigger = {
-          trigger: '#connect',
+          trigger: connectElement,
           start: 'top bottom+=100%',
           end: 'top center',
           scrub: initialPositions[i].speed,

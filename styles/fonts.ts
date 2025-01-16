@@ -6,9 +6,12 @@ export const sourceSerif = Source_Serif_4({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-source-serif',
+  weight: ['400', '500', '600', '700'],
+  preload: true,
 });
 
 export const cooper = localFont({
   src: '../public/fonts/Cooper-var.ttf',
   variable: '--font-cooper',
+  preload: true,
 });

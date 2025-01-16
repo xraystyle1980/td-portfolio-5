@@ -1,4 +1,11 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+  themeColor: '#ffffff'
+};
 
 export const metadata: Metadata = {
   title: 'Matt Trice • Product Designer',
@@ -13,9 +20,8 @@ export const metadata: Metadata = {
   manifest: '/manifest.json',
   icons: {
     icon: [
-      { url: '/favicon.ico', sizes: '48x48' },
-      { url: '/favicon.svg', sizes: 'any', type: 'image/svg+xml' },
       { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon.svg', sizes: 'any', type: 'image/svg+xml' },
       { url: '/web-app-manifest-192x192.png', sizes: '192x192' },
       { url: '/web-app-manifest-512x512.png', sizes: '512x512' }
     ],
@@ -24,17 +30,14 @@ export const metadata: Metadata = {
     ]
   },
 
-  // Theme and mobile configuration
-  themeColor: '#ffffff',
+  // Mobile configuration
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
     title: 'Trice Design'
   },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    viewportFit: 'cover'
+  other: {
+    'mobile-web-app-capable': 'yes'
   },
 
   // OpenGraph

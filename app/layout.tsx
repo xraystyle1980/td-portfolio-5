@@ -41,9 +41,9 @@ export default function RootLayout({
       <body>
         <AppProvider>
           <LoadingWrapper>
-            <Scene3DWrapper />
             <Navigation />
             <SmoothScroll>
+              <Scene3DWrapper />
               <ClientLayout>
                 {children}
                 <Footer />
