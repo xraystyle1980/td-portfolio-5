@@ -212,20 +212,11 @@ a.link {
 }
 
 .primaryButton:hover {
-  /* Hover transform */
-  /* transform: translate(-6px, 6px); */
-  /* Font weight */
   font-variation-settings: "wght" 900;
-  /* Translate box-shadow */
-  /* box-shadow: -6px 6px 0 var(--color-border); Adjust offset to match transform */
 }
 
 .primaryButton span {
   transition: transform 0.3s ease; /* Smoothly transition position */
-}
-
-.primaryButton:hover span:last-child {
-  transform: translateX(90%); /* Move right */
 }
 
 .primaryButton:active {
