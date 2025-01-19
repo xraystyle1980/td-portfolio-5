@@ -19,14 +19,13 @@
 }
 .heroHeadline {
   font-size: var(--font-size-section-heading-hero);
-  color: var(--color-accent);
+  color: var(--color-primary);
   text-shadow: var(--shadow-lg);
   text-align: left;
   opacity: 0;
-  font-variation-settings: "wght" 700;
-  will-change: opacity, font-variation-settings;
   cursor: pointer;
   pointer-events: auto;
+  transform: skew(12deg, -28deg) rotate(12deg);
 }
 .heroHeadline:hover .splitWord {
   letter-spacing: -2px;
@@ -56,7 +55,7 @@
 }
 .aboutParagraph {
   color: var(--color-text);
-  font-family: var(--font-source-serif);
+  font-family: var(--font-space);
   font-size: var(--font-size-body-xl);
   text-shadow: var(--shadow-sm);
   width: min(60%, 800px);

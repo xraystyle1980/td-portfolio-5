@@ -83,10 +83,11 @@
   align-items: center;
 }
 
-.projectDetailLabel h6{
-  font-family: var(--font-cooper);
+.projectDetailLabel h6 {
+  font-family: var(--font-space);
   color: var(--color-accent);
   font-size: var(--font-size-body);
+  font-weight: 700;
   margin: 0;
 }
 
@@ -132,8 +133,8 @@
 
 .subsectionTitle {
   font-size: var(--font-size-section-heading-sm);
-  font-family: var(--font-cooper);
-  font-variation-settings: "wght" 700;
+  font-family: var(--font-space);
+  font-weight: 700;
   margin-bottom: var(--spacing-sm);
   display: flex;
   align-items: center;
@@ -213,4 +214,11 @@
     grid-template-columns: 1fr;
     gap: var(--spacing-sm);
   }
+}
+
+.textBase {
+  color: var(--color-text);
+  line-height: var(--line-height-relaxed);
+  font-family: var(--font-space);
+  font-size: var(--font-size-body);
 }

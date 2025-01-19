@@ -143,7 +143,6 @@ export default function HeroAbout() {
       gsap.set(words, {
         opacity: 0,
         visibility: "hidden",
-        fontVariationSettings: "'wght' 400"
       });
 
       // Initial Load Animation - Text Fade In with Weight and Letter Spacing
@@ -155,7 +154,6 @@ export default function HeroAbout() {
       tl.to(words, {
         opacity: 1,
         visibility: "visible",
-        fontVariationSettings: "'wght' 900",
         duration: 0.8,
         stagger: 0.15,
         ease: "power2.inOut",
@@ -167,51 +165,13 @@ export default function HeroAbout() {
       })
       // Second step: Tighten letter spacing with bounce
       .to(words, {
-        letterSpacing: "-0.05em",
+        letterSpacing: "0px",
         duration: 0.9,
         stagger: 0.05,
         ease: "back.out(1.7)",
       }, "-=0.78");
 
-      // Simple word change animation
-      /*
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: "top top",
-        end: "+=300",
-        scrub: true,
-        markers: true, // Add markers to debug
-        onUpdate: (self) => {
-          if (self.progress > 0.5 && stuffWord.textContent === "Stuff") {
-            gsap.to(stuffWord, {
-              opacity: 0,
-              duration: 0.3,
-              onComplete: () => {
-                stuffWord.textContent = "Shit";
-                gsap.to(stuffWord, {
-                  opacity: 1,
-                  duration: 0.3
-                });
-              }
-            });
-          } else if (self.progress < 0.5 && stuffWord.textContent === "Shit") {
-            gsap.to(stuffWord, {
-              opacity: 0,
-              duration: 0.3,
-              onComplete: () => {
-                stuffWord.textContent = "Stuff";
-                gsap.to(stuffWord, {
-                  opacity: 1,
-                  duration: 0.3
-                });
-              }
-            });
-          }
-        }
-      });
-      */
-
-      // Uncomment token scroll animation
+     
       // Token Scroll Animation
       ScrollTrigger.create({
         trigger: sectionRef.current,
@@ -313,7 +273,7 @@ export default function HeroAbout() {
           <h1 className={clsx(sharedStyles.displayText, styles.heroHeadline)}>
             <span className={styles.splitWord}>Build</span>
             <span className={styles.splitWord}>Cool</span>
-            <span className={styles.splitWord}>Stuff</span>
+            <span className={styles.splitWord}>Shit!</span>
           </h1>
         </div>
       </div>
@@ -338,7 +298,7 @@ export default function HeroAbout() {
           <h1 className={clsx(sharedStyles.displayText, styles.aboutHeadline)}>
             Hello <span className={styles.waveEmoji}>👋</span>
           </h1>
-          <div className={sharedStyles.darkContainer}>
+          <div>
             <p className={clsx(sharedStyles.textBase, sharedStyles.larger)}>
               I'm Matt Trice, an ATL-based Product Designer with a track record of design leadership, embracing complex problems, and crafting elegant solutions that deliver meaningful business impact.
             </p>

@@ -14,6 +14,7 @@ body {
   line-height: 1.5;
   background-color: var(--color-background);
   color: var(--color-text);
+  font-family: var(--font-space);
 }
 
 /* Make images easier to work with */
@@ -98,12 +99,14 @@ p {
   --color-background: #1d2329;
   --color-dark: #1d2329;
   --color-text: #e9e9e9;
-  --color-accent: #F39;
+  --color-primary: #F39;
   --color-accent-dark: #768DA4;
   --color-accent-light: #96A1AB;
   --color-border: #000;
 
   /* Typography */ 
+  --font-force: 'Force Majeure', sans-serif;
+  --font-space: 'Space Grotesk', sans-serif;
   --font-size-section-heading-hero: 16rem;
   --font-size-section-heading: 16rem;
   --font-size-section-title: 6rem;
@@ -133,6 +136,7 @@ p {
 
   --font-size-sm: 1rem;
 
+  --line-height-xtight: 0.86;
   --line-height-tight: 1;
   --line-height-normal: 1.4;
   --line-height-relaxed: 1.6;
@@ -185,9 +189,7 @@ p {
   --border-radius-mobile: 0.5rem;
 
   /* Effects */
-  --shadow-lg: -12px 12px 0 var(--color-border);
-               /* -6px 6px 0 var(--color-border); */
-  --shadow-md: -8px 8px 0 var(--color-border);
-  --shadow-sm: -3px 3px 0 var(--color-border);
-  --shadow-md-mobile: -4px 4px 0 var(--color-border);
+  --shadow-lg: -12px -12px 0 var(--color-border);
+  --shadow-md: -8px -8px 0 var(--color-border);
+  --shadow-sm: -3px -3px 0 var(--color-border);
 }

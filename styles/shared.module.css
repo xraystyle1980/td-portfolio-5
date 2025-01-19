@@ -31,7 +31,7 @@
 a.link {
   color: var(--color-accent);
   text-decoration: none;
-  font-family: var(--font-source-serif);
+  font-family: var(--font-space);
   font-size: var(--font-size-body);
 }
 
@@ -64,7 +64,7 @@ a.link {
 .textBase {
   color: var(--color-text);
   line-height: var(--line-height-relaxed);
-  font-family: var(--font-source-serif);
+  font-family: var(--font-space);
   font-size: var(--font-size-body);
 }
 
@@ -89,11 +89,9 @@ a.link {
 
 /* Display Text */
 .displayText {
-  font-family: var(--font-cooper);
-  line-height: var(--line-height-tight);
-  color: var(--color-accent);
-  paint-order: stroke fill;
-  font-variation-settings: "wght" 900;
+  font-family: var(--font-force);
+  line-height: var(--line-height-xtight);
+  color: var(--color-primary);
 }
 
 .sectionHeading {
@@ -126,12 +124,9 @@ a.link {
   gap: 1rem;
 }
 
-/* .subsectionList li {
-  font-size: var(--font-size-body-lg);
-  color: var(--color-text);
-  line-height: var(--line-height-relaxed);
-  font-family: var(--font-source-serif);
-} */
+.subsectionList li {
+  font-family: var(--font-space);
+}
 
 
 
@@ -176,7 +171,7 @@ a.link {
   gap: var(--spacing-sm);
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--border-radius);
-  font-family: var(--font-cooper);
+  font-family: var(--font-space);
   cursor: pointer;
   transition: all 0.165s ease;
   text-decoration: none;
@@ -193,8 +188,8 @@ a.link {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: var(--font-cooper);
-  font-variation-settings: "wght" 800;
+  font-family: var(--font-space);
+  font-weight: 700;
   background: var(--color-accent);
   color: var(--color-border);
   padding: var(--spacing-xs);
@@ -204,15 +199,11 @@ a.link {
   border-radius: var(--border-radius);
   border-color: var(--color-border);
   white-space: nowrap;
- /* Transition for smooth effects */
- transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, letter-spacing 0.2s ease, font-variation-settings 0.2s ease;
-}
-.half {
-  width: 50%;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .primaryButton:hover {
-  font-variation-settings: "wght" 900;
+  font-weight: 900;
 }
 
 .primaryButton span {
@@ -225,18 +216,20 @@ a.link {
   background-color: rgb(255, 67, 161);
 }
 
-
+.half {
+  width: 50%;
+}
 
 .secondaryButton {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  font-family: var(--font-cooper);
+  font-family: var(--font-space);
   font-size: var(--font-size-body);
   color: #FFF;
   background: rgba(255, 255, 255, 0.04);
-  font-variation-settings: "wght" 800;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease;
   padding: var(--spacing-xxs) var(--spacing-xs);
@@ -248,7 +241,7 @@ a.link {
 }
 
 .secondaryButton:hover {
-  font-variation-settings: "wght" 900;
+  font-weight: 900;
 }
 
 .secondaryButton:active {
@@ -261,10 +254,10 @@ a.link {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-family: var(--font-cooper);
+  font-family: var(--font-space);
   font-size: var(--font-size-body);
   color: #FFF;
-  font-variation-settings: "wght" 800;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease;
   background: transparent;
@@ -273,8 +266,9 @@ a.link {
 }
 
 .textLink:hover {
+  font-weight: 900;
 }
-           
+
 
 
 /* Section Backgrounds */

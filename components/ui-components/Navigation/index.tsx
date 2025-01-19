@@ -7,6 +7,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import gsap from 'gsap';
 import { Icon } from '@/components/icons/Icon';
+import SocialLinks from '../SocialLinks';
 gsap.registerPlugin(ScrollToPlugin);
 
 export default function Navigation() {
@@ -142,8 +143,30 @@ export default function Navigation() {
       {/* Home Navbar */}
       <nav className={`${styles.nav} ${isScrolled ? styles.scrolled : ''} home-nav`}>
         <div className={styles.wrapper}>
-          <div className={styles.logo} onClick={scrollToTop}>Trice.Design</div>
-          <div className={styles.links}>
+          {/* Left Navigation Links */}
+          <div className={styles.leftLinks}>
+            {!isMobile && (
+              <>
+                <button className={styles.navLink} onClick={(e) => handleNavigation(e, '#about')}>
+                  About
+                </button>
+                <button className={styles.navLink} onClick={(e) => handleNavigation(e, '#case-studies')}>
+                  Case Studies
+                </button>
+                <button className={styles.navLink} onClick={(e) => handleNavigation(e, '#connect')}>
+                  Connect
+                </button>
+              </>
+            )}
+          </div>
+
+          {/* Centered Logo */}
+          <div className={styles.logo} onClick={scrollToTop}>
+            <img src="/portfolio/logo-skewed.svg" alt="Trice.Design" />
+          </div>
+
+          {/* Right Navigation Links */}
+          <div className={styles.rightLinks}>
             {isMobile ? (
               <button 
                 className={`${styles.hamburger} ${isMobileOpen ? styles.open : ''}`} 
@@ -155,17 +178,7 @@ export default function Navigation() {
                 <span></span>
               </button>
             ) : (
-              <>
-                <button className={sharedStyles.secondaryButton} onClick={(e) => handleNavigation(e, '#about')}>
-                  About
-                </button>
-                <button className={sharedStyles.secondaryButton} onClick={(e) => handleNavigation(e, '#case-studies')}>
-                  Case Studies
-                </button>
-                <button className={sharedStyles.secondaryButton} onClick={(e) => handleNavigation(e, '#connect')}>
-                  Connect
-                </button>
-              </>
+              <><SocialLinks /></>
             )}
           </div>
         </div>
@@ -174,8 +187,20 @@ export default function Navigation() {
       {/* Case Study Navbar */}
       <nav className={`${styles.nav} ${isScrolled ? styles.scrolled : ''} case-study-nav`} style={{ display: 'none' }}>
         <div className={styles.wrapper}>
-          <div className={styles.logo} onClick={scrollToTop}>Trice.Design</div>
-          <div className={styles.links}>
+          {/* Left Navigation Links */}
+          <div className={styles.leftLinks}>
+            {!isMobile && (
+              <button className={sharedStyles.secondaryButton} onClick={(e) => handleNavigation(e, '/')}>Home</button>
+            )}
+          </div>
+
+          {/* Centered Logo */}
+          <div className={styles.logo} onClick={scrollToTop}>
+            <img src="/portfolio/logo-skewed.svg" alt="Trice.Design" />
+          </div>
+
+          {/* Right Navigation Links */}
+          <div className={styles.rightLinks}>
             {isMobile ? (
               <button className={styles.hamburger} onClick={toggleMobileMenu}>
                 <span></span>
@@ -184,7 +209,6 @@ export default function Navigation() {
               </button>
             ) : (
               <>
-                <button className={sharedStyles.secondaryButton} onClick={(e) => handleNavigation(e, '/')}>Home</button>
                 <div className={styles.dropdownContainer}>
                   <button 
                     className={`${sharedStyles.secondaryButton} ${isDropdownOpen ? styles.active : ''}`}

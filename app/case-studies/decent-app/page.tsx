@@ -92,15 +92,13 @@ export default function DecentAppCaseStudy() {
 
               {/* Overview */}       
               <div className={sharedStyles.contentContainer}>
-                <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionTitle)}>Overview</h2>
-                <p className={clsx(sharedStyles.textBase, sharedStyles.large)}>The Decent app was built to empower decentralized autonomous organizations (DAOs) with a standardized toolkit for governance, collaboration, and management. At its core, the app aimed to simplify and enhance the operational capabilities of DAOs. Achieving this goal required a pivot and redesign of the original Fractal app.</p>
-                <p className={clsx(sharedStyles.textBase, sharedStyles.large)}>As the Lead Product Designer, I worked closely with product, engineering, and brand designers to lead the transformation of the app from its original iteration, Fractal, into Decent. Along the way, we navigated challenges, uncovered opportunities, and delivered measurable results that extended beyond design into tangible business outcomes.</p>
+                <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionTitle)}>The Challenge</h2>
+                <h3 className={sharedStyles.subsectionTitle}>A Need for Evolution</h3>
+                <p className={clsx(sharedStyles.textBase, sharedStyles.large)}>Fractal, the original product, was falling short of user expectations. The decentralized governance space had evolved, and Fractal's rigid smart contract structures limited adoption. User feedback revealed frustration with its complexity, lack of flexibility, and an outdated brand identity.</p>
+                <p className={clsx(sharedStyles.textBase, sharedStyles.large)}>I led the product design aspect of the transition to Decent alongside product and engineering—rethinking the product to better serve DAOs with adaptable governance models and an intuitive experience.</p>
               </div>
 
-              {/* Journey */}
-              <div className={sharedStyles.contentContainer}>
-                <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionTitle)}>Journey</h2>
-                <p className={sharedStyles.textBase}>When market feedback showed that Fractal's customizable DAO structure wasn't meeting user needs, the team decided to pivot. This shift brought a new challenge: redefining the product's value while ensuring scalability and ease of use.</p>
+      
                 
                 <CaseStudyImage
                   src="/images/decent-app/gallery/fractal-before.png"
@@ -110,32 +108,36 @@ export default function DecentAppCaseStudy() {
                   caption="The original Fractal interface"
                 />
                 
-                <p className={sharedStyles.textBase}>My role was to bridge the gap between user needs and business goals, crafting a solution that felt intuitive, trustworthy, and impactful. The journey involved aligning cross-functional teams, designing with scalability in mind, and creating an experience that met both user and stakeholder needs.</p>
-              </div>
+               
 
               {/* Strategy & Execution */}
               <div className={sharedStyles.contentContainer}>
                 <div>
-                  <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionTitle)}>Strategy & Execution</h2>
+                  <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionTitle)}>Approach & Key Contributions</h2>
                 </div>
                 <div className={sharedStyles.gridColumns3}>
                   <div>
-                    {/* <Icon name="arrow-right" size={48} className={styles.subsectionIcon} /> */}
-                    <h3 className={sharedStyles.subsectionTitle}>Collaborative Design & Testing</h3>
-                    <p className={sharedStyles.textBase}>To ensure the redesign met both user and business needs, I worked closely with engineers, product teams, and stakeholders. Through usability testing and rapid prototyping, we iterated on designs that addressed user pain points while maintaining operational efficiency.</p>
-                  </div>
-                  <div>
-                    {/* <Icon name="arrow-right" size={48} className={styles.subsectionIcon} /> */}
-                    <h3 className={sharedStyles.subsectionTitle}>Rebranding for Scalability</h3>
-                    <p className={sharedStyles.textBase}>The rebrand included the development of a UI component library in Figma, seamlessly integrated with Chakra UI. This system reduced design and engineering debt, making it easier to scale as the app evolved.</p>
-                  </div>
-                  <div>
-                    {/* <Icon name="arrow-right" size={48} className={styles.subsectionIcon} /> */}
-                    <h3 className={sharedStyles.subsectionTitle}>Outcome-Oriented Design</h3>
-                    <p className={sharedStyles.textBase}>Each design decision was framed around its potential to drive outcomes:</p>
+                    <h3 className={sharedStyles.subsectionTitle}>Strategic Repositioning & Product Redesign</h3>
                     <ul className={clsx(sharedStyles.subsectionList, sharedStyles.textBase)}>
-                      <li>Reducing user friction directly correlated with increased user engagement.</li>
-                      <li>Streamlined design systems improved operational efficiency and reduced development costs.</li>
+                      <li></li>
+                      <li></li>
+                      <li></li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h3 className={sharedStyles.subsectionTitle}>Rebranding for Scalability</h3>
+                    <ul className={clsx(sharedStyles.subsectionList, sharedStyles.textBase)}>
+                      <li></li>
+                      <li></li>
+                      <li></li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h3 className={sharedStyles.subsectionTitle}>Outcome-Oriented Design</h3>
+                    <ul className={clsx(sharedStyles.subsectionList, sharedStyles.textBase)}>
+                      <li></li>
+                      <li></li>
+                      <li></li>
                     </ul>
                   </div>
                 </div>

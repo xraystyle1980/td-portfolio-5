@@ -1,5 +1,5 @@
 import "./globals.css";
-import { sourceSerif, cooper } from '@/styles/fonts';
+import { spaceGrotesk, forceMajeure } from '@/styles/fonts';
 import { AppProvider } from '@/contexts/AppContext';
 import ClientLayout from './ClientLayout';
 import Footer from '@/components/ui-components/Footer';
@@ -20,8 +20,8 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cooper.variable} ${sourceSerif.variable}`}
-      style={{ fontFamily: 'var(--font-source-serif), var(--font-cooper)' }}
+      className={`${spaceGrotesk.variable} ${forceMajeure.variable}`}
+      style={{ fontFamily: 'var(--font-space)' }}
     >
       <head>
         <Script 
