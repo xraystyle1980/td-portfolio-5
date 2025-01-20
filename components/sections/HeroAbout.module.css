@@ -18,18 +18,17 @@
   pointer-events: none;
 }
 .heroHeadline {
-  font-size: var(--font-size-section-heading-hero);
+  font-size: var(--font-size-10xl);
   color: var(--color-primary);
   text-shadow: var(--shadow-lg);
+  line-height: var(--line-height-xs);
   text-align: left;
   opacity: 0;
-  cursor: pointer;
   pointer-events: auto;
-  transform: skew(12deg, -28deg) rotate(12deg);
+  position: relative;
+  top: 100px;
 }
-.heroHeadline:hover .splitWord {
-  letter-spacing: -2px;
-}
+
 .heroHeadline span {
   display: block;
   will-change: transform, opacity, font-variation-settings;
@@ -45,7 +44,7 @@
   padding-bottom: -var(--spacing-md);
 }
 .aboutHeadline {
-  font-size: var(--font-size-section-heading-hero);
+  font-size: var(--font-size-9xl);
   text-shadow: var(--shadow-md);
   margin-bottom: var(--spacing-sm);
   cursor: pointer;
@@ -56,7 +55,7 @@
 .aboutParagraph {
   color: var(--color-text);
   font-family: var(--font-space);
-  font-size: var(--font-size-body-xl);
+  font-size: var(--font-size-xl);
   text-shadow: var(--shadow-sm);
   width: min(60%, 800px);
   margin: 0 auto;
@@ -64,6 +63,10 @@
 .bioContent {
   position: relative;
   z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 
@@ -112,10 +115,10 @@
     padding: 1rem;
   }
   .heroHeadline {
-    font-size: var(--font-size-section-heading-hero-tablet);
+    font-size: var(--font-size-9xl);
   }
   .aboutHeadline {
-    font-size: var(--font-size-section-heading-hero-tablet);
+    font-size: var(--font-size-8xl);
   }
   .aboutContent {
     padding-bottom: var(--spacing-md);
@@ -127,10 +130,10 @@
     padding: 0;
   } 
   .heroHeadline {
-    font-size: var(--font-size-section-heading-hero-mobile);
+    font-size: var(--font-size-8xl);
   }
   .aboutHeadline {
-    font-size: var(--font-size-section-heading-hero-mobile);
+    font-size: var(--font-size-7xl);
   }
   .tokenContainer {
     pointer-events: none;
@@ -145,7 +148,7 @@
     margin-top: 2rem;
   }
   .aboutParagraph {
-    font-size: 2rem;
+    font-size: var(--font-size-lg);
     width: min(80%, 600px);
   }
 }
@@ -155,10 +158,10 @@
     padding: 0;
   } 
   .heroHeadline {
-    font-size: var(--font-size-section-heading-hero-mobile-sm);
+    font-size: var(--font-size-7xl);
   }
   .aboutHeadline {
-    font-size: var(--font-size-section-heading-hero-mobile-sm);
+    font-size: var(--font-size-6xl);
   }
   .aboutParagraph {
     width: 90%;
@@ -173,13 +176,13 @@
 .splitWord {
   display: inline-block;
   opacity: 0;
-  will-change: opacity, font-variation-settings, letter-spacing;
-  font-variation-settings: "wght" 100;
+  will-change: transform, opacity;
   color: var(--color-accent);
   visibility: hidden;
   pointer-events: auto;
   margin-right: 0.2em;
-  cursor: pointer;
+  position: relative;
+  white-space: nowrap;
 }
 
 /* Separate span for the wave emoji to animate it independently */

@@ -148,6 +148,7 @@ export default function TokenFace({
         object={clonedScene}
         rotation={rotation}
         scale={scale}
+        position={[0, -0.125, 0]}
         onClick={undefined}
         onPointerOver={undefined}
       />

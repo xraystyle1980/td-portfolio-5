@@ -11,7 +11,7 @@
 body {
   min-height: 100vh;
   text-rendering: optimizeSpeed;
-  line-height: 1.5;
+  line-height: var(--line-height-md);
   background-color: var(--color-background);
   color: var(--color-text);
   font-family: var(--font-space);
@@ -58,6 +58,17 @@ a:not([class]) {
 
 html {
   scroll-behavior: smooth;
+  scroll-timeline-name: --page-scroll;
+  scroll-timeline-axis: block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+    /* Add a longer duration and custom timing function */
+    scroll-behavior-duration: 1200ms;
+    scroll-behavior-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1);
+  }
 }
 
 canvas {
@@ -76,15 +87,86 @@ p {
   margin-bottom: var(--spacing-xs);
 }
 
-/* Optional: Adjust for tighter spacing on smaller screens */
-@media (max-width: var(--breakpoint-md)) {
+/* Responsive Typography and Spacing */
+@media (max-width: 1200px) {
+  h1 {
+    font-size: var(--font-size-7xl);
+  }
+  h2 {
+    font-size: var(--font-size-6xl);
+  }
+  h3 {
+    font-size: var(--font-size-5xl);
+  }
+  h4 {
+    font-size: var(--font-size-4xl);
+  }
+  h5 {
+    font-size: var(--font-size-3xl);
+  }
+  h6 {
+    font-size: var(--font-size-2xl);
+  }
+}
+
+@media (max-width: 768px) {
+  /* Typography */
+  h1 {
+    font-size: var(--font-size-6xl);
+  }
+  h2 {
+    font-size: var(--font-size-5xl);
+  }
+  h3 {
+    font-size: var(--font-size-4xl);
+  }
+  h4 {
+    font-size: var(--font-size-3xl);
+  }
+  h5 {
+    font-size: var(--font-size-2xl);
+  }
+  h6 {
+    font-size: var(--font-size-xl);
+  }
+  .lead {
+    font-size: var(--font-size-lg);
+  }
+
+  /* Spacing */
   h1, h2, h3, h4, h5, h6 {
     margin-top: var(--spacing-xs);
     margin-bottom: calc(var(--spacing-xs) / 2);
   }
-
   p {
     margin-bottom: calc(var(--spacing-xs) / 2);
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: var(--font-size-5xl);
+  }
+  h2 {
+    font-size: var(--font-size-4xl);
+  }
+  h3 {
+    font-size: var(--font-size-3xl);
+  }
+  h4 {
+    font-size: var(--font-size-2xl);
+  }
+  h5 {
+    font-size: var(--font-size-xl);
+  }
+  h6 {
+    font-size: var(--font-size-lg);
+  }
+  p {
+    font-size: var(--font-size-sm);
+  }
+  .lead {
+    font-size: var(--font-size-md);
   }
 }
 
@@ -107,62 +189,36 @@ p {
   /* Typography */ 
   --font-force: 'Force Majeure', sans-serif;
   --font-space: 'Space Grotesk', sans-serif;
-  --font-size-section-heading-hero: 16rem;
-  --font-size-section-heading: 16rem;
-  --font-size-section-title: 6rem;
 
-  --font-size-heading: 3rem;
+  /* Base Font Size */
+  --font-size-base: 1rem; /* 16px */
+  
+  /* Scale using Major Third (1.25) */
+  --font-size-xs: 0.8rem;   /* 12.8px - Small captions */
+  --font-size-sm: 1rem;     /* 16px - Base text */
+  --font-size-md: 1.25rem;  /* 20px - Larger body text */
+  --font-size-lg: 1.563rem; /* 25px - Small subheadings */
+  --font-size-xl: 1.953rem; /* 31px - Section headers */
+  --font-size-2xl: 2.441rem; /* 39px - Subtitles */
+  --font-size-3xl: 3.052rem; /* 49px - H6 */
+  --font-size-4xl: 3.815rem; /* 61px - H5 */
+  --font-size-5xl: 4.768rem; /* 76px - H4 */
+  --font-size-6xl: 5.96rem;  /* 95px - H3 */
+  --font-size-7xl: 7.451rem; /* 119px - H2 */
+  --font-size-8xl: 9.314rem; /* 149px - H1 (Small) */
+  --font-size-9xl: 11.642rem; /* 186px - H1 (Large) */
+  --font-size-10xl: 14.552rem; /* 232px - Jumbo Headline */
 
-  --font-size-sub-title: 2rem;
+  /* Line Heights */
+  --line-height-xs: 0.9;
+  --line-height-sm: 1.3;
+  --line-height-md: 1.5;
+  --line-height-lg: 1.75;
 
-
-  /* 
-  Body Typography 
-  */ 
-  --font-size-body-xl: 2.2rem;
-  --font-size-body-lg: 1.85rem;
-  --font-size-body: 1.5rem;
-
-  /* Responsive */
-  --font-size-body-xl-tablet: 1.9rem;
-  --font-size-body-lg-tablet: 1.65rem;
-  --font-size-body-tablet: 1.4rem;
-
-  --font-size-body-xl-mobile: 1.5rem;
-  --font-size-body-lg-mobile: 1.35rem;
-  --font-size-body-mobile: 1.2rem;
-
-
-
-  --font-size-sm: 1rem;
-
-  --line-height-xtight: 0.86;
-  --line-height-tight: 1;
-  --line-height-normal: 1.4;
-  --line-height-relaxed: 1.6;
-
-  /* Responsive Typography */
-  --font-size-section-heading-hero-tablet: 13rem;
-  --font-size-section-heading-hero-mobile: 9.5rem;
-  --font-size-section-heading-hero-mobile-sm: 7rem;
-
-  --font-size-section-heading-tablet: 9rem;
-  --font-size-section-heading-tablet-sm: 6rem;
-  --font-size-section-heading-mobile: 6rem;
-  --font-size-section-heading-mobile-sm: 4.5rem;
-
-  --font-size-section-title-tablet: 4.5rem;
-  --font-size-section-title-mobile: 3.85rem;  
-  --font-size-section-title-mobile-sm: 3rem;  
-
-  --font-size-heading-mobile: 2rem;
-
-  --font-size-sub-title-tablet: 1.65rem;
-  --font-size-sub-title-mobile: 1.25rem;
-
-
-
-
+  /* Letter Spacing */
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.05em;
 
   /* Spacing */
   --spacing-xxs: 0.5rem;
@@ -192,4 +248,77 @@ p {
   --shadow-lg: -12px -12px 0 var(--color-border);
   --shadow-md: -8px -8px 0 var(--color-border);
   --shadow-sm: -3px -3px 0 var(--color-border);
+}
+
+/* Headings */
+h1 {
+  font-size: var(--font-size-8xl);
+  font-weight: bold;
+  line-height: var(--line-height-sm);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+h2 {
+  font-size: var(--font-size-7xl);
+  font-weight: bold;
+  line-height: var(--line-height-sm);
+}
+
+h3 {
+  font-size: var(--font-size-6xl);
+  font-weight: bold;
+  line-height: var(--line-height-md);
+}
+
+h4 {
+  font-size: var(--font-size-5xl);
+  font-weight: bold;
+  line-height: var(--line-height-md);
+}
+
+h5 {
+  font-size: var(--font-size-4xl);
+  font-weight: bold;
+  line-height: var(--line-height-lg);
+}
+
+h6 {
+  font-size: var(--font-size-3xl);
+  font-weight: bold;
+  line-height: var(--line-height-lg);
+}
+
+/* Body Text */
+p {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-md);
+}
+
+.lead {
+  font-size: var(--font-size-md);
+  font-weight: 500;
+  line-height: var(--line-height-lg);
+}
+
+/* Captions & Small Text */
+.caption {
+  font-size: var(--font-size-xs);
+  font-weight: 400;
+  line-height: var(--line-height-md);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+/* Buttons */
+.button {
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+/* Utility */
+.muted {
+  opacity: 0.6;
 }

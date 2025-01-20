@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import ContactMe from '@/components/sections/ContactMe';
+import clsx from 'clsx';
 
 gsap.registerPlugin(ScrollToPlugin);
 
@@ -38,12 +39,10 @@ export default function HomePage() {
     <main className={sharedStyles.main}>
       {/* Hero Section */}
       <HeroAbout />
-
       {/* Case Studies Section */}
-      <div className={sharedStyles.gradientBottomTop}>
-        <CaseStudies />
-        <ContactMe />
-      </div>
+      <CaseStudies />
+      {/* Contact Me Section */}
+      <ContactMe />
     </main>
   );
 }

@@ -8,20 +8,23 @@ import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import gsap from 'gsap';
 import { Icon } from '@/components/icons/Icon';
 import SocialLinks from '../SocialLinks';
+import Link from 'next/link';
+import Image from 'next/image';
+import clsx from 'clsx';
 gsap.registerPlugin(ScrollToPlugin);
 
 export default function Navigation() {
   const router = useRouter();
   const pathname = usePathname();
-  const [isMobileOpen, setIsMobileOpen] = useState(false); // Mobile menu state
-  const [isMobile, setIsMobile] = useState(false); // Track if viewport is mobile
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isCaseStudiesOpen, setIsCaseStudiesOpen] = useState(false);
 
   // Handle window resize for responsiveness
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
+      setIsMobile(window.innerWidth <= 1024);
     };
 
     handleResize(); // Initial check
@@ -32,7 +35,7 @@ export default function Navigation() {
   // Handle scroll position
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 50);
     };
 
     handleScroll(); // Initial check
@@ -40,59 +43,49 @@ export default function Navigation() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // GSAP animation logic for swapping navbars
-  useEffect(() => {
-    const tl = gsap.timeline();
-    if (pathname === '/') {
-      // Show home navbar
-      tl.to('.case-study-nav', {
-        y: -100,
-        autoAlpha: 0,
-        duration: 0.5,
-        onComplete: () => { gsap.set('.case-study-nav', { display: 'none' }); }
-      }).to(
-        '.home-nav',
-        {
-          y: 0,
-          autoAlpha: 1,
-          display: 'block',
-          duration: 0.5,
-        },
-        '<'
-      );
-    } else {
-      // Show case study navbar
-      tl.set('.case-study-nav', { display: 'block' })
-        .to('.home-nav', {
-          y: -100,
-          autoAlpha: 0,
-          duration: 0.5,
-          onComplete: () => { gsap.set('.home-nav', { display: 'none' }); }
-        })
-        .to(
-          '.case-study-nav',
-          {
-            y: 0,
-            autoAlpha: 1,
-            duration: 0.5,
-          },
-          '<'
-        );
-    }
-  }, [pathname]);
-
   // Toggle mobile menu
   const toggleMobileMenu = () => {
     setIsMobileOpen((prev) => !prev);
 
     if (!isMobileOpen) {
       document.body.style.overflow = 'hidden';
-      gsap.to('.mobile-menu', { x: 0, autoAlpha: 1, duration: 0.3 });
+      const menu = document.querySelector(`.${styles.mobileMenu}`);
+      gsap.set(menu, { 
+        visibility: 'visible',
+        pointerEvents: 'auto',
+        x: '100%'
+      });
+      gsap.to(menu, {
+        x: '0%',
+        duration: 0.5,
+        ease: 'power3.out'
+      });
     } else {
       document.body.style.overflow = 'auto';
-      gsap.to('.mobile-menu', { x: '100%', autoAlpha: 0, duration: 0.3 });
+      const menu = document.querySelector(`.${styles.mobileMenu}`);
+      gsap.to(menu, {
+        x: '100%',
+        duration: 0.3,
+        ease: 'power2.in',
+        onComplete: () => {
+          gsap.set(menu, { 
+            visibility: 'hidden',
+            pointerEvents: 'none'
+          });
+        }
+      });
     }
   };
+
+  // Set initial state for mobile menu with GSAP
+  useEffect(() => {
+    const menu = document.querySelector(`.${styles.mobileMenu}`);
+    gsap.set(menu, { 
+      x: '100%',
+      visibility: 'hidden',
+      pointerEvents: 'none'
+    });
+  }, []);
 
   // Cleanup body overflow on unmount
   useEffect(() => {
@@ -107,140 +100,144 @@ export default function Navigation() {
   };
 
   // Handle navigation and scrolling
-  const handleNavigation = (event: React.MouseEvent<HTMLButtonElement>, targetId: string) => {
-    event.preventDefault(); // Prevent default browser navigation behavior
-    setIsDropdownOpen(false); // Close dropdown when navigating
-  
-    // If we're on a case study page and clicking connect, scroll to the case study's connect section
-    if (pathname.includes('/case-studies/') && targetId.includes('connect')) {
-      gsap.to(window, { duration: 1, scrollTo: '#case-study-connect', ease: 'power2.out' });
+  const handleNavigation = (event: React.MouseEvent<HTMLElement>, targetId: string) => {
+    event.preventDefault();
+    setIsCaseStudiesOpen(false);
+    
+    // Close mobile menu if it's open
+    if (isMobileOpen) {
+      toggleMobileMenu();
+    }
+
+    // If we're on a case study page and clicking About, go home first
+    if (targetId === '#about' && pathname.includes('/case-studies/')) {
+      router.push('/');
+      // Wait for navigation to complete before scrolling
+      setTimeout(() => {
+        gsap.to(window, { 
+          duration: 1, 
+          scrollTo: '#about', 
+          ease: 'power2.out' 
+        });
+      }, 100);
       return;
     }
     
-    // If we're on the home page and clicking a section link
-    if (pathname === '/' && targetId.startsWith('#')) {
-      gsap.to(window, { duration: 1, scrollTo: targetId, ease: 'power2.out' });
+    // Handle smooth scrolling for about and connect sections
+    if (targetId === '#about' || targetId === '#connect') {
+      gsap.to(window, { 
+        duration: 1, 
+        scrollTo: targetId, 
+        ease: 'power2.out' 
+      });
       return;
     }
     
-    // If we're navigating to a different page
-    if (!targetId.startsWith('#')) {
-      router.push(targetId);
-      return;
-    }
-    
-    // Default case: navigate to home page with hash
-    router.push(`/${targetId}`);
+    // For other links, use normal navigation
+    router.push(targetId);
   };
 
   // Close dropdown on pathname change
   useEffect(() => {
-    setIsDropdownOpen(false);
+    setIsCaseStudiesOpen(false);
   }, [pathname]);
+
+  const caseStudies = [
+    { title: 'Decent App', href: '/case-studies/decent-app' },
+    { title: 'Blockset BRD Docs', href: '/case-studies/blockset-brd-docs' },
+    { title: 'Decent Design System', href: '/case-studies/decent-design-system' },
+  ];
 
   return (
     <>
-      {/* Home Navbar */}
-      <nav className={`${styles.nav} ${isScrolled ? styles.scrolled : ''} home-nav`}>
+      <nav className={clsx(styles.nav, isScrolled && styles.scrolled)}>
         <div className={styles.wrapper}>
           {/* Left Navigation Links */}
           <div className={styles.leftLinks}>
             {!isMobile && (
               <>
-                <button className={styles.navLink} onClick={(e) => handleNavigation(e, '#about')}>
+                <Link 
+                  href="/#about" 
+                  className={styles.navLink}
+                  onClick={(e) => handleNavigation(e, '#about')}
+                >
                   About
-                </button>
-                <button className={styles.navLink} onClick={(e) => handleNavigation(e, '#case-studies')}>
-                  Case Studies
-                </button>
-                <button className={styles.navLink} onClick={(e) => handleNavigation(e, '#connect')}>
-                  Connect
-                </button>
-              </>
-            )}
-          </div>
-
-          {/* Centered Logo */}
-          <div className={styles.logo} onClick={scrollToTop}>
-            <img src="/portfolio/logo-skewed.svg" alt="Trice.Design" />
-          </div>
-
-          {/* Right Navigation Links */}
-          <div className={styles.rightLinks}>
-            {isMobile ? (
-              <button 
-                className={`${styles.hamburger} ${isMobileOpen ? styles.open : ''}`} 
-                onClick={toggleMobileMenu}
-                style={{ position: 'fixed', right: '1rem', top: '1rem' }}
-              >
-                <span></span>
-                <span></span>
-                <span></span>
-              </button>
-            ) : (
-              <><SocialLinks /></>
-            )}
-          </div>
-        </div>
-      </nav>
-
-      {/* Case Study Navbar */}
-      <nav className={`${styles.nav} ${isScrolled ? styles.scrolled : ''} case-study-nav`} style={{ display: 'none' }}>
-        <div className={styles.wrapper}>
-          {/* Left Navigation Links */}
-          <div className={styles.leftLinks}>
-            {!isMobile && (
-              <button className={sharedStyles.secondaryButton} onClick={(e) => handleNavigation(e, '/')}>Home</button>
-            )}
-          </div>
-
-          {/* Centered Logo */}
-          <div className={styles.logo} onClick={scrollToTop}>
-            <img src="/portfolio/logo-skewed.svg" alt="Trice.Design" />
-          </div>
-
-          {/* Right Navigation Links */}
-          <div className={styles.rightLinks}>
-            {isMobile ? (
-              <button className={styles.hamburger} onClick={toggleMobileMenu}>
-                <span></span>
-                <span></span>
-                <span></span>
-              </button>
-            ) : (
-              <>
-                <div className={styles.dropdownContainer}>
+                </Link>
+                <div 
+                  className={styles.dropdownContainer}
+                  onMouseEnter={() => setIsCaseStudiesOpen(true)}
+                  onMouseLeave={() => setIsCaseStudiesOpen(false)}
+                >
                   <button 
-                    className={`${sharedStyles.secondaryButton} ${isDropdownOpen ? styles.active : ''}`}
-                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                    className={styles.navLink}
+                    onClick={() => setIsCaseStudiesOpen(!isCaseStudiesOpen)}
+                    aria-expanded={isCaseStudiesOpen}
+                    aria-haspopup="true"
                   >
-                    All Case Studies <Icon name="chevron-down" size={24} />
+                    Case Studies <Icon name="chevron-down" size={24} />
                   </button>
-                  {isDropdownOpen && (
+                  
+                  {isCaseStudiesOpen && (
                     <div className={styles.dropdown}>
-                      <button className={styles.dropdownItem} onClick={(e) => handleNavigation(e, '/case-studies/decent-app')}>
-                        Decent App
-                      </button>
-                      <button className={styles.dropdownItem} onClick={(e) => handleNavigation(e, '/case-studies/decent-design-system')}>
-                        Design System
-                      </button>
-                      <button className={styles.dropdownItem} onClick={(e) => handleNavigation(e, '/case-studies/blockset-brd-docs')}>
-                        Blockset Docs
-                      </button>
+                      {caseStudies.map((study) => (
+                        <Link
+                          key={study.href}
+                          href={study.href}
+                          className={styles.dropdownItem}
+                          onClick={() => setIsCaseStudiesOpen(false)}
+                        >
+                          {study.title}
+                        </Link>
+                      ))}
                     </div>
                   )}
                 </div>
-                <button className={sharedStyles.secondaryButton} onClick={(e) => handleNavigation(e, pathname === '/' ? '#connect' : '#case-study-connect')}>
+                <Link 
+                  href="/#connect" 
+                  className={styles.navLink}
+                  onClick={(e) => handleNavigation(e, '#connect')}
+                >
                   Connect
-                </button>
+                </Link>
               </>
             )}
           </div>
+
+          {/* Centered Logo */}
+          <div className={styles.logo} onClick={scrollToTop}>
+            <Link href="/">
+              <Image
+                src="/portfolio/logo-skewed.svg"
+                alt="Trice Design Logo"
+                width={200}
+                height={50}
+                priority
+              />
+            </Link>
+          </div>
+
+          {/* Right Navigation Links */}
+          <div className={styles.rightLinks}>
+            {!isMobile && <SocialLinks />}
+          </div>
+
+          {/* Mobile Hamburger Button */}
+          {isMobile && (
+            <button 
+              className={clsx(styles.hamburger, isMobileOpen && styles.open)}
+              onClick={toggleMobileMenu}
+              aria-label="Toggle mobile menu"
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+          )}
         </div>
       </nav>
 
       {/* Mobile Menu */}
-      <div className={`mobile-menu ${styles.mobileMenu} ${isMobileOpen ? styles.open : ''}`} style={{ transform: 'translateX(100%)', opacity: 0 }}>
+      <div className={styles.mobileMenu}>
         <button 
           className={styles.closeButton}
           onClick={toggleMobileMenu}
@@ -248,51 +245,50 @@ export default function Navigation() {
         >
           ×
         </button>
-        {pathname === '/' ? (
-          <>
-            <button className={sharedStyles.textLink} onClick={(e) => {
-              handleNavigation(e, '#about');
-              toggleMobileMenu();
-            }}>About</button>
-            <button className={sharedStyles.textLink} onClick={(e) => {
-              handleNavigation(e, '#case-studies');
-              toggleMobileMenu();
-            }}>Case Studies</button>
-            <button className={sharedStyles.textLink} onClick={(e) => {
-              handleNavigation(e, '#connect');
-              toggleMobileMenu();
-            }}>Connect</button>
-          </>
-        ) : (
-          <>
-            <button className={sharedStyles.textLink} onClick={(e) => {
-              handleNavigation(e, '/');
-              toggleMobileMenu();
-            }}>Home</button>
-            <button className={sharedStyles.textLink} onClick={(e) => {
-              handleNavigation(e, '/case-studies/decent-app');
-              toggleMobileMenu();
-            }}>
-              Decent App
-            </button>
-            <button className={sharedStyles.textLink} onClick={(e) => {
-              handleNavigation(e, '/case-studies/decent-design-system');
-              toggleMobileMenu();
-            }}>
-              Design System
-            </button>
-            <button className={sharedStyles.textLink} onClick={(e) => {
-              handleNavigation(e, '/case-studies/blockset-brd-docs');
-              toggleMobileMenu();
-            }}>
-              Blockset Docs
-            </button>
-            <button className={sharedStyles.textLink} onClick={(e) => {
-              handleNavigation(e, pathname === '/' ? '#connect' : '#case-study-connect');
-              toggleMobileMenu();
-            }}>Connect</button>
-          </>
-        )}
+        <Link 
+          href="/#about" 
+          className={styles.navLink}
+          onClick={(e) => handleNavigation(e, '#about')}
+        >
+          About
+        </Link>
+        <div 
+          className={styles.dropdownContainer}
+          onMouseEnter={() => setIsCaseStudiesOpen(true)}
+          onMouseLeave={() => setIsCaseStudiesOpen(false)}
+        >
+          <button 
+            className={styles.navLink}
+            onClick={() => setIsCaseStudiesOpen(!isCaseStudiesOpen)}
+            aria-expanded={isCaseStudiesOpen}
+            aria-haspopup="true"
+          >
+            Case Studies <Icon name="chevron-down" size={24} />
+          </button>
+          
+          {isCaseStudiesOpen && (
+            <div className={styles.dropdown}>
+              {caseStudies.map((study) => (
+                <Link
+                  key={study.href}
+                  href={study.href}
+                  className={styles.dropdownItem}
+                  onClick={() => setIsCaseStudiesOpen(false)}
+                >
+                  {study.title}
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+        <Link 
+          href="/#connect" 
+          className={styles.navLink}
+          onClick={(e) => handleNavigation(e, '#connect')}
+        >
+          Connect
+        </Link>
+        <SocialLinks />
       </div>
     </>
   );
