@@ -45,6 +45,7 @@
 }
 .aboutHeadline {
   font-size: var(--font-size-9xl);
+  color: var(--color-white);
   text-shadow: var(--shadow-md);
   margin-bottom: var(--spacing-sm);
   cursor: pointer;

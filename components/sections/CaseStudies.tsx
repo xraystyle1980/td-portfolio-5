@@ -75,10 +75,10 @@ export default function Work() {
       gsap.to(headline, {
         scrollTrigger: {
           trigger: headingRef.current,
-          start: "top bottom",
+          start: "top center",
           end: "bottom center",
           toggleActions: "play none none reverse",
-          markers: false,
+          markers: true,
           scrub: 1
         },
         opacity: 1,

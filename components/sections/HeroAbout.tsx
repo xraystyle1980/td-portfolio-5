@@ -300,7 +300,6 @@ export default function HeroAbout() {
         <div className={styles.bioContent}>
           <h1 className={clsx(sharedStyles.displayText, styles.aboutHeadline)}>
             Hello 
-            {/* <span className={styles.waveEmoji}>👋</span> */}
           </h1>
           <p className={clsx(sharedStyles.textBase, sharedStyles.larger, sharedStyles.white, sharedStyles.contentAboutBio)}>
             I'm Matt Trice, an ATL-based Product Designer with a track record of design leadership, embracing complex problems, and crafting elegant solutions that deliver meaningful business impact.

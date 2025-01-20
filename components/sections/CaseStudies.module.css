@@ -33,6 +33,7 @@
 
 .caseStudiesHeading {
   position: relative;
+  color: var(--color-primary);
   top: calc(var(--diagonal-split-height) * 0.45);
   z-index: 1;
 }

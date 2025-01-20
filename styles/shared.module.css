@@ -101,11 +101,20 @@ a.link {
 }
 
 
+.color-dark {
+  color: var(--color-dark);
+}
+.color-white {
+  color: var(--color-white);
+}
+.color-primary {
+  color: var(--color-primary);
+}
+
 
 /* Display Text */
 .displayText {
   font-family: var(--font-force);
-  color: var(--color-primary);
 }
 
 .sectionHeading {
