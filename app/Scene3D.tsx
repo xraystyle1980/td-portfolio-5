@@ -56,7 +56,11 @@ function Scene({ scroll }: { scroll: number }) {
   )
 }
 
-export default function Scene3D() {
+interface Scene3DProps {
+  scroll: number;
+}
+
+export default function Scene3D({ scroll }: Scene3DProps) {
   const [scrollProgress, setScrollProgress] = useState(0)
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -77,6 +81,11 @@ export default function Scene3D() {
       trigger.kill()
     }
   }, [])
+
+  useEffect(() => {
+    // Update scrollProgress when scroll prop changes
+    setScrollProgress(scroll)
+  }, [scroll])
 
   return (
     <div 
