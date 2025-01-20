@@ -10,6 +10,7 @@ export interface Project {
   company?: string
   duration?: string
   team?: string
+  additionalImages?: string[]
 }
 
 export interface ProjectSectionProps {

@@ -205,12 +205,11 @@ export default function Navigation() {
 
           {/* Centered Logo */}
           <div className={styles.logo} onClick={scrollToTop}>
-            <Link href="/">
+            <Link href="/" className={styles.logoLink}>
               <Image
                 src="/portfolio/logo-skewed.svg"
                 alt="Trice Design Logo"
-                width={200}
-                height={50}
+                fill
                 priority
               />
             </Link>

@@ -91,6 +91,14 @@ a.link {
   font-size: var(--font-size-xl);
 }
 
+.textBase.white {
+  color: var(--color-white);
+}
+
+.contentAboutBio {
+  width: 60%;
+  text-align: center;
+}
 
 
 
@@ -195,7 +203,7 @@ a.link {
   /* clip-path: polygon(0 100%, 100% 0, 100% 100%, 0 100%); */
   clip-path: polygon(
     0 100%,
-    100% calc(100% - 31vw),
+    100% calc(100% - 28vw),
     100% 100%,
     0 100%
   );
@@ -228,26 +236,42 @@ a.link {
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: var(--spacing-xs);
   font-family: var(--font-space);
-  font-weight: 700;
-  background: var(--color-accent);
-  color: var(--color-border);
-  padding: var(--spacing-xs);
-  font-size: var(--font-size-body-lg);
-  box-shadow: var(--shadow-lg);
+  font-weight: 600;
+  background: var(--color-primary);
+  color: var(--color-text);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: var(--font-size-lg);
+  box-shadow: var(--shadow-md);
   margin-top: var(--spacing-md);
   border-radius: var(--border-radius);
-  border-color: var(--color-border);
+  border: var(--border-width-sm) solid var(--color-border);
   white-space: nowrap;
-  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .primaryButton:hover {
-  font-weight: 900;
+  transform: translate(-4px, -4px);
+  box-shadow: var(--shadow-lg);
+  background: var(--color-text);
+  color: var(--color-primary);
 }
 
 .primaryButton span {
-  transition: transform 0.3s ease; /* Smoothly transition position */
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.buttonIcon {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.2s ease;
+}
+
+.primaryButton:hover .buttonIcon {
+  transform: translateY(2px);
 }
 
 .primaryButton:active {
@@ -350,13 +374,6 @@ Responsive Styles
 
 /* Tablet Styles */
 @media (max-width: 1024px) {
-  .sectionHeading {
-    font-size: var(--font-size-section-heading-tablet);
-    letter-spacing: -0.125rem;
-  }
-  .sectionTitle {
-    font-size: var(--font-size-section-title-tablet);
-  }
   .darkContainer {
     padding: var(--spacing-md);
   }
@@ -388,10 +405,6 @@ Responsive Styles
 
 /* Tablet & Mobile Styles */
 @media (max-width: 768px) {
-  .sectionHeading {
-    font-size: var(--font-size-section-heading-tablet-sm);
-  }
-
   .sectionTitle {
     font-size: var(--font-size-section-title-tablet);
     margin: var(--spacing-sm) 0 var(--spacing-xs);
@@ -447,6 +460,10 @@ Responsive Styles
     width: 1.85rem;
     height: 1.85rem;
   }
+
+  .contentAboutBio {
+    width: 80%;
+  }
 }
 
 
@@ -457,7 +474,7 @@ Responsive Styles
   }
 
   .sectionHeading {
-    font-size: var(--font-size-section-heading-mobile-sm);
+    font-size: var(--font-size-4xl);
   }
 
   .sectionHeadingWrapper {
@@ -465,7 +482,7 @@ Responsive Styles
   }
 
   .sectionTitle {
-    font-size: var(--font-size-section-title-mobile-sm);
+    font-size: var(--font-size-2xl);
   }
 
   .paddingBottom {
@@ -481,7 +498,7 @@ Responsive Styles
   }
 
   .subsectionTitle {
-    font-size: var(--font-size-sub-title-mobile);
+    font-size: var(--font-size-2xl);
   }
 
   .projectDetails {

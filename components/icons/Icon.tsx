@@ -1,6 +1,7 @@
 interface IconProps extends React.SVGProps<SVGSVGElement> {
   name: string;
   size?: number;
+  className?: string;
 }
 
 const ICONS = {
@@ -12,27 +13,32 @@ const ICONS = {
   'coffee-alt': 'M7 3H5V7H7V3ZM11 3H9V7H11V3ZM13 3H15V7H13V3ZM21 9H3V21H17V16H21V9ZM19 14H17V11H19V14ZM5 11H15V19H5V11Z',
   'device-laptop': 'M4 4H20V16H4V4ZM18 6H6V14H18V6ZM2 17H22V20H2V17Z',
   'user': 'M15 2H9V3.99994H7.00024V9.99994H9.00024V4H15V2ZM15 10H9V12H15V10ZM15.0002 3.99994H17.0002V9.99994H15.0002V3.99994ZM4 15.9999H6V14H18V16H6V20H18.0002V15.9999H20.0002V21.9999H20V22H4V21.9999V20V15.9999Z',
-  'users': 'M11 2H5V4H3.00024V10L5 10V12H11V10L5.00024 10V4H11V2ZM11.0002 4H13.0002V10H11.0002V4ZM0 16H2V20H14V22H2H0V16ZM2 16H14V14H2V16ZM16.0002 16H14.0002V22H16.0002V16ZM15 2H19V4H15V2ZM19 10H15V12H19V10ZM19.0002 4H21.0002V10H19.0002V4ZM24.0002 16H22.0002V20H18V22H24V20H24.0002V16ZM18 14H22V16H18V14Z'
+  'users': 'M11 2H5V4H3.00024V10L5 10V12H11V10L5.00024 10V4H11V2ZM11.0002 4H13.0002V10H11.0002V4ZM0 16H2V20H14V22H2H0V16ZM2 16H14V14H2V16ZM16.0002 16H14.0002V22H16.0002V16ZM15 2H19V4H15V2ZM19 10H15V12H19V10ZM19.0002 4H21.0002V10H19.0002V4ZM24.0002 16H22.0002V20H18V22H24V20H24.0002V16ZM18 14H22V16H18V14Z',
+  'arrow-down': 'M11 4H13V16H15V18H13V20H11V18H9V16H11V4ZM7 14V16H9V14H7ZM7 14V12H5V14H7ZM17 14V16H15V14H17ZM17 14V12H19V14H17Z'
 };
 
-export function Icon({ name, size = 24, ...props }: IconProps) {
+export function Icon({ name, className, ...props }: IconProps) {
   const path = ICONS[name as keyof typeof ICONS];
   
   if (!path) {
-    console.error(`Icon "${name}" not found`);
+    console.warn(`Icon "${name}" not found`);
     return null;
   }
 
   return (
     <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      className={className}
       {...props}
     >
-      <path d={path} fill="currentColor" />
+      {typeof path === 'string' ? (
+        <path d={path} fill="currentColor" />
+      ) : (
+        path
+      )}
     </svg>
   );
 } 

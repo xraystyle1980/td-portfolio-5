@@ -7,11 +7,6 @@
   z-index: 100;
   padding: var(--spacing-sm);
   transition: padding 0.3s ease;
-  background: linear-gradient(180deg, 
-    rgba(22, 22, 22, 0.94) 0%,
-    rgba(22, 22, 22, 0.72) 60%,
-    rgba(22, 22, 22, 0) 100%
-  );
 }
 
 .wrapper {
@@ -27,11 +22,11 @@
   cursor: pointer;
   transition: all 0.2s ease;
   flex: 0 0 auto;
-  width: 200px;
-  height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  height: 37px;
 }
 
 .logo img {
@@ -44,12 +39,34 @@
   transform: scale(1.05);
 }
 
+.logoLink {
+  position: absolute;
+  top: -55px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: block;
+  width: 300px;
+  height: 160px;
+  transition: all 0.3s ease;
+}
+
+/* Add scrolled state for logo */
+.scrolled .logoLink {
+  width: 240px;
+  height: 120px;
+  top: -35px;
+}
+
+.logoLink img {
+  object-fit: contain;
+}
+
 /* Navigation Links */
 .navLink {
   font-family: var(--font-space);
   font-size: var(--font-size-md);
   font-weight: 600;
-  color: var(--color-text);
+  color: var(--color-white);
   text-decoration: none;
   background-color: transparent;
   border: none;
@@ -84,16 +101,16 @@
   gap: var(--spacing-sm);
   flex: 1;
   padding: var(--spacing-xs);
-  border-radius: var(--border-radius);
+  border-radius: 0.5rem;
   transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
 }
 
 .leftLinks {
-  justify-content: flex-start;
+  justify-content: center;
 }
 
 .rightLinks {
-  justify-content: flex-end;
+  justify-content: center;
 }
 
 /* Dropdown styles */
@@ -118,7 +135,7 @@
   transform: translateX(-50%);
   background: var(--color-dark);
   border: var(--border-width-sm) solid var(--color-border);
-  border-radius: var(--border-radius);
+  border-radius: 0.5rem;
   padding: var(--spacing-xs);
   min-width: 240px;
   box-shadow: var(--shadow-md);
@@ -267,9 +284,10 @@
 /* Scrolled state */
 .scrolled .leftLinks,
 .scrolled .rightLinks {
-  background: rgba(22, 22, 22, 0.94);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: var(--color-dark);
+  /* backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px); */
+  box-shadow: var(--shadow-md);
 }
 
 .scrolled {
@@ -293,7 +311,7 @@
   font-family: var(--font-space);
   font-size: var(--font-size-md);
   font-weight: 600;
-  color: var(--color-text);
+  color: var(--color-white);
   padding: var(--spacing-xxs) var(--spacing-xs);
   border-radius: var(--border-radius);
   transition: all 0.2s ease;
@@ -341,8 +359,19 @@
     gap: var(--spacing-sm);
   }
   
-  .logo {
-    width: 150px;
+  .logoLink {
+    width: 240px;
+    height: 120px;
+    top: -20px;
+    left: 8px;
+    transform: none;
+  }
+
+  .scrolled .logoLink {
+    width: 200px;
+    height: 100px;
+    top: -15px;
+    left: 4px;
   }
 
   .hamburger {
@@ -356,8 +385,11 @@
 }
 
 @media (max-width: 480px) {
-  .logo {
-    width: 120px;
+  .logoLink {
+    width: 200px;
+    height: 100px;
+    top: -15px;
+    left: 4px;
   }
 
   .socialLinks a span {

@@ -41,7 +41,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-bottom: -var(--spacing-md);
+  padding-bottom: var(--spacing-md);
 }
 .aboutHeadline {
   font-size: var(--font-size-9xl);

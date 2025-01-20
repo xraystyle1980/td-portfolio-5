@@ -11,6 +11,8 @@ import TokenFace from '../3d/TokenFace';
 import styles from './HeroAbout.module.css';
 import sharedStyles from '@/styles/shared.module.css';
 import { Group } from 'three';
+import { Icon } from '@/components/icons/Icon';
+
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
@@ -61,11 +63,6 @@ function RotatingToken({ groupRef, onFloatAnimCreated }: {
       floatAnimRef.current.kill();
     }
 
-    // Set initial position high above viewport
-    gsap.set(group.position, {
-      y: 6  // Start way above
-    });
-
     // Create and store the bounce animation
     const bounceAnim = gsap.to(group.position, {
       y: 0,  // Final resting position
@@ -109,7 +106,7 @@ function RotatingToken({ groupRef, onFloatAnimCreated }: {
   }, [onFloatAnimCreated]);
 
   return (
-    <group ref={groupRef} position={[xPosition, 6, 0]} scale={[4.125, 4.125, 4.125]}>
+    <group ref={groupRef} position={[xPosition, 12, 0]} scale={[4.125, 4.125, 4.125]}>
       <TokenFace />
     </group>
   );
@@ -142,22 +139,32 @@ export default function HeroAbout() {
       gsap.set(words, {
         opacity: 0,
         visibility: "hidden",
-        xPercent: -150, // Start further off-screen left
-        yPercent: 100,  // Start below the viewport
       });
+
+      // Calculate angle-based movement
+      const distance = 200; // Increased for more dramatic effect
+      const angle = 15; // Angle in degrees
+      const radians = angle * (Math.PI / 180);
+      const xDistance = Math.cos(radians) * distance;
+      const yDistance = Math.sin(radians) * distance;
 
       // Initial Load Animation - Text Fade In with Motion Path
       const tl = gsap.timeline({
         delay: 0.2
       });
       
-      // Animate each word along a diagonal path
+      // Animate each word along the angled path
       words.forEach((word, index) => {
+        gsap.set(word, {
+          x: -xDistance,
+          y: yDistance,
+        });
+
         tl.to(word, {
           opacity: 1,
           visibility: "visible",
-          xPercent: 0,
-          yPercent: 0,
+          x: 0,
+          y: 0,
           duration: 0.48,
           ease: "power2.out",
           onStart: () => {
@@ -165,7 +172,7 @@ export default function HeroAbout() {
               headline.style.opacity = "1";
             }
           }
-        }, index * 0.2); // Slightly longer stagger for more dramatic effect
+        }, index * 0.2);
       });
 
       // Token Scroll Animation
@@ -292,11 +299,27 @@ export default function HeroAbout() {
       <div id="about" ref={aboutTextRef} className={clsx(sharedStyles.container, styles.aboutContent)}>
         <div className={styles.bioContent}>
           <h1 className={clsx(sharedStyles.displayText, styles.aboutHeadline)}>
-            Hello <span className={styles.waveEmoji}>👋</span>
+            Hello 
+            {/* <span className={styles.waveEmoji}>👋</span> */}
           </h1>
-          <p className={clsx(sharedStyles.textBase, sharedStyles.larger)}>
+          <p className={clsx(sharedStyles.textBase, sharedStyles.larger, sharedStyles.white, sharedStyles.contentAboutBio)}>
             I'm Matt Trice, an ATL-based Product Designer with a track record of design leadership, embracing complex problems, and crafting elegant solutions that deliver meaningful business impact.
           </p>
+          <a 
+            href="#connect" 
+            className={clsx(sharedStyles.primaryButton, styles.half)}
+            onClick={(e) => {
+              e.preventDefault();
+              gsap.to(window, { 
+                duration: 1, 
+                scrollTo: '#connect', 
+                ease: 'power2.out' 
+              });
+            }}
+          >
+            <span>Let's Connect</span>
+            <span><Icon name="arrow-down" className={sharedStyles.buttonIcon} /></span>
+          </a>
         </div>
       </div>
     </section>
