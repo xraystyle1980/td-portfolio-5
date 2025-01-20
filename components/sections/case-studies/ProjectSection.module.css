@@ -58,8 +58,10 @@
 .projectContentContainer {
   display: flex;
   gap: var(--spacing-lg);
-  padding: var(--spacing-lg) var(--spacing-lg);
+  padding: var(--spacing-lg);
   align-items: stretch;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 /* Content Section */
@@ -111,7 +113,7 @@
 
 /* First Image (Desktop) */
 .image:nth-child(1) {
-  width: 200%;
+  width: 150%;
   left: 16%;
   top: 5%;
   z-index: 3;
@@ -152,39 +154,46 @@
     position: relative;
   }
   .image:nth-child(1) {
-    width: 85%;
-    right: 5%;
+    width: 100%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
   }
   
   .image:nth-child(2) {
     width: 75%;
     right: 15%;
+    left: auto;
   }
   
   .image:nth-child(3) {
     width: 65%;
     right: 20%;
+    left: auto;
   }
 }
 
 @media (max-width: 768px) {
   .projectContentContainer {
-    padding: var(--spacing-md-tablet);
+    padding: var(--spacing-sm);
   }
   .content {
     gap: 1rem;
+    padding: 0;
   }
   .details {
     padding: var(--spacing-sm) 0;
   }
   .imageContainer {
     min-height: 300px;
+    margin: 0;
+    padding: 0;
   }
 }
 
 @media (max-width: 640px) {
   .projectContentContainer {
-    padding: var(--spacing-md-mobile);
+    padding: var(--spacing-xs);
   }
   .imageContainer {
     min-height: 250px;
