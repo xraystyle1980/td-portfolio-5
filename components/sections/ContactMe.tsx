@@ -42,13 +42,13 @@ export default function ContactMe({ id = 'connect' }: ContactMeProps) {
       </div>
       <div className={sharedStyles.container}>
         <div className={sharedStyles.sectionHeadingWrapper}>
-          <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionHeading, sharedStyles.colorWhite)}>Let's Connect</h2>
+          <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionHeading, sharedStyles.colorPrimary)}>Let's Connect</h2>
         </div>
         <div className={sharedStyles.darkContainer}>
         {/* Connect */}       
           <div className={sharedStyles.contentContainer}>
-            <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionTitle)}>Working on a project?</h2>
-            <p className={clsx(sharedStyles.textBase, sharedStyles.large)}>Drop me a line and let's build cool shit.</p>
+            <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionTitle, sharedStyles.colorWhite)}>Working on a project?</h2>
+            <p className={clsx(sharedStyles.textBase, sharedStyles.large, sharedStyles.colorWhite)}>Drop me a line and let's build cool shit.</p>
             <a onClick={handleEmailClick} href="mailto:matt@trice.design" className={clsx(sharedStyles.primaryButton, styles.half)}>
               <span>matt@trice.design</span>
               <span><Icon name="mail-arrow-right" className={sharedStyles.buttonIcon} /></span>

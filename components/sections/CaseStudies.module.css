@@ -31,27 +31,33 @@
   visibility: hidden;
 }
 
+.headingWrapper {
+  position: relative;
+  z-index: 10;
+  overflow: visible;
+}
+
 .caseStudiesHeading {
   position: relative;
   color: var(--color-primary);
-  top: calc(var(--diagonal-split-height) * 0.45);
-  z-index: 1;
+  top: calc(var(--diagonal-split-height) * 0.325);
+  z-index: 10;
 }
 
 @media (max-width: 1024px) {
   .caseStudiesHeading {
-    top: calc(var(--diagonal-split-height) * 0.65);
+    top: calc(var(--diagonal-split-height) * 0.25);
   }
 }
 
 @media (max-width: 768px) {
   .caseStudiesHeading {
-    top: calc(var(--diagonal-split-height) * 0.75);
+    top: calc(var(--diagonal-split-height) * 0.18);
   }
 }
 
 @media (max-width: 480px) {
   .caseStudiesHeading {
-    top: calc(var(--diagonal-split-height) * 0.73);
+    top: calc(var(--diagonal-split-height) * 0.33);
   }
 }

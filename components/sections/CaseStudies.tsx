@@ -8,13 +8,15 @@ import clsx from 'clsx'
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 
 if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
+  gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
 }
 
 export default function Work() {
   const headingRef = useRef<HTMLDivElement>(null);
+  const headingWrapperRef = useRef<HTMLDivElement>(null);
   const diagonalSplitRef = useRef<HTMLDivElement>(null);
   const [sectionHeight, setSectionHeight] = useState<number>(0);
 
@@ -22,57 +24,58 @@ export default function Work() {
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    // Function to update height
     const updateHeight = () => {
       if (diagonalSplitRef.current) {
         const height = diagonalSplitRef.current.offsetHeight;
         setSectionHeight(height);
-        // Set the CSS custom property
         document.documentElement.style.setProperty('--diagonal-split-height', `${height}px`);
-        console.log('Diagonal Split height:', height); // For debugging
       }
     };
 
-    // Initial measurement after a brief delay to ensure styles are applied
     setTimeout(updateHeight, 100);
 
-    // Use ResizeObserver for more reliable size tracking
     const resizeObserver = new ResizeObserver(updateHeight);
     if (diagonalSplitRef.current) {
       resizeObserver.observe(diagonalSplitRef.current);
     }
 
-    // Cleanup
     return () => {
       resizeObserver.disconnect();
-      // Clean up the CSS custom property
       document.documentElement.style.removeProperty('--diagonal-split-height');
     };
   }, []);
 
-  // Effect for scroll animation
+  // Effect for scroll animation with MotionPath
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
     const ctx = gsap.context(() => {
-      const headline = headingRef.current?.querySelector('h2');
-      if (!headline) return;
+      const headlineWrapper = headingWrapperRef.current;
+      if (!headlineWrapper) return;
 
-      // Calculate angle-based movement
-      const distance = 800; // Increased from 200 for more dramatic effect
-      const angle = 15; // 15 degrees
+      // Calculate the straight line path at 15 degrees
+      const distance = 800;
+      const angle = 15;
       const radians = angle * (Math.PI / 180);
       const xDistance = Math.cos(radians) * distance;
       const yDistance = Math.sin(radians) * distance;
 
-      gsap.set(headline, {
+      // Define the straight line path
+      const path = [
+        { x: -xDistance, y: yDistance },  // Start point
+        { x: 0, y: 0 }                    // End point
+      ];
+
+      // Initial setup
+      gsap.set(headlineWrapper, {
         opacity: 0,
         visibility: "hidden",
         x: -xDistance,
         y: yDistance,
       });
 
-      gsap.to(headline, {
+      // Create the motion path animation
+      gsap.to(headlineWrapper, {
         scrollTrigger: {
           trigger: headingRef.current,
           start: "top center",
@@ -81,11 +84,13 @@ export default function Work() {
           markers: true,
           scrub: 1
         },
+        motionPath: {
+          path: path,
+          autoRotate: false
+        },
         opacity: 1,
         visibility: "visible",
-        x: 0,
-        y: 0,
-        duration: 0.48,
+        duration: 1.5,
         ease: "power2.out"
       });
     });
@@ -97,9 +102,11 @@ export default function Work() {
     <div className={clsx(sharedStyles.gridRows3SectionWrapper)}>
       <div ref={diagonalSplitRef} className={sharedStyles.diagonalSplit}>
         <div ref={headingRef} className={clsx(sharedStyles.sectionHeadingWrapper, sharedStyles.container)}>
-          <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionHeading, sharedStyles.skew, styles.caseStudiesHeading)}>
-            Case Studies
-          </h2>
+          <div ref={headingWrapperRef} className={styles.headingWrapper}>
+            <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionHeading, sharedStyles.skew, styles.caseStudiesHeading)}>
+              Case Studies
+            </h2>
+          </div>
         </div>
       </div>
       <div className={sharedStyles.lightSection}>
