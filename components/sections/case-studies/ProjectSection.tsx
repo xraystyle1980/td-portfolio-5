@@ -51,7 +51,6 @@ export default function ProjectSection({ project, className = '' }: ProjectSecti
         gsap.set(image, {
           x: xDistance,
           y: -yDistance,
-          rotation: -15,
           opacity: 0,
           scale: 0.9,
           visibility: "hidden"

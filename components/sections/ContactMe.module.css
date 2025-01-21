@@ -22,7 +22,7 @@
 
 .contentSections {
   position: relative;
-  margin-top: var(--spacing-xxl);
+  padding-top: var(--spacing-lg);
   z-index: 1;
 }
 

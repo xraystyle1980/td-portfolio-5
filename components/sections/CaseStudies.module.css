@@ -52,6 +52,6 @@
 
 @media (max-width: 480px) {
   .caseStudiesHeading {
-    top: calc(var(--diagonal-split-height) * 0.95);
+    top: calc(var(--diagonal-split-height) * 0.73);
   }
 }

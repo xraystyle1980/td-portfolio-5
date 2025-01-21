@@ -9,10 +9,9 @@
 }
 
 .gradientTopBottom {
-  background: linear-gradient(0deg, 
-    rgba(22, 22, 22, 0.34) 0%,
-    rgba(22, 22, 22, 0.64) 40%,
-    rgba(22, 22, 22, 1) 100%
+  background: linear-gradient(180deg, 
+    rgba(22, 22, 22, 1) 0%,
+    rgba(22, 22, 22, 0.64) 100%
   );
 }
 
@@ -104,7 +103,7 @@ a.link {
 .color-dark {
   color: var(--color-dark);
 }
-.color-white {
+.colorWhite {
   color: var(--color-white);
 }
 .color-primary {
@@ -197,7 +196,7 @@ a.link {
 .diagonalSplit {
   position: relative;
   width: 100%;
-  height: 70vh;
+  height: 50vh;
   background: #161616;
 }
 
@@ -209,15 +208,39 @@ a.link {
   width: 100%;
   height: 100%;
   background: #d9d9d9;
-  /* clip-path: polygon(0 100%, 100% 0, 100% 100%, 0 100%); */
   clip-path: polygon(
     0 100%,
     100% calc(100% - 28vw),
     100% 100%,
     0 100%
   );
-  transform: scale(1.001); /* Tiny scale to prevent the gap */
+  transform: scale(1.001);
   transform-origin: top;
+}
+
+.diagonalSplitReverse {
+  position: relative;
+  width: 100%;
+  height: 50vh;
+  background: #161616;
+}
+
+.diagonalSplitReverse::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #d9d9d9;
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 0,
+    0 28vw
+  );
+  transform: scale(1.001);
+  transform-origin: bottom;
 }
 
 /* Button System */
@@ -271,12 +294,6 @@ a.link {
   display: flex;
   align-items: center;
   gap: var(--spacing-xs);
-}
-
-.buttonIcon {
-  width: 24px;
-  height: 24px;
-  transition: transform 0.2s ease;
 }
 
 .primaryButton:hover .buttonIcon {

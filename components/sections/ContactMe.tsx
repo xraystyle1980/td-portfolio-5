@@ -21,7 +21,7 @@ export default function ContactMe({ id = 'connect' }: ContactMeProps) {
   };
 
   return (        
-    <section id={id} className={styles.contentSections}>
+    <section id={id} className={clsx(styles.contentSections, sharedStyles.gradientTopBottom)}>
       {isLoading && <Loading />}
       <div className={styles.tokenBackground}>
         <Canvas
@@ -42,7 +42,7 @@ export default function ContactMe({ id = 'connect' }: ContactMeProps) {
       </div>
       <div className={sharedStyles.container}>
         <div className={sharedStyles.sectionHeadingWrapper}>
-          <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionHeading)}>Let's Connect</h2>
+          <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionHeading, sharedStyles.colorWhite)}>Let's Connect</h2>
         </div>
         <div className={sharedStyles.darkContainer}>
         {/* Connect */}       
