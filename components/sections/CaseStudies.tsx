@@ -81,7 +81,7 @@ export default function Work() {
           start: "top center",
           end: "bottom center",
           toggleActions: "play none none reverse",
-          markers: true,
+          markers: false,
           scrub: 1
         },
         motionPath: {

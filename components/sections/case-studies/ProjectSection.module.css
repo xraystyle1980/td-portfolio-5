@@ -73,10 +73,8 @@
 /* Image Section */
 .imageContainer {
   flex: 1;
-  max-width: 40%;
   position: relative;
   overflow: visible;
-  min-height: 400px;
   top: calc(var(--diagonal-split-height) * -0.2);
   transform-style: preserve-3d;
   perspective: 1000px;
@@ -85,7 +83,7 @@
 /* Safari-specific fix */
 @supports (-webkit-hyphens:none) {
   .imageContainer {
-    min-height: 100%;
+    min-height: 500px;
   }
 }
 
@@ -129,22 +127,20 @@
   .projectContentContainer {
     flex-direction: column-reverse;
     gap: var(--spacing-md);
-    padding: var(--spacing-xxl) var(--spacing-lg);
+    padding: var(--spacing-xxl) var(--spacing-md);
     overflow: visible;
   }
   .content {
     max-width: 100%;
   }
   .imageContainer {
-    max-width: 100%;
-    min-height: 400px;
-    position: relative;
-    overflow: visible;
+    top: -180px;
+    min-height: 300px;
   }
   .image:nth-child(1) {
     width: 80%;
     left: 0%;
-    top: 5%;
+    top: -5%;
     margin: 0 auto;
     z-index: 2;
   }
@@ -160,7 +156,7 @@
   .image:nth-child(3) {
     width: 20%;
     right: 15%;
-    top: 5%;
+    top: -5%;
     left: auto;
     z-index: 3;
   }
@@ -168,19 +164,19 @@
 
 @media (max-width: 768px) {
   .projectContentContainer {
-    padding: var(--spacing-xl) var(--spacing-md);
+    padding: var(--spacing-lg) var(--spacing-sm);
   }
   .content {
     gap: 1rem;
     padding: 0;
   }
   .details {
-    padding: var(--spacing-sm) 0;
+    padding: 0;
+    gap: 0;
   }
   .imageContainer {
+    top: -180px;
     min-height: 300px;
-    margin: 0;
-    padding: 0;
   }
   .image:nth-child(1) {
     width: 80%;
@@ -209,15 +205,16 @@
 
 @media (max-width: 640px) {
   .projectContentContainer {
-    padding: var(--spacing-lg) var(--spacing-sm);
+    padding: var(--spacing-lg) var(--spacing-xs);
   }
   .imageContainer {
-    min-height: 250px;
+    top: -140px;
+    min-height: 100px;
   }
   .image:nth-child(1) {
     width: 80%;
     left: 0%;
-    top: 5%;
+    top: 15%;
     margin: 0 auto;
     z-index: 2;
   }
@@ -233,13 +230,17 @@
   .image:nth-child(3) {
     width: 20%;
     right: 15%;
-    top: 5%;
+    top: 15%;
     left: auto;
     z-index: 3;
   }
 }
 
 @media (max-width: 480px) {
+  .imageContainer {
+    top: -120px;
+    min-height: 80px;
+  }
   .image:nth-child(1) {
     width: 80%;
     left: 0%;

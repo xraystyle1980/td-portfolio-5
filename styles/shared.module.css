@@ -426,8 +426,11 @@ Responsive Styles
 
 /* Tablet & Mobile Styles */
 @media (max-width: 768px) {
+  .sectionHeading {
+    font-size: var(--font-size-5xl);
+  }
+
   .sectionTitle {
-    font-size: var(--font-size-section-title-tablet);
     margin: var(--spacing-sm) 0 var(--spacing-xs);
   }
 

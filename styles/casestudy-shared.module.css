@@ -165,7 +165,6 @@
     padding: 3rem 2rem;
   }
   .subsectionTitle {
-    font-size: var(--font-size-sub-title-tablet);
     margin: var(--spacing-sm) 0;
     line-height: var(--line-height-tight);
   }
