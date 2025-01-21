@@ -138,33 +138,42 @@ export default function HeroAbout() {
       // Set initial state
       gsap.set(words, {
         opacity: 0,
-        visibility: "hidden",
+        visibility: "hidden"
       });
 
       // Calculate angle-based movement
-      const distance = 200; // Increased for more dramatic effect
+      const distance = 200; // Distance to travel
       const angle = 15; // Angle in degrees
       const radians = angle * (Math.PI / 180);
       const xDistance = Math.cos(radians) * distance;
       const yDistance = Math.sin(radians) * distance;
 
-      // Initial Load Animation - Text Fade In with Motion Path
+      // Define the motion path
+      const path = [
+        { x: -xDistance, y: yDistance },  // Start point
+        { x: 0, y: 0 }                    // End point
+      ];
+      
+      // Initial Load Animation with Motion Path
       const tl = gsap.timeline({
         delay: 0.2
       });
       
-      // Animate each word along the angled path
+      // Animate each word along the motion path
       words.forEach((word, index) => {
+        // Set initial position
         gsap.set(word, {
           x: -xDistance,
-          y: yDistance,
+          y: yDistance
         });
 
         tl.to(word, {
+          motionPath: {
+            path: path,
+            autoRotate: false
+          },
           opacity: 1,
           visibility: "visible",
-          x: 0,
-          y: 0,
           duration: 0.48,
           ease: "power2.out",
           onStart: () => {

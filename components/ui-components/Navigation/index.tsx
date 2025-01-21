@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import styles from './Navigation.module.css';
-import sharedStyles from '../../../styles/shared.module.css';
 import { usePathname, useRouter } from 'next/navigation';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import gsap from 'gsap';

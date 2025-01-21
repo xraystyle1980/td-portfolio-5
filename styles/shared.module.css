@@ -36,14 +36,14 @@ a.link {
   color: var(--color-accent);
   text-decoration: none;
   font-family: var(--font-space);
-  font-size: var(--font-size-body);
+  font-size: var(--font-size-md);
 }
 
 
 /* Container System */
 .container {
   width: 100%;
-  max-width: var(--max-width);
+  max-width: 1400px;
   margin: 0 auto;
 }
 
@@ -71,7 +71,7 @@ a.link {
 .textBase {
   color: var(--color-text);
   line-height: var(--line-height-md);
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-md);
 }
 
 .textBase p {
@@ -120,12 +120,14 @@ a.link {
   font-size: var(--font-size-8xl);
   text-shadow: var(--shadow-md);
   letter-spacing: var(--letter-spacing-tight);
+  line-height: var(--line-height-sm);
 }
 
 .sectionTitle {
   font-size: var(--font-size-6xl);
   letter-spacing: var(--letter-spacing-tight);
   margin: var(--spacing-md) 0 var(--spacing-sm);
+  line-height: var(--line-height-sm);
 }
 
 /* Content Section */
@@ -144,6 +146,7 @@ a.link {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  font-size: var(--font-size-md);
 }
 
 .subsectionList li {
@@ -245,6 +248,8 @@ a.link {
   cursor: pointer;
   transition: all 0.165s ease;
   text-decoration: none;
+  font-size: var(--font-size-md);
+  font-weight: 600;
 }
 
 .buttonIcon {
@@ -306,7 +311,7 @@ a.link {
   justify-content: center;
   gap: 0.5rem;
   font-family: var(--font-space);
-  font-size: var(--font-size-body);
+  font-size: var(--font-size-md);
   color: #FFF;
   background: rgba(255, 255, 255, 0.04);
   font-weight: 700;
@@ -335,7 +340,7 @@ a.link {
   align-items: center;
   gap: 0.5rem;
   font-family: var(--font-space);
-  font-size: var(--font-size-body);
+  font-size: var(--font-size-md);
   color: #FFF;
   font-weight: 700;
   cursor: pointer;
@@ -350,7 +355,6 @@ a.link {
 }
 
 
-
 /* Section Backgrounds */
 .gradientBg {
   background: linear-gradient(180deg, 
@@ -361,14 +365,15 @@ a.link {
 }
 
 
-
-
-
-
-
 /* 
 Responsive Styles 
 */
+@media (max-width: 1400px) {
+  .container {
+    max-width: 1200px;
+  }
+}
+
 @media (max-width: 1200px) {
   .container {
     padding: 0 var(--spacing-md-laptop);
@@ -384,6 +389,15 @@ Responsive Styles
   }
   .gridColumns3 {
     gap: var(--spacing-md);
+  }
+  .textBase {
+    font-size: var(--font-size-sm);
+  }
+  .textBase.large {
+    font-size: var(--font-size-md);
+  }
+  .textBase.larger {
+    font-size: var(--font-size-lg);
   }
 }
 
@@ -432,6 +446,7 @@ Responsive Styles
 
   .sectionTitle {
     margin: var(--spacing-sm) 0 var(--spacing-xs);
+    font-size: var(--font-size-4xl);
   }
 
   .paddingBottom {
@@ -456,15 +471,15 @@ Responsive Styles
 
   /* Text Styles */
   .textBase {
-    font-size: var(--font-size-body-mobile);
+    font-size: var(--font-size-sm);
   }
 
   .textBase.large {
-    font-size: var(--font-size-body-lg-mobile);
+    font-size: var(--font-size-md);
   }
 
   .textBase.larger {
-    font-size: var(--font-size-body-xl-mobile);
+    font-size: var(--font-size-lg);
   }
 
   /* Image Styles */
@@ -475,7 +490,7 @@ Responsive Styles
   }
 
   .primaryButton {
-    font-size: var(--font-size-body-mobile);
+    font-size: var(--font-size-md);
     padding: var(--spacing-xxs);
     margin: var(--spacing-xs) 0;
   }
@@ -487,6 +502,10 @@ Responsive Styles
 
   .contentAboutBio {
     width: 80%;
+  }
+
+  .subsectionTitle {
+    font-size: var(--font-size-lg);
   }
 }
 
@@ -518,11 +537,11 @@ Responsive Styles
   }
 
   .subsectionList li {
-    font-size: var(--font-size-body-mobile);
+    font-size: var(--font-size-sm);
   }
 
   .subsectionTitle {
-    font-size: var(--font-size-2xl);
+    font-size: var(--font-size-lg);
   }
 
   .projectDetails {
@@ -534,5 +553,9 @@ Responsive Styles
   .diagonalSplit,
   .diagonalSplitReverse {
     height: 400px;
+  }
+
+  .primaryButton {
+    font-size: var(--font-size-sm);
   }
 } 
