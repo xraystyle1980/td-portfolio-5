@@ -66,70 +66,62 @@ export default function ScrollingTokens() {
   ];
 
   const finalPositions = [
-    { x: -2 * positions.spread, y: 3 },
-    { x: -0.75 * positions.spread, y: 2 },
-    { x: 2 * positions.spread, y: 2.5 }
+    { x: -2 * positions.spread, y: 6 },
+    { x: -0.75 * positions.spread, y: 5 },
+    { x: 2 * positions.spread, y: 5.5 }
   ];
 
   useEffect(() => {
-    tokensRef.current.forEach((token, i) => {
-      if (token) {
-        const scrollTrigger = {
-          trigger: '#connect',
-          start: 'top bottom+=100%',
-          end: 'top center',
-          scrub: initialPositions[i].speed,
-          markers: false,
-          smoothing: 1
-        };
+    const ctx = gsap.context(() => {
+      tokensRef.current.forEach((token, i) => {
+        if (token) {
+          const triggerElement = document.querySelector('#case-study-connect') || document.querySelector('#connect');
+          
+          if (!triggerElement) {
+            console.warn('No trigger element found for ScrollTrigger');
+            return;
+          }
 
-        // "top top"     = top of element hits top of viewport
-        // "top center"  = top of element hits center of viewport
-        // "top bottom"  = top of element hits bottom of viewport
-        // "center top"  = center of element hits top of viewport
-        // "bottom top"  = bottom of element hits top of viewport
+          const tl = gsap.timeline({
+            paused: true,
+            defaults: { duration: 1, ease: "none" }
+          });
 
-        // Position animation
-        gsap.fromTo(token.position,
-          { y: initialPositions[i].y, x: initialPositions[i].x },
-          {
+          // Add all animations to the timeline
+          tl.to(token.position, {
             y: finalPositions[i].y,
             x: finalPositions[i].x,
-            scrollTrigger,
-            ease: "none"
-          }
-        );
+          }, 0);
 
-        // Scale animation
-        gsap.fromTo(token.scale,
-          { x: initialPositions[i].scale, y: initialPositions[i].scale, z: initialPositions[i].scale },
-          {
+          tl.to(token.scale, {
             x: initialPositions[i].finalScale,
             y: initialPositions[i].finalScale,
             z: initialPositions[i].finalScale,
-            scrollTrigger,
-            ease: "none"
-          }
-        );
+          }, 0);
 
-        // Rotation animation
-        gsap.fromTo(token.rotation,
-          { 
-            x: initialPositions[i].rotation.x,
-            y: initialPositions[i].rotation.y,
-            z: initialPositions[i].rotation.z 
-          },
-          {
+          tl.to(token.rotation, {
             x: initialPositions[i].rotation.x * -2,
             y: initialPositions[i].rotation.y * -2,
             z: initialPositions[i].rotation.z * -2,
-            scrollTrigger,
-            ease: "none"
-          }
-        );
-      }
+          }, 0);
+
+          // Create ScrollTrigger with adjusted trigger points
+          ScrollTrigger.create({
+            trigger: triggerElement,
+            start: "top 80%",
+            end: "center 20%",
+            scrub: true,
+            markers: true,
+            onUpdate: (self) => {
+              tl.progress(self.progress);
+            }
+          });
+        }
+      });
     });
-  }, []);
+
+    return () => ctx.revert();
+  }, [initialPositions, finalPositions]);
 
   return (
     <group position={[0, 0, 0]}>

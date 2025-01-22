@@ -21,7 +21,7 @@ export default function ContactMe({ id = 'connect' }: ContactMeProps) {
   };
 
   return (        
-    <section id={id} className={clsx(styles.contentSections, sharedStyles.gradientTopBottom)}>
+    <section id={id} className={clsx(styles.contentSections, sharedStyles.darkSection)}>
       {isLoading && <Loading />}
       <div className={styles.tokenBackground}>
         <Canvas
@@ -44,16 +44,14 @@ export default function ContactMe({ id = 'connect' }: ContactMeProps) {
         <div className={sharedStyles.sectionHeadingWrapper}>
           <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionHeading, sharedStyles.colorPrimary)}>Let's Connect</h2>
         </div>
-        <div className={sharedStyles.darkContainer}>
         {/* Connect */}       
-          <div className={sharedStyles.contentContainer}>
-            <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionTitle, sharedStyles.colorWhite)}>Working on a project?</h2>
-            <p className={clsx(sharedStyles.textBase, sharedStyles.large, sharedStyles.colorWhite)}>Drop me a line and let's build cool shit.</p>
-            <a onClick={handleEmailClick} href="mailto:matt@trice.design" className={clsx(sharedStyles.primaryButton, styles.half)}>
-              <span>matt@trice.design</span>
-              <span><Icon name="mail-arrow-right" className={sharedStyles.buttonIcon} /></span>
-            </a>
-          </div>
+        <div className={sharedStyles.contentContainer}>
+          <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionTitle, sharedStyles.colorWhite)}>Working on a project?</h2>
+          <p className={clsx(sharedStyles.textBase, sharedStyles.large, sharedStyles.colorWhite)}>Drop me a line and let's build cool shit.</p>
+          <a onClick={handleEmailClick} href="mailto:matt@trice.design" className={clsx(sharedStyles.primaryButton, styles.half)}>
+            <span>matt@trice.design</span>
+            <span><Icon name="mail-arrow-right" className={sharedStyles.buttonIcon} /></span>
+          </a>
         </div>
       </div>
     </section>

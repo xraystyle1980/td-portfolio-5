@@ -10,23 +10,56 @@
   display: flex;
   padding: 1rem;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
   position: relative;
   border-radius: var(--radius-md);
   overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+/* Size Variants */
+.small {
+  max-width: 400px;
+  max-height: 800px;
+  margin: 0 auto;
+}
+
+.medium {
+  max-width: 800px;
+  max-height: 1000px;
+  margin: 0 auto;
+}
+
+.large {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.full {
+  max-width: 100%;
+}
+
+.imageWrapper:hover {
+  transform: scale(1.01);
 }
 
 .image {
-  width: 80%;
-  height: auto;
+  width: 100%;
+  height: 100%;
   display: block;
   border-radius: var(--radius-md);
   transition: transform 0.3s ease;
+  object-fit: contain;
 }
 
-.imageWrapper:hover .image {
-  transform: scale(1.02);
+/* Special handling for vertical images */
+.small .image[style*="height: 1724px"],
+.medium .image[style*="height: 1724px"] {
+  max-height: 600px;
+  width: auto;
+  margin: 0 auto;
 }
 
 .caption {
@@ -37,14 +70,129 @@
   padding: 0 1rem;
 }
 
+/* Lightbox Styles */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.98);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  backdrop-filter: blur(10px);
+}
+
+.modalContent {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+.imageContainer {
+  max-height: calc(90vh - 100px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fullSizeImage {
+  max-width: 90vw;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+}
+
+.modalCaption {
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  line-height: 1.5;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.closeButton {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: #161616;
+  border: 2px solid #000;
+  color: #F39;
+  cursor: pointer;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 0;
+  transition: all 0.2s ease;
+  z-index: 100000;
+  box-shadow: -4px 4px 0px #000;
+  padding-bottom: 0.25rem;
+}
+
+.closeButton:hover {
+  transform: translate(2px, -2px);
+  box-shadow: -6px 6px 0px #000;
+}
+
 @media (max-width: 768px) {
   .figure {
     margin: 1.5rem 0;
   }
+  
+  .imageWrapper {
+    padding: var(--spacing-sm);
+  }
+
   .image {
     width: 100%;
   }
-  .imageWrapper {
-    padding: 0rem;
+
+  .small,
+  .medium,
+  .large,
+  .full {
+    max-width: 100%;
+  }
+
+  /* Adjust vertical images on mobile */
+  .small .image[style*="height: 1724px"],
+  .medium .image[style*="height: 1724px"] {
+    max-height: 500px;
+    width: auto;
+    margin: 0 auto;
+  }
+
+  .modalContent {
+    padding: 1rem;
+  }
+
+  .fullSizeImage {
+    max-width: 95%;
+    max-height: 95%;
+  }
+
+  .closeButton {
+    top: 1rem;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
+    font-size: 1.75rem;
   }
 } 

@@ -121,7 +121,7 @@ export default function Work() {
           </div>
         </section>
       </div>
-      <div className={sharedStyles.diagonalSplitReverse} />
+      {/* <div className={sharedStyles.diagonalSplitReverse} /> */}
     </div>
   )
 } 
