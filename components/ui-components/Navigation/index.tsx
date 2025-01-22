@@ -16,7 +16,7 @@ export default function Navigation() {
   const router = useRouter();
   const pathname = usePathname();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isCaseStudiesOpen, setIsCaseStudiesOpen] = useState(false);
 
@@ -26,8 +26,13 @@ export default function Navigation() {
       setIsMobile(window.innerWidth <= 1024);
     };
 
-    handleResize(); // Initial check
+    // Initial check
+    handleResize();
+    
+    // Add event listener
     window.addEventListener('resize', handleResize);
+    
+    // Cleanup
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
@@ -50,12 +55,12 @@ export default function Navigation() {
       document.body.style.overflow = 'hidden';
       const menu = document.querySelector(`.${styles.mobileMenu}`);
       gsap.set(menu, { 
-        visibility: 'visible',
+        autoAlpha: 1,
         pointerEvents: 'auto',
-        x: '100%'
+        xPercent: 100
       });
       gsap.to(menu, {
-        x: '0%',
+        xPercent: 0,
         duration: 0.5,
         ease: 'power3.out'
       });
@@ -63,12 +68,12 @@ export default function Navigation() {
       document.body.style.overflow = 'auto';
       const menu = document.querySelector(`.${styles.mobileMenu}`);
       gsap.to(menu, {
-        x: '100%',
+        xPercent: 100,
         duration: 0.3,
         ease: 'power2.in',
         onComplete: () => {
           gsap.set(menu, { 
-            visibility: 'hidden',
+            autoAlpha: 0,
             pointerEvents: 'none'
           });
         }
@@ -80,8 +85,8 @@ export default function Navigation() {
   useEffect(() => {
     const menu = document.querySelector(`.${styles.mobileMenu}`);
     gsap.set(menu, { 
-      x: '100%',
-      visibility: 'hidden',
+      xPercent: 100,
+      autoAlpha: 0,
       pointerEvents: 'none'
     });
   }, []);
@@ -124,9 +129,11 @@ export default function Navigation() {
     
     // Handle smooth scrolling for about and connect sections
     if (targetId === '#about' || targetId === '#connect') {
+      // If we're on a case study page and clicking connect, scroll to case-study-connect
+      const connectTarget = pathname.includes('/case-studies/') ? '#case-study-connect' : '#connect';
       gsap.to(window, { 
         duration: 1, 
-        scrollTo: targetId, 
+        scrollTo: targetId === '#connect' ? connectTarget : targetId, 
         ease: 'power2.out' 
       });
       return;
@@ -149,6 +156,17 @@ export default function Navigation() {
 
   return (
     <>
+      {/* Mobile Hamburger Button - moved outside nav */}
+      <button 
+        className={clsx(styles.hamburger, isMobileOpen && styles.open)}
+        onClick={toggleMobileMenu}
+        aria-label="Toggle mobile menu"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
       <nav className={clsx(styles.nav, isScrolled && styles.scrolled)}>
         <div className={styles.wrapper}>
           {/* Left Navigation Links */}
@@ -183,7 +201,12 @@ export default function Navigation() {
                           key={study.href}
                           href={study.href}
                           className={styles.dropdownItem}
-                          onClick={() => setIsCaseStudiesOpen(false)}
+                          onClick={() => {
+                            setIsCaseStudiesOpen(false);
+                            if (isMobile) {
+                              toggleMobileMenu();
+                            }
+                          }}
                         >
                           {study.title}
                         </Link>
@@ -218,19 +241,6 @@ export default function Navigation() {
           <div className={styles.rightLinks}>
             {!isMobile && <SocialLinks />}
           </div>
-
-          {/* Mobile Hamburger Button */}
-          {isMobile && (
-            <button 
-              className={clsx(styles.hamburger, isMobileOpen && styles.open)}
-              onClick={toggleMobileMenu}
-              aria-label="Toggle mobile menu"
-            >
-              <span></span>
-              <span></span>
-              <span></span>
-            </button>
-          )}
         </div>
       </nav>
 
@@ -271,7 +281,12 @@ export default function Navigation() {
                   key={study.href}
                   href={study.href}
                   className={styles.dropdownItem}
-                  onClick={() => setIsCaseStudiesOpen(false)}
+                  onClick={() => {
+                    setIsCaseStudiesOpen(false);
+                    if (isMobile) {
+                      toggleMobileMenu();
+                    }
+                  }}
                 >
                   {study.title}
                 </Link>
