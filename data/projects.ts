@@ -30,9 +30,9 @@ export const projects: Project[] = [
     team: "Front End Engineer, Design Team",
     imageUrl: "/images/decent-design-system/gallery/decent_ds--hero.png",
     additionalImages: [
-      "/images/decent-app/decent-app-desktop.png",
-      "/images/decent-app/decent-app-mobile-1.png",
-      "/images/decent-app/decent-app-mobile-2.png"
+      "/images/decent-design-system/gallery/dds-menu-components.png",
+      "/images/decent-design-system/gallery/dds-spacing.png",
+      "/images/decent-design-system/gallery/dds-ui-color-tokens.png"
     ]
   },
   {
@@ -47,9 +47,10 @@ export const projects: Project[] = [
     team: "Decent Design and Engineering + BRD Design and Engineering",
     imageUrl: "/images/blockset-docs/gallery/bset-blockset-hero.png",
     additionalImages: [
-      "/images/decent-app/decent-app-desktop.png",
-      "/images/decent-app/decent-app-mobile-1.png",
-      "/images/decent-app/decent-app-mobile-2.png"
+      "/images/blockset-docs/gallery/bset-sandbox.png",
+      "/images/blockset-docs/gallery/bset-pricing-mobile.png",
+      "/images/blockset-docs/gallery/bset-page-tokens.png"
+      
     ]
   }
 ] 

@@ -1,24 +1,66 @@
 // Decent App Case Study Page
 'use client';
 
+import dynamic from 'next/dynamic';
 import styles from '@/styles/casestudy-shared.module.css';
 import sharedStyles from '@/styles/shared.module.css';
 import { projects } from '@/data/projects';
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { Icon } from '@/components/icons/Icon';
 import ImageGallery from '@/components/sections/case-studies/ImageGallery';
 import CaseStudyImage from '@/components/sections/case-studies/CaseStudyImage';
 import { galleryImages } from './galleryData';
 import ContactMe from '@/components/sections/ContactMe';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+}
+
+// Define interface for Scene3D props
+interface Scene3DProps {
+  scroll: number;
+  currentSection: number;
+}
+
+// Dynamically import Three.js components with no SSR
+const Scene3D = dynamic<Scene3DProps>(() => import('@/app/Scene3D'), {
+  ssr: false,
+});
 
 export default function DecentAppCaseStudy() {
   const project = projects.find((p) => p.route === '/case-studies/decent-app');
+  const heroContentRef = useRef<HTMLDivElement>(null);
+  const [scroll, setScroll] = useState<number>(0);
+  const [currentSection, setCurrentSection] = useState<number>(0);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const hash = window.location.hash;
+      if (hash) {
+        gsap.to(window, { duration: 1, scrollTo: hash, ease: 'power2.out' });
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScroll(window.scrollY);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   if (!project) return null;
 
   return (
       <main className={sharedStyles.main}>
+        {/* Scene3D Component */}
+        <Scene3D scroll={scroll} currentSection={currentSection} />
+        
         {/* Hero Section */}
         <section className={clsx(styles.hero, sharedStyles.gradientBottomTop)}>
           {project.imageUrl && (
@@ -26,7 +68,7 @@ export default function DecentAppCaseStudy() {
               <img src={project.imageUrl} alt={project.title} />
             </div>
           )}
-          <div className={clsx(styles.heroContent)}>
+          <div ref={heroContentRef} className={clsx(styles.heroContent)}>
             <h1 className={clsx(sharedStyles.displayText)}>{project.title}</h1>
           </div>
         </section>
@@ -94,7 +136,7 @@ export default function DecentAppCaseStudy() {
 
           {/* The Challenge */}
           <div className={sharedStyles.containerSmall}>
-            <h2 className={styles.subsectionSmallTitle}>The Challenge</h2>
+            <h2 className={clsx(styles.subsectionSmallTitle, styles.pullDown)}>The Challenge</h2>
             <h3 className={styles.subsectionTitle}>A Need for Evolution</h3>
             <p className={clsx(sharedStyles.textBase, sharedStyles.large)}>Fractal, the original product, was falling short of user expectations. The decentralized governance space had evolved, and Fractal's rigid smart contract structures limited adoption. User feedback revealed frustration with its complexity, lack of flexibility, and an outdated brand identity.</p>
             <p className={clsx(sharedStyles.textBase, sharedStyles.large)}>I led the product design aspect of the transition to Decent alongside product and engineering—rethinking the product to better serve DAOs with adaptable governance models and an intuitive experience.</p>
@@ -114,7 +156,7 @@ export default function DecentAppCaseStudy() {
           {/* Approach & Key Contributions */}
           <div className={sharedStyles.containerSmall}>
             <div className={sharedStyles.contentContainer}>
-              <h2 className={clsx(styles.subsectionSmallTitle)}>Approach & Key Contributions</h2>
+              <h2 className={clsx(styles.subsectionSmallTitle, styles.pullDown)}>Approach & Key Contributions</h2>
               <h3 className={styles.subsectionTitle}>Strategic Repositioning & Product Redesign</h3>
               <ul className={clsx(sharedStyles.subsectionList, sharedStyles.textBase)}>
                 <li>I conducted user research & market analysis to identify gaps in Fractal's offering.</li>
@@ -186,18 +228,14 @@ export default function DecentAppCaseStudy() {
         
           {/* Outcome & Impact */}
           <div className={sharedStyles.containerSmall}>
-            <h2 className={clsx(styles.subsectionSmallTitle)}>Outcome & Impact</h2>
+            <h2 className={clsx(styles.subsectionSmallTitle, styles.pullDown)}>Outcome & Impact</h2>
             <h3 className={styles.subsectionTitle}>Improved Product Trajectory</h3>
             <ul className={clsx(sharedStyles.subsectionList, sharedStyles.textBase)}>
               <li>Improved adoption: Decent saw a significant increase in active DAOs within the first few months post-launch.</li>
               <li>Streamlined governance: Streamlined smart contract deployment, making decentralized governance more accessible.</li>
               <li>Enhanced user experience: Usability tests indicated a significant reduction in onboarding friction, leading to improved retention.</li>
             </ul>
-            <p className={sharedStyles.textBase}>The transition from Fractal to Decent was more than just a redesign—it was a strategic overhaul that reshaped the product's core value. By leveraging user insights, design iteration, and seamless cross-team collaboration, we delivered a scalable and user-friendly DAO toolkit that meets the evolving needs of decentralized governance.</p>
-            <h3 className={styles.subsectionTitle}>Final Thoughts</h3>
-            <p className={sharedStyles.textBase}>This case study highlights my ability to lead product transformations, aligning business goals with user needs through strategic design. The Decent App now stands as a more intuitive, flexible, and impactful tool for the future of decentralized governance.</p>
           </div>
-
           <div>
             <CaseStudyImage
               src="/images/decent-app/gallery/decent-app-after.png"
@@ -208,7 +246,12 @@ export default function DecentAppCaseStudy() {
               size="large"
             />
           </div>
-          
+          <div className={sharedStyles.containerSmall}>
+            <p className={sharedStyles.textBase}>The transition from Fractal to Decent was more than just a redesign—it was a strategic overhaul that reshaped the product's core value. By leveraging user insights, design iteration, and seamless cross-team collaboration, we delivered a scalable and user-friendly DAO toolkit that meets the evolving needs of decentralized governance.</p>
+            <h3 className={styles.subsectionTitle}>Final Thoughts</h3>
+            <p className={sharedStyles.textBase}>This case study highlights my ability to lead product transformations, aligning business goals with user needs through strategic design. The Decent App now stands as a more intuitive, flexible, and impactful tool for the future of decentralized governance.</p>
+          </div>
+
         </section>  
 
         {/* Contact Section */}

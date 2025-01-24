@@ -4,6 +4,7 @@ import Image from 'next/image';
 import styles from './ImageGallery.module.css';
 import clsx from 'clsx';
 import sharedStyles from '@/styles/shared.module.css';
+import casestudyStyles from '@/styles/casestudy-shared.module.css';
 
 interface GalleryImage {
   src: string;
@@ -83,9 +84,9 @@ export default function ImageGallery({ images, className = '' }: ImageGalleryPro
               />
             </div>
             {image.caption && (
-              <div className={styles.thumbnailCaption}>
+              <figcaption className={casestudyStyles.imageCaption}>
                 {image.caption}
-              </div>
+              </figcaption>
             )}
           </div>
         ))}

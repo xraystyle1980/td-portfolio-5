@@ -40,13 +40,11 @@ export default function ContactMe({ id = 'connect' }: ContactMeProps) {
           </Suspense>
         </Canvas>
       </div>
-      <div className={sharedStyles.container}>
-        <div className={sharedStyles.sectionHeadingWrapper}>
-          <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionHeading, sharedStyles.colorPrimary)}>Let's Connect</h2>
-        </div>
+      <div className={sharedStyles.containerSmall}>
         {/* Connect */}       
         <div className={sharedStyles.contentContainer}>
-          <h2 className={clsx(sharedStyles.displayText, sharedStyles.sectionTitle, sharedStyles.colorWhite)}>Working on a project?</h2>
+          <h4 className={clsx(sharedStyles.displayText, sharedStyles.colorPrimary)}>Let's Connect</h4>
+          <h5 className={clsx(sharedStyles.displayText, sharedStyles.colorWhite)}>Working on a project?</h5>
           <p className={clsx(sharedStyles.textBase, sharedStyles.large, sharedStyles.colorWhite)}>Drop me a line and let's build cool shit.</p>
           <a onClick={handleEmailClick} href="mailto:matt@trice.design" className={clsx(sharedStyles.primaryButton, styles.half)}>
             <span>matt@trice.design</span>

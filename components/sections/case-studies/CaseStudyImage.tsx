@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import sharedStyles from '@/styles/shared.module.css';
 import { useState, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
+import casestudyStyles from '@/styles/casestudy-shared.module.css';
 
 interface CaseStudyImageProps {
   src: string;
@@ -93,7 +94,7 @@ export default function CaseStudyImage({
         />
       </div>
       {caption && (
-        <figcaption className={clsx(styles.caption, sharedStyles.textBase)}>
+        <figcaption className={casestudyStyles.imageCaption}>
           {caption}
         </figcaption>
       )}

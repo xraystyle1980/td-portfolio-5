@@ -113,27 +113,25 @@ export default function Navigation() {
       toggleMobileMenu();
     }
 
-    // If we're on a case study page and clicking About, go home first
-    if (targetId === '#about' && pathname.includes('/case-studies/')) {
+    // If we're not on the home page and clicking a home section link, navigate home first
+    if (pathname !== '/' && (targetId === '#about' || targetId === '#connect')) {
       router.push('/');
       // Wait for navigation to complete before scrolling
       setTimeout(() => {
         gsap.to(window, { 
           duration: 1, 
-          scrollTo: '#about', 
+          scrollTo: targetId === '#connect' ? '#connect' : targetId,
           ease: 'power2.out' 
         });
       }, 100);
       return;
     }
     
-    // Handle smooth scrolling for about and connect sections
+    // Handle smooth scrolling for home page sections
     if (targetId === '#about' || targetId === '#connect') {
-      // If we're on a case study page and clicking connect, scroll to case-study-connect
-      const connectTarget = pathname.includes('/case-studies/') ? '#case-study-connect' : '#connect';
       gsap.to(window, { 
         duration: 1, 
-        scrollTo: targetId === '#connect' ? connectTarget : targetId, 
+        scrollTo: targetId,
         ease: 'power2.out' 
       });
       return;
@@ -169,10 +167,17 @@ export default function Navigation() {
 
       <nav className={clsx(styles.nav, isScrolled && styles.scrolled)}>
         <div className={styles.wrapper}>
-          {/* Left Navigation Links */}
-          <div className={styles.leftLinks}>
+          {/* Site Navigation Links */}
+          <div className={styles.siteLinksWrapper}>
             {!isMobile && (
               <>
+                <Link 
+                  href="/"
+                  className={styles.navLink}
+                  onClick={scrollToTop}
+                >
+                  Home
+                </Link>
                 <Link 
                   href="/#about" 
                   className={styles.navLink}
@@ -185,14 +190,19 @@ export default function Navigation() {
                   onMouseEnter={() => setIsCaseStudiesOpen(true)}
                   onMouseLeave={() => setIsCaseStudiesOpen(false)}
                 >
-                  <button 
+                  <Link 
+                    href="#"
                     className={styles.navLink}
-                    onClick={() => setIsCaseStudiesOpen(!isCaseStudiesOpen)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setIsCaseStudiesOpen(!isCaseStudiesOpen);
+                    }}
                     aria-expanded={isCaseStudiesOpen}
                     aria-haspopup="true"
                   >
-                    Case Studies <Icon name="chevron-down" size={24} />
-                  </button>
+                    <span className={styles.caseStudiesText}>Case Studies</span>
+                    <Icon name="chevron-down" size={24} />
+                  </Link>
                   
                   {isCaseStudiesOpen && (
                     <div className={styles.dropdown}>
@@ -226,10 +236,17 @@ export default function Navigation() {
           </div>
 
           {/* Centered Logo */}
-          <div className={styles.logo} onClick={scrollToTop}>
-            <Link href="/" className={styles.logoLink}>
+          <div className={styles.logo}>
+            <Link 
+              href="#"
+              className={styles.logoLink}
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToTop();
+              }}
+            >
               <Image
-                src="/portfolio/logo-skewed.svg"
+                src="/images/logo-skewed.svg"
                 alt="Trice Design Logo"
                 fill
                 priority
@@ -237,9 +254,9 @@ export default function Navigation() {
             </Link>
           </div>
 
-          {/* Right Navigation Links */}
-          <div className={styles.rightLinks}>
-            {!isMobile && <SocialLinks />}
+          {/* Social Links */}
+          <div className={styles.socialLinksWrapper}>
+            <SocialLinks flexDirection={isMobile ? "column" : "row"} />
           </div>
         </div>
       </nav>
@@ -254,6 +271,22 @@ export default function Navigation() {
           ×
         </button>
         <Link 
+          href="/"
+          className={styles.navLink}
+          onClick={(e) => {
+            e.preventDefault();
+            if (pathname !== '/') {
+              router.push('/');
+              setTimeout(scrollToTop, 100);
+            } else {
+              scrollToTop();
+            }
+            toggleMobileMenu();
+          }}
+        >
+          Home
+        </Link>
+        <Link 
           href="/#about" 
           className={styles.navLink}
           onClick={(e) => handleNavigation(e, '#about')}
@@ -265,14 +298,19 @@ export default function Navigation() {
           onMouseEnter={() => setIsCaseStudiesOpen(true)}
           onMouseLeave={() => setIsCaseStudiesOpen(false)}
         >
-          <button 
+          <Link 
+            href="#"
             className={styles.navLink}
-            onClick={() => setIsCaseStudiesOpen(!isCaseStudiesOpen)}
+            onClick={(e) => {
+              e.preventDefault();
+              setIsCaseStudiesOpen(!isCaseStudiesOpen);
+            }}
             aria-expanded={isCaseStudiesOpen}
             aria-haspopup="true"
           >
-            Case Studies <Icon name="chevron-down" size={24} />
-          </button>
+            <span className={styles.caseStudiesText}>Case Studies</span>
+            <Icon name="chevron-down" size={24} />
+          </Link>
           
           {isCaseStudiesOpen && (
             <div className={styles.dropdown}>
@@ -301,7 +339,7 @@ export default function Navigation() {
         >
           Connect
         </Link>
-        <SocialLinks />
+        <SocialLinks flexDirection={isMobile ? "column" : "row"} />
       </div>
     </>
   );

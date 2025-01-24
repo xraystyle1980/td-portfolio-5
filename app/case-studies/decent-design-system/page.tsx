@@ -1,10 +1,13 @@
-// Decent Design System Case Study Page
 'use client';
 
+import dynamic from 'next/dynamic';
 import styles from '@/styles/casestudy-shared.module.css';
 import { projects } from '@/data/projects';
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import clsx from 'clsx';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import ParallaxHeroImage from '@/components/sections/case-studies/ParallaxHeroImage';
 import ImageGallery from '@/components/sections/case-studies/ImageGallery';
 import CaseStudyImage from '@/components/sections/case-studies/CaseStudyImage';
@@ -13,14 +16,53 @@ import { galleryImages } from './galleryData';
 import sharedStyles from '@/styles/shared.module.css';
 import ContactMe from '@/components/sections/ContactMe';
 
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+}
+
+// Define interface for Scene3D props
+interface Scene3DProps {
+  scroll: number;
+  currentSection: number;
+}
+
+// Dynamically import Three.js components with no SSR
+const Scene3D = dynamic<Scene3DProps>(() => import('@/app/Scene3D'), {
+  ssr: false,
+});
+
 export default function DecentDesignSystemCaseStudy() {
   const project = projects.find((p) => p.route === '/case-studies/decent-design-system');
   const heroContentRef = useRef<HTMLDivElement>(null);
+  const [scroll, setScroll] = useState<number>(0);
+  const [currentSection, setCurrentSection] = useState<number>(0);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const hash = window.location.hash;
+      if (hash) {
+        gsap.to(window, { duration: 1, scrollTo: hash, ease: 'power2.out' });
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScroll(window.scrollY);
+      const section = Math.floor(window.scrollY / window.innerHeight);
+      setCurrentSection(section);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   if (!project) return null;
 
   return (
     <main className={sharedStyles.main}>
+      {/* Scene3D Component */}
+      <Scene3D scroll={scroll} currentSection={currentSection} />
+      
       {/* Hero Section */}
       <section className={clsx(styles.hero, sharedStyles.gradientBottomTop)}>
         {project.imageUrl && (
@@ -28,7 +70,7 @@ export default function DecentDesignSystemCaseStudy() {
             <img src={project.imageUrl} alt={project.title} />
           </div>
         )}
-        <div className={clsx(styles.heroContent)}>
+        <div ref={heroContentRef} className={clsx(styles.heroContent)}>
           <h1 className={clsx(sharedStyles.displayText)}>{project.title}</h1>
         </div>
       </section>
@@ -82,7 +124,7 @@ export default function DecentDesignSystemCaseStudy() {
 
         {/* Overview */}
         <div className={sharedStyles.containerSmall}>
-          <h2 className={styles.subsectionSmallTitle}>Overview</h2>
+          <h2 className={clsx(styles.subsectionSmallTitle, styles.pullDown)}>Overview</h2>
           <h3 className={styles.subsectionTitle}>A Need for Consistency</h3>
           <p className={clsx(sharedStyles.textBase, sharedStyles.large)}>Scaling a product across a diverse ecosystem requires consistency, efficiency, and collaboration. The Decent Design System was built to address this challenge by creating a unified design language that streamlined workflows, improved team alignment, and delivered consistent user experiences.</p>
           <p className={clsx(sharedStyles.textBase, sharedStyles.large)}>As the Product Design Director, I spearheaded the development of the design system, working closely across the organization to ensure it met the needs of both developers and designers. Through this collaborative effort, the design system became a key enabler of scalability and innovation across the organization.</p>
@@ -101,7 +143,7 @@ export default function DecentDesignSystemCaseStudy() {
 
         {/* Impact */}
         <div className={sharedStyles.containerSmall}>
-          <h2 className={styles.subsectionSmallTitle}>Impact</h2>
+          <h2 className={clsx(styles.subsectionSmallTitle, styles.pullDown)}>Impact</h2>
           <h3 className={styles.subsectionTitle}>Design Impact</h3>
           <ul className={clsx(sharedStyles.subsectionList, sharedStyles.textBase)}>
             <li>Contributed to a Unified Design Language: Developed a comprehensive style guide covering colors, typography, and grid systems, ensuring visual consistency.</li>
@@ -128,15 +170,17 @@ export default function DecentDesignSystemCaseStudy() {
           </ul>
         </div>
 
-        <div className={sharedStyles.contentContainer}>
-          <h3 className={styles.subsectionTitle}>Design System Gallery</h3>
-          <p className={sharedStyles.textBase}>Key screens from the Decent Design System showcasing the unified design language.</p>
-          <ImageGallery images={galleryImages} />
+        <div className={sharedStyles.container}>
+          <div className={sharedStyles.contentContainer}>
+            <h3 className={styles.subsectionTitle}>Design System Gallery</h3>
+            <p className={sharedStyles.textBase}>Key screens from the Decent Design System showcasing the unified design language.</p>
+            <ImageGallery images={galleryImages} />
+          </div>
         </div>
 
         {/* Strategy & Execution */}
         <div className={sharedStyles.containerSmall}>
-          <h2 className={styles.subsectionSmallTitle}>Strategy & Execution</h2>
+          <h2 className={clsx(styles.subsectionSmallTitle, styles.pullDown)}>Strategy & Execution</h2>
           <h3 className={styles.subsectionTitle}>Collaborative Design & Development</h3>
           <p className={sharedStyles.textBase}>I interviewed my teammates across the org to uncover pain points during their product design, design handoff processes. Through testing and feedback sessions, we refined the system and our approach iteratively to craft a design system that fits the needs of the organization.</p>
 
@@ -158,7 +202,7 @@ export default function DecentDesignSystemCaseStudy() {
             width={2864}
             height={1826}
             caption="Redesigned top navigation components"
-            size="small"
+            size="medium"
           />
           <CaseStudyImage
             src="/images/decent-design-system/gallery/dds-menu-components.png"
@@ -166,13 +210,13 @@ export default function DecentDesignSystemCaseStudy() {
             width={2864}
             height={1826}
             caption="Menu components in the design system"
-            size="small"
+            size="medium"
           />
         </div>
 
         {/* Summary */}
         <div className={sharedStyles.containerSmall}>
-          <h2 className={styles.subsectionSmallTitle}>Summary</h2>
+          <h2 className={clsx(styles.subsectionSmallTitle, styles.pullDown)}>Summary</h2>
           <p className={clsx(sharedStyles.textBase, sharedStyles.large)}>The Decent Design System represents the intersection of creativity, collaboration, and strategy. By unifying visual language, empowering teams, and enabling scalable development, the system became more than a tool—it became a driver of growth and efficiency across the organization.</p>
         </div>
       </section>

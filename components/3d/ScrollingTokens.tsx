@@ -111,7 +111,7 @@ export default function ScrollingTokens() {
             start: "top 80%",
             end: "center 20%",
             scrub: true,
-            markers: true,
+            markers: false,
             onUpdate: (self) => {
               tl.progress(self.progress);
             }

@@ -9,7 +9,6 @@ import { useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import ContactMe from '@/components/sections/ContactMe';
-import clsx from 'clsx';
 
 gsap.registerPlugin(ScrollToPlugin);
 

@@ -213,6 +213,9 @@ a.link {
   display: grid;
   gap: 0;
   grid-template-rows: auto 1fr auto;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
 }
 
 .skew {
@@ -225,6 +228,7 @@ a.link {
   height: 800px;
   background: #161616;
   overflow: hidden;
+  z-index: 2;
 }
 
 .diagonalSplit::after {
@@ -391,12 +395,31 @@ a.link {
 /* 
 Responsive Styles 
 */
+/* Extra Large Screen Styles */
+@media (min-width: 1920px) {
+  .diagonalSplit,
+  .diagonalSplitReverse {
+    height: 1000px;
+  }
+}
+
+@media (max-width: 1919px) {
+  .diagonalSplit,
+  .diagonalSplitReverse {
+    height: 550px;
+  }
+}
+
 @media (max-width: 1400px) {
   .container {
     max-width: 1200px;
   }
   .containerSmall {
     max-width: 680px;
+  }
+  .diagonalSplit,
+  .diagonalSplitReverse {
+    height: 500px;
   }
 }
 
@@ -424,6 +447,10 @@ Responsive Styles
   }
   .textBase.larger {
     font-size: var(--font-size-lg);
+  }
+  .diagonalSplit,
+  .diagonalSplitReverse {
+    height: 350px;
   }
 }
 
@@ -456,10 +483,9 @@ Responsive Styles
   .textBase.larger {
     font-size: var(--font-size-body-xl-tablet);
   }
-
   .diagonalSplit,
   .diagonalSplitReverse {
-    height: 600px;
+    height: 350px;
   }
 }
 
@@ -515,6 +541,11 @@ Responsive Styles
 
   .textBase.larger {
     font-size: var(--font-size-lg);
+  }
+
+  .diagonalSplit,
+  .diagonalSplitReverse {
+    height: 350px;
   }
 
   /* Image Styles */
@@ -601,7 +632,7 @@ Responsive Styles
 
   .diagonalSplit,
   .diagonalSplitReverse {
-    height: 400px;
+    height: 250px;
   }
 
   .primaryButton {

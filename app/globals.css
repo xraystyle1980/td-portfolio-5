@@ -91,7 +91,7 @@ p {
 @media (max-width: 1400px) {
 }
 
-@media (max-width: 1280px) {
+@media (max-width: 1200px) {
   h1 {
     font-size: var(--font-size-7xl);
   }
