@@ -39,7 +39,7 @@ export default function ProjectSection({ project, className = '' }: ProjectSecti
       // Define the straight line path (reversed direction)
       const path = [
         { x: xDistance, y: -yDistance },  // Start point (top right)
-        { x: 0, y: 0 }                    // End point (bottom left)
+        { x: 100, y: 0 }                    // End point (slightly right of bottom left)
       ];
 
       // Set initial positions
@@ -60,10 +60,10 @@ export default function ProjectSection({ project, className = '' }: ProjectSecti
         gsap.to(image, {
           scrollTrigger: {
             trigger: containerRef.current,
-            start: `top+=${staggerOffset} bottom+=200`,
+            start: `top+=${staggerOffset} bottom+=350`,
             end: `center+=${staggerOffset} center`,
             toggleActions: "play none none reverse",
-            scrub: 0.8
+            scrub: 1.5
           },
           motionPath: {
             path: path,
