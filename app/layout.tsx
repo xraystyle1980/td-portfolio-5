@@ -4,13 +4,30 @@ import { AppProvider } from '@/contexts/AppContext';
 import ClientLayout from './ClientLayout';
 import Footer from '@/components/ui-components/Footer';
 import Scene3DWrapper from './Scene3DWrapper';
-import { metadata } from './metadata';
+import { Metadata, Viewport } from 'next'
 import Navigation from '@/components/ui-components/Navigation';
 import SmoothScroll from '@/components/ui-components/Scroll/SmoothScroll';
 import LoadingWrapper from '@/components/ui-components/LoadingWrapper';
 import Script from 'next/script';
 
-export { metadata };
+export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'),
+  title: {
+    template: '%s | Your Site Name',
+    default: 'Your Site Name',
+  },
+  description: 'Your site description',
+}
+
+export const viewport: Viewport = {
+  colorScheme: 'dark',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#000000' },
+  ],
+  width: 'device-width',
+  initialScale: 1
+}
 
 export default function RootLayout({
   children,
