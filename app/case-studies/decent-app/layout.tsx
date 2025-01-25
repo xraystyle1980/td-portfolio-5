@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     description: 'Your case study description',
     images: ['/path-to-your-image.jpg'],
   },
-  metadataBase: new URL('http://localhost:3000'),
+  metadataBase: new URL('https://trice.design')
 }
 
 export default function Layout({

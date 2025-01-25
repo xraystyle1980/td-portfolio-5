@@ -11,7 +11,7 @@ import LoadingWrapper from '@/components/ui-components/LoadingWrapper';
 import Script from 'next/script';
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'),
+  metadataBase: new URL('https://trice.design'),
   title: {
     template: '%s | Your Site Name',
     default: 'Your Site Name',

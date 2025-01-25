@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     description: 'Documentation and marketing website for Blockset, a blockchain data integration platform',
     images: ['/images/blockset-docs/gallery/bset-docs-home.png'],
   },
-  metadataBase: new URL('http://localhost:3000'),
+  metadataBase: new URL('https://trice.design')
 }
 
 export default function Layout({

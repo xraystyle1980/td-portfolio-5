@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     description: 'A unified design system for streamlining workflows and delivering consistent user experiences',
     images: ['/images/decent-design-system/gallery/dds-spacing.png'],
   },
-  metadataBase: new URL(''),
+  metadataBase: new URL('https://trice.design')
 }
 
 export default function Layout({
