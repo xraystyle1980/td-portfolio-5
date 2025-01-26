@@ -30,6 +30,24 @@
   height: 37px;
 }
 
+.desktopLogo {
+  display: block;
+}
+
+.mobileLogo {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .desktopLogo {
+    display: none;
+  }
+  
+  .mobileLogo {
+    display: block;
+  }
+}
+
 .logo img {
   width: 100%;
   height: auto;
@@ -47,7 +65,7 @@
   transform: translateX(-50%);
   display: block;
   width: 270px;
-  height: 144px;
+  height: auto;
   transition: all 0.3s ease;
 }
 
@@ -80,6 +98,16 @@
   width: 100%;
   justify-content: inherit;
   align-items: inherit;
+  color: var(--color-white);
+}
+
+.socialLinks a {
+  color: inherit;
+}
+
+.socialLinks svg path,
+.socialLinks svg .cls-1 {
+  fill: currentColor;
 }
 
 /* Navigation Links Base Styles */
@@ -122,7 +150,9 @@
 }
 
 .socialLinksWrapper svg path,
-.socialLinksWrapper svg .cls-1 {
+.socialLinksWrapper svg .cls-1,
+.navLink svg path,
+.navLink svg .cls-1 {
   fill: currentColor;
   transition: fill 0.2s ease;
 }
@@ -380,14 +410,16 @@
   .logoLink {
     top: -15px;
     left: -35px;
+    width: 163px;
+    height: 95px;
     transform: translateX(0%);
   }
 
   .scrolled .logoLink {
     top: 0;
     left: 0;
-    width: 200px;
-    height: 100px;
+    width: 163px;
+    height: 95px;
     transform: translateX(0%);
   }
 
@@ -415,15 +447,15 @@
 
 @media (max-width: 480px) {
   .logoLink {
-    width: 160px;
-    height: 80px;
+    width: 163px;
+    height: 95px;
     top: -10px;
   }
 
   .scrolled .logoLink {
     top: 5px;
-    width: 140px;
-    height: 70px;
+    width: 163px;
+    height: 95px;
   }
 
   .socialLinksWrapper a span {

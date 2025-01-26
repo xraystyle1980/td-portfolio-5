@@ -1,15 +1,13 @@
 // Blockset BRD Docs Case Study Page
 'use client';
 
-import dynamic from 'next/dynamic';
 import styles from '@/styles/casestudy-shared.module.css';
 import { projects } from '@/data/projects';
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import clsx from 'clsx';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
-import ParallaxHeroImage from '@/components/sections/case-studies/ParallaxHeroImage';
 import ImageGallery from '@/components/sections/case-studies/ImageGallery';
 import CaseStudyImage from '@/components/sections/case-studies/CaseStudyImage';
 import { Icon } from '@/components/icons/Icon';
@@ -21,22 +19,9 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 }
 
-// Define interface for Scene3D props
-interface Scene3DProps {
-  scroll: number;
-  currentSection: number;
-}
-
-// Dynamically import Three.js components with no SSR
-const Scene3D = dynamic<Scene3DProps>(() => import('@/app/Scene3D'), {
-  ssr: false,
-});
-
 export default function BlocksetBRDDocsCaseStudy() {
   const project = projects.find((p) => p.route === '/case-studies/blockset-brd-docs');
   const heroContentRef = useRef<HTMLDivElement>(null);
-  const [scroll, setScroll] = useState<number>(0);
-  const [currentSection, setCurrentSection] = useState<number>(0);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -47,23 +32,10 @@ export default function BlocksetBRDDocsCaseStudy() {
     }
   }, []);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScroll(window.scrollY);
-      const section = Math.floor(window.scrollY / window.innerHeight);
-      setCurrentSection(section);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   if (!project) return null;
 
   return (
     <main className={sharedStyles.main}>
-      {/* Scene3D Component */}
-      <Scene3D scroll={scroll} currentSection={currentSection} />
-      
       {/* Hero Section */}
       <section className={clsx(styles.hero, sharedStyles.gradientBottomTop)}>
         {project.imageUrl && (

@@ -1,6 +1,6 @@
 /* Contact Me */
 .half {
-  width: 50%;
+  width: 60%;
 }
 
 .tokenBackground {
@@ -11,6 +11,21 @@
   height: 100%;
   z-index: 0;
   overflow: hidden;
+  pointer-events: none;
+}
+
+.tokenBackground_5TPqe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.tokenBackground_5TPqe canvas {
+  pointer-events: none !important;
 }
 
 @media (max-width: 768px) {

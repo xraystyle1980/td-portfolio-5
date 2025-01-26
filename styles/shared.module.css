@@ -27,7 +27,7 @@
 }
 
 .lightSection {
-  background: #D9D9D9;
+  background: var(--color-background-light);
   position: relative;
   z-index: 1;
 }
@@ -118,6 +118,7 @@ a.link {
 .contentAboutBio {
   width: 60%;
   text-align: center;
+  margin-bottom: var(--spacing-md);
 }
 
 
@@ -238,7 +239,7 @@ a.link {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: #d9d9d9;
+  background: var(--color-background-light);
   transform-origin: center;
   transform: rotate(-15deg);
 }
@@ -258,7 +259,7 @@ a.link {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: #d9d9d9;
+  background: var(--color-background-light);
   transform-origin: center;
   transform: rotate(-15deg);
 }
@@ -268,88 +269,61 @@ a.link {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-sm);
-  border: var(--border-width) solid var(--color-border);
-  border-radius: var(--border-radius);
+  gap: var(--spacing-xs);
   font-family: var(--font-space);
-  cursor: pointer;
-  transition: all 0.165s ease;
-  text-decoration: none;
-  font-size: var(--font-size-md);
   font-weight: 600;
+  border-radius: var(--border-radius);
+  white-space: nowrap;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.165s ease;
 }
 
 .buttonIcon {
   width: 3rem;
   height: 3rem;
-  margin: 0 var(--spacing-xs);
+  transition: all 0.165s ease;
+}
+
+.primaryButton:hover span .buttonIcon {
+  transform: scale(1.15);
 }
 
 .primaryButton {
-  text-decoration: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: var(--spacing-xs);
-  font-family: var(--font-space);
-  font-weight: 600;
   background: var(--color-primary);
   color: var(--color-text);
   padding: var(--spacing-xs) var(--spacing-sm);
   font-size: var(--font-size-lg);
-  box-shadow: var(--shadow-md);
-  margin-top: var(--spacing-md);
-  border-radius: var(--border-radius);
-  border: var(--border-width-sm) solid var(--color-border);
-  white-space: nowrap;
-  transition: all 0.2s ease;
+  box-shadow: var(--shadow-lg);  
+  border: var(--border-width-md) solid var(--color-border);
+  box-sizing: border-box;
+  transform: translate(0, 0);
+  will-change: transform;
 }
 
 .primaryButton:hover {
-  transform: translate(-4px, -4px);
-  box-shadow: var(--shadow-lg);
-  background: var(--color-text);
-  color: var(--color-primary);
+  transform: translate(-6px, -6px);
+  box-shadow: var(--shadow-md);
+  background: var(--color-primary--1);
+  color: var(--color-text);
+  border: var(--border-width-md) solid var(--color-border);
+  box-sizing: border-box;
 }
 
-.primaryButton span {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-xs);
-}
-
-.primaryButton:hover .buttonIcon {
-  transform: translateY(2px);
-}
 
 .primaryButton:active {
-  transform: translate(-12px, 12px);
-  box-shadow: none;
-  background-color: rgb(255, 67, 161);
-}
-
-.half {
-  width: 50%;
+ 
 }
 
 .secondaryButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  font-family: var(--font-space);
-  font-size: var(--font-size-md);
-  color: #FFF;
+  color: var(--color-white);
   background: rgba(255, 255, 255, 0.04);
   font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s ease;
   padding: var(--spacing-xxs) var(--spacing-xs);
-  border-radius: var(--border-radius);
-  border: 2px solid #FFF;
+  font-size: var(--font-size-md);
+  border: var(--border-width) solid var(--color-white);
   box-shadow: var(--shadow-md);
   height: 3rem;
-  white-space: nowrap;
 }
 
 .secondaryButton:hover {
@@ -363,24 +337,41 @@ a.link {
 }
 
 .textLink {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: var(--font-space);
-  font-size: var(--font-size-md);
-  color: #FFF;
+  color: var(--color-white);
   font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  font-size: var(--font-size-md);
   background: transparent;
-  text-decoration: none;
   border: none;
+  padding: 0;
 }
 
 .textLink:hover {
   font-weight: 900;
 }
 
+/* Button Modifiers */
+.half {
+  width: 50%;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+  .buttonIcon {
+    width: 1.85rem;
+    height: 1.85rem;
+  }
+  
+  .primaryButton {
+    font-size: var(--font-size-md);
+    padding: var(--spacing-xxs) var(--spacing-xs);
+  }
+}
+
+@media (max-width: 480px) {
+  .primaryButton {
+    font-size: var(--font-size-sm);
+  }
+}
 
 /* Section Backgrounds */
 .gradientBg {
@@ -443,10 +434,10 @@ Responsive Styles
     font-size: var(--font-size-sm);
   }
   .textBase.large {
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-lg);
   }
   .textBase.larger {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-xl);
   }
   .diagonalSplit,
   .diagonalSplitReverse {
@@ -471,18 +462,6 @@ Responsive Styles
     grid-template-columns: 1fr;
     gap: var(--spacing-md);
   }
-  /* Text Styles */
-  .textBase {
-    font-size: var(--font-size-body-tablet);
-  }
-
-  .textBase.large {
-    font-size: var(--font-size-body-lg-tablet);
-  }
-
-  .textBase.larger {
-    font-size: var(--font-size-body-xl-tablet);
-  }
   .diagonalSplit,
   .diagonalSplitReverse {
     height: 350px;
@@ -495,85 +474,67 @@ Responsive Styles
   .sectionHeading {
     font-size: var(--font-size-5xl);
   }
-
   .sectionTitle {
-    margin: var(--spacing-sm) 0 var(--spacing-xs);
+    margin: var(--spacing-xxs) 0;
     font-size: var(--font-size-4xl);
   }
-
   .paddingTopBottom {
     padding: var(--spacing-md) 0 var(--spacing-md);
   }
-
   .paddingBottom {
     padding-bottom: var(--spacing-xs);
   } 
-
   .darkContainer {
     padding: var(--spacing-sm);
   }
-
   .contentContainer {
     padding: 0;
   }
-
   .container {
     padding: 0 var(--spacing-md-laptop);
   }
-
   .containerSmall {
     padding: 0 var(--spacing-md-mobile);
     margin-bottom: var(--spacing-md);
   }
-
   .darkContainer {
     padding: var(--spacing-md-tablet);
   }
-
   /* Text Styles */
   .textBase {
     font-size: var(--font-size-sm);
   }
-
   .textBase.large {
     font-size: var(--font-size-md);
   }
-
   .textBase.larger {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-md);
   }
-
   .diagonalSplit,
   .diagonalSplitReverse {
     height: 350px;
   }
-
   /* Image Styles */
   .imageBase {
     border-width: var(--border-width-mobile);
     border-radius: var(--border-radius-mobile);
     box-shadow: var(--shadow-md-mobile);
   }
-
   .primaryButton {
     font-size: var(--font-size-md);
     padding: var(--spacing-xxs);
     margin: var(--spacing-xs) 0;
   }
-
   .buttonIcon {
     width: 1.85rem;
     height: 1.85rem;
   }
-
   .contentAboutBio {
-    width: 80%;
+    width: 100%;
   }
-
   .subsectionTitle {
     font-size: var(--font-size-lg);
   }
-
   .gridColumns2 {
     grid-template-columns: 1fr;
     gap: var(--spacing-md);

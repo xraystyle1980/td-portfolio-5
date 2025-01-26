@@ -109,7 +109,7 @@ export default function Work() {
           </div>
         </div>
       </div>
-      <div className={sharedStyles.lightSection}>
+      <div className={sharedStyles.lightSection} style={{ zIndex: 2 }}>
         <section id="case-studies" className={clsx(sharedStyles.paddingBottom, sharedStyles.container, sharedStyles.lightSection)}>
           <div className={`${styles.projects} projects`}>
             {projects.map((project) => (

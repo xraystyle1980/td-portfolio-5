@@ -15,7 +15,8 @@ if (typeof window !== 'undefined') {
 
 export default function ProjectSection({ project, className = '' }: ProjectSectionProps) {
   const buttonClasses = clsx(
-    sharedStyles.primaryButton
+    sharedStyles.primaryButton,
+    sharedStyles.buttonBase
   );
   const imageClasses = clsx(styles.image, sharedStyles.responsiveImage);
   const containerRef = useRef<HTMLDivElement>(null);

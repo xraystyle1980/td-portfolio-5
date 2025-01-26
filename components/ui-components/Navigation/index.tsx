@@ -12,6 +12,39 @@ import Image from 'next/image';
 import clsx from 'clsx';
 gsap.registerPlugin(ScrollToPlugin);
 
+interface LogoProps {
+  onClick: (e: React.MouseEvent) => void;
+}
+
+const Logo = ({ onClick }: LogoProps) => {
+  return (
+    <div className={styles.logo}>
+      <Link 
+        href="#"
+        className={styles.logoLink}
+        onClick={onClick}
+      >
+        <Image
+          src="/images/logo-skewed.svg"
+          alt="Trice Design Logo"
+          width={270}
+          height={80}
+          className={styles.desktopLogo}
+          priority
+        />
+        <Image
+          src="/images/logo-skewed-mobile.svg"
+          alt="Trice Design Logo"
+          width={270}
+          height={80}
+          className={styles.mobileLogo}
+          priority
+        />
+      </Link>
+    </div>
+  );
+};
+
 export default function Navigation() {
   const router = useRouter();
   const pathname = usePathname();
@@ -174,7 +207,15 @@ export default function Navigation() {
                 <Link 
                   href="/"
                   className={styles.navLink}
-                  onClick={scrollToTop}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (pathname !== '/') {
+                      router.push('/');
+                      setTimeout(scrollToTop, 100);
+                    } else {
+                      scrollToTop();
+                    }
+                  }}
                 >
                   Home
                 </Link>
@@ -236,23 +277,10 @@ export default function Navigation() {
           </div>
 
           {/* Centered Logo */}
-          <div className={styles.logo}>
-            <Link 
-              href="#"
-              className={styles.logoLink}
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToTop();
-              }}
-            >
-              <Image
-                src="/images/logo-skewed.svg"
-                alt="Trice Design Logo"
-                fill
-                priority
-              />
-            </Link>
-          </div>
+          <Logo onClick={(e) => {
+            e.preventDefault();
+            scrollToTop();
+          }} />
 
           {/* Social Links */}
           <div className={styles.socialLinksWrapper}>

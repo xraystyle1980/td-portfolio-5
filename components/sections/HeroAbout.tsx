@@ -125,8 +125,6 @@ export default function HeroAbout() {
   };
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-
     const ctx = gsap.context(() => {
       // Get the headline text
       const headline = heroTextRef.current?.querySelector('h1');
@@ -227,52 +225,6 @@ export default function HeroAbout() {
           }
         }
       });
-
-      // About Section Animation
-      const aboutHeadline = aboutTextRef.current?.querySelector('h1');
-      const aboutParagraph = aboutTextRef.current?.querySelector('p');
-
-      if (aboutHeadline && aboutParagraph) {
-        // Set initial states
-        gsap.set([aboutHeadline, aboutParagraph], {
-          opacity: 1,
-          y: 50
-        });
-
-        ScrollTrigger.create({
-          trigger: aboutTextRef.current,
-          start: "top center+=330",
-          onEnter: () => {
-            // Create timeline for about section animations
-            const aboutTl = gsap.timeline();
-            
-            // Animate headline first
-            aboutTl.to(aboutHeadline, {
-              opacity: 1,
-              y: 0,
-              duration: 0.8,
-              ease: "back.out(1.7)"
-            })
-            // Then animate paragraph
-            .to(aboutParagraph, {
-              opacity: 1,
-              y: 0,
-              duration: 0.8,
-              ease: "back.out(1.4)"
-            }, "-=0.4");
-          },
-          onLeaveBack: () => {
-            // Reverse animation when scrolling back up
-            gsap.to([aboutHeadline, aboutParagraph], {
-              opacity: 1,
-              y: 50,
-              duration: 0.5,
-              ease: "power2.in",
-              stagger: 0.1
-            });
-          }
-        });
-      }
     });
 
     return () => ctx.revert();
@@ -311,11 +263,11 @@ export default function HeroAbout() {
             Hello 
           </h1>
           <p className={clsx(sharedStyles.textBase, sharedStyles.larger, sharedStyles.white, sharedStyles.contentAboutBio)}>
-            I'm Matt Trice, an ATL-based Product Designer with a track record of design leadership, embracing complex problems, and crafting elegant solutions that deliver meaningful business impact.
+            I'm Matt Trice, an ATL-based Design Leader, Product Designer, and Design Engineer. I have a track record of helping startups launch, leading design teams, and getting a product from zero to one.
           </p>
           <a 
             href="#connect" 
-            className={clsx(sharedStyles.primaryButton, styles.half)}
+            className={clsx(sharedStyles.primaryButton, sharedStyles.buttonBase, styles.half)}
             onClick={(e) => {
               e.preventDefault();
               gsap.to(window, { 

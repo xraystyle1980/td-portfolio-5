@@ -15,6 +15,7 @@ body {
   background-color: var(--color-background);
   color: var(--color-text);
   font-family: var(--font-space);
+  overscroll-behavior: none;
 }
 
 /* Make images easier to work with */
@@ -57,15 +58,11 @@ a:not([class]) {
 }
 
 html {
-  scroll-behavior: smooth;
-  /* scroll-timeline-name: --page-scroll;
-  scroll-timeline-axis: block; */
+  overscroll-behavior: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   html {
-    scroll-behavior: smooth;
-    /* Add a longer duration and custom timing function */
     /* scroll-behavior-duration: 1200ms;
     scroll-behavior-timing-function: cubic-bezier(0.45, 0.05, 0.35, 1); */
   }
@@ -182,10 +179,15 @@ p {
 
   /* Colors */
   --color-background: #1d2329;
+  --color-background-light: #D9D9D9;
   --color-dark: #1d2329;
   --color-white: #e9e9e9;
   --color-text: #161616;
+
+  --color-primary--1: #FF1A8C;
   --color-primary: #F39;
+  --color-primary-1: #FF4DA6;
+
   --color-accent-dark: #768DA4;
   --color-accent-light: #96A1AB;
   --color-border: #000;
@@ -251,7 +253,8 @@ p {
   /* Effects */
   --shadow-lg: -12px -12px 0 var(--color-border);
   --shadow-md: -8px -8px 0 var(--color-border);
-  --shadow-sm: -3px -3px 0 var(--color-border);
+  --shadow-sm: -2px -2px 0 var(--color-border);
+  --shadow-none: 0 0 0 var(--color-border);
 }
 
 /* Headings */
