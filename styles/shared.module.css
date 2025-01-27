@@ -116,8 +116,7 @@ a.link {
 }
 
 .contentAboutBio {
-  width: 60%;
-  text-align: center;
+  width: 80%;
   margin-bottom: var(--spacing-md);
 }
 
@@ -353,6 +352,9 @@ a.link {
 .half {
   width: 50%;
 }
+.quarter {
+  width: 25%;
+}
 
 /* Mobile Adjustments */
 @media (max-width: 768px) {
@@ -466,6 +468,9 @@ Responsive Styles
   .diagonalSplitReverse {
     height: 350px;
   }
+  .quarter {
+    width: 50%;
+  }
 }
 
 
@@ -538,6 +543,12 @@ Responsive Styles
   .gridColumns2 {
     grid-template-columns: 1fr;
     gap: var(--spacing-md);
+  }
+  .quarter {
+    width: 75%;
+  }
+  .half {
+    width: 75%;
   }
 }
 

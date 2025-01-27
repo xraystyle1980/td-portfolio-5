@@ -217,7 +217,7 @@
 .dropdownItem {
   display: flex;
   width: 100%;
-  padding: var(--spacing-xxs) var(--spacing-xs);
+  padding: var(--spacing-xs);
   text-align: left;
   background: none;
   border: none;
@@ -359,7 +359,7 @@
 
 .mobileMenu .dropdownItem {
   font-size: var(--font-size-md);
-  padding: var(--spacing-sm);
+  padding: var(--spacing-xs);
 }
 
 .mobileMenu .closeButton {
@@ -388,13 +388,28 @@
   .navLink,
   .socialLinksWrapper a {
     font-size: var(--font-size-sm);
-    padding: var(--spacing-sm);
+    padding: var(--spacing-xxs);
   }
 
   .siteLinksWrapper,
   .socialLinksWrapper {
-    gap: var(--spacing-xs);
+    gap: var(--spacing-xxs);
   }
+
+  /* font-family: var(--font-space);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-white);
+  text-decoration: none;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: var(--spacing-xxs) var(--spacing-xs);
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs); */
 
   .logoLink {
     width: 240px;

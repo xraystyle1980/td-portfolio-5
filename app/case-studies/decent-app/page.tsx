@@ -37,7 +37,7 @@ export default function DecentAppCaseStudy() {
   return (
     <main className={sharedStyles.main}>
       {/* Hero Section */}
-      <section className={clsx(styles.hero, sharedStyles.gradientBottomTop)}>
+      <section className={clsx(styles.hero)}>
         {project.imageUrl && (
           <div className={styles.heroImage}>
             <img src={project.imageUrl} alt={project.title} />
@@ -97,33 +97,31 @@ export default function DecentAppCaseStudy() {
           </div>
         </div>
 
-        <div>
-          <CaseStudyImage
-            src="/images/decent-app/gallery/decent-app-after.png"
-            alt="The Redesigned Decent App"
-            width={2880}
-            height={1800}
-            caption="The Redesigned Decent App"
-            size="large"
-            priority={true}
-          />
-        </div>
+        
 
         {/* The Challenge */}
         <div className={sharedStyles.containerSmall}>
           <h2 className={clsx(styles.subsectionSmallTitle, styles.pullDown)}>The Challenge</h2>
           <h3 className={styles.subsectionTitle}>A Need for Evolution</h3>
-          <p className={clsx(sharedStyles.textBase, sharedStyles.large)}>Fractal, the original product, was falling short of user expectations. The decentralized governance space had evolved, and Fractal's rigid smart contract structures limited adoption. User feedback revealed frustration with its complexity, lack of flexibility, and an outdated brand identity.</p>
-          <p className={clsx(sharedStyles.textBase, sharedStyles.large)}>I led the product design aspect of the transition to Decent alongside product and engineering—rethinking the product to better serve DAOs with adaptable governance models and an intuitive experience.</p>
+          <p className={clsx(sharedStyles.textBase, sharedStyles.large)}>Fractal, the original product, was falling short of user expectations. The decentralized governance space had evolved, and Fractal's rigid smart contract structures limited adoption. Users found it complex, inflexible, and outdated.</p>
+          <p className={clsx(sharedStyles.textBase, sharedStyles.large)}>I led the product design aspect of the transition to Decent, working closely with product and engineering. My role was pivotal in shaping an intuitive, adaptable experience  while ensuring that the experience met both user and business needs. My team leaned on me to bring structure to an ambiguous problem space, translating research into action and ensuring that our design decisions balanced usability with technical feasibility.</p>
         </div>
 
-        <div>
+        <div className={styles.imageWrapperPadding}>
           <CaseStudyImage
             src="/images/decent-app/gallery/fractal-before.png"
             alt="The original Fractal interface"
-            width={2880}
-            height={1800}
+            width={2020}
+            height={1100}
             caption="The original Fractal interface"
+            size="large"
+          />
+          <CaseStudyImage
+            src="/images/decent-app/gallery/decent-app-after.png"
+            alt="The Redesigned Decent App"
+            width={2020}
+            height={1100}
+            caption="The Redesigned Decent App"
             size="large"
           />
         </div>
@@ -133,20 +131,96 @@ export default function DecentAppCaseStudy() {
           <div className={sharedStyles.contentContainer}>
             <h2 className={clsx(styles.subsectionSmallTitle, styles.pullDown)}>Approach & Key Contributions</h2>
             <h3 className={styles.subsectionTitle}>Strategic Repositioning & Product Redesign</h3>
-            <ul className={clsx(sharedStyles.subsectionList, sharedStyles.textBase)}>
-              <li>I conducted user research & market analysis to identify gaps in Fractal's offering.</li>
-              <li>I facilitated cross-functional workshops to align stakeholders on the Decent vision.</li>
-              <li>I defined core UX principles for Decent, emphasizing scalability, usability, and modularity.</li>
-            </ul>
+            
+            <h6 className={styles.subsectionListTitle}>Bridging user insights with business needs</h6>
+            <p className={sharedStyles.textBase}>I conducted extensive user research & market analysis, identifying gaps in Fractal's offering that hindered adoption.</p>
+            <h6 className={styles.subsectionListTitle}>Aligning stakeholders</h6>
+            <p className={sharedStyles.textBase}>I facilitated cross-functional workshops, ensuring alignment across product, engineering, and leadership.</p>
+            <h6 className={styles.subsectionListTitle}>Creating a design foundation</h6>
+            <p className={sharedStyles.textBase}>I defined core UX principles, focusing on scalability, usability, and modularity to ensure the product could evolve efficiently.</p>
 
-            <h3 className={styles.subsectionTitle}>Collaborative & Iterative Design Process</h3>
-            <ul className={clsx(sharedStyles.subsectionList, sharedStyles.textBase)}>
-              <li>I worked closely with engineers in a pair-programming-inspired design process, refining usability at every stage.</li>
-              <li>I conducted weekly user feedback sessions to validate design decisions and uncover friction points.</li>
-              <li>I led multiple rounds of prototyping & usability testing, ensuring an intuitive DAO creation process.</li>
-            </ul>
+            <h4 className={styles.subsectionSubTitle}>Biggest challenge?</h4>
+            <p className={sharedStyles.textBase}>Rethinking traditional UX within the constraints of blockchain. I had to bridge the gap between user expectations and technical limitations, advocating for usability improvements while ensuring feasibility for engineers. This required a mix of strategic negotiation, creative problem-solving, and a deep understanding of decentralized systems.</p>
           </div>
         </div>
+
+        <div className={sharedStyles.container}>
+          <div className={sharedStyles.gridColumns3}>
+            <CaseStudyImage
+              src="/images/decent-app/gallery/mobile-variants.png"
+              alt=""
+              width={1283}
+              height={852}
+              caption=""
+              size="large"
+            />
+            <CaseStudyImage
+              src="/images/decent-app/gallery/mobile-variants.png"
+              alt=""
+              width={1283}
+              height={852}
+              caption=""
+              size="large"
+            />
+            <CaseStudyImage
+              src="/images/decent-app/gallery/mobile-variants.png"
+              alt=""
+              width={1283}
+              height={852}
+              caption=""
+              size="large"
+            />
+            <CaseStudyImage
+              src="/images/decent-app/gallery/mobile-variants.png"
+              alt=""
+              width={1283}
+              height={852}
+              caption=""
+              size="large"
+            />
+            <CaseStudyImage
+              src="/images/decent-app/gallery/mobile-variants.png"
+              alt=""
+              width={1283}
+              height={852}
+              caption=""
+              size="large"
+            />
+            <CaseStudyImage
+              src="/images/decent-app/gallery/mobile-variants.png"
+              alt=""
+              width={1283}
+              height={852}
+              caption=""
+              size="large"
+            />
+          </div>
+        </div>
+        {/* Collaborative & Iterative Design Process */}
+        <div className={sharedStyles.containerSmall}>
+          <div className={sharedStyles.contentContainer}>
+            <h3 className={styles.subsectionTitle}>Collaborative & Iterative Design Process</h3>
+
+            <h4 className={styles.subsectionListTitle}>Refining UX through engineering collaboration</h4>
+            <p className={sharedStyles.textBase}>I worked closely with engineers in a pair-programming-inspired design process, ensuring usability was considered at every stage.</p>
+            <h4 className={styles.subsectionListTitle}>Validating through rapid feedback loops</h4>
+            <p className={sharedStyles.textBase}>I conducted weekly user feedback sessions, testing prototypes to uncover pain points and refine key flows.</p>
+            <h4 className={styles.subsectionListTitle}>Ensuring accessibility & intuitive interactions</h4>
+            <p className={sharedStyles.textBase}>I led multiple rounds of prototyping & usability testing, iterating designs based on real-world friction.</p>
+
+            <h5 className={styles.subsectionSubTitle}>What was the hardest part?</h5>
+            <p className={sharedStyles.textBase}>Designing for decentralized governance was complex and unpredictable—each DAO had unique needs. Balancing customization with simplicity took multiple iterations and deep collaboration with engineers.</p>
+          </div>
+        </div>
+
+        {/* What did my team lean on me for?
+            • Translating user research into clear, actionable design decisions
+            • Problem-solving UX complexities within governance models
+            • Ensuring designs were scalable and technically feasible */}
+
+        {/* <ul className={clsx(sharedStyles.subsectionList, sharedStyles.textBase)}>
+          <li></li>
+        </ul> */}
 
         <div className={sharedStyles.gridColumns2}>
           <CaseStudyImage
@@ -167,25 +241,41 @@ export default function DecentAppCaseStudy() {
           />
         </div>
 
+        {/* Scalable UI System & Brand Evolution */}
         <div className={sharedStyles.containerSmall}>
-          <h3 className={styles.subsectionTitle}>Scalable UI System & Brand Evolution</h3>
-          <ul className={clsx(sharedStyles.subsectionList, sharedStyles.textBase)}>
-            <li>I designed a scalable UI component library using Chakra UI, enabling rapid development and a cohesive experience.
-            </li>
-            <li>I was instrumental in implementing the visual rebrand—modernizing the UI, color schemes, and interaction patterns based on the branding team's direction to align with Decent's positioning.</li>
-            <li>I developed design guidelines & documentation to maintain consistency across the product.
-            </li>
-          </ul>
+          <div className={sharedStyles.contentContainer}>
+            <h3 className={styles.subsectionTitle}>Scalable Design System & Brand Evolution</h3>
 
-          <h3 className={styles.subsectionTitle}>Quality Assurance & Continuous Improvement</h3>
-          <ul className={clsx(sharedStyles.subsectionList, sharedStyles.textBase)}>
-            <li>I integrated design QA workflows into the engineering pipeline, proactively catching inconsistencies before launch.</li>
-            <li>I provided detailed GitHub design feedback, ensuring pixel-perfect execution and seamless UX.</li>
-            <li>I iterated post-launch based on real user analytics, refining UI components for better engagement.</li>
-          </ul>
+            <h4 className={styles.subsectionListTitle}>Building a scalable foundation</h4>
+            <p className={sharedStyles.textBase}>I designed a UI component library using Chakra UI, ensuring rapid development and consistency.</p>
+            <h4 className={styles.subsectionListTitle}>Collaborating with brand designers</h4>
+            <p className={sharedStyles.textBase}>I worked closely with Decent's brand and visual designers, who developed the new brand identity. I translated their vision into a functional and cohesive UI, ensuring that the design system reflected their branding principles.</p>
+            <h4 className={styles.subsectionListTitle}>Maintaining design consistency</h4>
+            <p className={sharedStyles.textBase}>I developed comprehensive design guidelines & documentation, ensuring alignment across teams and seamless implementation of the new branding.</p>
+
+            <h5 className={styles.subsectionSubTitle}>What mistakes cost time & energy?</h5>
+            <p className={sharedStyles.textBase}>Early on, we underestimated the complexity of integrating business features into a blockchain based governance app. I had to rework key components after realizing that certain design decisions wouldn't scale effectively.</p>
+          </div>
         </div>
 
-        <div>
+        {/* Quality Assurance & Continuous Improvement */}
+        <div className={sharedStyles.containerSmall}>
+          <div className={sharedStyles.contentContainer}>
+            <h3 className={styles.subsectionTitle}>Quality Assurance & Continuous Improvement</h3>
+
+            <h4 className={styles.subsectionListTitle}>Design QA as a proactive process</h4>
+            <p className={sharedStyles.textBase}>I integrated QA workflows into the engineering pipeline, catching inconsistencies before launch.</p>
+            <h4 className={styles.subsectionListTitle}>Pixel-perfect execution</h4>
+            <p className={sharedStyles.textBase}>I provided detailed GitHub design feedback, ensuring designs translated accurately into code.</p>
+            <h4 className={styles.subsectionListTitle}>Post-launch iteration</h4>
+            <p className={sharedStyles.textBase}>I analyzed user behavior and usability tests, making iterative improvements to enhance the experience.</p>
+
+            <h5 className={styles.subsectionSubTitle}>Was this a successful project?</h5>
+            <p className={sharedStyles.textBase}>Yes—while the transition was challenging, Decent successfully launched with a **scalable and user-friendly design**. My work made governance easier to adopt, more intuitive, and visually aligned with the brand.</p>
+          </div>
+        </div>
+
+        <div className={styles.imageWrapperPadding}>
           <CaseStudyImage
             src="/images/decent-app/gallery/decent-app-after.png"
             alt="The Redesigned Decent App"
@@ -195,36 +285,40 @@ export default function DecentAppCaseStudy() {
             size="large"
           />
         </div>
-              
-        {/* <div>
-          <p className={sharedStyles.textBase}>Key screens from the Decent app showcasing the redesigned interface and improved user experience.</p>
-          <ImageGallery images={galleryImages} />
-        </div> */}
-      
-        {/* Outcome & Impact */}
-        <div className={sharedStyles.containerSmall}>
-          <h2 className={clsx(styles.subsectionSmallTitle, styles.pullDown)}>Outcome & Impact</h2>
-          <h3 className={styles.subsectionTitle}>Improved Product Trajectory</h3>
-          <ul className={clsx(sharedStyles.subsectionList, sharedStyles.textBase)}>
-            <li>Improved adoption: Decent saw a significant increase in active DAOs within the first few months post-launch.</li>
-            <li>Streamlined governance: Streamlined smart contract deployment, making decentralized governance more accessible.</li>
-            <li>Enhanced user experience: Usability tests indicated a significant reduction in onboarding friction, leading to improved retention.</li>
-          </ul>
+
+        <div className={sharedStyles.container}>
+          <div className={sharedStyles.contentContainer}>
+            <h3 className={styles.subsectionTitle}>Design System Gallery</h3>
+            <p className={sharedStyles.textBase}>Key screens from the Decent Design System showcasing the unified design language.</p>
+            <ImageGallery images={galleryImages} />
+          </div>
         </div>
-        <div>
-          <CaseStudyImage
-            src="/images/decent-app/gallery/decent-app-after.png"
-            alt="The Redesigned Decent App"
-            width={2880}
-            height={1800}
-            caption="The Redesigned Decent App"
-            size="large"
-          />
-        </div>
+
+
+        {/* Final Thoughts */}
         <div className={sharedStyles.containerSmall}>
-          <p className={sharedStyles.textBase}>The transition from Fractal to Decent was more than just a redesign—it was a strategic overhaul that reshaped the product's core value. By leveraging user insights, design iteration, and seamless cross-team collaboration, we delivered a scalable and user-friendly DAO toolkit that meets the evolving needs of decentralized governance.</p>
-          <h3 className={styles.subsectionTitle}>Final Thoughts</h3>
-          <p className={sharedStyles.textBase}>This case study highlights my ability to lead product transformations, aligning business goals with user needs through strategic design. The Decent App now stands as a more intuitive, flexible, and impactful tool for the future of decentralized governance.</p>
+          <div className={sharedStyles.contentContainer}>
+            <h2 className={clsx(styles.subsectionSmallTitle, styles.pullDown)}>Final Thoughts</h2>
+            <h3 className={styles.subsectionTitle}>A Strategic Transformation</h3>
+            <p className={sharedStyles.textBase}>The shift from Fractal to Decent was more than a redesign—it was a strategic transformation that redefined the product's value. Through user insights, iterative design, and seamless cross-functional collaboration, we built a scalable DAO toolkit that meets the evolving needs of decentralized governance.</p>
+
+            <h4 className={styles.subsectionTitle}>Key Outcomes</h4>
+            <h5 className={styles.subsectionListTitle}>Increased adoption</h5>
+            <p className={sharedStyles.textBase}>Active DAOs grew in the first few months post-launch.</p>
+            <h5 className={styles.subsectionListTitle}>Enhanced UX</h5>
+            <p className={sharedStyles.textBase}>Usability testing showed reduced onboarding friction, boosting retention.</p>
+
+            <h4 className={styles.subsectionListTitle}>My Contributions</h4>
+            <ul className={clsx(sharedStyles.subsectionList, sharedStyles.textBase)}>
+              <li>I defined the UX vision, translating research into actionable design improvements.</li>
+              <li>I led the development of a scalable UI system for long-term flexibility.</li>
+              <li>I aligned branding and UI to reflect Decent's new identity.</li>
+              <li>I streamlined governance workflows to reduce friction for DAOs.</li>
+              <li>I integrated QA workflows and iterated post-launch for continuous improvement.</li>
+            </ul>
+    
+            <p className={sharedStyles.textBase}>Decent is now a more intuitive, flexible, and scalable product, empowering DAOs to govern effectively. This case study highlights my ability to navigate ambiguity, balance user needs with technical constraints, and drive strategic design impact.</p>
+          </div>
         </div>
 
       </section>  
@@ -233,6 +327,9 @@ export default function DecentAppCaseStudy() {
       <div className={sharedStyles.darkOverlayBg}>
         <ContactMe id="case-study-connect" />
       </div>
-    </main>
+    </main>       
   );
 } 
+
+
+

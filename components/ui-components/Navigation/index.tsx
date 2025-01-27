@@ -146,6 +146,16 @@ export default function Navigation() {
       toggleMobileMenu();
     }
 
+    // If we're on a case study page and clicking the connect link
+    if (pathname.includes('/case-studies/') && targetId === '#connect') {
+      gsap.to(window, { 
+        duration: 1, 
+        scrollTo: '#case-study-connect',
+        ease: 'power2.out' 
+      });
+      return;
+    }
+
     // If we're not on the home page and clicking a home section link, navigate home first
     if (pathname !== '/' && (targetId === '#about' || targetId === '#connect')) {
       router.push('/');

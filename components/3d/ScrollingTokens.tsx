@@ -84,7 +84,7 @@ export default function ScrollingTokens() {
 
           const tl = gsap.timeline({
             paused: true,
-            defaults: { duration: 1, ease: "none" }
+            defaults: { duration: 1, ease: "power2.inOut" }
           });
 
           // Add all animations to the timeline
@@ -109,9 +109,9 @@ export default function ScrollingTokens() {
           // Create ScrollTrigger with adjusted trigger points
           ScrollTrigger.create({
             trigger: triggerElement,
-            start: "top 150%",
-            end: "center 20%",
-            scrub: true,
+            start: "top 80%",
+            end: "top 20%",
+            scrub: 1,
             markers: false,
             onUpdate: (self) => {
               tl.progress(self.progress);
@@ -121,7 +121,12 @@ export default function ScrollingTokens() {
       });
     });
 
-    return () => ctx.revert();
+    return () => {
+      // Kill all ScrollTrigger instances first
+      ScrollTrigger.getAll().forEach(st => st.kill());
+      // Then revert the GSAP context
+      ctx.revert();
+    };
   }, [initialPositions, finalPositions]);
 
   return (

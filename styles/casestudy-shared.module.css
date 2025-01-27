@@ -53,6 +53,7 @@
 .heroContent h1 {
   color: var(--color-primary);
   text-shadow: var(--shadow-md);
+  width: 50%;
 }
 
 
@@ -127,6 +128,10 @@
 .subsectionSmallTitle {
   font-size: var(--font-size-lg);
   font-family: var(--font-space);
+  background-color: var(--color-white);
+  padding: var(--spacing-xxs) var(--spacing-xs);
+  border-radius: var(--border-radius);
+  display: inline-block;
 }
 
 .subsectionSmallTitle .pullDown {
@@ -138,6 +143,16 @@
   font-family: var(--font-space);
   margin-bottom: var(--spacing-sm);
 }
+.subsectionSubTitle {
+  font-size: var(--font-size-xl);
+  font-family: var(--font-space);
+  margin-bottom: var(--spacing-xxs);
+}
+.subsectionListTitle {
+  font-size: var(--font-size-lg);
+  font-family: var(--font-space);
+  margin-bottom: 0;
+}
 
 .subsectionIcon {
   width: 32px;
@@ -147,9 +162,26 @@
   margin-right: var(--spacing-xxs);
 }
 
+.textBase {
+  color: var(--color-text);
+  line-height: var(--line-height-relaxed);
+  font-family: var(--font-space);
+  font-size: var(--font-size-md);
+}
 
+.imageCaption {
+  font-size: var(--font-size-sm);
+  line-height: 1.4;
+  padding: var(--spacing-xs) 0;
+  text-align: center;
+  font-style: italic;
+  color: var(--color-accent-dark);
+}
 
-
+.imageWrapperPadding {
+  padding: var(--spacing-lg) 0;
+  width: 100%;
+}
 
 
 /* Media Queries */
@@ -160,6 +192,7 @@
     padding: 0 var(--spacing-sm) var(--spacing-md);
   }
   .heroContent {
+    width: 70%;
   }
   .subsectionTitle {
     font-size: var(--font-size-xl);
@@ -181,6 +214,7 @@
     padding: 0 var(--spacing-xs) var(--spacing-md);
   }
   .heroContent {
+    width: 100%;
   }
   .heroContent h1 {
     font-size: var(--font-size-5xl);
@@ -205,6 +239,10 @@
     width: 40px;
     height: 40px;
   }
+  .imageWrapperPadding {
+    padding: var(--spacing-md) 0;
+    width: 100%;
+  }
 }
 
 @media (max-width: 480px) {
@@ -224,18 +262,3 @@
   }
 }
 
-.textBase {
-  color: var(--color-text);
-  line-height: var(--line-height-relaxed);
-  font-family: var(--font-space);
-  font-size: var(--font-size-md);
-}
-
-.imageCaption {
-  font-size: var(--font-size-sm);
-  line-height: 1.4;
-  padding: var(--spacing-xs) 0;
-  text-align: center;
-  font-style: italic;
-  color: var(--color-accent-dark);
-}

@@ -7,7 +7,6 @@ import clsx from 'clsx';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
-import ParallaxHeroImage from '@/components/sections/case-studies/ParallaxHeroImage';
 import ImageGallery from '@/components/sections/case-studies/ImageGallery';
 import CaseStudyImage from '@/components/sections/case-studies/CaseStudyImage';
 import { Icon } from '@/components/icons/Icon';
@@ -37,7 +36,7 @@ export default function DecentDesignSystemCaseStudy() {
   return (
     <main className={sharedStyles.main}>
       {/* Hero Section */}
-      <section className={clsx(styles.hero, sharedStyles.gradientBottomTop)}>
+      <section className={clsx(styles.hero)}>
         {project.imageUrl && (
           <div className={styles.heroImage}>
             <img src={project.imageUrl} alt={project.title} />

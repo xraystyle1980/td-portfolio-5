@@ -2,19 +2,12 @@ import sharedStyles from '@/styles/shared.module.css'
 import styles from './ContactMe.module.css'
 import clsx from 'clsx'
 import { Icon } from '@/components/icons/Icon';
-import { Canvas } from '@react-three/fiber';
-import { Environment } from '@react-three/drei';
-import { Suspense, useState } from 'react';
-import ScrollingTokens from '../3d/ScrollingTokens';
-import Loading from '@/components/ui-components/Loading';
 
 interface ContactMeProps {
   id?: string;
 }
 
 export default function ContactMe({ id = 'connect' }: ContactMeProps) {
-  const [isLoading, setIsLoading] = useState(true);
-
   const handleEmailClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     window.location.href = 'mailto:matt@trice.design';
@@ -22,39 +15,19 @@ export default function ContactMe({ id = 'connect' }: ContactMeProps) {
 
   return (        
     <section id={id} className={clsx(styles.ContactMe_contentSections__jMNh, sharedStyles.darkSection)}>
-      {isLoading && <Loading />}
-      <div className={styles.tokenBackground_5TPqe} style={{ pointerEvents: 'none' }}>
-        <Canvas
-          camera={{ 
-            position: [0, 0, 10], 
-            fov: 35,
-            near: 0.1,
-            far: 100 
-          }}
-          style={{ 
-            display: 'block', 
-            width: '100%', 
-            height: '100%',
-            pointerEvents: 'none'
-          }}
-          onCreated={() => setIsLoading(false)}
-        >
-          <Suspense fallback={null}>
-            <Environment preset="city" />
-            <ScrollingTokens />
-          </Suspense>
-        </Canvas>
-      </div>
-      <div className={sharedStyles.containerSmall} style={{ position: 'relative', zIndex: 2 }}>
+      <div className={sharedStyles.container}>
         {/* Connect */}       
-        <div className={sharedStyles.contentContainer}>
+        <div className={sharedStyles.contentContainer} style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+          
           <h4 className={clsx(sharedStyles.displayText, sharedStyles.colorPrimary)}>Let's Connect</h4>
-          <h5 className={clsx(sharedStyles.displayText, sharedStyles.colorWhite)}>Working on a project?</h5>
+          <h5 className={clsx(styles.subsectionSubTitle, sharedStyles.colorWhite)}>Working on a project?</h5>
           <p className={clsx(sharedStyles.textBase, sharedStyles.large, sharedStyles.colorWhite)}>Drop me a line and let's build cool shit.</p>
-          <a onClick={handleEmailClick} href="mailto:matt@trice.design" className={clsx(sharedStyles.primaryButton, sharedStyles.buttonBase, styles.half)}>
+
+          <a onClick={handleEmailClick} href="mailto:matt@trice.design" className={clsx(sharedStyles.primaryButton, sharedStyles.buttonBase, sharedStyles.quarter)}>
             <span>matt@trice.design</span>
             <span><Icon name="mail-arrow-right" className={sharedStyles.buttonIcon} /></span>
           </a>
+
         </div>
       </div>
     </section>

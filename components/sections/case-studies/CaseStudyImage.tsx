@@ -30,6 +30,10 @@ export default function CaseStudyImage({
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
+  // Calculate lightbox dimensions (2x original or max 4K)
+  const lightboxWidth = Math.min(width * 2, 3840);
+  const lightboxHeight = Math.min(height * 2, 2160);
+
   useEffect(() => {
     setMounted(true);
     return () => setMounted(false);
@@ -112,8 +116,8 @@ export default function CaseStudyImage({
               <Image
                 src={src}
                 alt={alt}
-                width={width}
-                height={height}
+                width={lightboxWidth}
+                height={lightboxHeight}
                 className={styles.fullSizeImage}
                 quality={100}
                 priority={true}

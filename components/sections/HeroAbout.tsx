@@ -18,39 +18,51 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
 }
 
-function RotatingToken({ groupRef, onFloatAnimCreated }: { 
+function RotatingToken({ groupRef, onFloatAnimCreated, initialScale }: { 
   groupRef: React.RefObject<Group>;
   onFloatAnimCreated: (anim: gsap.core.Tween) => void;
+  initialScale: number;
 }) {
   const [xPosition, setXPosition] = useState(0);
+  const [scale, setScale] = useState(initialScale);
   const floatAnimRef = useRef<gsap.core.Tween | null>(null);
 
   useEffect(() => {
-    const updatePosition = () => {
+    const updatePositionAndScale = () => {
       const width = window.innerWidth;
       let newPosition;
+      let newScale;
       
       if (width > 1200) {
         newPosition = 2.5;      // Slightly outside viewport on large screens
+        newScale = 4.125;       // Default scale for large screens
       } else if (width > 1000) {
         newPosition = 2;        // Aligned with text on medium-large screens
+        newScale = 3.8;         // Slightly smaller for medium-large screens
       } else if (width > 768) {
         newPosition = 1.5;      // Closer in on tablets
+        newScale = 3.5;         // Smaller for tablets
       } else if (width > 400) {
         newPosition = 1;        // Even closer on small devices
+        newScale = 3.2;         // Even smaller for mobile
+      } else if (width > 320) {
+        newPosition = 0.75;     // Closer for mobile
+        newScale = 2.8;         // Much smaller for small mobile
       } else {
-        newPosition = 0.75;     // Closest on mobile
+        newPosition = 0.5;      // Closest position for very small screens
+        newScale = 2.5;         // Smallest scale for very small screens
       }
       
       setXPosition(newPosition);
+      setScale(newScale);
     };
 
-    // Set initial position
-    updatePosition();
+    // Set initial position and scale
+    updatePositionAndScale();
 
     // Add resize listener
-    window.addEventListener('resize', updatePosition);
-    return () => window.removeEventListener('resize', updatePosition);
+    window.addEventListener('resize', updatePositionAndScale);
+    return () => window.removeEventListener('resize', updatePositionAndScale);
   }, []);
 
   useEffect(() => {
@@ -106,7 +118,7 @@ function RotatingToken({ groupRef, onFloatAnimCreated }: {
   }, [onFloatAnimCreated]);
 
   return (
-    <group ref={groupRef} position={[xPosition, 12, 0]} scale={[4.125, 4.125, 4.125]}>
+    <group ref={groupRef} position={[xPosition, 12, 0]} scale={[scale, scale, scale]}>
       <TokenFace />
     </group>
   );
@@ -119,10 +131,39 @@ export default function HeroAbout() {
   const heroTextRef = useRef<HTMLDivElement>(null);
   const aboutTextRef = useRef<HTMLDivElement>(null);
   const floatAnimRef = useRef<gsap.core.Tween | null>(null);
+  const [initialScale, setInitialScale] = useState(4.125);
 
   const handleFloatAnimCreated = (anim: gsap.core.Tween) => {
     floatAnimRef.current = anim;
   };
+
+  // Add responsive scale calculation
+  useEffect(() => {
+    const updateInitialScale = () => {
+      const width = window.innerWidth;
+      let newScale;
+      
+      if (width > 1200) {
+        newScale = 4.125;
+      } else if (width > 1000) {
+        newScale = 3.8;
+      } else if (width > 768) {
+        newScale = 3.5;
+      } else if (width > 400) {
+        newScale = 3.2;
+      } else if (width > 320) {
+        newScale = 2.8;
+      } else {
+        newScale = 2.5;
+      }
+      
+      setInitialScale(newScale);
+    };
+
+    updateInitialScale();
+    window.addEventListener('resize', updateInitialScale);
+    return () => window.removeEventListener('resize', updateInitialScale);
+  }, []);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -204,9 +245,9 @@ export default function HeroAbout() {
               tokenContainerRef.current.style.transform = `translateY(${currentContainerY}px)`;
             }
             
-            // Scale animation with eased progress
-            const startScale = 4.125;
-            const endScale = 2.8;
+            // Scale animation with eased progress - use initialScale
+            const startScale = initialScale;
+            const endScale = initialScale * 0.68; // Maintain relative proportion for end scale
             const scale = gsap.utils.interpolate(startScale, endScale, easedProgress);
             groupRef.current.scale.set(scale, scale, scale);
 
@@ -228,7 +269,7 @@ export default function HeroAbout() {
     });
 
     return () => ctx.revert();
-  }, []);
+  }, [initialScale]);
 
   return (
     <section ref={sectionRef} id="heroAbout" className={clsx(styles.heroAbout200vh, sharedStyles.gradientBottomTop)}> 
@@ -253,21 +294,21 @@ export default function HeroAbout() {
         >
           <Suspense fallback={null}>
             <Environment preset="city" />
-            <RotatingToken groupRef={groupRef} onFloatAnimCreated={handleFloatAnimCreated} />
+            <RotatingToken groupRef={groupRef} onFloatAnimCreated={handleFloatAnimCreated} initialScale={initialScale} />
           </Suspense>
         </Canvas>
       </div>
-      <div id="about" ref={aboutTextRef} className={clsx(sharedStyles.container, styles.aboutContent)}>
+      <div id="about" ref={aboutTextRef} className={clsx(sharedStyles.containerSmall, styles.aboutContent)}>
         <div className={styles.bioContent}>
-          <h1 className={clsx(sharedStyles.displayText, styles.aboutHeadline)}>
-            Hello 
-          </h1>
+          <h2 className={clsx(sharedStyles.displayText, styles.aboutHeadline)}>
+            Hello <span className={styles.waveEmoji}>👋</span>
+          </h2>
           <p className={clsx(sharedStyles.textBase, sharedStyles.larger, sharedStyles.white, sharedStyles.contentAboutBio)}>
             I'm Matt Trice, an ATL-based Design Leader, Product Designer, and Design Engineer. I have a track record of helping startups launch, leading design teams, and getting a product from zero to one.
           </p>
           <a 
             href="#connect" 
-            className={clsx(sharedStyles.primaryButton, sharedStyles.buttonBase, styles.half)}
+            className={clsx(sharedStyles.primaryButton, sharedStyles.buttonBase)}
             onClick={(e) => {
               e.preventDefault();
               gsap.to(window, { 
