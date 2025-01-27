@@ -68,6 +68,7 @@
   border: 2px solid var(--color-border);
   padding: var(--spacing-sm);
   box-shadow: var(--shadow-lg);
+  border-radius: var(--border-radius);
   width: 100%;
 }
 
@@ -134,8 +135,8 @@
   display: inline-block;
 }
 
-.subsectionSmallTitle .pullDown {
-  margin-bottom: calc(var(--spacing-xs) * -1);
+.subsectionSmallTitle.pullDown {
+  margin-bottom: calc(var(--spacing-md) * -1);
 }
 
 .subsectionTitle {
@@ -151,7 +152,8 @@
 .subsectionListTitle {
   font-size: var(--font-size-lg);
   font-family: var(--font-space);
-  margin-bottom: 0;
+  margin-bottom: var(--spacing-xxs);
+  line-height: var(--line-height-xs);
 }
 
 .subsectionIcon {
@@ -162,13 +164,6 @@
   margin-right: var(--spacing-xxs);
 }
 
-.textBase {
-  color: var(--color-text);
-  line-height: var(--line-height-relaxed);
-  font-family: var(--font-space);
-  font-size: var(--font-size-md);
-}
-
 .imageCaption {
   font-size: var(--font-size-sm);
   line-height: 1.4;
@@ -176,6 +171,8 @@
   text-align: center;
   font-style: italic;
   color: var(--color-accent-dark);
+  max-width: 60%;
+  margin: 0 auto;
 }
 
 .imageWrapperPadding {
@@ -196,8 +193,11 @@
   }
   .subsectionTitle {
     font-size: var(--font-size-xl);
-    margin: var(--spacing-sm) 0;
+    margin: var(--spacing-sm) 0 var(--spacing-xxs);
     line-height: var(--line-height-tight);
+  }
+  .subsectionListTitle {
+    font-size: var(--font-size-md);
   }
   .projectDetails {
     grid-template-columns: repeat(2, 1fr);
@@ -223,13 +223,22 @@
   .projectDetails {
     grid-template-columns: repeat(2, 1fr);
     gap: var(--spacing-sm);
+    max-width: 90%;
+    margin: var(--spacing-md) auto;
+    padding: var(--spacing-sm);
+    box-shadow: var(--shadow-lg);
+    
   }
   .projectDetailValue {
     font-size: var(--font-size-sm);
   }
   .subsectionTitle {
     font-size: var(--font-size-lg);
-    gap: 0.5rem;
+    margin: var(--spacing-xs) 0 var(--spacing-xxs);
+    line-height: var(--line-height-tight);
+  }
+  .subsectionListTitle {
+    font-size: var(--font-size-sm);
   }
   .subsectionIcon {
     width: 24px;
@@ -240,14 +249,21 @@
     height: 40px;
   }
   .imageWrapperPadding {
-    padding: var(--spacing-md) 0;
+    padding: var(--spacing-xs) 0;
     width: 100%;
+  }
+  .subsectionSmallTitle {
+    font-size: var(--font-size-sm);
+  }
+  
+  .subsectionSmallTitle.pullDown {
+    margin-bottom: calc(var(--spacing-xs) * -1);
   }
 }
 
 @media (max-width: 480px) {
   .hero {
-    padding: var(--spacing-lg) var(--spacing-xxs);
+    padding: var(--spacing-xs);
   }
   .heroContent h1 {
     font-size: var(--font-size-4xl);
@@ -259,6 +275,9 @@
   .projectDetailLabel h6,
   .projectDetailValue {
     font-size: var(--font-size-sm);
+  }
+  .imageWrapperPadding {
+    padding: var(--spacing-xxs) 0;
   }
 }
 

@@ -21,13 +21,6 @@
   margin-bottom: var(--spacing-md);
 }
 
-.textBase {
-  color: var(--color-text);
-  font-family: var(--font-space);
-  font-size: var(--font-size-body);
-  line-height: var(--line-height-relaxed);
-}
-
 .projects {
   display: flex;
   flex-direction: column;

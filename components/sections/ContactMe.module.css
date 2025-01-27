@@ -1,4 +1,8 @@
 /* Contact Me */
+.contactMe {
+  padding: var(--spacing-lg) 0;
+}
+
 .subsectionSubTitle {
   font-size: var(--font-size-xl);
   font-family: var(--font-space);
@@ -11,10 +15,6 @@
   padding-bottom: var(--spacing-lg);
   z-index: 1;
   background: #161616;
-}
-
-@media (max-width: 768px) {
-
 }
 
 .loadingScreen {

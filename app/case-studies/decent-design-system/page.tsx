@@ -1,3 +1,4 @@
+// Decent Design System Case Study Page
 'use client';
 
 import styles from '@/styles/casestudy-shared.module.css';
@@ -40,6 +41,7 @@ export default function DecentDesignSystemCaseStudy() {
         {project.imageUrl && (
           <div className={styles.heroImage}>
             <img src={project.imageUrl} alt={project.title} />
+            <div className={styles.heroImageOverlay} />
           </div>
         )}
         <div ref={heroContentRef} className={clsx(styles.heroContent)}>
@@ -48,7 +50,7 @@ export default function DecentDesignSystemCaseStudy() {
       </section>
 
       <section className={clsx(sharedStyles.lightSection, sharedStyles.paddingTopBottom)}>
-        <div className={sharedStyles.containerSmall}>
+        <div className={sharedStyles.container}>
           <div className={styles.projectDetails}>
             <div className={styles.detailGroup}>
               <div className={styles.projectDetailLabel}>
@@ -82,13 +84,13 @@ export default function DecentDesignSystemCaseStudy() {
           </div>
         </div>
 
-        <div>
+        <div className={styles.imageWrapperPadding}>
           <CaseStudyImage
             src="/images/decent-design-system/gallery/dds-spacing.png"
             alt="Spacing guidelines establish foundational consistency"
             width={2048}
             height={1185}
-            caption="Spacing guidelines establish foundational consistency"
+            caption="Comprehensive spacing guidelines ensure consistent component layouts across the platform"
             size="large"
             priority={true}
           />
@@ -96,100 +98,97 @@ export default function DecentDesignSystemCaseStudy() {
 
         {/* Overview */}
         <div className={sharedStyles.containerSmall}>
-          <h2 className={clsx(styles.subsectionSmallTitle, styles.pullDown)}>Overview</h2>
-          <h3 className={styles.subsectionTitle}>A Need for Consistency</h3>
-          <p className={clsx(sharedStyles.textBase, sharedStyles.large)}>Scaling a product across a diverse ecosystem requires consistency, efficiency, and collaboration. The Decent Design System was built to address this challenge by creating a unified design language that streamlined workflows, improved team alignment, and delivered consistent user experiences.</p>
-          <p className={clsx(sharedStyles.textBase, sharedStyles.large)}>As the Product Design Director, I spearheaded the development of the design system, working closely across the organization to ensure it met the needs of both developers and designers. Through this collaborative effort, the design system became a key enabler of scalability and innovation across the organization.</p>
+          <div className={sharedStyles.contentContainer}>
+            <h2 className={clsx(styles.subsectionSmallTitle, styles.pullDown)}>Overview</h2>
+            <h3 className={styles.subsectionTitle}>A Need for Consistency</h3>
+            <p className={clsx(sharedStyles.textBase, sharedStyles.large)}>Scaling a product across a diverse ecosystem requires consistency, efficiency, and collaboration. The Decent Design System was built to address this challenge by creating a unified design language that streamlined workflows, improved team alignment, and delivered consistent user experiences.</p>
+            <p className={clsx(sharedStyles.textBase, sharedStyles.large)}>As the Product Design Director, I spearheaded the development of the design system, working closely across the organization to ensure it met the needs of both developers and designers. Through this collaborative effort, the design system became a key enabler of scalability and innovation across the organization.</p>
+          </div>
         </div>
 
-        <div>
+        <div className={styles.imageWrapperPadding}>
           <CaseStudyImage
             src="/images/decent-design-system/gallery/dds-brand-align.png"
-            alt="I worked with the brand team to align the design system with the brand"
+            alt="Brand alignment in the design system"
             width={2864}
             height={1426}
-            caption="I worked with the brand team to align the design system with the brand"
+            caption="Close collaboration with the brand team ensured the design system reflected Decent's visual identity"
             size="large"
           />
         </div>
 
         {/* Impact */}
         <div className={sharedStyles.containerSmall}>
-          <h2 className={clsx(styles.subsectionSmallTitle, styles.pullDown)}>Impact</h2>
-          <h3 className={styles.subsectionTitle}>Design Impact</h3>
-          <ul className={clsx(sharedStyles.subsectionList, sharedStyles.textBase)}>
-            <li>Contributed to a Unified Design Language: Developed a comprehensive style guide covering colors, typography, and grid systems, ensuring visual consistency.</li>
-            <li>Created Reusable Components: Designed modular UI elements that streamlined design and development processes.</li>
-            <li>Implemented Design Tokens: Integrated dynamic attributes that allowed for design ownership over color palettes.</li>
-          </ul>
+          <div className={sharedStyles.contentContainer}>
+            <h2 className={clsx(styles.subsectionSmallTitle, styles.pullDown)}>Impact</h2>
+            <h3 className={styles.subsectionTitle}>Design Impact</h3>
+            <h4 className={styles.subsectionListTitle}>Unified Design Language</h4>
+            <p className={sharedStyles.textBase}>Developed a comprehensive style guide covering colors, typography, and grid systems, ensuring visual consistency.</p>
+            
+            <h4 className={styles.subsectionListTitle}>Component Library</h4>
+            <p className={sharedStyles.textBase}>Designed modular UI elements that streamlined design and development processes.</p>
+            
+            <h4 className={styles.subsectionListTitle}>Design Tokens</h4>
+            <p className={sharedStyles.textBase}>Integrated dynamic attributes that allowed for design ownership over color palettes.</p>
 
-          <h3 className={styles.subsectionTitle}>Customer Impact</h3>
-          <ul className={clsx(sharedStyles.subsectionList, sharedStyles.textBase)}>
-            <li>Reduced Cognitive Load for Developers: Simplified decision-making during development by providing clear design standards.</li>
-            <li>Increased Development Velocity: Enabled faster project timelines through reusable components and scalable workflows.</li>
-          </ul>
-
-          <h3 className={styles.subsectionTitle}>Business Impact</h3>
-          <ul className={clsx(sharedStyles.subsectionList, sharedStyles.textBase)}>
-            <li>Improved Efficiency: Reduced duplication of efforts and streamlined collaboration, cutting down project timelines.</li>
-            <li>Accelerated Product Development: Supported faster feature rollouts and scalability as new requirements emerged.</li>
-          </ul>
-
-          <h3 className={styles.subsectionTitle}>Financial Impact</h3>
-          <ul className={clsx(sharedStyles.subsectionList, sharedStyles.textBase)}>
-            <li>Increased Revenue: Faster time-to-market and improved product adoption drove higher earnings.</li>
-            <li>Decreased Costs: Reduced design and development inefficiencies contribute to operational savings.</li>
-          </ul>
+            <h5 className={styles.subsectionSubTitle}>What was the biggest challenge?</h5>
+            <p className={sharedStyles.textBase}>Balancing flexibility with consistency was our main challenge. We needed to create components that were adaptable enough for various use cases while maintaining a cohesive visual language.</p>
+          </div>
         </div>
 
         <div className={sharedStyles.container}>
           <div className={sharedStyles.contentContainer}>
             <h3 className={styles.subsectionTitle}>Design System Gallery</h3>
-            <p className={sharedStyles.textBase}>Key screens from the Decent Design System showcasing the unified design language.</p>
+            <p className={clsx(sharedStyles.textBase, sharedStyles.large)}>Key screens from the Decent Design System showcasing the unified design language.</p>
             <ImageGallery images={galleryImages} />
           </div>
         </div>
 
         {/* Strategy & Execution */}
         <div className={sharedStyles.containerSmall}>
-          <h2 className={clsx(styles.subsectionSmallTitle, styles.pullDown)}>Strategy & Execution</h2>
-          <h3 className={styles.subsectionTitle}>Collaborative Design & Development</h3>
-          <p className={sharedStyles.textBase}>I interviewed my teammates across the org to uncover pain points during their product design, design handoff processes. Through testing and feedback sessions, we refined the system and our approach iteratively to craft a design system that fits the needs of the organization.</p>
+          <div className={sharedStyles.contentContainer}>
+            <h2 className={clsx(styles.subsectionSmallTitle, styles.pullDown)}>Strategy & Execution</h2>
+            <h3 className={styles.subsectionTitle}>Collaborative Design & Development</h3>
+            <p className={clsx(sharedStyles.textBase, sharedStyles.large)}>I interviewed my teammates across the org to uncover pain points during their product design, design handoff processes. Through testing and feedback sessions, we refined the system and our approach iteratively to craft a design system that fits the needs of the organization.</p>
 
-          <h3 className={styles.subsectionTitle}>Systematizing Scalability</h3>
-          <p className={sharedStyles.textBase}>The system was built with growth in mind. By implementing design tokens and modular components, the design system scaled seamlessly as new products and features were developed. Comprehensive documentation ensured that even as the organization expanded, the design system remained accessible and intuitive.</p>
+            <h4 className={styles.subsectionListTitle}>Scalability First</h4>
+            <p className={sharedStyles.textBase}>The system was built with growth in mind. By implementing design tokens and modular components, the design system scaled seamlessly as new products and features were developed.</p>
 
-          <h3 className={styles.subsectionTitle}>Outcome-Oriented Process</h3>
-          <p className={sharedStyles.textBase}>Every decision, from component naming conventions to documentation format, was aligned with measurable outcomes:</p>
-          <ul className={clsx(sharedStyles.subsectionList, sharedStyles.textBase)}>
-            <li>Higher engagement: Team adoption metrics indicated increased usage of shared components.</li>
-            <li>Faster builds: Reduced iteration cycles led to measurable time savings on projects.</li>
-          </ul>
+            <h4 className={styles.subsectionListTitle}>Documentation Focus</h4>
+            <p className={sharedStyles.textBase}>Comprehensive documentation ensured that even as the organization expanded, the design system remained accessible and intuitive.</p>
+
+            <h5 className={styles.subsectionSubTitle}>What worked well?</h5>
+            <p className={sharedStyles.textBase}>Our focus on documentation and clear component guidelines led to high adoption rates. Teams could easily understand and implement components, reducing development time and inconsistencies.</p>
+          </div>
         </div>
 
-        <div className={sharedStyles.gridColumns2}>
-          <CaseStudyImage
-            src="/images/decent-design-system/gallery/dds-ui-topnav.png"
-            alt="Redesigned top navigation components"
-            width={2864}
-            height={1826}
-            caption="Redesigned top navigation components"
-            size="medium"
-          />
-          <CaseStudyImage
-            src="/images/decent-design-system/gallery/dds-menu-components.png"
-            alt="Menu components in the design system"
-            width={2864}
-            height={1826}
-            caption="Menu components in the design system"
-            size="medium"
-          />
+        <div className={sharedStyles.container}>
+          <div className={clsx(sharedStyles.gridColumns2, sharedStyles.alignCenter)}>
+            <CaseStudyImage
+              src="/images/decent-design-system/gallery/dds-ui-topnav.png"
+              alt="Redesigned top navigation components"
+              width={2864}
+              height={1826}
+              caption="Standardized navigation components ensure consistent user experience across all products"
+              size="medium"
+            />
+            <CaseStudyImage
+              src="/images/decent-design-system/gallery/dds-menu-components.png"
+              alt="Menu components in the design system"
+              width={2864}
+              height={1826}
+              caption="Modular menu components adapt to various use cases while maintaining visual consistency"
+              size="medium"
+            />
+          </div>
         </div>
 
         {/* Summary */}
         <div className={sharedStyles.containerSmall}>
-          <h2 className={clsx(styles.subsectionSmallTitle, styles.pullDown)}>Summary</h2>
-          <p className={clsx(sharedStyles.textBase, sharedStyles.large)}>The Decent Design System represents the intersection of creativity, collaboration, and strategy. By unifying visual language, empowering teams, and enabling scalable development, the system became more than a tool—it became a driver of growth and efficiency across the organization.</p>
+          <div className={sharedStyles.contentContainer}>
+            <h2 className={clsx(styles.subsectionSmallTitle, styles.pullDown)}>Summary</h2>
+            <p className={clsx(sharedStyles.textBase, sharedStyles.large)}>The Decent Design System represents the intersection of creativity, collaboration, and strategy. By unifying visual language, empowering teams, and enabling scalable development, the system became more than a tool—it became a driver of growth and efficiency across the organization.</p>
+          </div>
         </div>
       </section>
 
