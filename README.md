@@ -1,7 +1,7 @@
 # Trice Design Portfolio
 
 <div align="center">
-  <img src=".github/trice-logo-skewed.png" alt="Trice Design Portfolio Preview" width="100%">
+  <img src=".github/trice-logo-skewed.png" alt="Trice Design Portfolio Preview" width="50%">
 </div>
 
 A modern, responsive portfolio website built with Next.js 14, showcasing my work as a Product Designer and Creative Engineer.
