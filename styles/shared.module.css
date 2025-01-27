@@ -197,11 +197,16 @@ a.link {
 .gridColumns2 {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--spacing-lg);
+  gap: var(--spacing-sm);
   width: 100%;
   align-items: flex-start;
   margin: 2rem 0;
 }
+
+.alignCenter {
+  align-items: center;
+}
+
 
 .gridColumns3 {
   display: grid;
@@ -462,7 +467,6 @@ Responsive Styles
   }
   .gridColumns3 {
     grid-template-columns: 1fr;
-    gap: var(--spacing-md);
   }
   .diagonalSplit,
   .diagonalSplitReverse {
@@ -542,7 +546,7 @@ Responsive Styles
   }
   .gridColumns2 {
     grid-template-columns: 1fr;
-    gap: var(--spacing-md);
+    gap: var(--spacing-xs);
   }
   .quarter {
     width: 75%;

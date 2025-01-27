@@ -9,6 +9,7 @@ import clsx from 'clsx';
 import { Icon } from '@/components/icons/Icon';
 import ImageGallery from '@/components/sections/case-studies/ImageGallery';
 import CaseStudyImage from '@/components/sections/case-studies/CaseStudyImage';
+import CaseStudyVideo from '@/components/sections/case-studies/CaseStudyVideo';
 import { galleryImages } from './galleryData';
 import ContactMe from '@/components/sections/ContactMe';
 import gsap from 'gsap';
@@ -49,7 +50,7 @@ export default function DecentAppCaseStudy() {
       </section>
           
       <section className={clsx(sharedStyles.lightSection,sharedStyles.paddingTopBottom)}>
-        <div className={sharedStyles.containerSmall}>
+        <div className={sharedStyles.container}>
           <div className={styles.projectDetails}>
           
           <div className={styles.detailGroup}>
@@ -145,53 +146,37 @@ export default function DecentAppCaseStudy() {
         </div>
 
         <div className={sharedStyles.container}>
-          <div className={sharedStyles.gridColumns3}>
+          <div className={clsx(sharedStyles.gridColumns2, sharedStyles.alignCenter)}>
             <CaseStudyImage
               src="/images/decent-app/gallery/mobile-variants.png"
-              alt=""
+              alt="Mobile variants of possible home page designs"
               width={1283}
               height={852}
-              caption=""
+              caption="Mobile variants of possible home page designs"
               size="large"
             />
             <CaseStudyImage
-              src="/images/decent-app/gallery/mobile-variants.png"
-              alt=""
-              width={1283}
-              height={852}
-              caption=""
+              src="/images/decent-app/gallery/home-page-a.png"
+              alt="Desktop variant designs exporing search bar placement"
+              width={1280}
+              height={832}
+              caption="Desktop variant designs exporing search bar placement"
               size="large"
             />
             <CaseStudyImage
-              src="/images/decent-app/gallery/mobile-variants.png"
-              alt=""
-              width={1283}
-              height={852}
-              caption=""
+              src="/images/decent-app/gallery/home-page-b.png"
+              alt="Exploring multiple ways to present the features"
+              width={1280}
+              height={832}
+              caption="Exploring multiple ways to present the features"
               size="large"
             />
             <CaseStudyImage
-              src="/images/decent-app/gallery/mobile-variants.png"
-              alt=""
-              width={1283}
-              height={852}
-              caption=""
-              size="large"
-            />
-            <CaseStudyImage
-              src="/images/decent-app/gallery/mobile-variants.png"
-              alt=""
-              width={1283}
-              height={852}
-              caption=""
-              size="large"
-            />
-            <CaseStudyImage
-              src="/images/decent-app/gallery/mobile-variants.png"
-              alt=""
-              width={1283}
-              height={852}
-              caption=""
+              src="/images/decent-app/gallery/home-page-e.png"
+              alt="Placing emphasis on search"
+              width={1280}
+              height={832}
+              caption="Placing emphasis on search"
               size="large"
             />
           </div>
@@ -213,6 +198,53 @@ export default function DecentAppCaseStudy() {
           </div>
         </div>
 
+        <div className={sharedStyles.container}>
+          <div className={clsx(sharedStyles.gridColumns2, sharedStyles.alignCenter)}>
+            <CaseStudyImage
+              src="/images/decent-app/gallery/decent-brand-1.png"
+              alt="Decent's Creative Director and Visual Branding Designer established a new brand direction"
+              width={1756}
+              height={1287}
+              caption="Decent's Creative Director and Visual Branding Designer established a new brand direction"
+              size="large"
+            />
+            <CaseStudyImage
+              src="/images/decent-app/gallery/decent-brand-2.png"
+              alt="New brand direction establishes foundational spacing"
+              width={1355}
+              height={1303}
+              caption="New brand direction establishes foundational spacing"
+              size="large"
+            />
+          </div>
+          <div className={clsx(sharedStyles.gridColumns3, sharedStyles.alignCenter)}>
+            <CaseStudyImage
+              src="/images/decent-app/gallery/decent-brand-error-mobile.png"
+              alt="Custom illustrations give the app a unique identity"
+              width={835}
+              height={844}
+              caption="Custom illustrations give the app a unique identity"
+              size="large"
+            />
+            <CaseStudyImage
+              src="/images/decent-app/gallery/decent-brand-error-desktop-1.png"
+              alt="Proper error handling informs the user"
+              width={1280}
+              height={882}
+              caption="Proper error handling informs the user"
+              size="large"
+            />
+            <CaseStudyImage
+              src="/images/decent-app/gallery/decent-brand-error-desktop-2.png"
+              alt="The ability to collect feedback allows user to add context"
+              width={1280}
+              height={882}
+              caption="The ability to collect feedback allows user to add context"
+              size="large"
+            />
+          </div>
+        </div>
+
         {/* What did my team lean on me for?
             • Translating user research into clear, actionable design decisions
             • Problem-solving UX complexities within governance models
@@ -221,25 +253,6 @@ export default function DecentAppCaseStudy() {
         {/* <ul className={clsx(sharedStyles.subsectionList, sharedStyles.textBase)}>
           <li></li>
         </ul> */}
-
-        <div className={sharedStyles.gridColumns2}>
-          <CaseStudyImage
-            src="/images/decent-app/gallery/decent-app-edit-role.png"
-            alt="The Redesigned Decent App"
-            width={724}
-            height={1724}
-            caption="The Redesigned Decent App"
-            size="small"
-          />
-          <CaseStudyImage
-            src="/images/decent-app/gallery/decent-app-role-list.png"
-            alt="The Redesigned Decent App"
-            width={724}
-            height={1724}
-            caption="The Redesigned Decent App"
-            size="small"
-          />
-        </div>
 
         {/* Scalable UI System & Brand Evolution */}
         <div className={sharedStyles.containerSmall}>
@@ -256,6 +269,14 @@ export default function DecentAppCaseStudy() {
             <h5 className={styles.subsectionSubTitle}>What mistakes cost time & energy?</h5>
             <p className={sharedStyles.textBase}>Early on, we underestimated the complexity of integrating business features into a blockchain based governance app. I had to rework key components after realizing that certain design decisions wouldn't scale effectively.</p>
           </div>
+        </div>
+        
+        <div className={sharedStyles.containerSmall}>
+          <CaseStudyVideo
+            src="/images/decent-app/gallery/decent-withdraw-desktop-hb.mp4"
+            caption="Withdrawal Flow Animation"
+            size="large"
+          />
         </div>
 
         {/* Quality Assurance & Continuous Improvement */}
@@ -275,24 +296,25 @@ export default function DecentAppCaseStudy() {
           </div>
         </div>
 
-        <div className={styles.imageWrapperPadding}>
-          <CaseStudyImage
-            src="/images/decent-app/gallery/decent-app-after.png"
-            alt="The Redesigned Decent App"
-            width={2880}
-            height={1800}
-            caption="The Redesigned Decent App"
-            size="large"
-          />
-        </div>
 
         <div className={sharedStyles.container}>
-          <div className={sharedStyles.contentContainer}>
-            <h3 className={styles.subsectionTitle}>Design System Gallery</h3>
-            <p className={sharedStyles.textBase}>Key screens from the Decent Design System showcasing the unified design language.</p>
-            <ImageGallery images={galleryImages} />
+          <div className={clsx(sharedStyles.gridColumns2, sharedStyles.alignCenter)}>
+          <CaseStudyVideo
+            src="/images/decent-app/gallery/decent-roles-mobile-hb.mp4"
+            caption="Mobile prototype of user adding a payment to a role"
+            size="small"
+          />
+            <CaseStudyImage
+              src="/images/decent-app/gallery/decent-spacing-notes.png"
+              alt="Annotated notes for pixel perfect spacing"
+              width={741}
+              height={1171}
+              caption="Annotated notes for pixel perfect spacing"
+              size="medium"
+            />
           </div>
         </div>
+  
 
 
         {/* Final Thoughts */}
