@@ -83,13 +83,24 @@ export default function BlocksetBRDDocsCaseStudy() {
             </div>
           </div>
 
-          <div className={styles.detailGroup}>
+          {/* <div className={styles.detailGroup}>
             <div className={styles.projectDetailLabel}>
               <Icon name="device-laptop" size={48} className={styles.subsectionIcon} />
               <h6 className={sharedStyles.displayBase}>Website</h6>
             </div>
-          </div>
+          </div> */}
 
+          </div>
+        </div>
+
+
+        {/* Overview */}
+        <div className={sharedStyles.containerSmall}>
+          <div className={sharedStyles.contentContainer}>
+            <h2 className={clsx(styles.subsectionSmallTitle, styles.pullDown)}>Overview</h2>
+            <h3 className={styles.subsectionTitle}>Empowering Developer Success</h3>
+            <p className={clsx(sharedStyles.textBase, sharedStyles.large)}>Blockset, a blockchain data integration platform, enables engineering teams to build enterprise-grade blockchain applications. To enhance its adoption, the project required a robust documentation platform and a marketing website that could bridge the gap between technical nuance and user onboarding needs.</p>
+            <p className={clsx(sharedStyles.textBase, sharedStyles.large)}>As Lead Product Designer, I collaborated with BRD's internal design team, external stakeholders, and my team to create a unified documentation site and marketing page. These efforts helped improve developer confidence, streamline integration processes, and elevate Blockset's market presence.</p>
           </div>
         </div>
 
@@ -105,28 +116,6 @@ export default function BlocksetBRDDocsCaseStudy() {
           />
         </div>
 
-        {/* Overview */}
-        <div className={sharedStyles.containerSmall}>
-          <div className={sharedStyles.contentContainer}>
-            <h2 className={clsx(styles.subsectionSmallTitle, styles.pullDown)}>Overview</h2>
-            <h3 className={styles.subsectionTitle}>Empowering Developer Success</h3>
-            <p className={clsx(sharedStyles.textBase, sharedStyles.large)}>Blockset, a blockchain data integration platform, enables engineering teams to build enterprise-grade blockchain applications. To enhance its adoption, the project required a robust documentation platform and a marketing website that could bridge the gap between technical nuance and user onboarding needs.</p>
-            <p className={clsx(sharedStyles.textBase, sharedStyles.large)}>As Lead Product Designer, I collaborated with BRD's internal design team, external stakeholders, and my team to create a unified documentation site and marketing page. These efforts helped improve developer confidence, streamline integration processes, and elevate Blockset's market presence.</p>
-          </div>
-        </div>
-
-        <div className={styles.imageWrapperPadding}>
-          <CaseStudyImage
-            src="/images/blockset-docs/gallery/bset-sandbox.png"
-            alt="Developer sandbox to test API requests"
-            width={2880}
-            height={2698}
-            caption="Interactive API sandbox enables developers to test requests and explore endpoints in real-time"
-            size="large"
-            priority={true}
-          />
-        </div>
-
         {/* Approach & Key Contributions */}
         <div className={sharedStyles.containerSmall}>
           <div className={sharedStyles.contentContainer}>
@@ -137,7 +126,17 @@ export default function BlocksetBRDDocsCaseStudy() {
             
             <h4 className={styles.subsectionListTitle}>Stakeholder Collaboration</h4>
             <p className={sharedStyles.textBase}>Integrated feedback from BRD's internal teams and external stakeholders to refine the platform's UX.</p>
-            
+            <div className={styles.imageWrapperPadding}>
+              <CaseStudyImage
+                src="/images/blockset-docs/gallery/bset-sandbox.png"
+                alt="Developer sandbox to test API requests"
+                width={2880}
+                height={2698}
+                caption="Interactive API sandbox enables developers to test requests and explore endpoints in real-time"
+                size="large"
+                priority={true}
+              />
+            </div>
             <h4 className={styles.subsectionListTitle}>Interactive Features</h4>
             <p className={sharedStyles.textBase}>Designed engaging tools, such as a pricing slider and feature prototypes, to showcase Blockset's offerings.</p>
 

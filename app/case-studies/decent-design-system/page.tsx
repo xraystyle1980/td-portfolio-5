@@ -68,7 +68,7 @@ export default function DecentDesignSystemCaseStudy() {
                 <h6 className={sharedStyles.displayBase}>Duration</h6>
               </div>
               <div className={styles.projectDetailValue}>
-                Q3 2022 – Q4 2023
+                Q3 2022 – Q4 2024
               </div>
             </div>
 
@@ -78,7 +78,7 @@ export default function DecentDesignSystemCaseStudy() {
                 <h6 className={sharedStyles.displayBase}>Team</h6>
               </div>
               <div className={styles.projectDetailValue}>
-                3 Designers, 5 Engineers
+                3 Designers, 5 Engineers across
               </div>
             </div>
           </div>

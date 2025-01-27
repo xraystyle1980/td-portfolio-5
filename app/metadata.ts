@@ -1,9 +1,25 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'Matt Trice • Product Designer',
-  description: 'ATL-based Product Designer with a track record of design leadership, embracing complex problems, and crafting elegant solutions that deliver meaningful business impact.',
-  keywords: ['Product Design', 'Design Systems', 'UX Design', 'Web Development', 'Developer Tools'],
+  title: 'Matt Trice | ATL Product Designer, Design Leader, Creative Engineer',
+  description: 'ATL-based Senior Product Designer, Design Leader, and Creative Engineer. I have a track record of helping startups launch, leading design teams, and getting a product from zero to one.',
+  keywords: [
+    'Product Design',
+    'Design Systems', 
+    'UX Design',
+    'Web Development',
+    'Developer Tools',
+    'Design Leadership',
+    'Design Engineer',
+    'Creative Engineer',
+    'Startup Design',
+    'Documentation Design',
+    'Marketing Design',
+    'Blockchain Design',
+    'User Experience',
+    'User Interface',
+    'ATL Designer'
+  ],
   authors: [{ name: 'Matt Trice' }],
   creator: 'Matt Trice',
   publisher: 'Matt Trice',
@@ -44,7 +60,7 @@ export const metadata: Metadata = {
     url: 'https://trice.design',
     siteName: 'Trice.Design',
     title: 'Matt Trice • Product Designer',
-    description: 'ATL-based Product Designer with a track record of design leadership, embracing complex problems, and crafting elegant solutions that deliver meaningful business impact.',
+    description: 'ATL-based Senior Product Designer, Design Leader, and Creative Engineer. I have a track record of helping startups launch, leading design teams, and getting a product from zero to one.',
     images: [
       {
         url: '/images/og-image.png',
@@ -55,3 +71,6 @@ export const metadata: Metadata = {
     ]
   }
 };
+
+
+.

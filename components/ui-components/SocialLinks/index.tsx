@@ -13,7 +13,7 @@ export default function SocialLinks({ flexDirection = 'row' }: SocialLinksProps)
     <nav className={styles.socialLinks} style={{ flexDirection }}>
       <Link 
         className={styles.navLink}
-        href="https://www.linkedin.com/in/tricedigital/" 
+        href="https://www.linkedin.com/in/matt-trice/" 
         target="_blank" 
         rel="noopener noreferrer"
         aria-label="Visit LinkedIn Profile"
@@ -40,7 +40,7 @@ export default function SocialLinks({ flexDirection = 'row' }: SocialLinksProps)
       </Link>
       <Link
         className={styles.navLink}
-        href="https://github.com/xraystyle80" 
+        href="https://github.com/xraystyle1980/td-portfolio-5" 
         target="_blank" 
         rel="noopener noreferrer"
         aria-label="Visit GitHub Profile"
