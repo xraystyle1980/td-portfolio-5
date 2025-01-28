@@ -49,9 +49,10 @@ export default function Navigation() {
   const router = useRouter();
   const pathname = usePathname();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isCaseStudiesOpen, setIsCaseStudiesOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   // Handle window resize for responsiveness
   useEffect(() => {
@@ -61,6 +62,7 @@ export default function Navigation() {
 
     // Initial check
     handleResize();
+    setIsMounted(true);
     
     // Add event listener
     window.addEventListener('resize', handleResize);
@@ -197,16 +199,18 @@ export default function Navigation() {
 
   return (
     <>
-      {/* Mobile Hamburger Button - moved outside nav */}
-      <button 
-        className={clsx(styles.hamburger, isMobileOpen && styles.open)}
-        onClick={toggleMobileMenu}
-        aria-label="Toggle mobile menu"
-      >
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+      {/* Only show mobile elements after mount */}
+      {isMounted && (
+        <button 
+          className={clsx(styles.hamburger, isMobileOpen && styles.open)}
+          onClick={toggleMobileMenu}
+          aria-label="Toggle mobile menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      )}
 
       <nav className={clsx(styles.nav, isScrolled && styles.scrolled)}>
         <div className={styles.wrapper}>
