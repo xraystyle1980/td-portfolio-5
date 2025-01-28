@@ -13,10 +13,10 @@ import Script from 'next/script';
 export const metadata: Metadata = {
   metadataBase: new URL('https://trice.design'),
   title: {
-    template: '%s | Your Site Name',
-    default: 'Your Site Name',
+    template: '%s | Matt Trice • Senior Designer & Creative Engineer',
+    default: 'Matt Trice • Senior Designer & Creative Engineer',
   },
-  description: 'Your site description',
+  description: 'ATL-based Senior Product Designer, Design Leader, and Creative Engineer. I have a track record of helping startups launch, leading design teams, and getting a product from zero to one.',
 }
 
 export const viewport: Viewport = {
