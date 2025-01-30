@@ -8,7 +8,6 @@ import { Metadata, Viewport } from 'next'
 import Navigation from '@/components/ui-components/Navigation';
 import SmoothScroll from '@/components/ui-components/Scroll/SmoothScroll';
 import LoadingWrapper from '@/components/ui-components/LoadingWrapper';
-import Script from 'next/script';
 import { Analytics } from '@vercel/analytics/next';
 
 export const metadata: Metadata = {
@@ -42,19 +41,6 @@ export default function RootLayout({
       style={{ fontFamily: 'var(--font-space)' }}
     >
       <head>
-        <Script 
-          defer 
-          data-domain="trice.design" 
-          src="https://plausible.trice.design/js/script.js"
-          strategy="afterInteractive"
-        />
-        <Script id="plausible-events" strategy="afterInteractive">
-          {`
-            window.plausible = window.plausible || function() { 
-              (window.plausible.q = window.plausible.q || []).push(arguments) 
-            }
-          `}
-        </Script>
       </head>
       <body>
         <AppProvider>
