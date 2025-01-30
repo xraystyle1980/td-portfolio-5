@@ -84,31 +84,37 @@ export default function Navigation() {
 
   // Toggle mobile menu
   const toggleMobileMenu = () => {
-    setIsMobileOpen((prev) => !prev);
+    const willOpen = !isMobileOpen;
+    setIsMobileOpen(willOpen);
+    const menu = document.querySelector(`.${styles.mobileMenu}`);
 
-    if (!isMobileOpen) {
+    if (willOpen) {
       document.body.style.overflow = 'hidden';
-      const menu = document.querySelector(`.${styles.mobileMenu}`);
+      menu?.setAttribute('data-state', 'open');
       gsap.set(menu, { 
-        autoAlpha: 1,
+        visibility: 'visible',
+        opacity: 1,
         pointerEvents: 'auto',
-        xPercent: 100
       });
-      gsap.to(menu, {
-        xPercent: 0,
-        duration: 0.5,
-        ease: 'power3.out'
-      });
+      gsap.fromTo(menu, 
+        { xPercent: 100 },
+        {
+          xPercent: 0,
+          duration: 0.5,
+          ease: 'power3.out'
+        }
+      );
     } else {
       document.body.style.overflow = 'auto';
-      const menu = document.querySelector(`.${styles.mobileMenu}`);
       gsap.to(menu, {
         xPercent: 100,
         duration: 0.3,
         ease: 'power2.in',
         onComplete: () => {
+          menu?.setAttribute('data-state', 'closed');
           gsap.set(menu, { 
-            autoAlpha: 0,
+            visibility: 'hidden',
+            opacity: 0,
             pointerEvents: 'none'
           });
         }
@@ -119,11 +125,15 @@ export default function Navigation() {
   // Set initial state for mobile menu with GSAP
   useEffect(() => {
     const menu = document.querySelector(`.${styles.mobileMenu}`);
-    gsap.set(menu, { 
-      xPercent: 100,
-      autoAlpha: 0,
-      pointerEvents: 'none'
-    });
+    if (menu) {
+      menu.setAttribute('data-state', 'closed');
+      gsap.set(menu, { 
+        xPercent: 100,
+        visibility: 'hidden',
+        opacity: 0,
+        pointerEvents: 'none'
+      });
+    }
   }, []);
 
   // Cleanup body overflow on unmount
@@ -201,15 +211,85 @@ export default function Navigation() {
     <>
       {/* Only show mobile elements after mount */}
       {isMounted && (
-        <button 
-          className={clsx(styles.hamburger, isMobileOpen && styles.open)}
-          onClick={toggleMobileMenu}
-          aria-label="Toggle mobile menu"
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+        <>
+          <button 
+            className={clsx(styles.hamburger, isMobileOpen && styles.open)}
+            onClick={toggleMobileMenu}
+            aria-label="Toggle mobile menu"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+
+          {/* Mobile Menu */}
+          <div className={styles.mobileMenu}>
+            <Link 
+              href="/"
+              className={styles.navLink}
+              onClick={(e) => {
+                e.preventDefault();
+                if (pathname !== '/') {
+                  router.push('/');
+                  setTimeout(scrollToTop, 100);
+                } else {
+                  scrollToTop();
+                }
+                toggleMobileMenu();
+              }}
+            >
+              Home
+            </Link>
+            <Link 
+              href="/#about" 
+              className={styles.navLink}
+              onClick={(e) => handleNavigation(e, '#about')}
+            >
+              About
+            </Link>
+            <div className={styles.dropdownContainer}>
+              <Link 
+                href="#"
+                className={styles.navLink}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIsCaseStudiesOpen(!isCaseStudiesOpen);
+                }}
+                aria-expanded={isCaseStudiesOpen}
+                aria-haspopup="true"
+              >
+                <span className={styles.caseStudiesText}>Case Studies</span>
+                <Icon name="chevron-down" size={24} />
+              </Link>
+              
+              {isCaseStudiesOpen && (
+                <div className={styles.dropdown}>
+                  {caseStudies.map((study) => (
+                    <Link
+                      key={study.href}
+                      href={study.href}
+                      className={styles.dropdownItem}
+                      onClick={() => {
+                        setIsCaseStudiesOpen(false);
+                        toggleMobileMenu();
+                      }}
+                    >
+                      {study.title}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+            <Link 
+              href="/#connect" 
+              className={styles.navLink}
+              onClick={(e) => handleNavigation(e, '#connect')}
+            >
+              Connect
+            </Link>
+            <SocialLinks flexDirection={isMobile ? "column" : "row"} />
+          </div>
+        </>
       )}
 
       <nav className={clsx(styles.nav, isScrolled && styles.scrolled)}>
@@ -302,87 +382,6 @@ export default function Navigation() {
           </div>
         </div>
       </nav>
-
-      {/* Mobile Menu */}
-      <div className={styles.mobileMenu}>
-        <button 
-          className={styles.closeButton}
-          onClick={toggleMobileMenu}
-          aria-label="Close menu"
-        >
-          ×
-        </button>
-        <Link 
-          href="/"
-          className={styles.navLink}
-          onClick={(e) => {
-            e.preventDefault();
-            if (pathname !== '/') {
-              router.push('/');
-              setTimeout(scrollToTop, 100);
-            } else {
-              scrollToTop();
-            }
-            toggleMobileMenu();
-          }}
-        >
-          Home
-        </Link>
-        <Link 
-          href="/#about" 
-          className={styles.navLink}
-          onClick={(e) => handleNavigation(e, '#about')}
-        >
-          About
-        </Link>
-        <div 
-          className={styles.dropdownContainer}
-          onMouseEnter={() => setIsCaseStudiesOpen(true)}
-          onMouseLeave={() => setIsCaseStudiesOpen(false)}
-        >
-          <Link 
-            href="#"
-            className={styles.navLink}
-            onClick={(e) => {
-              e.preventDefault();
-              setIsCaseStudiesOpen(!isCaseStudiesOpen);
-            }}
-            aria-expanded={isCaseStudiesOpen}
-            aria-haspopup="true"
-          >
-            <span className={styles.caseStudiesText}>Case Studies</span>
-            <Icon name="chevron-down" size={24} />
-          </Link>
-          
-          {isCaseStudiesOpen && (
-            <div className={styles.dropdown}>
-              {caseStudies.map((study) => (
-                <Link
-                  key={study.href}
-                  href={study.href}
-                  className={styles.dropdownItem}
-                  onClick={() => {
-                    setIsCaseStudiesOpen(false);
-                    if (isMobile) {
-                      toggleMobileMenu();
-                    }
-                  }}
-                >
-                  {study.title}
-                </Link>
-              ))}
-            </div>
-          )}
-        </div>
-        <Link 
-          href="/#connect" 
-          className={styles.navLink}
-          onClick={(e) => handleNavigation(e, '#connect')}
-        >
-          Connect
-        </Link>
-        <SocialLinks flexDirection={isMobile ? "column" : "row"} />
-      </div>
     </>
   );
 }
