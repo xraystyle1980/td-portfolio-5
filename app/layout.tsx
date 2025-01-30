@@ -45,7 +45,7 @@ export default function RootLayout({
         <Script 
           defer 
           data-domain="trice.design" 
-          src="https://plausible.io/js/script.outbound-links.js"
+          src="https://plausible.trice.design/js/script.js"
           strategy="afterInteractive"
         />
         <Script id="plausible-events" strategy="afterInteractive">
