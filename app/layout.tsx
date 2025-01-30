@@ -9,6 +9,7 @@ import Navigation from '@/components/ui-components/Navigation';
 import SmoothScroll from '@/components/ui-components/Scroll/SmoothScroll';
 import LoadingWrapper from '@/components/ui-components/LoadingWrapper';
 import Script from 'next/script';
+import { Analytics } from '@vercel/analytics/next';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://trice.design'),
@@ -67,6 +68,7 @@ export default function RootLayout({
               </ClientLayout>
             </SmoothScroll>
           </LoadingWrapper>
+          <Analytics />
         </AppProvider>
       </body>
     </html>
