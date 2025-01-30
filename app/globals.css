@@ -193,11 +193,12 @@ p {
   --color-border: #000;
 
   /* Typography */ 
-  --font-force: 'Force Majeure', sans-serif;
-  --font-space: 'Space Grotesk', sans-serif;
+  /* These variables are set by Next.js Font Module */
+  --font-force: var(--font-force);
+  --font-space: var(--font-space);
 
   /* Base Font Size */
-  --font-size-base: 1rem; /* 16px */
+  --font-size-base: 1rem;
   
   /* Scale using Major Third (1.25) */
   --font-size-xs: 0.8rem;   /* 12.8px - Small captions */

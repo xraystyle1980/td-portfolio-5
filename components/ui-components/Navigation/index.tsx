@@ -31,6 +31,7 @@ const Logo = ({ onClick }: LogoProps) => {
           height={80}
           className={styles.desktopLogo}
           priority
+          style={{ width: 'auto', height: 'auto' }}
         />
         <Image
           src="/images/logo-skewed-mobile.svg"
@@ -39,6 +40,7 @@ const Logo = ({ onClick }: LogoProps) => {
           height={80}
           className={styles.mobileLogo}
           priority
+          style={{ width: 'auto', height: 'auto' }}
         />
       </Link>
     </div>
