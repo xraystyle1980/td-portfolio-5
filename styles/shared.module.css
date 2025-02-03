@@ -447,6 +447,9 @@ Responsive Styles
   .diagonalSplitReverse {
     height: 350px;
   }
+  a.link {
+    font-size: var(--font-size-sm);
+  }
 }
 
 

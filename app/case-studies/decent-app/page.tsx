@@ -42,6 +42,7 @@ export default function DecentAppCaseStudy() {
         {project.imageUrl && (
           <div className={styles.heroImage}>
             <img src={project.imageUrl} alt={project.title} />
+            <div className={styles.heroImageOverlay} />
           </div>
         )}
         <div ref={heroContentRef} className={clsx(styles.heroContent)}>
