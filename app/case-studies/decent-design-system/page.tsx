@@ -129,10 +129,10 @@ export default function DecentDesignSystemCaseStudy() {
             <p className={sharedStyles.textBase}>Designed modular UI elements that streamlined design and development processes.</p>
             
             <h4 className={styles.subsectionListTitle}>Design Tokens</h4>
-            <p className={sharedStyles.textBase}>Integrated dynamic attributes that allowed for design ownership over color palettes.</p>
+            <p className={sharedStyles.textBase}>Integrated JSON tokens that allowed for design ownership over color palettes and typography.</p>
 
             <h5 className={styles.subsectionSubTitle}>What was the biggest challenge?</h5>
-            <p className={sharedStyles.textBase}>Balancing flexibility with consistency was our main challenge. We needed to create components that were adaptable enough for various use cases while maintaining a cohesive visual language.</p>
+            <p className={sharedStyles.textBase}>Defining where and how the design system fit within the organization. What processes needed to change? What would become new? And most importantly, how do we make people want to use it? Adoption was a major hurdle, with myself and a front-end engineer as the primary advocates. Despite these challenges, the design system left a lasting impact, and I'm eager to see how it continues to evolve.</p>
           </div>
         </div>
 
@@ -158,7 +158,7 @@ export default function DecentDesignSystemCaseStudy() {
             <p className={sharedStyles.textBase}>Comprehensive documentation ensured that even as the organization expanded, the design system remained accessible and intuitive.</p>
 
             <h5 className={styles.subsectionSubTitle}>What worked well?</h5>
-            <p className={sharedStyles.textBase}>Our focus on documentation and clear component guidelines led to high adoption rates. Teams could easily understand and implement components, reducing development time and inconsistencies.</p>
+            <p className={sharedStyles.textBase}>Our focus on documentation and clear component guidelines encouraged high adoption rates. Teams could easily understand and implement components, reducing development time and inconsistencies.</p>
           </div>
         </div>
 
@@ -186,8 +186,8 @@ export default function DecentDesignSystemCaseStudy() {
         {/* Summary */}
         <div className={sharedStyles.containerSmall}>
           <div className={sharedStyles.contentContainer}>
-            <h2 className={clsx(styles.subsectionSmallTitle, styles.pullDown)}>Summary</h2>
-            <p className={clsx(sharedStyles.textBase, sharedStyles.large)}>The Decent Design System represents the intersection of creativity, collaboration, and strategy. By unifying visual language, empowering teams, and enabling scalable development, the system became more than a tool—it became a driver of growth and efficiency across the organization.</p>
+            <h2 className={clsx(styles.subsectionSmallTitle)}>Summary</h2>
+            <p className={clsx(sharedStyles.textBase, sharedStyles.large)}>The Decent Design System laid the foundation for future development and collaboration. The Design System established a unified visual language, contributed to streamlined workflows, and helped to foster continued collaboration.</p>
           </div>
         </div>
       </section>
