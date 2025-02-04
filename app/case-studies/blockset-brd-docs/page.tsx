@@ -196,8 +196,9 @@ export default function BlocksetBRDDocsCaseStudy() {
 
         <div className={sharedStyles.containerSmall}>
           <div className={sharedStyles.contentContainer}>
-            <h2 className={clsx(styles.subsectionSmallTitle, styles.pullDown)}>Summary</h2>
+            <h2 className={clsx(styles.subsectionSmallTitle)}>Summary</h2>
             <p className={clsx(sharedStyles.textBase, sharedStyles.large)}>The Blockset documentation and marketing project illustrates the power of design to align user needs with business goals. By delivering tools that empowered developers and presented Blockset's value clearly, we enhanced the user experience and drove toward measurable business goals.</p>
+            <p className={clsx(sharedStyles.textBase, sharedStyles.large)}>In a bittersweet twist, after Decent's contributions to the project, Coinbase acquired BRD later in 2021.</p>
           </div>
         </div>
       </section>

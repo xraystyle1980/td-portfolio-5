@@ -102,7 +102,7 @@ export default function DecentDesignSystemCaseStudy() {
             <h2 className={clsx(styles.subsectionSmallTitle, styles.pullDown)}>Overview</h2>
             <h3 className={styles.subsectionTitle}>A Need for Consistency</h3>
             <p className={clsx(sharedStyles.textBase, sharedStyles.large)}>Scaling a product across a diverse ecosystem requires consistency, efficiency, and collaboration. The Decent Design System was built to address this challenge by creating a unified design language that streamlined workflows, improved team alignment, and delivered consistent user experiences.</p>
-            <p className={clsx(sharedStyles.textBase, sharedStyles.large)}>As the Product Design Director, I spearheaded the development of the design system, working closely across the organization to ensure it met the needs of both developers and designers. Through this collaborative effort, the design system became a key enabler of scalability and innovation across the organization.</p>
+            <p className={clsx(sharedStyles.textBase, sharedStyles.large)}>I spearheaded the development of the design system, working closely across the organization to ensure it met the needs of both developers and designers. Through this collaborative effort, the design system became a key enabler of scalability and innovation across the organization.</p>
           </div>
         </div>
 
